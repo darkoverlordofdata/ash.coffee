@@ -1,5 +1,6 @@
 ash = require('../../../ash')
 
+
 ###
  * Used internally, this is an ordered list of Systems for use by the engine update loop.
 ###
@@ -67,12 +68,4 @@ class ash.core.SystemList
     return null
 
   iterator: () ->
-    node = @head
-    return {
-
-    next: ->
-      return (node = node.next)
-
-    hasNext: ->
-      return (node.next isnt null)
-    }
+    return new ash.GenericListIterator(@head)

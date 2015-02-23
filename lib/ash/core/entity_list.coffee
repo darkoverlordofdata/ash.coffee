@@ -44,12 +44,4 @@ class ash.core.EntityList
     return # Void
 
   iterator: () ->
-    node = @head
-    return {
-
-      next: ->
-        return (node = node.next)
-
-      hasNext: ->
-        return (node.next isnt null)
-    }
+    return new ash.GenericListIterator(@head)

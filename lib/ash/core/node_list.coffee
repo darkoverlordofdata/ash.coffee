@@ -86,15 +86,7 @@ class ash.core.NodeList
     return @head is null
 
   iterator: () ->
-    node = @head
-    return {
-
-    next: ->
-      return (node = node.next)
-
-    hasNext: ->
-      return (node.next isnt null)
-    }
+    return new ash.GenericListIterator(@head)
 
   ###
    * Swaps the positions of two nodes in the list. Useful when sorting a list.

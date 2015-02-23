@@ -43,6 +43,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module.exports = class ash
 
+require 'ash/generic_list_iterator'
+
+class ash.signals
+
+require 'ash/signals/listener_node'
+require 'ash/signals/listener_node_pool'
+require 'ash/signals/signal_base'
+require 'ash/signals/signal1'
+require 'ash/signals/signal2'
+require 'ash/signals/signal2'
+require 'ash/signals/signal3'
+
 class ash.core
 
 require 'ash/core/component_matching_family'
