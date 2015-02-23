@@ -2,22 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6712069e-648c-4d4f-9349-eba564fd5c35" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/engine.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/entity.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/entity_list.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/family.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/node.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/node_list.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/node_pool.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/system.coffee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/ash/core/system_list.coffee" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/.idea/template.iml" afterPath="$PROJECT_DIR$/.idea/ash.coffee.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/index.coffee" afterPath="$PROJECT_DIR$/lib/index.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/engine.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/engine.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/entity.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/entity.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/entity_list.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/entity_list.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/family.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/family.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/node_list.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/node_list.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/node_pool.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/node_pool.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/system.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/system_list.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/system_list.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="template.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -41,24 +35,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.coffee" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/index.coffee">
+      <file leaf-file-name="system_list.coffee" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/ash/core/system_list.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="39" max-vertical-offset="1134">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state vertical-scroll-proportion="3.1325967" vertical-offset="0" max-vertical-offset="1512">
+              <caret line="63" column="37" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/readme.md">
-          <provider editor-type-id="MarkdownPreviewEditor">
-            <state />
-          </provider>
+      <file leaf-file-name="entity_list.coffee" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/ash/core/entity_list.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33088234" vertical-offset="108" max-vertical-offset="846">
-              <caret line="16" column="34" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="520" max-vertical-offset="1080">
+              <caret line="54" column="5" selection-start-line="45" selection-start-column="0" selection-end-line="54" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -73,16 +64,17 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/lib/ash/core/node.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/family.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/class_map.coffee" />
         <option value="$PROJECT_DIR$/lib/index.coffee" />
         <option value="$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee" />
         <option value="$PROJECT_DIR$/lib/ash/core/engine.coffee" />
         <option value="$PROJECT_DIR$/lib/ash/core/entity.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/core/entity_list.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/core/family.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/core/node.coffee" />
         <option value="$PROJECT_DIR$/lib/ash/core/node_list.coffee" />
         <option value="$PROJECT_DIR$/lib/ash/core/node_pool.coffee" />
         <option value="$PROJECT_DIR$/lib/ash/core/system.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/entity_list.coffee" />
         <option value="$PROJECT_DIR$/lib/ash/core/system_list.coffee" />
       </list>
     </option>
@@ -188,6 +180,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="options.lastSelected" value="watcher.settings" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -256,9 +251,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="742" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -319,42 +314,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee">
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="144">
-          <caret line="0" column="21" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.16544117" vertical-offset="108" max-vertical-offset="846">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/core/engine.coffee">
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="144">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+        <state vertical-scroll-proportion="1.5340314" vertical-offset="849" max-vertical-offset="2610">
+          <caret line="96" column="34" selection-start-line="96" selection-start-column="34" selection-end-line="96" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ash/core/entity.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="162">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.45" vertical-offset="216" max-vertical-offset="2556">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/core/entity_list.coffee">
+    <entry file="file://$PROJECT_DIR$/lib/index.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.7486911" vertical-offset="417" max-vertical-offset="1134">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ash/core/family.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.21989529" vertical-offset="0" max-vertical-offset="573">
+          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -369,51 +367,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ash/core/node_list.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.19642857" vertical-offset="3994" max-vertical-offset="5058">
+          <caret line="228" column="21" selection-start-line="228" selection-start-column="21" selection-end-line="228" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ash/core/node_pool.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.30890054" vertical-offset="291" max-vertical-offset="1296">
+          <caret line="26" column="24" selection-start-line="26" selection-start-column="24" selection-end-line="26" selection-end-column="24" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ash/core/system.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="180">
-          <caret line="0" column="24" selection-start-line="0" selection-start-column="24" selection-end-line="0" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.9371728" vertical-offset="597" max-vertical-offset="1242">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/engine.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.790576" vertical-offset="0" max-vertical-offset="4590">
+          <caret line="248" column="17" selection-start-line="248" selection-start-column="17" selection-end-line="248" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/entity_list.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="520" max-vertical-offset="1080">
+          <caret line="54" column="5" selection-start-line="45" selection-start-column="0" selection-end-line="54" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ash/core/system_list.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12565444" vertical-offset="0" max-vertical-offset="573">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/index.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="39" max-vertical-offset="1134">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33088234" vertical-offset="108" max-vertical-offset="846">
-          <caret line="16" column="34" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="34" />
+        <state vertical-scroll-proportion="3.1325967" vertical-offset="0" max-vertical-offset="1512">
+          <caret line="63" column="37" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
           <folding />
         </state>
       </provider>
