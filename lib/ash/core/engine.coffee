@@ -1,5 +1,23 @@
+#+--------------------------------------------------------------------+
+#| engine.coffee
+#+--------------------------------------------------------------------+
+#| Copyright DarkOverlordOfData (c) 2015
+#+--------------------------------------------------------------------+
+#|
+#| This file is a part of ash.coffee
+#|
+#| ash.coffee is free software; you can copy, modify, and distribute
+#| it under the terms of the GPLv3 License
+#|
+#+--------------------------------------------------------------------+
+#
+# Engine
+#
 ash = require('../../../ash')
 
+ClassMap = ash.ClassMap
+ComponentMatchingFamily = ash.core.ComponentMatchingFamily
+Map = ash.Map
 Signal0 = ash.signals.Signal0
 Signal1 = ash.signals.Signal1
 
@@ -9,25 +27,25 @@ Signal1 = ash.signals.Signal1
 ###
 class ash.core.Engine
 
-  entityNames: {}
-  entityList: ash.core.EntityList
-  systemList: ash.core.SystemList
-  families: {}
+  entityNames: null
+  entityList: null
+  systemList: null
+  families: null
 
   ###
    * Indicates if the engine is currently in its update loop.
   ###
   updating: false
 
-  entityAdded: Signal1
-  entityRemoved: Signal1
+  entityAdded: null
+  entityRemoved: null
 
   ###
    * Dispatched when the update loop ends. If you want to add and remove systems from the
    * engine it is usually best not to do so during the update loop. To avoid this you can
    * listen for this signal and make the change when the signal is dispatched.
   ###
-  updateComplete: Signal0
+  updateComplete: null
 
   ###
    * The class used to manage node lists. In most cases the default class is sufficient
@@ -36,14 +54,18 @@ class ash.core.Engine
    *
    * The class must implement the IFamily interface.
   ###
-  familyClass: ash.core.ComponentMatchingFamily
+  familyClass: ComponentMatchingFamily
 
 
   constructor: ->
+    Object.defineProperties @,
+      entities: get: get_entities
+      systems: get: get_systems
+
     @entityList = new EntityList()
-    @entityNames = {}
+    @entityNames = new Map()
     @systemList = new SystemList()
-    @families = {}
+    @families = new ClassMap()
     @entityAdded = new Signal1()
     @entityRemoved = new Signal1()
     @updateComplete = new Signal0()
@@ -56,15 +78,15 @@ class ash.core.Engine
    * @param entity The entity to add.
   ###
   addEntity: (entity) ->
-    if (@entityNames[entity.name]?)
+    if (@entityNames.exists(entity.name))
       throw "The entity name " + entity.name + " is already in use by another entity."
 
     @entityList.add(entity)
-    @entityNames[entity.name] = entity
+    @entityNames.set(entity.name, entity)
     entity.componentAdded.add(@componentAdded)
     entity.componentRemoved.add(@componentRemoved)
     entity.nameChanged.add(@entityNameChanged)
-    for family of @families
+    for family in @families.iterator()
       family.newEntity(entity)
     @entityAdded.dispatch(entity)
     return # Void
@@ -78,7 +100,7 @@ class ash.core.Engine
     entity.componentAdded.remove(@componentAdded);
     entity.componentRemoved.remove(@componentRemoved);
     entity.nameChanged.remove(@entityNameChanged);
-    for family of @families
+    for family in @families.iterator()
       family.removeEntity(entity)
     @entityNames.remove(entity.name);
     @entityList.remove(entity);
@@ -87,9 +109,9 @@ class ash.core.Engine
 
 
   entityNameChanged: (entity, oldName) ->
-    if (@entityNames[oldName] is entity)
-      delete @entityNames[oldName]
-      @entityNames[entity.name] = entity
+    if (@entityNames.get(oldName) is entity)
+      @entityNames.remove(oldName)
+      @entityNames.set(entity.name, entity)
     return # Void
 
   ###
@@ -99,7 +121,7 @@ class ash.core.Engine
    * @return The entity, or null if no entity with that name exists on the engine
   ###
   getEntityByName: (name) ->
-    return @entityNames[name]
+    return @entityNames.get(name)
 
 
   ###
@@ -111,7 +133,7 @@ class ash.core.Engine
     return # Void
 
   ###
-   * Returns an iterator of all entities in the engine.
+   * Returns an iterator() of all entities in the engine.
   ###
   get_entities: () ->
     return @entityList
@@ -145,16 +167,16 @@ class ash.core.Engine
    * @return A linked list of all nodes of this type from all entities in the engine.
   ###
   getNodeList: (nodeClass) ->
-    if (families[nodeClass.name]?)
-      return families[nodeClass.name].nodeList
+    if (@families.exists(nodeClass))
+      return @families.get(nodeClass.name).nodeList
 
-    family = new @familyClass(nodeClass, this);
-    @families[nodeClass.name] = family;
+    family = new @familyClass(nodeClass, this)
+    @families.set(nodeClass.name, family)
 
-    iterator = @entityList.iterator
-    while iterator.hasNext()
-      entity = iterator.next()
-      family.newEntity(entity)
+
+    `for( var entity = this.entityList.head; entity !== null; entity = entity.next ) {
+        family.newEntity(entity)
+    }`
 
     return family.nodeList
 
@@ -169,9 +191,9 @@ class ash.core.Engine
    * @param nodeClass The type of the node class if the list to be released.
   ###
   releaseNodeList: (nodeClass) ->
-    if (@families[nodeClass.name]?)
-      @families[nodeClass.name].cleanup()
-      delete @families[nodeClass.name]
+    if (@families.exists(nodeClass))
+      @families.get(nodeClass).cleanUp()
+      @families.remove(nodeClass)
     return # Void
 
 
@@ -204,7 +226,7 @@ class ash.core.Engine
     return systemList.get(type)
 
   ###
-   * Returns an iterator of all systems in the engine.
+   * Returns an iterator() of all systems in the engine.
   ###
   get_systems: ->
     return @systemList
@@ -240,10 +262,10 @@ class ash.core.Engine
   ###
   update: (time) ->
     @updating = true
-    iterator = @systenList.iterator
-    while iterator.hasNext()
-        system = iterator.next()
-        system.update(time)
+    # for (system in systemList)
+    `for( var system = this.systemList.head; system !== null; system = system.next ) {
+        system.update(time);
+    }`
     @updating = false
     @updateComplete.dispatch()
     return # Void

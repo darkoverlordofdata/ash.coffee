@@ -84,10 +84,10 @@ class ash.core.Entity
     if (componentClass is null)
       componentClass = component.constructor
 
-    if (@components[componentClass.name]?)
+    if (@components.exists(componentClass))
       @remove(componentClass)
 
-    @components[componentClass.name] = component
+    @components.set(componentClass, component)
     @componentAdded.dispatch(this, componentClass)
     return this
 
@@ -99,9 +99,9 @@ class ash.core.Entity
    * @return the component, or null if the component doesn't exist in the entity
   ###
   remove: (componentClass) ->
-    component = @components[componentClass.name]
+    component = @components.get(componentClass)
     if (component isnt null)
-      delete @components[componentClass.name]
+      @components.remove(componentClass)
       @componentRemoved.dispatch(this, componentClass)
       return component
     return null
@@ -113,7 +113,7 @@ class ash.core.Entity
    * @return The component, or null if none was found.
   ###
   get: (componentClass) ->
-    return @components[componentClass.name]
+    return @components.get(componentClass)
 
   ###
    * Get all components from the entity.
@@ -134,4 +134,4 @@ class ash.core.Entity
    * @return true if the entity has a component of the type, false if not.
   ###
   has: (componentClass) ->
-    return @components[componentClass.name]?
+    return @components.exists(componentClass)

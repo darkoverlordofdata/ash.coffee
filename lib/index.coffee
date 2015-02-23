@@ -43,7 +43,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module.exports = class ash
 
+require 'ash/class_map'
 require 'ash/generic_list_iterator'
+require 'ash/map'
 
 class ash.signals
 
@@ -67,3 +69,10 @@ require 'ash/core/node_list'
 require 'ash/core/node_pool'
 require 'ash/core/system'
 require 'ash/core/system_list'
+
+class ash.fsm
+
+class ash.tick
+
+class ash.tools
+require 'ash/tools/list_iterating_system'
