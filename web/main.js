@@ -1,3 +1,1 @@
-console.log(Example);
-
-Example.Asteroids.main();
+new example.AsteroidsApp().initialise()

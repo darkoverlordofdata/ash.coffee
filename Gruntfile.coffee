@@ -25,14 +25,18 @@
 #
 # project
 # | -- build                  output folder for zip
+# | -- example                example using the lib
 # | -- lib                    defines this package
 # | -- node_modules           npm dependencies
 # | -- packages               bower external packages
 # | -- (tmp)
 # | -- web                    source
-# |     | -- packages         packages + lib
 # |     | -- index.html
-# |     + -- main.js          starts lib.main()
+# |     | -- main.js          starts lib.main()
+# |     + -- packages         packages + lib
+# |           | -- {lib}
+# |           | -- example
+# |           | -- other
 # |
 # | -- .bowerrc               define ./packages
 # | -- .gitignore             build, node_modules, tmp, packages
