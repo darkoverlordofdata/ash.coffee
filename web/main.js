@@ -1,1 +1,3 @@
-AlienZone.main();
+console.log(Example);
+
+Example.Asteroids.main();

@@ -1,4 +1,4 @@
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 ###
  * An internal class for a linked list of entities. Used inside the framework for

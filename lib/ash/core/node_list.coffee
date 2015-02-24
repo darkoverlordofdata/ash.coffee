@@ -1,4 +1,4 @@
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 Signal1 = ash.signals.Signal1
 

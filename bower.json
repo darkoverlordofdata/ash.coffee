@@ -1,11 +1,11 @@
 {
-  "name": "Ash.Coffee",
+  "name": "ash",
   "version": "0.0.1",
   "authors": [
     "darkoverlordofdata <darkoverlordofdata@gmail.com>"
   ],
   "description": "Ash port to coffeescript",
-  "license": "GPL3",
+  "license": "MIT",
   "private": true,
   "ignore": [
     "**/.*",

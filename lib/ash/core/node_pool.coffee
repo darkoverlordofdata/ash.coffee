@@ -1,4 +1,4 @@
-ash = require('../../../ash')
+ash = require('../../../lib')
 ###
  * This internal class maintains a pool of deleted nodes for reuse by the framework. This reduces the overhead
  * from object creation and garbage collection.

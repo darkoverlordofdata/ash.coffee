@@ -67,7 +67,7 @@ module.exports = ->
         expand: true
         flatten: false
         cwd: __dirname
-        src: ["lib/**/*.coffee"]
+        src: ["lib/**/*.coffee", "example/**/*.coffee"]
         dest: 'tmp/'
         ext: ".js"
 
@@ -83,6 +83,14 @@ module.exports = ->
         cwd: __dirname
         src: ["tmp/lib/index.js"]
         dest: "web/packages/#{$packageName}/#{$packageName}.js"
+      example:
+        options:
+          browserifyOptions:
+            debug: true
+            standalone: 'Example'
+        cwd: __dirname
+        src: ["tmp/example/index.js"]
+        dest: "web/packages/example/example.js"
 
     ###
     Minify

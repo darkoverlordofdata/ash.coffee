@@ -1,4 +1,4 @@
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 ###
  * A node in the list of listeners in a signal.

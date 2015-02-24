@@ -15,7 +15,7 @@
 #
 # Map classes using the class name
 #
-ash = require('../../ash')
+ash = require('../../lib')
 
 class ash.ClassMap extends ash.Map
 

@@ -1,7 +1,7 @@
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 
-class ash.signals.Signal2 extends SignalBase
+class ash.signals.Signal2 extends ash.signals.SignalBase
 
   dispatch: ($1, $2) ->
     @startDispatch()

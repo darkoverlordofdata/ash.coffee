@@ -1,4 +1,4 @@
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 ListenerNode = ash.signals.ListenerNode
 

@@ -15,7 +15,7 @@
 #
 # Map allows key to value mapping for arbitrary value types, and many key types.
 #
-ash = require('../../ash')
+ash = require('../../lib')
 
 class ash.Map
 

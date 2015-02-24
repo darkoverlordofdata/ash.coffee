@@ -13,7 +13,7 @@
 #
 # ComponentMatchingFamily
 #
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 ClassMap = ash.ClassMap
 Family = ash.core.Family

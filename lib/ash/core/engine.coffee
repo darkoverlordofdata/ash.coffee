@@ -13,7 +13,7 @@
 #
 # Engine
 #
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 ClassMap = ash.ClassMap
 ComponentMatchingFamily = ash.core.ComponentMatchingFamily
@@ -142,7 +142,7 @@ class ash.core.Engine
    @private
   ###
   componentAdded: (entity, componentClass) ->
-    for family of @families
+    for family in @families.iterator()
       family.componentAddedToEntity(entity, componentClass)
     return # Void
 
@@ -150,7 +150,7 @@ class ash.core.Engine
    @private
   ###
   componentRemoved: (entity, componentClass) ->
-    for family of @families
+    for family in @families.iterator()
       family.componentRemovedFromEntity(entity, componentClass)
     return # Void
 
@@ -172,7 +172,6 @@ class ash.core.Engine
 
     family = new @familyClass(nodeClass, this)
     @families.set(nodeClass.name, family)
-
 
     `for( var entity = this.entityList.head; entity !== null; entity = entity.next ) {
         family.newEntity(entity)

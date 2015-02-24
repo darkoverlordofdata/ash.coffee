@@ -1,4 +1,4 @@
-ash = require('../../../ash')
+ash = require('../../../lib')
 ###
  * The base class for a system.
  *

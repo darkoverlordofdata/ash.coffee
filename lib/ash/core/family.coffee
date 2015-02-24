@@ -13,7 +13,7 @@
 #
 # Family
 #
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 ###
  * The interface for classes that are used to manage NodeLists (set as the familyClass property

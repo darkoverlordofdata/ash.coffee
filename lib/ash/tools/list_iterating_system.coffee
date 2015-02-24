@@ -1,4 +1,4 @@
-ash = require('../../../ash')
+ash = require('../../../lib')
 
 Engine = ash.core.Engine
 Node = ash.core.Node
