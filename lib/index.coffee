@@ -52,16 +52,13 @@ class ash.signals
 require './ash/signals/listener_node'
 require './ash/signals/listener_node_pool'
 require './ash/signals/signal_base'
+require './ash/signals/signal0'
 require './ash/signals/signal1'
-require './ash/signals/signal2'
 require './ash/signals/signal2'
 require './ash/signals/signal3'
 
 class ash.core
 
-require './ash/core/family'
-require './ash/core/component_matching_family'
-require './ash/core/engine'
 require './ash/core/entity'
 require './ash/core/entity_list'
 require './ash/core/node'
@@ -69,6 +66,9 @@ require './ash/core/node_list'
 require './ash/core/node_pool'
 require './ash/core/system'
 require './ash/core/system_list'
+require './ash/core/family'
+require './ash/core/component_matching_family'
+require './ash/core/engine'
 
 class ash.fsm
 

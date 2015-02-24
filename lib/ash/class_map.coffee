@@ -20,15 +20,15 @@ ash = require('../../lib')
 class ash.ClassMap extends ash.Map
 
   exists: (k) ->
-    return super.exists(k.name)
+    return super(k.name)
 
   get: (k) ->
-    return super.get(k.name)
+    return super(k.name)
 
   remove: (k) ->
-    return super.remove(k.name)
+    return super(k.name)
 
   set: (k, v) ->
-    super.set(k.name, v)
+    super(k.name, v)
     return
 

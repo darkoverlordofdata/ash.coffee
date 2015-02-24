@@ -1,9 +1,9 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-RenderNode = example.nodes.RenderNode
+Render = example.nodes.Render
 
-class RenderSystem extends ash.core.System
+class example.systems.RenderSystem extends ash.core.System
     context: null
     nodes: null
     constructor: (graphicsContext) ->
@@ -11,7 +11,7 @@ class RenderSystem extends ash.core.System
       this
 
     addToEngine: (engine) ->
-      @nodes = engine.getNodeList(RenderNode)
+      @nodes = engine.getNodeList(Render)
       node = @nodes.head
 
       while node
@@ -33,17 +33,16 @@ class RenderSystem extends ash.core.System
 
     
     # Intentionally left blank
-    update: (time) ->
-      node = undefined
-      position = undefined
-      display = undefined
-      graphic = undefined
+    update: (time) =>
+
       @context.save()
       @context.translate 0, 0
       @context.rotate 0
       @context.clearRect 0, 0, @context.canvas.width, @context.canvas.height
       node = @nodes.head
+
       while node
+
         display = node.display
         graphic = display.graphic
         position = node.position
@@ -52,5 +51,6 @@ class RenderSystem extends ash.core.System
         graphic.rotation = position.rotation
         graphic.draw()
         node = node.next
+
       @context.restore()
       return

@@ -1,9 +1,9 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-MotionControlNode = example.nodes.MotionControlNode
+MotionControl = example.nodes.MotionControl
 
-class MotionControlSystem extends ash.core.System
+class example.systems.MotionControlSystem extends ash.core.System
     keyPoll: null
     nodeList: null
     constructor: (keyPoll) ->
@@ -11,14 +11,14 @@ class MotionControlSystem extends ash.core.System
       this
 
     addToEngine: (engine) ->
-      @nodeList = engine.getNodeList(MotionControlNode)
+      @nodeList = engine.getNodeList(MotionControl)
       return
 
     removeFromEngine: (engine) ->
       @nodeList = null
       return
 
-    update: (time) ->
+    update: (time) =>
       node = @nodeList.head
 
       while node
@@ -26,7 +26,8 @@ class MotionControlSystem extends ash.core.System
         node = node.next
       return
 
-    updateNode: (node, time) ->
+    updateNode: (node, time) =>
+      console.log node
       control = node.control
       position = node.position
       motion = node.motion

@@ -22,10 +22,9 @@ NodeList = ash.core.NodeList
 NodePool = ash.core.NodePool
 
 getComponents = (nodeClass) ->
-  components = new Map()
-  for field, value of nodeClass.constructor::
-    if 'function' isnt typeof value
-      components.set(field, value)
+  components = new ClassMap()
+  for name, type of nodeClass.components
+    components.set(type, type)
   return components
 
 
@@ -121,18 +120,26 @@ class ash.core.ComponentMatchingFamily extends Family
   addIfMatch:(entity) ->
 
     if (not @entities.exists(entity))
-      for componentClass in @components.keys()
+      #for componentClass in @components.keys()
+      for name, componentClass of @nodeClass.components
         if (not entity.has(componentClass))
           return
 
       node = @nodePool.get()
       node.entity = entity
 
-      for componentClass in @components.keys()
-        node[@components.get(componentClass)] = entity.get(componentClass)
+      #for componentClass in @components.keys()
+      # node[@components.get(componentClass)] = entity.get(componentClass)
+
+#      console.log entity.name
+#      console.log entity.components.keys()
+
+      for name, componentClass of @nodeClass.components
+        node[name] = entity.get(componentClass)
       @entities.set(entity, node)
       @nodeList.add(node)
-      return # Void
+
+    return # Void
 
   ###
    * Removes the entity if it is in this family's NodeList.

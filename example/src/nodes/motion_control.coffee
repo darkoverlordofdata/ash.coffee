@@ -3,6 +3,12 @@ example = require('../../../example')
 
 class example.nodes.MotionControl extends ash.core.Node
 
-  control : example.components.MotionControls
-  position : example.components.Position
-  motion : example.components.Motion
+  @components:
+    control : example.components.MotionControls
+    position : example.components.Position
+    motion : example.components.Motion
+
+
+  control : null
+  position : null
+  motion : null

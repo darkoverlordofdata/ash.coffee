@@ -15,11 +15,13 @@
 #
 ash = require('../../../lib')
 
-ClassMap = ash.ClassMap
-ComponentMatchingFamily = ash.core.ComponentMatchingFamily
-Map = ash.Map
-Signal0 = ash.signals.Signal0
-Signal1 = ash.signals.Signal1
+ClassMap                  = ash.ClassMap
+ComponentMatchingFamily   = ash.core.ComponentMatchingFamily
+EntityList                = ash.core.EntityList
+Map                       = ash.Map
+Signal0                   = ash.signals.Signal0
+Signal1                   = ash.signals.Signal1
+SystemList                = ash.core.SystemList
 
 ###
  * The Engine class is the central point for creating and managing your game state. Add
@@ -59,12 +61,13 @@ class ash.core.Engine
 
   constructor: ->
     Object.defineProperties @,
-      entities: get: get_entities
-      systems: get: get_systems
+      entities: get: -> @entityList
+      systems:  get: -> @systemList
 
     @entityList = new EntityList()
     @entityNames = new Map()
     @systemList = new SystemList()
+
     @families = new ClassMap()
     @entityAdded = new Signal1()
     @entityRemoved = new Signal1()
@@ -168,10 +171,10 @@ class ash.core.Engine
   ###
   getNodeList: (nodeClass) ->
     if (@families.exists(nodeClass))
-      return @families.get(nodeClass.name).nodeList
+      return @families.get(nodeClass).nodeList
 
     family = new @familyClass(nodeClass, this)
-    @families.set(nodeClass.name, family)
+    @families.set(nodeClass, family)
 
     `for( var entity = this.entityList.head; entity !== null; entity = entity.next ) {
         family.newEntity(entity)
@@ -259,8 +262,9 @@ class ash.core.Engine
    *
    * @time The duration, in seconds, of this update step.
   ###
-  update: (time) ->
+  update: (time) =>
     @updating = true
+
     # for (system in systemList)
     `for( var system = this.systemList.head; system !== null; system = system.next ) {
         system.update(time);

@@ -3,4 +3,7 @@ example = require('../../../example')
 
 class example.nodes.BulletAge extends ash.core.Node
 
-  bullet : example.components.Bullet
+  @components:
+    bullet : example.components.Bullet
+
+  bullet : null

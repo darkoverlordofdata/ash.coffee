@@ -1,12 +1,12 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-SpaceshipCollisionNode = example.nodes.SpaceshipCollisionNode
-AsteroidCollisionNode = example.nodes.AsteroidCollisionNode
-BulletCollisionNode = example.nodes.BulletCollisionNode
-Point = example.util.Point
+SpaceshipCollision    = example.nodes.SpaceshipCollision
+AsteroidCollision     = example.nodes.AsteroidCollision
+BulletCollision       = example.nodes.BulletCollision
+Point                 = example.util.Point
 
-class GameManager extends ash.core.System
+class example.systems.GameManager extends ash.core.System
     gameState: null
     creator: null
     spaceships: null
@@ -18,12 +18,12 @@ class GameManager extends ash.core.System
       return
 
     addToEngine: (game) ->
-      @spaceships = game.getNodeList(SpaceshipCollisionNode)
-      @asteroids = game.getNodeList(AsteroidCollisionNode)
-      @bullets = game.getNodeList(BulletCollisionNode)
+      @spaceships = game.getNodeList(SpaceshipCollision)
+      @asteroids = game.getNodeList(AsteroidCollision)
+      @bullets = game.getNodeList(BulletCollision)
       return
 
-    update: (time) ->
+    update: (time) =>
       if @spaceships.empty()
         if @gameState.lives > 0
           newSpaceshipPosition = new Point(@gameState.width * 0.5, @gameState.height * 0.5)

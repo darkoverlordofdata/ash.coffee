@@ -1,6 +1,7 @@
 ash = require('../../../lib')
 
-Signal2 = ash.signals.Signal2
+Signal2   = ash.signals.Signal2
+ClassMap  = ash.ClassMap
 
 ###
  * An entity is composed from components. As such, it is essentially a collection object for components.
@@ -49,12 +50,13 @@ class ash.core.Entity
     @componentAdded = new Signal2()
     @componentRemoved = new Signal2()
     @nameChanged = new Signal2()
-    @components = {}
+    @components = new ClassMap()
 
     if (name isnt '')
       @name = name
     else
       @name = "_entity" + (++nameCount)
+    console.log "create entity #{@name}"
 
   set_name: (value) ->
 
@@ -81,7 +83,7 @@ class ash.core.Entity
    *     .add(new Display(new PlayerClip());</code>
   ###
   add: (component, componentClass) ->
-    if (componentClass is null)
+    if (not componentClass?)
       componentClass = component.constructor
 
     if (@components.exists(componentClass))

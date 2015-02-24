@@ -83,7 +83,7 @@ class ash.signals.SignalBase
     @addNode(node)
     return # Void
 
-  addNode: (listener) ->
+  addNode: (node) ->
 
     if (@dispatching)
       if (@toAddHead is null)

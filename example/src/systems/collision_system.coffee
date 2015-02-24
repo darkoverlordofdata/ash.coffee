@@ -1,11 +1,11 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-SpaceshipCollisionNode  = example.nodes.SpaceshipCollisionNode
-AsteroidCollisionNode   = example.nodes.AsteroidCollisionNode
-BulletCollisionNode     = example.nodes.BulletCollisionNode
+SpaceshipCollision    = example.nodes.SpaceshipCollision
+AsteroidCollision     = example.nodes.AsteroidCollision
+BulletCollision       = example.nodes.BulletCollision
 
-class CollisionSystem extends ash.core.System
+class example.systems.CollisionSystem extends ash.core.System
     creator: null
     spaceships: null
     asteroids: null
@@ -15,9 +15,9 @@ class CollisionSystem extends ash.core.System
       this
 
     addToEngine: (game) ->
-      @spaceships = game.getNodeList(SpaceshipCollisionNode)
-      @asteroids = game.getNodeList(AsteroidCollisionNode)
-      @bullets = game.getNodeList(BulletCollisionNode)
+      @spaceships = game.getNodeList(SpaceshipCollision)
+      @asteroids = game.getNodeList(AsteroidCollision)
+      @bullets = game.getNodeList(BulletCollision)
       return
 
     removeFromEngine: (game) ->
@@ -26,7 +26,7 @@ class CollisionSystem extends ash.core.System
       @bullets = null
       return
 
-    update: (time) ->
+    update: (time) =>
       bullet = undefined
       asteroid = undefined
       spaceship = undefined

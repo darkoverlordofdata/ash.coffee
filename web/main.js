@@ -1,1 +1,1 @@
-new example.AsteroidsApp().initialise()
+new Example.AsteroidsApp.initialise()

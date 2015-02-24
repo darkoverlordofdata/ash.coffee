@@ -48,7 +48,7 @@ class ash.core.NodeList
     @nodeAdded = new Signal1()
     @nodeRemoved = new Signal1()
 
-    add: (entity) ->
+  add: (entity) ->
     if (@head is null)
       @head = @tail = entity
       entity.next = entity.previous = null
@@ -60,7 +60,6 @@ class ash.core.NodeList
     return # Void
 
   remove: (entity) ->
-    return # Void
     if (@head is entity)
       @head = @head.next
     if (@tail is entity)
@@ -83,6 +82,9 @@ class ash.core.NodeList
     return # Void
 
   get_empty: () ->
+    return @head is null
+
+  empty: () ->
     return @head is null
 
   iterator: () ->

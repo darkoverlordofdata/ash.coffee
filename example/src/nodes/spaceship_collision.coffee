@@ -3,5 +3,10 @@ example = require('../../../example')
 
 class example.nodes.SpaceshipCollision extends ash.core.Node
 
-  spaceship : example.components.Spaceship
-  position : example.components.Position
+  @components:
+    spaceship : example.components.Spaceship
+    position : example.components.Position
+
+  spaceship : 0
+  position : 0
+

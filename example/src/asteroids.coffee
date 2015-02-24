@@ -11,6 +11,8 @@ CollisionSystem       = example.systems.CollisionSystem
 RenderSystem          = example.systems.RenderSystem
 SystemPriorities      = example.systems.SystemPriorities
 EntityCreator         = example.EntityCreator
+KeyPoll               = example.util.KeyPoll
+TickProvider          = example.util.TickProvider
 
 class example.Asteroids
 

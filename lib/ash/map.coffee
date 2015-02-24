@@ -23,7 +23,7 @@ class ash.Map
   _values: null
 
 
-  constructor: ->
+  constructor: () ->
     @_keys = []
     @_values = []
 

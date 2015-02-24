@@ -1,9 +1,9 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-GunControlNode = examples.nodes.GunControlNode
+GunControl = example.nodes.GunControl
 
-class GunControlSystem extends ash.core.System
+class example.systems.GunControlSystem extends ash.core.System
     keyPoll: null
     creator: null
     nodeList: null
@@ -13,14 +13,14 @@ class GunControlSystem extends ash.core.System
       return
 
     addToEngine: (engine) ->
-      @nodeList = engine.getNodeList(GunControlNode)
+      @nodeList = engine.getNodeList(GunControl)
       return
 
     removeFromEngine: (engine) ->
       @nodeList = null
       return
 
-    update: (time) ->
+    update: (time) =>
       node = @nodeList.head
 
       while node
@@ -28,7 +28,7 @@ class GunControlSystem extends ash.core.System
         node = node.next
       return
 
-    updateNode: (node, time) ->
+    updateNode: (node, time) =>
       control = node.control
       position = node.position
       gun = node.gun

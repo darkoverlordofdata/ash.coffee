@@ -1,8 +1,5 @@
 module.exports =
 class example
-require './src/asteroids'
-require './src/entity_creator'
-require './src/asteroids_app'
 
 class example.util
 require './src/util/fixes'
@@ -39,6 +36,7 @@ require './src/nodes/movement'
 require './src/nodes/render'
 require './src/nodes/spaceship_collision'
 
+
 class example.systems
 require './src/systems/bullet_age_system'
 require './src/systems/collision_system'
@@ -48,3 +46,9 @@ require './src/systems/motion_control_system'
 require './src/systems/movement_system'
 require './src/systems/render_system'
 require './src/systems/system_priorities'
+
+
+require './src/entity_creator'
+require './src/asteroids'
+require './src/asteroids_app'
+

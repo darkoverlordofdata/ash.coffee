@@ -5,7 +5,7 @@ class example.AsteroidsApp
   CANVAS_WIDTH = 800
   CANVAS_HEIGHT = 600
 
-  createCanvas: ->
+  createCanvas = ->
     canvasElem = document.createElement("canvas")
     canvasElem.setAttribute "id", "game_stage"
     canvasElem.setAttribute "width", CANVAS_WIDTH
@@ -16,7 +16,7 @@ class example.AsteroidsApp
   @initialise: ->
     example.util.Fixes.initialise()
     canvasElem = createCanvas()
-    gamewrapper = document.getElementById("game-wrapper")
+    gamewrapper = document.body #getElementById("game-wrapper")
     gamewrapper.appendChild canvasElem
     example.util.KeyPoll.initialise window
     stats = new Stats()
