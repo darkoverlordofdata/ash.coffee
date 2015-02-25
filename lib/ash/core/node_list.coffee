@@ -63,47 +63,47 @@ class ash.core.NodeList
     @nodeAdded = new Signal1()
     @nodeRemoved = new Signal1()
 
-  add: (entity) ->
+  add: (node) ->
     if (@head is null)
-      @head = @tail = entity
-      entity.next = entity.previous = null
+      @head = @tail = node
+      node.next = node.previous = null
     else
-      @tail.next = entity
-      entity.previous = @tail
-      entity.next = null
-      @tail = entity
+      @tail.next = node
+      node.previous = @tail
+      node.next = null
+      @tail = node
+    @nodeAdded.dispatch(node)
     return # Void
 
-  remove: (entity) ->
-    if (@head is entity)
+  remove: (node) ->
+    if (@head is node)
       @head = @head.next
-    if (@tail is entity)
+    if (@tail is node)
       @tail = @tail.previous
-    if (entity.previous isnt null)
-      entity.previous.next = entity.next
-    if (entity.next isnt null)
-      entity.next.previous = entity.previous
-    # N.B. Don't set entity.next and entity.previous to null because that will break the list iteration if entity is the current entity in the iteration.
+    if (node.previous isnt null)
+      node.previous.next = node.next
+    if (node.next isnt null)
+      node.next.previous = node.previous
+    # N.B. Don't set node.next and node.previous to null because that will break the list iteration if node is the current node in the iteration.
+    @nodeRemoved.dispatch(node)
     return # Void
 
   removeAll: () ->
     while (@head isnt null)
-      entity = @head
+      node = @head
       @head = @head.next
-      entity.previous = null
-      entity.next = null
+      node.previous = null
+      node.next = null
+      @nodeRemoved.dispatch(node)
 
     @tail = null
     return # Void
 
-  get_empty: () ->
-    return @head is null
-
-  empty: () ->
-    return @head is null
-
-  iterator: () ->
-    return new ash.GenericListIterator(@head)
+  ###
+   * true if the list is empty, false otherwise.
+  ###
+  Object.defineProperties NodeList::,
+    empty: get: -> @head is null
 
   ###
    * Swaps the positions of two nodes in the list. Useful when sorting a list.

@@ -21,8 +21,8 @@ ash = require('../../../lib')
 ###
 class ash.core.SystemList
 
-  head: null
-  tail: null
+  head: null  # System
+  tail: null  # System
 
   add: (system) ->
     if (@head is null)
@@ -75,12 +75,9 @@ class ash.core.SystemList
     return # Void
 
   get: (type) ->
-    system = @head
-    while (system isnt null)
-      if (system.constructor is type)
-        return system
-      system = system.next
+    `for (var system = this.head; system; system = system.next){
+        if (system.constructor === type) {
+            return system;
+        }
+      }`
     return null
-
-  iterator: () ->
-    return new ash.GenericListIterator(@head)

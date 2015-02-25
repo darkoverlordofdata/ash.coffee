@@ -42,9 +42,6 @@ class ash.core.System
   ###
   priority: 0
 
-  constructor: ->
-    @priority = 0
-
   ###
    * Called just after the system is added to the engine, before any calls to the update method.
    * Override this method to add your own functionality.

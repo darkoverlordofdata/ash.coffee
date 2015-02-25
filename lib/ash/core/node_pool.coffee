@@ -24,10 +24,10 @@ ash = require('../../../lib')
 ###
 class ash.core.NodePool
 
-  tail: null
-  nodeClass: null
-  cacheTail: null
-  components: null
+  tail          : null  # Node
+  nodeClass     : null  # Class
+  cacheTail     : null  # Node
+  components    : null  # Dictionary
 
   ###
    * Creates a pool for the given node class.

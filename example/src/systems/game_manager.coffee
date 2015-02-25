@@ -24,7 +24,7 @@ class example.systems.GameManager extends ash.core.System
       return
 
     update: (time) =>
-      if @spaceships.empty()
+      if @spaceships.empty
         if @gameState.lives > 0
           newSpaceshipPosition = new Point(@gameState.width * 0.5, @gameState.height * 0.5)
           clearToAddSpaceship = true
@@ -41,7 +41,7 @@ class example.systems.GameManager extends ash.core.System
         else
       
       # game over
-      if @asteroids.empty() and @bullets.empty() and not @spaceships.empty()
+      if @asteroids.empty and @bullets.empty and not @spaceships.empty
         position = undefined
         
         # next level

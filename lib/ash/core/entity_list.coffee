@@ -21,8 +21,8 @@ ash = require('../../../lib')
 ###
 class ash.core.EntityList
 
-  head: null
-  tail: null
+  head: null  # Entity
+  tail: null  # Entity
 
   add: (entity) ->
     if (@head is null)
@@ -58,5 +58,3 @@ class ash.core.EntityList
     @tail = null
     return # Void
 
-  iterator: () ->
-    return new ash.GenericListIterator(@head)

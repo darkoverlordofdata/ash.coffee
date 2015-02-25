@@ -71,4 +71,5 @@ class ash.fsm
 class ash.tick
 
 class ash.tools
+require './ash/tools/component_pool'
 require './ash/tools/list_iterating_system'

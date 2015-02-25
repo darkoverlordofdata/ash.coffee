@@ -138,7 +138,7 @@ class ash.core.Engine
   ###
   removeAllEntities: () ->
     while (@entityList.head != null)
-      @removeEntity(entityList.head)
+      @removeEntity(@entityList.head)
     return # Void
 
   ###

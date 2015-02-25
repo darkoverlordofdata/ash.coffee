@@ -15,10 +15,10 @@
 #
 ash = require('../../../lib')
 
-Engine = ash.core.Engine
-Node = ash.core.Node
-NodeList = ash.core.NodeList
-System = ash.core.System
+Engine        = ash.core.Engine
+Node          = ash.core.Node
+NodeList      = ash.core.NodeList
+System        = ash.core.System
 
 ###
  * A useful class for systems which simply iterate over a set of nodes, performing the same action on each node. This
@@ -50,7 +50,6 @@ class ash.tools.ListIteratingSystem extends System
   nodeRemovedFunction: null
 
   constructor: (nodeClass, nodeUpdateFunction, nodeAddedFunction=null, nodeRemovedFunction=null) ->
-    super
     @nodeClass = nodeClass
     @nodeUpdateFunction = nodeUpdateFunction
     @nodeAddedFunction = nodeAddedFunction
@@ -59,10 +58,9 @@ class ash.tools.ListIteratingSystem extends System
   addToEngine: (engine) ->
     @nodeList = engine.getNodeList(@nodeClass)
     if (@nodeAddedFunction isnt null)
-      iterator = nodeList.iterator
-      while iterator.hasNext()
-        node = iterator.next()
-        @nodeAddedFunction(node)
+      `for (var node = this.nodeList.head; node; node = node.next){
+        this.nodeAddedFunction(node);
+        }`
       @nodeList.nodeAdded.add(@nodeAddedFunction)
 
     if (@nodeRemovedFunction isnt null)
@@ -78,8 +76,8 @@ class ash.tools.ListIteratingSystem extends System
     return # Void
 
   update: (time) ->
-    if (@nodeUpdateFunction isnt null)
-      iterator = nodeList.iterator
-      while iterator.hasNext()
-        node = iterator.next()
-        @nodeUpdateFunction(node, time)
+    `for (var node = this.nodeList.head; node; node = node.next){
+        this.nodeUpdateFunction(node, time)
+      }`
+    return # void
+

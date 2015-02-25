@@ -15,7 +15,6 @@
 #
 ash = require('../../../lib')
 
-Family = ash.core.Family
 NodeList = ash.core.NodeList
 NodePool = ash.core.NodePool
 
@@ -27,14 +26,14 @@ class Dictionary # inline
  * It uses the basic entity matching pattern of an entity system - entities are added to the list if
  * they contain components matching all the public properties of the node class.
 ###
-class ash.core.ComponentMatchingFamily extends Family
+class ash.core.ComponentMatchingFamily #extends Family
 
-  nodes: null
-  entities: null
-  nodeClass: null
-  components: null
-  nodePool: null
-  engine: null
+  nodes         : null  # NodeList
+  entities      : null  # Dictionary
+  nodeClass     : null  # Class
+  components    : null  # Dictionary
+  nodePool      : null  # NodePool
+  engine        : null  # Engine
 
   ###
    * The constructor. Creates a ComponentMatchingFamily to provide a NodeList for the
@@ -46,7 +45,6 @@ class ash.core.ComponentMatchingFamily extends Family
   constructor:(@nodeClass, @engine) ->
     @init()
 
-
   ###
    * Initialises the class. Creates the nodelist and other tools. Analyses the node to determine
    * what component types the node requires.
@@ -55,12 +53,11 @@ class ash.core.ComponentMatchingFamily extends Family
     @nodes = new NodeList()
     @entities = new Dictionary()
     @components = new Dictionary()
-    @nodePool = new NodePool(@nodeClass, @components)
+#    @nodePool = new NodePool(@nodeClass, @components)
+    @nodePool = new NodePool(@nodeClass, @nodeClass.components)
 
     for name, type of @nodeClass.components
       @components[type.name] = type
-
-
     return # Void
 
   ###
@@ -80,23 +77,12 @@ class ash.core.ComponentMatchingFamily extends Family
     return # Void
 
   ###
-   * Called by the engine when an entity has been rmoved from it. We check if the entity is in
-   * this family's NodeList and remove it if so.
-  ###
-  removeEntity: (entity) ->
-    @removeIfMatch(entity)
-    return # Void
-
-
-  ###
    * Called by the engine when a component has been added to an entity. We check if the entity is not in
    * this family's NodeList and should be, and add it if appropriate.
   ###
   componentAddedToEntity: (entity, componentClass) ->
     @addIfMatch(entity)
     return # Void
-
-
 
   ###
    * Called by the engine when a component has been removed from an entity. We check if the removed component
@@ -109,15 +95,12 @@ class ash.core.ComponentMatchingFamily extends Family
     return # Void
 
   ###
-   * Removes all nodes from the NodeList.
+   * Called by the engine when an entity has been rmoved from it. We check if the entity is in
+   * this family's NodeList and remove it if so.
   ###
-  cleanUp: () ->
-    `for(var node = this.nodes.head; node; node = node.next ) {
-        this.entities.remove(node.entity);
-      }`
-    @nodes.removeAll()
+  removeEntity: (entity) ->
+    @removeIfMatch(entity)
     return # Void
-
 
   ###
    * If the entity is not in this family's NodeList, tests the components of the entity to see
@@ -134,7 +117,6 @@ class ash.core.ComponentMatchingFamily extends Family
       node.entity = entity
 
       for name, componentClass of @nodeClass.components
-#      for name, componentClass of @components
         node[name] = entity.get(componentClass)
       @entities[entity.name] = node
       @nodes.add(node)
@@ -166,3 +148,16 @@ class ash.core.ComponentMatchingFamily extends Family
     @engine.updateComplete.remove(@releaseNodePoolCache)
     @nodePool.releaseCache()
     return # Void
+
+  ###
+   * Removes all nodes from the NodeList.
+  ###
+  cleanUp: () ->
+    `for(var node = this.nodes.head; node; node = node.next ) {
+        this.entities.remove(node.entity);
+      }`
+    @nodes.removeAll()
+    return # Void
+
+
+
