@@ -15,13 +15,12 @@
 #
 ash = require('../../../lib')
 
-ClassMap                  = ash.ClassMap
 ComponentMatchingFamily   = ash.core.ComponentMatchingFamily
 EntityList                = ash.core.EntityList
-Map                       = ash.Map
 Signal0                   = ash.signals.Signal0
-Signal1                   = ash.signals.Signal1
 SystemList                = ash.core.SystemList
+
+class Dictionary # inline definition
 
 ###
  * The Engine class is the central point for creating and managing your game state. Add
@@ -38,9 +37,6 @@ class ash.core.Engine
    * Indicates if the engine is currently in its update loop.
   ###
   updating: false
-
-  entityAdded: null
-  entityRemoved: null
 
   ###
    * Dispatched when the update loop ends. If you want to add and remove systems from the
@@ -60,20 +56,32 @@ class ash.core.Engine
 
 
   constructor: ->
-    Object.defineProperties @,
-      entities: get: -> @entityList
-      systems:  get: -> @systemList
-
     @entityList = new EntityList()
-    @entityNames = new Map()
+    @entityNames = new Dictionary()
     @systemList = new SystemList()
-
-    @families = new ClassMap()
-    @entityAdded = new Signal1()
-    @entityRemoved = new Signal1()
+    @families = new Dictionary()
     @updateComplete = new Signal0()
-    @updating = false
 
+
+  Object.defineProperties Engine::,
+    ###
+     * Returns a vector containing all the entities in the engine.
+    ###
+    entities: get: ->
+      entities = []
+      `for (var entity = this.entityList.head; entity; entity = entity.next){
+          entities.push(entity);
+        }`
+      return entities
+    ###
+     * Returns a vector containing all the systems in the engine.
+    ###
+    systems:  get: ->
+      systems = []
+      `for (var system = this.systemList.head; system; system = system.next){
+          systems.push(system);
+        }`
+      return systems
 
   ###
    * Add an entity to the engine.
@@ -81,17 +89,16 @@ class ash.core.Engine
    * @param entity The entity to add.
   ###
   addEntity: (entity) ->
-    if (@entityNames.exists(entity.name))
+    if (@entityNames[entity.name])
       throw "The entity name " + entity.name + " is already in use by another entity."
 
     @entityList.add(entity)
-    @entityNames.set(entity.name, entity)
+    @entityNames[entity.name] = entity
     entity.componentAdded.add(@componentAdded)
     entity.componentRemoved.add(@componentRemoved)
     entity.nameChanged.add(@entityNameChanged)
-    for family in @families.iterator()
+    for each, family of @families
       family.newEntity(entity)
-    @entityAdded.dispatch(entity)
     return # Void
 
   ###
@@ -103,18 +110,17 @@ class ash.core.Engine
     entity.componentAdded.remove(@componentAdded);
     entity.componentRemoved.remove(@componentRemoved);
     entity.nameChanged.remove(@entityNameChanged);
-    for family in @families.iterator()
+    for each, family of @families
       family.removeEntity(entity)
-    @entityNames.remove(entity.name);
+    delete @entityNames[entity.name]
     @entityList.remove(entity);
-    @entityRemoved.dispatch(entity);
     return # Void
 
 
   entityNameChanged: (entity, oldName) ->
-    if (@entityNames.get(oldName) is entity)
-      @entityNames.remove(oldName)
-      @entityNames.set(entity.name, entity)
+    if (@entityNames[oldName] is entity)
+      delete @entityNames[oldName]
+      @entityNames[entity.name] = entity
     return # Void
 
   ###
@@ -124,7 +130,7 @@ class ash.core.Engine
    * @return The entity, or null if no entity with that name exists on the engine
   ###
   getEntityByName: (name) ->
-    return @entityNames.get(name)
+    return @entityNames[name]
 
 
   ###
@@ -136,16 +142,10 @@ class ash.core.Engine
     return # Void
 
   ###
-   * Returns an iterator() of all entities in the engine.
-  ###
-  get_entities: () ->
-    return @entityList
-
-  ###
    @private
   ###
   componentAdded: (entity, componentClass) ->
-    for family in @families.iterator()
+    for each, family of @families
       family.componentAddedToEntity(entity, componentClass)
     return # Void
 
@@ -153,7 +153,7 @@ class ash.core.Engine
    @private
   ###
   componentRemoved: (entity, componentClass) ->
-    for family in @families.iterator()
+    for each, family of @families
       family.componentRemovedFromEntity(entity, componentClass)
     return # Void
 
@@ -170,15 +170,15 @@ class ash.core.Engine
    * @return A linked list of all nodes of this type from all entities in the engine.
   ###
   getNodeList: (nodeClass) ->
-    if (@families.exists(nodeClass))
-      return @families.get(nodeClass).nodeList
+    if (nodeClass.name of @families)
+      return @families[nodeClass.name].nodeList
 
     family = new @familyClass(nodeClass, this)
-    @families.set(nodeClass, family)
+    @families[nodeClass.name] = family
 
-    `for( var entity = this.entityList.head; entity !== null; entity = entity.next ) {
+    `for (var entity = this.entityList.head; entity !== null; entity = entity.next ) {
         family.newEntity(entity)
-    }`
+      }`
 
     return family.nodeList
 
@@ -193,9 +193,9 @@ class ash.core.Engine
    * @param nodeClass The type of the node class if the list to be released.
   ###
   releaseNodeList: (nodeClass) ->
-    if (@families.exists(nodeClass))
-      @families.get(nodeClass).cleanUp()
-      @families.remove(nodeClass)
+    if (nodeClass.name of @families)
+      @families[nodeClass.name].cleanUp()
+      delete @families[nodeClass.name]
     return # Void
 
 
@@ -226,12 +226,6 @@ class ash.core.Engine
   ###
   getSystem: (type) ->
     return systemList.get(type)
-
-  ###
-   * Returns an iterator() of all systems in the engine.
-  ###
-  get_systems: ->
-    return @systemList
 
   ###
    * Remove a system from the engine.
@@ -266,9 +260,9 @@ class ash.core.Engine
     @updating = true
 
     # for (system in systemList)
-    `for( var system = this.systemList.head; system !== null; system = system.next ) {
+    `for (var system = this.systemList.head; system !== null; system = system.next ) {
         system.update(time);
-    }`
+      }`
     @updating = false
     @updateComplete.dispatch()
     return # Void

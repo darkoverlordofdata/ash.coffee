@@ -15,12 +15,11 @@
 #
 ash = require('../../../lib')
 
-ClassMap = ash.ClassMap
 Family = ash.core.Family
-Map = ash.Map
 NodeList = ash.core.NodeList
 NodePool = ash.core.NodePool
 
+class Dictionary # inline
 ###
  * The default class for managing a NodeList. This class creates the NodeList and adds and removes
  * nodes to/from the list as the entities and the components in the engine change.
@@ -30,6 +29,7 @@ NodePool = ash.core.NodePool
 ###
 class ash.core.ComponentMatchingFamily extends Family
 
+  nodes: null
   entities: null
   nodeClass: null
   components: null
@@ -52,15 +52,24 @@ class ash.core.ComponentMatchingFamily extends Family
    * what component types the node requires.
   ###
   init: ->
-    @nodeList = new NodeList()
-    @entities = new Map()
-    @components = new ClassMap()
+    @nodes = new NodeList()
+    @entities = new Dictionary()
+    @components = new Dictionary()
     @nodePool = new NodePool(@nodeClass, @components)
 
     for name, type of @nodeClass.components
-      @components.set(type, type)
+      @components[type.name] = type
+
 
     return # Void
+
+  ###
+   * The nodelist managed by this family. This is a reference that remains valid always
+   * since it is retained and reused by Systems that use the list. i.e. we never recreate the list,
+   * we always modify it in place.
+  ###
+  Object.defineProperties ComponentMatchingFamily::,
+    nodeList: get: -> @nodes
 
   ###
    * Called by the engine when an entity has been added to it. We check if the entity should be in
@@ -95,7 +104,7 @@ class ash.core.ComponentMatchingFamily extends Family
    * remove it if so.
   ###
   componentRemovedFromEntity: (entity, componentClass) ->
-    if (@components.exists(componentClass))
+    if componentClass.name of @components
       @removeIfMatch(entity)
     return # Void
 
@@ -103,10 +112,10 @@ class ash.core.ComponentMatchingFamily extends Family
    * Removes all nodes from the NodeList.
   ###
   cleanUp: () ->
-    `for(var node = this.nodeList.head; node; node = node.next ) {
+    `for(var node = this.nodes.head; node; node = node.next ) {
         this.entities.remove(node.entity);
-    }`
-    @nodeList.removeAll()
+      }`
+    @nodes.removeAll()
     return # Void
 
 
@@ -116,8 +125,7 @@ class ash.core.ComponentMatchingFamily extends Family
   ###
   addIfMatch:(entity) ->
 
-    if (not @entities.exists(entity))
-      #for componentClass in @components.keys()
+    if (not @entities[entity.name]?)
       for name, componentClass of @nodeClass.components
         if (not entity.has(componentClass))
           return
@@ -125,12 +133,11 @@ class ash.core.ComponentMatchingFamily extends Family
       node = @nodePool.get()
       node.entity = entity
 
-      #for componentClass in @components.keys()
-      # node[@components.get(componentClass)] = entity.get(componentClass)
       for name, componentClass of @nodeClass.components
+#      for name, componentClass of @components
         node[name] = entity.get(componentClass)
-      @entities.set(entity, node)
-      @nodeList.add(node)
+      @entities[entity.name] = node
+      @nodes.add(node)
 
     return # Void
 
@@ -139,10 +146,10 @@ class ash.core.ComponentMatchingFamily extends Family
   ###
   removeIfMatch: (entity) ->
 
-    if (@entities.exists(entity))
-      node = @entities.get(entity)
-      @entities.remove(entity)
-      @nodeList.remove(node)
+    if (entity.name of @entities)
+      node = @entities[entity.name]
+      delete @entities[entity.name]
+      @nodes.remove(node)
       if (@engine.updating)
         @nodePool.cache(node)
         @engine.updateComplete.add(@releaseNodePoolCache)

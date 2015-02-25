@@ -43,10 +43,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 module.exports = class ash
 
-require './ash/map'
-require './ash/class_map'
-require './ash/generic_list_iterator'
-
 class ash.signals
 
 require './ash/signals/listener_node'

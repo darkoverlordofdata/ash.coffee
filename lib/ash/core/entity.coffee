@@ -15,8 +15,8 @@
 #
 ash = require('../../../lib')
 
-Signal2   = ash.signals.Signal2
-ClassMap  = ash.ClassMap
+Signal2 = ash.signals.Signal2
+class Dictionary # inline
 
 ###
  * An entity is composed from components. As such, it is essentially a collection object for components.
@@ -43,44 +43,47 @@ class ash.core.Entity
   ###
    * Optional, give the entity a name. This can help with debugging and with serialising the entity.
   ###
-  name: ''
+  _name: ''
   ###
    * This signal is dispatched when a component is added to the entity.
   ###
-  componentAdded: Signal2
+  componentAdded: null
   ###
    * This signal is dispatched when a component is removed from the entity.
   ###
-  componentRemoved: Signal2
+  componentRemoved: null
   ###
    * Dispatched when the name of the entity changes. Used internally by the engine to track entities based on their names.
   ###
-  nameChanged: Signal2
+  nameChanged: null
 
-  previous: Entity
-  next: Entity
+  previous: null
+  next: null
   components: null
 
   constructor: (name = '' ) ->
+    Object.defineProperties @,
+      ###
+       * All entities have a name. If no name is set, a default name is used. Names are used to
+       * fetch specific entities from the engine, and can also help to identify an entity when debugging.
+      ###
+      name:
+        get: -> @_name
+        set: (value) ->
+          if (@_name isnt value)
+            previous = @_name
+            @_name = value
+            @nameChanged.dispatch(this, previous)
+
     @componentAdded = new Signal2()
     @componentRemoved = new Signal2()
     @nameChanged = new Signal2()
-    @components = new ClassMap()
+    @components = new Dictionary()
 
     if (name isnt '')
-      @name = name
+      @_name = name
     else
-      @name = "_entity" + (++nameCount)
-    console.log "create entity #{@name}"
-
-  set_name: (value) ->
-
-    if (name isnt value)
-      previous = name
-      name = value;
-      nameChanged.dispatch(this, previous)
-
-    return value
+      @_name = "_entity" + (++nameCount)
 
   ###
    * Add a component to the entity.
@@ -101,10 +104,10 @@ class ash.core.Entity
     if (not componentClass?)
       componentClass = component.constructor
 
-    if (@components.exists(componentClass))
+    if componentClass.name of @components
       @remove(componentClass)
 
-    @components.set(componentClass, component)
+    @components[componentClass.name] = component
     @componentAdded.dispatch(this, componentClass)
     return this
 
@@ -116,9 +119,9 @@ class ash.core.Entity
    * @return the component, or null if the component doesn't exist in the entity
   ###
   remove: (componentClass) ->
-    component = @components.get(componentClass)
+    component = @components[componentClass.name]
     if (component isnt null)
-      @components.remove(componentClass)
+      delete @components[componentClass.name]
       @componentRemoved.dispatch(this, componentClass)
       return component
     return null
@@ -130,7 +133,7 @@ class ash.core.Entity
    * @return The component, or null if none was found.
   ###
   get: (componentClass) ->
-    return @components.get(componentClass)
+    return @components[componentClass.name]
 
   ###
    * Get all components from the entity.
@@ -151,4 +154,4 @@ class ash.core.Entity
    * @return true if the entity has a component of the type, false if not.
   ###
   has: (componentClass) ->
-    return @components.exists(componentClass)
+    return componentClass.name of @components
