@@ -1,3 +1,18 @@
+#+--------------------------------------------------------------------+
+#| list_iterating_system.coffee
+#+--------------------------------------------------------------------+
+#| Copyright DarkOverlordOfData (c) 2015
+#+--------------------------------------------------------------------+
+#|
+#| This file is a part of ash.coffee
+#|
+#| ash.coffee is free software; you can copy, modify, and distribute
+#| it under the terms of the GPLv3 License
+#|
+#+--------------------------------------------------------------------+
+#
+# List Iterating System
+#
 ash = require('../../../lib')
 
 Engine = ash.core.Engine

@@ -21,13 +21,6 @@ Map = ash.Map
 NodeList = ash.core.NodeList
 NodePool = ash.core.NodePool
 
-getComponents = (nodeClass) ->
-  components = new ClassMap()
-  for name, type of nodeClass.components
-    components.set(type, type)
-  return components
-
-
 ###
  * The default class for managing a NodeList. This class creates the NodeList and adds and removes
  * nodes to/from the list as the entities and the components in the engine change.
@@ -61,8 +54,12 @@ class ash.core.ComponentMatchingFamily extends Family
   init: ->
     @nodeList = new NodeList()
     @entities = new Map()
-    @components = getComponents(@nodeClass)
+    @components = new ClassMap()
     @nodePool = new NodePool(@nodeClass, @components)
+
+    for name, type of @nodeClass.components
+      @components.set(type, type)
+
     return # Void
 
   ###
@@ -130,10 +127,6 @@ class ash.core.ComponentMatchingFamily extends Family
 
       #for componentClass in @components.keys()
       # node[@components.get(componentClass)] = entity.get(componentClass)
-
-#      console.log entity.name
-#      console.log entity.components.keys()
-
       for name, componentClass of @nodeClass.components
         node[name] = entity.get(componentClass)
       @entities.set(entity, node)
