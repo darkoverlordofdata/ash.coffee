@@ -2,28 +2,25 @@ example = require('../../example')
 
 class example.Main
 
-  CANVAS_WIDTH = 800
-  CANVAS_HEIGHT = 600
-
   constructor: ->
-    canvasElem = @createCanvas()
-    gamewrapper = document.body
-    gamewrapper.appendChild canvasElem
-    stats = new Stats()
-    stats.setMode 0
-    stats.domElement.style.position = "absolute"
-    stats.domElement.style.left = "0px"
-    stats.domElement.style.top = "0px"
-    gamewrapper.appendChild stats.domElement
-    asteroids = new example.Asteroids(canvasElem, stats)
+    {container, stage} = SWF(800, 600, 60, '#000000')
+    asteroids = new example.Asteroids(container, stage.stageWidth, stage.stageHeight)
     asteroids.start()
     return
 
-  createCanvas: ->
-    canvasElem = document.createElement(if navigator.isCocoonJS then "screencanvas" else "canvas")
-    canvasElem.setAttribute "id", "game_stage"
-    canvasElem.setAttribute "width", CANVAS_WIDTH
-    canvasElem.setAttribute "height", CANVAS_HEIGHT
-    canvasElem.style.backgroundColor = "#000"
-    return canvasElem
+
+
+  SWF = (width, height, frameRate, backgroundColor) ->
+    canvas = document.createElement(if navigator.isCocoonJS then "screencanvas" else "canvas")
+    canvas.setAttribute "id", "game_stage"
+    canvas.setAttribute "width", width
+    canvas.setAttribute "height", height
+    canvas.style.backgroundColor = backgroundColor
+    document.body.appendChild canvas
+    return {
+      container: canvas.getContext("2d"),
+      stage:
+        stageWidth: canvas.width
+        stageHeight: canvas.height
+    }
 

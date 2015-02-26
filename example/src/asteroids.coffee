@@ -11,41 +11,50 @@ CollisionSystem       = example.systems.CollisionSystem
 RenderSystem          = example.systems.RenderSystem
 SystemPriorities      = example.systems.SystemPriorities
 EntityCreator         = example.EntityCreator
-#KeyPoll               = example.util.KeyPoll
 KeyPoll               = example.input.KeyPoll
 
 class example.Asteroids
 
-  width: 0
-  height: 0
+  container: null
   engine: null
-  gameState: null
   tickProvider: null
+  creator: null
+  keyPoll: null
+  config: null
 
-  constructor: (canvas, stats) ->
-    canvasContext = canvas.getContext("2d")
-    @width = canvas.width
-    @height = canvas.height
+  constructor: (container, width, height) ->
+
+    @container = container
+    @prepare(width, height)
+
+  prepare: (width, height) ->
 
     @engine = new ash.core.Engine()
-    @gameState = new GameState(@width, @height)
-    creator = new EntityCreator(@engine, canvasContext)
-    keyPoll = new KeyPoll(window)
-    @engine.addSystem(new GameManager(@gameState, creator), SystemPriorities.preUpdate)
-    @engine.addSystem(new MotionControlSystem(keyPoll), SystemPriorities.update)
-    @engine.addSystem(new GunControlSystem(keyPoll, creator), SystemPriorities.update)
-    @engine.addSystem(new BulletAgeSystem(creator), SystemPriorities.update)
-    @engine.addSystem(new MovementSystem(@gameState), SystemPriorities.move)
-    @engine.addSystem(new CollisionSystem(creator), SystemPriorities.resolveCollisions)
-    @engine.addSystem(new RenderSystem(canvasContext), SystemPriorities.render)
-    @tickProvider = new ash.tick.FrameTickProvider(stats)
+    @creator = new EntityCreator(@engine, @container)
+    @keyPoll = new KeyPoll(window)
+    @config = new GameState()
+    @config.height = height
+    @config.width = width
+
+    @engine.addSystem(new GameManager(@config, @creator), SystemPriorities.preUpdate)
+    @engine.addSystem(new MotionControlSystem(@keyPoll), SystemPriorities.update)
+    @engine.addSystem(new GunControlSystem(@keyPoll, @creator), SystemPriorities.update)
+    @engine.addSystem(new BulletAgeSystem(@creator), SystemPriorities.update)
+    @engine.addSystem(new MovementSystem(@config), SystemPriorities.move)
+    @engine.addSystem(new CollisionSystem(@creator), SystemPriorities.resolveCollisions)
+    @engine.addSystem(new RenderSystem(@container), SystemPriorities.render)
     return
 
   start: ->
 
-    @gameState.level = 0
-    @gameState.lives = 3
-    @gameState.points = 0
+    stats = new Stats()
+    stats.setMode 0
+    stats.domElement.style.position = "absolute"
+    stats.domElement.style.left = "0px"
+    stats.domElement.style.top = "0px"
+    document.body.appendChild stats.domElement
+
+    @tickProvider = new ash.tick.FrameTickProvider(stats)
     @tickProvider.add(@engine.update)
     @tickProvider.start()
     return
