@@ -1,6 +1,6 @@
-example = require('../../../example')
+example = require('../../index')
 
-class example.util.Point
+class example.graphics.Point
 
   x: 0
   y: 0

@@ -75,9 +75,9 @@ class ash.core.SystemList
     return # Void
 
   get: (type) ->
-    `for (var system = this.head; system; system = system.next){
-        if (system.constructor === type) {
-            return system;
-        }
-      }`
+    system = @systemList.head
+    while system
+      return system if (system.constructor is type)
+      system = system.next
+
     return null

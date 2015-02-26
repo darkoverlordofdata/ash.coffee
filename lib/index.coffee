@@ -82,6 +82,7 @@ require './ash/fsm/system_instance_provider'
 require './ash/fsm/system_singleton_provider'
 
 class ash.tick
+require './ash/tick/frame_tick_provider'
 
 class ash.tools
 require './ash/tools/component_pool'

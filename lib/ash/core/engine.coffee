@@ -70,18 +70,23 @@ class ash.core.Engine
     ###
     entities: get: ->
       entities = []
-      `for (var entity = this.entityList.head; entity; entity = entity.next){
-          entities.push(entity);
-        }`
+      entity = @entityList.head
+      while entity
+        @entities.push(entity)
+        entity = entity.next
+
+
       return entities
     ###
      * Returns a vector containing all the systems in the engine.
     ###
     systems:  get: ->
       systems = []
-      `for (var system = this.systemList.head; system; system = system.next){
-          systems.push(system);
-        }`
+      system = @systemList.head
+      while system
+        systems.push(system)
+        system = system.next
+
       return systems
 
   ###
@@ -176,10 +181,12 @@ class ash.core.Engine
 
     family = new @familyClass(nodeClass, this)
     @families[nodeClass.name] = family
+    entity = @entityList.head
+    while entity
+      family.newEntity(entity)
+      entity = entity.next
 
-    `for (var entity = this.entityList.head; entity !== null; entity = entity.next ) {
-        family.newEntity(entity)
-      }`
+
 
     return family.nodeList
 
@@ -259,11 +266,12 @@ class ash.core.Engine
   ###
   update: (time) =>
     @updating = true
+    system = @systemList.head
+    while system
+      system.update(time)
+      system = system.next
 
-    # for (system in systemList)
-    `for (var system = this.systemList.head; system !== null; system = system.next ) {
-        system.update(time);
-      }`
+
     @updating = false
     @updateComplete.dispatch()
     return # Void

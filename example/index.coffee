@@ -1,13 +1,14 @@
 module.exports =
 class example
 
-class example.util
-require './src/util/fixes'
-require './src/util/point'
-require './src/util/point3'
-require './src/util/keyboard'
-require './src/util/keypoll'
-require './src/util/tickprovider'
+class example.input
+require './src/input/key_poll'
+
+class example.graphics
+require './src/graphics/point'
+require './src/graphics/asteroid_view'
+require './src/graphics/bullet_view'
+require './src/graphics/spaceship_view'
 
 class example.components
 require './src/components/asteroid'
@@ -20,11 +21,6 @@ require './src/components/motion'
 require './src/components/motion_controls'
 require './src/components/position'
 require './src/components/spaceship'
-
-class example.graphics
-require './src/graphics/asteroid_view'
-require './src/graphics/bullet_view'
-require './src/graphics/spaceship_view'
 
 class example.nodes
 require './src/nodes/asteroid_collision'
@@ -50,5 +46,5 @@ require './src/systems/system_priorities'
 
 require './src/entity_creator'
 require './src/asteroids'
-require './src/asteroids_app'
+require './src/main'
 

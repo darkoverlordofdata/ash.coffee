@@ -4,7 +4,7 @@ example = require('../../../example')
 SpaceshipCollision    = example.nodes.SpaceshipCollision
 AsteroidCollision     = example.nodes.AsteroidCollision
 BulletCollision       = example.nodes.BulletCollision
-Point                 = example.util.Point
+Point                 = example.graphics.Point
 
 class example.systems.GameManager extends ash.core.System
     gameState: null

@@ -15,6 +15,13 @@ SpaceshipView   = example.graphics.SpaceshipView
 BulletView      = example.graphics.BulletView
 
 class example.EntityCreator
+
+
+  KEY_LEFT    = 37
+  KEY_UP      = 38
+  KEY_RIGHT   = 39
+  KEY_Z       = 90
+
   game: null
   graphics: null
   constructor: (game, graphics) ->
@@ -40,9 +47,9 @@ class example.EntityCreator
     .add(new Spaceship())
     .add(new Position(400, 300, 1, 6))
     .add(new Motion(0, 0, 0, 15))
-    .add(new MotionControls(Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3))
+    .add(new MotionControls(KEY_LEFT, KEY_RIGHT, KEY_UP, 100, 3))
     .add(new Gun(8, 0, 0.3, 2))
-    .add(new GunControls(Keyboard.Z))
+    .add(new GunControls(KEY_Z))
     .add(new Display(new SpaceshipView(@graphics)))
     @game.addEntity spaceship
     spaceship

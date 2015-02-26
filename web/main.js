@@ -1,1 +1,1 @@
-new Example.AsteroidsApp.initialise()
+new Example.Main()

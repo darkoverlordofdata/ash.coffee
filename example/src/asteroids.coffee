@@ -11,8 +11,8 @@ CollisionSystem       = example.systems.CollisionSystem
 RenderSystem          = example.systems.RenderSystem
 SystemPriorities      = example.systems.SystemPriorities
 EntityCreator         = example.EntityCreator
-KeyPoll               = example.util.KeyPoll
-TickProvider          = example.util.TickProvider
+#KeyPoll               = example.util.KeyPoll
+KeyPoll               = example.input.KeyPoll
 
 class example.Asteroids
 
@@ -26,24 +26,27 @@ class example.Asteroids
     canvasContext = canvas.getContext("2d")
     @width = canvas.width
     @height = canvas.height
+
     @engine = new ash.core.Engine()
     @gameState = new GameState(@width, @height)
     creator = new EntityCreator(@engine, canvasContext)
-    @engine.addSystem new GameManager(@gameState, creator), SystemPriorities.preUpdate
-    @engine.addSystem new MotionControlSystem(KeyPoll), SystemPriorities.update
-    @engine.addSystem new GunControlSystem(KeyPoll, creator), SystemPriorities.update
-    @engine.addSystem new BulletAgeSystem(creator), SystemPriorities.update
-    @engine.addSystem new MovementSystem(@gameState), SystemPriorities.move
-    @engine.addSystem new CollisionSystem(creator), SystemPriorities.resolveCollisions
-    @engine.addSystem new RenderSystem(canvasContext), SystemPriorities.render
-    @tickProvider = new TickProvider(stats)
+    keyPoll = new KeyPoll(window)
+    @engine.addSystem(new GameManager(@gameState, creator), SystemPriorities.preUpdate)
+    @engine.addSystem(new MotionControlSystem(keyPoll), SystemPriorities.update)
+    @engine.addSystem(new GunControlSystem(keyPoll, creator), SystemPriorities.update)
+    @engine.addSystem(new BulletAgeSystem(creator), SystemPriorities.update)
+    @engine.addSystem(new MovementSystem(@gameState), SystemPriorities.move)
+    @engine.addSystem(new CollisionSystem(creator), SystemPriorities.resolveCollisions)
+    @engine.addSystem(new RenderSystem(canvasContext), SystemPriorities.render)
+    @tickProvider = new ash.tick.FrameTickProvider(stats)
     return
 
   start: ->
+
     @gameState.level = 0
     @gameState.lives = 3
     @gameState.points = 0
-    @tickProvider.add @engine.update, @engine
+    @tickProvider.add(@engine.update)
     @tickProvider.start()
     return
 

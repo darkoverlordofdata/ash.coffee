@@ -1,5 +1,5 @@
 example = require('../../../example')
-Point = example.util.Point
+Point = example.graphics.Point
 
 class example.components.Motion
 

@@ -154,9 +154,11 @@ class ash.core.ComponentMatchingFamily #extends Family
    * Removes all nodes from the NodeList.
   ###
   cleanUp: () ->
-    `for(var node = this.nodes.head; node; node = node.next ) {
-        this.entities.remove(node.entity);
-      }`
+    node = @nodes.head
+    while node
+      @entities.remove(node.entity)
+      node = node.next
+
     @nodes.removeAll()
     return # Void
 

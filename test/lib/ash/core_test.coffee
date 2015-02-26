@@ -40,10 +40,11 @@ describe 'core test: ' , ->
         nodes.add(node)
         array1.push(node)
 
-      `for (node = nodes.head; node; node = node.next ) {
-          array2.push(node);
-          x++;
-        }`
+      node = nodes.head
+      while node
+        array2.push node
+        x++
+        node = node.next
 
       x.should.equal(array1.length)
 
