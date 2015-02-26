@@ -13,6 +13,7 @@
 #
 # Engine
 #
+'use strict'
 ash = require('../../../lib')
 
 ComponentMatchingFamily   = ash.core.ComponentMatchingFamily

@@ -13,6 +13,7 @@
 #
 # Entity
 #
+'use strict'
 ash = require('../../../lib')
 
 Signal2 = ash.signals.Signal2
@@ -119,10 +120,11 @@ class ash.core.Entity
    * @return the component, or null if the component doesn't exist in the entity
   ###
   remove: (componentClass) ->
-    component = @components[componentClass.name]
+    name = if 'string' is typeof componentClass then componentClass else componentClass.name
+    component = @components[name]
     if (component isnt null)
-      delete @components[componentClass.name]
-      @componentRemoved.dispatch(this, componentClass)
+      delete @components[name]
+      @componentRemoved.dispatch(this, name)
       return component
     return null
 

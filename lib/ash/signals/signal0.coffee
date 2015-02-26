@@ -13,6 +13,7 @@
 #
 # Signal 0
 #
+'use strict'
 ash = require('../../../lib')
 
 

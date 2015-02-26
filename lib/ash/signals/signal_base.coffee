@@ -13,6 +13,7 @@
 #
 # Signal Base
 #
+'use strict'
 ash = require('../../../lib')
 
 ListenerNodePool = ash.signals.ListenerNodePool

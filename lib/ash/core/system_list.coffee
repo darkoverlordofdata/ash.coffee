@@ -13,8 +13,8 @@
 #
 # System List
 #
+'use strict'
 ash = require('../../../lib')
-
 
 ###
  * Used internally, this is an ordered list of Systems for use by the engine update loop.

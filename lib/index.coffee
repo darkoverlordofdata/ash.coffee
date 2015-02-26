@@ -40,7 +40,7 @@ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ###
-
+'use strict'
 module.exports = class ash
 
 class ash.signals
@@ -67,6 +67,19 @@ require './ash/core/component_matching_family'
 require './ash/core/engine'
 
 class ash.fsm
+require './ash/fsm/component_instance_provider'
+require './ash/fsm/component_singleton_provider'
+require './ash/fsm/component_type_provider'
+require './ash/fsm/dynamic_component_provider'
+require './ash/fsm/dynamic_system_provider'
+require './ash/fsm/engine_state'
+require './ash/fsm/engine_state_machine'
+require './ash/fsm/entity_state'
+require './ash/fsm/entity_state_machine'
+require './ash/fsm/state_component_mapping'
+require './ash/fsm/state_system_mapping'
+require './ash/fsm/system_instance_provider'
+require './ash/fsm/system_singleton_provider'
 
 class ash.tick
 

@@ -13,6 +13,7 @@
 #
 # ComponentMatchingFamily
 #
+'use strict'
 ash = require('../../../lib')
 
 NodeList = ash.core.NodeList

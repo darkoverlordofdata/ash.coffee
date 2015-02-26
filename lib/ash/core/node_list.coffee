@@ -13,6 +13,7 @@
 #
 # Node List
 #
+'use strict'
 ash = require('../../../lib')
 
 Signal1 = ash.signals.Signal1

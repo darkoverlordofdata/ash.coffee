@@ -13,6 +13,7 @@
 #
 # List Iterating System
 #
+'use strict'
 ash = require('../../../lib')
 
 Engine        = ash.core.Engine

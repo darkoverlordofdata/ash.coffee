@@ -13,6 +13,7 @@
 #
 # ComponentPool
 #
+'use strict'
 ash = require('../../../lib')
 
 class Dictionary

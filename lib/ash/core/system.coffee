@@ -13,6 +13,7 @@
 #
 # System
 #
+'use strict'
 ash = require('../../../lib')
 ###
  * The base class for a system.

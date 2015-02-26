@@ -13,6 +13,7 @@
 #
 # Family
 #
+'use strict'
 ash = require('../../../lib')
 
 ###

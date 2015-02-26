@@ -13,6 +13,7 @@
 #
 # Entity List
 #
+'use strict'
 ash = require('../../../lib')
 
 ###

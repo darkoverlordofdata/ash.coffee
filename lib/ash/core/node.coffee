@@ -13,6 +13,7 @@
 #
 # Node base class
 #
+'use strict'
 ash = require('../../../lib')
 
 class ash.core.Node

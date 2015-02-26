@@ -13,6 +13,7 @@
 #
 # Listener Node
 #
+'use strict'
 ash = require('../../../lib')
 
 ###
