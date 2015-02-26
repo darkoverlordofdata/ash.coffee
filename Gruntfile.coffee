@@ -29,6 +29,7 @@
 # | -- lib                    defines this package
 # | -- node_modules           npm dependencies
 # | -- packages               bower external packages
+# | -- test                   unit tests
 # | -- (tmp)
 # | -- web                    source
 # |     | -- index.html
