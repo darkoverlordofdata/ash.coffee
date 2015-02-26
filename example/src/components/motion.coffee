@@ -1,3 +1,4 @@
+'use strict'
 example = require('../../../example')
 Point = example.graphics.Point
 

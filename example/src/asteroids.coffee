@@ -1,3 +1,4 @@
+'use strict'
 ash = require('../../lib')
 example = require('../../example')
 
@@ -47,12 +48,13 @@ class example.Asteroids
 
   start: ->
 
-    stats = new Stats()
-    stats.setMode 0
-    stats.domElement.style.position = "absolute"
-    stats.domElement.style.left = "0px"
-    stats.domElement.style.top = "0px"
-    document.body.appendChild stats.domElement
+    if not navigator.isCocoonJS
+      stats = new Stats()
+      stats.setMode 0
+      stats.domElement.style.position = "absolute"
+      stats.domElement.style.left = "0px"
+      stats.domElement.style.top = "0px"
+      document.body.appendChild stats.domElement
 
     @tickProvider = new ash.tick.FrameTickProvider(stats)
     @tickProvider.add(@engine.update)

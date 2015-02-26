@@ -1,3 +1,4 @@
+'use strict'
 module.exports =
 class example
 
@@ -11,16 +12,22 @@ require './src/graphics/bullet_view'
 require './src/graphics/spaceship_view'
 
 class example.components
+require './src/components/animation'
 require './src/components/asteroid'
+require './src/components/audio'
 require './src/components/bullet'
+require './src/components/collision'
+require './src/components/death_throes'
 require './src/components/display'
 require './src/components/game_state'
 require './src/components/gun'
 require './src/components/gun_controls'
+require './src/components/hud'
 require './src/components/motion'
 require './src/components/motion_controls'
 require './src/components/position'
 require './src/components/spaceship'
+require './src/components/wait_for_start'
 
 class example.nodes
 require './src/nodes/asteroid_collision'

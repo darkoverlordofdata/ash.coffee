@@ -1,3 +1,4 @@
+'use strict'
 ash = require('../../../lib')
 example = require('../../../example')
 
@@ -27,7 +28,7 @@ class example.systems.MotionControlSystem extends ash.core.System
       return
 
     updateNode: (node, time) =>
-      console.log node
+
       control = node.control
       position = node.position
       motion = node.motion

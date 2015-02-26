@@ -1,3 +1,4 @@
+'use strict'
 example = require('../../index')
 
 class example.graphics.Point

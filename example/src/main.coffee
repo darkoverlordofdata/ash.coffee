@@ -1,26 +1,21 @@
+'use strict'
 example = require('../../example')
 
 class example.Main
 
   constructor: ->
-    {container, stage} = SWF(800, 600, 60, '#000000')
-    asteroids = new example.Asteroids(container, stage.stageWidth, stage.stageHeight)
+    canvas = @canvas()
+    asteroids = new example.Asteroids(canvas.getContext('2d'), canvas.width, canvas.height)
     asteroids.start()
     return
 
-
-
-  SWF = (width, height, frameRate, backgroundColor) ->
-    canvas = document.createElement(if navigator.isCocoonJS then "screencanvas" else "canvas")
-    canvas.setAttribute "id", "game_stage"
-    canvas.setAttribute "width", width
-    canvas.setAttribute "height", height
-    canvas.style.backgroundColor = backgroundColor
+  canvas: ->
+    canvas = document.createElement(if navigator.isCocoonJS then 'screencanvas' else 'canvas')
+    canvas.width  = window.innerWidth*window.devicePixelRatio
+    canvas.height = window.innerHeight*window.devicePixelRatio
+    canvas.style.width = '100%'
+    canvas.style.height = '100%'
+    canvas.style.backgroundColor = '#000000'
     document.body.appendChild canvas
-    return {
-      container: canvas.getContext("2d"),
-      stage:
-        stageWidth: canvas.width
-        stageHeight: canvas.height
-    }
+    return canvas
 
