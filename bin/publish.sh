@@ -2,7 +2,7 @@
 #
 #   Publish gh-pages
 #
-cd ./build/
+cd ../build/
 git clone git@github.com:darkoverlordofdata/ash.coffee.git gh-pages
 cd ./gh-pages/
 git checkout gh-pages
@@ -12,3 +12,9 @@ cd ../web
 git add . --all
 git commit -m publish
 git push origin gh-pages
+#
+# clean up
+#
+rm -fr ./.git
+cd ..
+rm -fr ./gh-pages

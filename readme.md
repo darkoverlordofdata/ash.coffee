@@ -17,13 +17,16 @@
 A Port of Ash to CoffeeScript
 
 ### Install
-    git clone https://github.com/darkoverlordofdata/ash.coffee
-    cd ash.coffee
-    npm install
+    $ git clone https://github.com/darkoverlordofdata/ash.coffee
+    $ cd ash.coffee
+    $ npm install
 
-### To build the example (work in progress):
-    grunt get
-    grunt build
+### To build the example:
+
+    the example is a work in progress, and requires grunt and bower
+
+    $ grunt get
+    $ grunt build
 
 # MIT License
 
