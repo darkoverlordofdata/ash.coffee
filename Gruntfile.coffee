@@ -115,6 +115,12 @@ module.exports = ->
         cwd: "lib"
         src: "res/**/*.*"
         dest: "web/packages/#{$packageName}/"
+      build:
+        expand: true
+        cwd: __dirname
+        src: "web/**/*.*"
+        dest: "build/"
+
 
     ###
     Run the tests
@@ -143,7 +149,7 @@ module.exports = ->
         options:
           archive: "build/#{$projectName}.zip"
         expand: true
-        cwd: "web/"
+        cwd: "build/web/"
         src: ["**/*.*"]
         dest: "/"
 
@@ -189,7 +195,7 @@ module.exports = ->
   @registerTask 'test', 'simplemocha'
   @registerTask 'zip', ['compress', 'adbPush']
 
-  @registerTask 'build', ['clean','coffee', 'browserify', 'uglify', 'copy']
+  @registerTask 'build', ['clean','coffee', 'browserify', 'uglify', 'copy:res', 'copy:build']
   @registerTask 'get', 'bowercopy'
   @registerTask 'deps', ->
 

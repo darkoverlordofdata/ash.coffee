@@ -1,7 +1,7 @@
 'use strict'
 example = require('../../../example')
 
-class example.components.Collision
+class example.components.DeathThroes
 
   countdown: 0
 

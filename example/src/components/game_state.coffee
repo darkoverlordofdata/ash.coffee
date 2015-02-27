@@ -8,8 +8,10 @@ class example.components.GameState
   lives: 3
   level: 0
   points: 0
+  playing: false
 
   constructor: (@width, @height) ->
     @lives = 3
     @level = 0
     @points = 0
+    @playing = true

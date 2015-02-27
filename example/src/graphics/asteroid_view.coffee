@@ -14,14 +14,9 @@ class example.graphics.AsteroidView
   count: 0
 
 
-  constructor: (radius, graphic) ->
-    @initialise radius, graphic
-
-  initialise: (radius, graphic) ->
-    @graphic = graphic
-    @radius = radius
-    @width = radius
-    @height = radius
+  constructor: (@graphic, @radius) ->
+    @width = @radius
+    @height = @radius
     @points = []
     angle = 0
     while angle < Math.PI * 2
@@ -34,7 +29,6 @@ class example.graphics.AsteroidView
 
       angle += Math.random() * 0.5
     @draw()
-    this
 
   draw: ->
     graphic = @graphic

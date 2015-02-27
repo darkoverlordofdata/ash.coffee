@@ -18,11 +18,13 @@
     "tests"
   ],
   "dependencies": {
+    "phaser": "2.0.7",
     "cocoonjs": "git://github.com/ludei/cocoonjs-plugins#~3.0.4",
-    "phaser": "2.0.7"
+    "box2d": "git://github.com/darkoverlordofdata/Box2dWeb"
   },
   "packages": {
+    "phaser": "phaser/build/*.js",
     "cocoonjs": "cocoonjs/build/cocoon.min.js",
-    "phaser": "phaser/build/*.js"
+    "box2d": "box2d/lib/*.js"
   }
 }

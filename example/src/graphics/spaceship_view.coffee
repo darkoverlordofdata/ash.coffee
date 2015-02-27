@@ -10,14 +10,8 @@ class example.graphics.SpaceshipView
   rotation: 0
   graphic: null
 
-  constructor: (graphic) ->
-    @initialise graphic
-
-    
-  initialise: (graphic) ->
-    @graphic = graphic
+  constructor: (@graphic) ->
     @draw()
-    this
 
   draw: ->
     graphic = @graphic
@@ -26,7 +20,7 @@ class example.graphics.SpaceshipView
     graphic.translate @x, @y
     graphic.rotate @rotation
     graphic.fillStyle = "#FFFFFF"
-    graphic.moveTo 8, 0
+    graphic.moveTo 10, 0
     graphic.lineTo -7, 7
     graphic.lineTo -4, 0
     graphic.lineTo -7, -7

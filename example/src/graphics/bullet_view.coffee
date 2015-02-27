@@ -10,19 +10,14 @@ class example.graphics.BulletView
   rotation: 0
   graphic: null
   
-  constructor: (graphic) ->
-    @initialise graphic
-
-  initialise: (graphic) ->
-    @graphic = graphic
+  constructor: (@graphic) ->
     @draw()
-    this
 
   draw: ->
     graphic = @graphic
     graphic.save()
-    graphic.rotate @rotation
     graphic.beginPath()
+    graphic.rotate @rotation
     graphic.fillStyle = "#FFFFFF"
     graphic.arc @x, @y, 2, 0, Math.PI * 2, false
     graphic.fill()
