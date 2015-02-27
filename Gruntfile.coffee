@@ -13,24 +13,23 @@
 #
 # Tasks:
 #
-# test  - run tests
-# zip   - create build/{{project}}.zip and copy to device
+# test    - run tests
+# zip     - create build/{{project}}.zip and copy to device
 #
-# build - build lib sources to web/packages/{{lib}}
-# get   - gets package dependencies using bower
-# deps  - list dependencies
-#
-#
-# manually copy required bits from packages/module to web/packages/module
+# build   - build lib sources to web/packages/{{lib}}
+# get     - gets package dependencies using bower
+# deps    - list dependencies
+# gh      - publish gh-pages
 #
 # project
+# | -- bin                    tools
 # | -- build                  output folder for zip
 # | -- example                example using the lib
 # | -- lib                    defines this package
 # | -- node_modules           npm dependencies
 # | -- packages               bower external packages
 # | -- test                   unit tests
-# | -- (tmp)
+# | -- (tmp)                  temporary
 # | -- web                    source
 # |     | -- index.html
 # |     | -- main.js          starts lib.main()
@@ -50,7 +49,7 @@
 #
 $package = require("./package.json")
 $bower = require("./bower.json")
-
+$authorName = $package.author
 $projectName = $package.name
 $libName = $bower.name
 $packageName = $libName.toLowerCase()
@@ -176,6 +175,12 @@ module.exports = ->
       packages:
         files: $bower.packages
 
+
+    shell:
+      gh:
+        cwd: __dirname
+        command: "./bin/publish.sh  #{$authorName} #{$projectName}"
+
   ###
   Load grunt plugins
   ###
@@ -187,6 +192,7 @@ module.exports = ->
   @loadNpmTasks 'grunt-contrib-coffee'
   @loadNpmTasks 'grunt-contrib-compress'
   @loadNpmTasks 'grunt-contrib-uglify'
+  @loadNpmTasks 'grunt-shell'
   @loadNpmTasks 'grunt-simple-mocha'
 
   ###
@@ -197,6 +203,7 @@ module.exports = ->
 
   @registerTask 'build', ['clean','coffee', 'browserify', 'uglify', 'copy:res', 'copy:build']
   @registerTask 'get', 'bowercopy'
+  @registerTask 'gh', 'shell:gh'
   @registerTask 'deps', ->
 
     rep = (c, n) -> Array(n).join(c)

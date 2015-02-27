@@ -2,8 +2,8 @@
 #
 #   Publish gh-pages
 #
-cd ../build/
-git clone git@github.com:darkoverlordofdata/ash.coffee.git gh-pages
+cd ./build/
+git clone git@github.com:$1/$2.git gh-pages
 cd ./gh-pages/
 git checkout gh-pages
 git rm -rf .
