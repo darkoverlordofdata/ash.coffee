@@ -16,6 +16,14 @@
 
 A Port of Ash-HaXe to CoffeeScript
 
+### Install
+    git clone https://github.com/darkoverlordofdata/ash.coffee
+    cd ash.coffee
+    npm install
+
+### To build the example (work in progress):
+    grunt get
+    grunt build
 
 # MIT License
 
