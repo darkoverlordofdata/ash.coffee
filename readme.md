@@ -14,7 +14,7 @@
 
 #Ash.coffee
 
-A Port of Ash-HaXe to CoffeeScript
+A Port of Ash to CoffeeScript
 
 ### Install
     git clone https://github.com/darkoverlordofdata/ash.coffee
