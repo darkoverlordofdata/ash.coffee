@@ -7,7 +7,7 @@
 #| This file is a part of ash.coffee
 #|
 #| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the GPLv3 License
+#| it under the terms of the MIT License
 #|
 #+--------------------------------------------------------------------+
 #

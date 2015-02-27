@@ -1,6 +1,7 @@
 'use strict'
 module.exports =
 class example
+require './src/box2d'
 
 class example.input
 require './src/input/key_poll'

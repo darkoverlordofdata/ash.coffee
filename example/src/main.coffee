@@ -1,6 +1,7 @@
 'use strict'
 example = require('../../example')
 
+
 class example.Main
 
   constructor: ->
