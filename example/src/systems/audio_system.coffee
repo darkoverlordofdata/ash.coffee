@@ -4,7 +4,7 @@ example = require('../../../example')
 
 AudioNode       = example.nodes.AudioNode
 
-class example.systems.AudioSystem extends ash.core.ListIteratingSystem
+class example.systems.AudioSystem extends ash.tools.ListIteratingSystem
 
   constructor: () ->
 

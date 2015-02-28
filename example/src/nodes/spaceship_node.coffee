@@ -6,8 +6,8 @@ class example.nodes.SpaceshipNode extends ash.core.Node
 
   @components:
     spaceship : example.components.Spaceship
-    position : example.components.Position
+    position  : example.components.Position
 
   spaceship : 0
-  position : 0
+  position  : 0
 

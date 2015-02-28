@@ -2,7 +2,7 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-Physics           = example.nodes.PhysicsNode
+PhysicsNode       = example.nodes.PhysicsNode
 b2Vec2            = Box2D.Common.Math.b2Vec2
 
 class example.systems.PhysicsSystem extends ash.core.System
@@ -14,7 +14,7 @@ class example.systems.PhysicsSystem extends ash.core.System
   constructor: (@world) ->
 
   addToEngine: (engine) ->
-    @nodeList = engine.getNodeList(Physics)
+    @nodeList = engine.getNodeList(PhysicsNode)
     return
 
   removeFromEngine: (engine) ->

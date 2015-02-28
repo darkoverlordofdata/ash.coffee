@@ -77,7 +77,7 @@ class example.EntityCreator
   KEY_Z       = 90
 
   engine: null
-  waitEntity; null
+  waitEntity: null
   graphics: null
 
   constructor: (@engine, @graphics, @world) ->
@@ -103,14 +103,14 @@ class example.EntityCreator
     if not @waitEntity
 
       waitView = new WaitForStartView()
-      waitEntity = new ash.core.Entity('wait')
+      @waitEntity = new ash.core.Entity('wait')
       .add(new WaitForStart(waitView))
       .add(new Display(waitView))
       .add(new Position(0, 0, 0, 0))
 
-    waitEntity.get(WaitForStart).startGame = false
-    @engine.addEntity(waitEntity)
-    return waitEntity
+    @waitEntity.get(WaitForStart).startGame = false
+    @engine.addEntity(@waitEntity)
+    return @waitEntity
 
 
   createAsteroid: (radius, x, y) ->

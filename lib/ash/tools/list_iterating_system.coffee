@@ -59,9 +59,10 @@ class ash.tools.ListIteratingSystem extends System
   addToEngine: (engine) ->
     @nodeList = engine.getNodeList(@nodeClass)
     if (@nodeAddedFunction isnt null)
-      `for (var node = this.nodeList.head; node; node = node.next){
-        this.nodeAddedFunction(node);
-        }`
+      node = this.nodeList.head
+      while node
+        @nodeAddedFunction(node)
+        node = node.next
       @nodeList.nodeAdded.add(@nodeAddedFunction)
 
     if (@nodeRemovedFunction isnt null)
@@ -77,8 +78,9 @@ class ash.tools.ListIteratingSystem extends System
     return # Void
 
   update: (time) ->
-    `for (var node = this.nodeList.head; node; node = node.next){
-        this.nodeUpdateFunction(node, time)
-      }`
+    node = this.nodeList.head
+    while node
+      @nodeUpdateFunction(node, time)
+      node = node.next
     return # void
 

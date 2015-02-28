@@ -2,14 +2,14 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-WaitForStartSystem = example.nodes.WaitForStartSystem
-AsteroidCollisionNode = example.nodes.AsteroidCollisionNode
-GameNode = example.nodes.GameNode
+WaitForStartSystem      = example.nodes.WaitForStartSystem
+AsteroidCollisionNode   = example.nodes.AsteroidCollisionNode
+GameNode                = example.nodes.GameNode
 
 class example.systems.WaitForStartSystem extends ash.core.System
 
+  engine: null
   creator: null
-  nodes: null
   gameNodes: null
   waitNodes: null
   asteroids: null
@@ -17,6 +17,7 @@ class example.systems.WaitForStartSystem extends ash.core.System
   constructor: (@creator) ->
 
   addToEngine: (engine) ->
+    @engine = engine
     @waitNodes = engine.getNodeList(WaitForStartSystem)
     @gameNodes = engine.getNodeList(GameNode)
     @asteroids = engine.getNodeList(AsteroidCollisionNode)

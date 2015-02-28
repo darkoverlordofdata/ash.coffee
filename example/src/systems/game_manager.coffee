@@ -2,13 +2,14 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-GameNode              = example.nodes.GameNode
-SpaceshipNode         = example.nodes.SpaceshipNode
+GameNode                  = example.nodes.GameNode
+SpaceshipNode             = example.nodes.SpaceshipNode
 AsteroidCollisionNode     = example.nodes.AsteroidCollisionNode
 BulletCollisionNode       = example.nodes.BulletCollisionNode
-Point                 = example.graphics.Point
+Point                     = example.graphics.Point
 
 class example.systems.GameManager extends ash.core.System
+
   config: null
   creator: null
 
@@ -20,15 +21,15 @@ class example.systems.GameManager extends ash.core.System
   constructor: (@creator, @config) ->
     return
 
-  addToEngine: (game) ->
-    @gameNodes = game.getNodeList(GameNode)
-    @spaceships = game.getNodeList(SpaceshipNode)
-    @asteroids = game.getNodeList(AsteroidCollisionNode)
-    @bullets = game.getNodeList(BulletCollisionNode)
+  addToEngine: (engine) ->
+    @gameNodes = engine.getNodeList(GameNode)
+    @spaceships = engine.getNodeList(SpaceshipNode)
+    @asteroids = engine.getNodeList(AsteroidCollisionNode)
+    @bullets = engine.getNodeList(BulletCollisionNode)
     return
 
   update: (time) =>
-    node = gameNodes.head
+    node = @gameNodes.head
     if node and node.state.playing
       if @spaceships.empty
         if @node.state.lives > 0
@@ -66,7 +67,7 @@ class example.systems.GameManager extends ash.core.System
           ++i
       return
 
-  removeFromEngine: (game) ->
+  removeFromEngine: (engine) ->
     @gameNodes = null
     @spaceships = null
     @asteroids = null

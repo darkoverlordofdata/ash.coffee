@@ -14,18 +14,16 @@ class example.systems.CollisionSystem extends ash.core.System
     asteroids: null
     bullets: null
 
-    constructor: (creator) ->
-      @creator = creator
-      this
+    constructor: (@creator) ->
 
-    addToEngine: (game) ->
-      @games = game.getNodeList(GameNode)
-      @spaceships = game.getNodeList(SpaceshipCollisionNode)
-      @asteroids = game.getNodeList(AsteroidCollisionNode)
-      @bullets = game.getNodeList(BulletCollisionNode)
+    addToEngine: (engine) ->
+      @games = engine.getNodeList(GameNode)
+      @spaceships = engine.getNodeList(SpaceshipCollisionNode)
+      @asteroids = engine.getNodeList(AsteroidCollisionNode)
+      @bullets = engine.getNodeList(BulletCollisionNode)
       return
 
-    removeFromEngine: (game) ->
+    removeFromEngine: (engine) ->
       @games = null
       @spaceships = null
       @asteroids = null

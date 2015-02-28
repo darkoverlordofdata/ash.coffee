@@ -2,9 +2,9 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-DeathThroesNode       = example.nodes.DeathThroesNode
+DeathThroesNode = example.nodes.DeathThroesNode
 
-class example.systems.AnimationSystem extends ash.core.ListIteratingSystem
+class example.systems.AnimationSystem extends ash.tools.ListIteratingSystem
 
   creator: null
 

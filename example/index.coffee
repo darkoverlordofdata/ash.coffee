@@ -81,7 +81,7 @@ require './src/systems/movement_system'
 require './src/systems/physics_system'
 require './src/systems/render_system'
 require './src/systems/system_priorities'
-require './src/systems/wait_for-start_system'
+require './src/systems/wait_for_start_system'
 
 
 require './src/entity_creator'

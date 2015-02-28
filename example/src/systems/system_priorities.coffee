@@ -6,5 +6,7 @@ class example.systems.SystemPriorities
     @update: 2
     @move: 3
     @resolveCollisions: 4
-    @render: 5
+    @stateMachines: 5
+    @animate: 6
+    @render: 7
 

@@ -2,13 +2,13 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-BulletAgeNode       = example.nodes.BulletAgeNode
+BulletAgeNode = example.nodes.BulletAgeNode
 
-class example.systems.BulletAgeSystem extends ash.core.ListIteratingSystem
+class example.systems.BulletAgeSystem extends ash.tools.ListIteratingSystem
 
   constructor: () ->
 
-    super(AudioNode, @updateNode)
+    super(BulletAgeNode, @updateNode)
 
   updateNode: (node, time) =>
 
