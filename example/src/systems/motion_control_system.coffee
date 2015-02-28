@@ -2,31 +2,15 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-MotionControl     = example.nodes.MotionControl
+MotionControlNode     = example.nodes.MotionControlNode
 b2Vec2            = Box2D.Common.Math.b2Vec2
 
-class example.systems.MotionControlSystem extends ash.core.System
+class example.systems.MotionControlSystem extends ash.core.ListIteratingSystem
     keyPoll: null
-    nodeList: null
-    constructor: (keyPoll) ->
-      @keyPoll = keyPoll
+
+    constructor: (@keyPoll) ->
+      super(MotionControlNode, @updateNode)
       this
-
-    addToEngine: (engine) ->
-      @nodeList = engine.getNodeList(MotionControl)
-      return
-
-    removeFromEngine: (engine) ->
-      @nodeList = null
-      return
-
-    update: (time) =>
-      node = @nodeList.head
-
-      while node
-        @updateNode node, time
-        node = node.next
-      return
 
     updateNode: (node, time) =>
 

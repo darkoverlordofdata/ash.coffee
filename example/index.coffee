@@ -1,7 +1,21 @@
+#+--------------------------------------------------------------------+
+#| index.coffee
+#+--------------------------------------------------------------------+
+#| Copyright DarkOverlordOfData (c) 2015
+#+--------------------------------------------------------------------+
+#|
+#| This file is a part of ash.coffee
+#|
+#| ash.coffee is free software; you can copy, modify, and distribute
+#| it under the terms of the MIT License
+#|
+#+--------------------------------------------------------------------+
+#
+# Example
+#
 'use strict'
 module.exports =
 class example
-require './src/box2d'
 
 class example.input
 require './src/input/key_poll'
@@ -9,8 +23,12 @@ require './src/input/key_poll'
 class example.graphics
 require './src/graphics/point'
 require './src/graphics/asteroid_view'
+require './src/graphics/asteroid_death_view'
 require './src/graphics/bullet_view'
+require './src/graphics/click_to_start_view'
+require './src/graphics/spaceship_death_view'
 require './src/graphics/spaceship_view'
+require './src/graphics/wait_for_start_view'
 
 class example.components
 require './src/components/animation'
@@ -32,30 +50,42 @@ require './src/components/spaceship'
 require './src/components/wait_for_start'
 
 class example.nodes
-require './src/nodes/asteroid_collision'
-require './src/nodes/bullet_age'
-require './src/nodes/bullet_collision'
-require './src/nodes/gun_control'
-require './src/nodes/motion_control'
-require './src/nodes/movement'
-require './src/nodes/physics'
-require './src/nodes/render'
-require './src/nodes/spaceship_collision'
+require './src/nodes/animation_node'
+require './src/nodes/asteroid_collision_node'
+require './src/nodes/audio_node'
+require './src/nodes/bullet_age_node'
+require './src/nodes/bullet_collision_node'
+require './src/nodes/game_node'
+require './src/nodes/gun_control_node'
+require './src/nodes/hud_node'
+require './src/nodes/motion_control_node'
+require './src/nodes/movement_node'
+require './src/nodes/physics_node'
+require './src/nodes/render_node'
+require './src/nodes/spaceship_collision_node'
+require './src/nodes/spaceship_node'
+require './src/nodes/wait_for_start_node'
 
 
 class example.systems
+require './src/systems/animation_system'
+require './src/systems/audio_system'
 require './src/systems/bullet_age_system'
 require './src/systems/collision_system'
+require './src/systems/death_throes_system'
 require './src/systems/game_manager'
 require './src/systems/gun_control_system'
+require './src/systems/hud_system'
 require './src/systems/motion_control_system'
 require './src/systems/movement_system'
 require './src/systems/physics_system'
 require './src/systems/render_system'
 require './src/systems/system_priorities'
+require './src/systems/wait_for-start_system'
 
 
 require './src/entity_creator'
+require './src/game_config'
 require './src/asteroids'
 require './src/main'
 

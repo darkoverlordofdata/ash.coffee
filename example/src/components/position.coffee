@@ -6,8 +6,7 @@ class example.components.Position
 
   position: null
   rotation: 0
-  collisionRadius: 0
 
-  constructor: (x, y, @rotation, @collisionRadius) ->
+  constructor: (x, y, @rotation) ->
 
     @position = new Point(x, y)

@@ -2,7 +2,7 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-Render = example.nodes.Render
+RenderNode = example.nodes.RenderNode
 
 class example.systems.RenderSystem extends ash.core.System
     context: null
@@ -12,7 +12,7 @@ class example.systems.RenderSystem extends ash.core.System
       this
 
     addToEngine: (engine) ->
-      @nodes = engine.getNodeList(Render)
+      @nodes = engine.getNodeList(RenderNode)
       node = @nodes.head
 
       while node

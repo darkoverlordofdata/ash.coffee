@@ -2,31 +2,14 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-Movement = example.nodes.Movement
+MovementNode = example.nodes.MovementNode
 
-class example.systems.MovementSystem extends ash.core.System
-    gameState: null
-    nodeList: null
-    doAFewTimes: true
-    constructor: (gameState) ->
-      @gameState = gameState
-      this
+class example.systems.MovementSystem extends ash.core.ListIteratingSystem
 
-    addToEngine: (engine) ->
-      @nodeList = engine.getNodeList(Movement)
-      return
+    config: null
 
-    removeFromEngine: (engine) ->
-      @nodeList = null
-      return
-
-    update: (time) =>
-      node = @nodeList.head
-
-      while node
-        @updateNode node, time
-        node = node.next
-      return
+    constructor: (@config) ->
+      super(MovementNode, @updateNode)
 
     updateNode: (node, time) =>
       position = node.position

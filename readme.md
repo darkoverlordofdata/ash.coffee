@@ -21,7 +21,7 @@ A Port of Ash to CoffeeScript
     $ cd ash.coffee
     $ npm install
 
-### To build the example:
+### To build
 
     the example is a work in progress, and requires grunt and bower
 

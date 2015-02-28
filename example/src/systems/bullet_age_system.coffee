@@ -2,36 +2,19 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-BulletAge       = example.nodes.BulletAge
+BulletAgeNode       = example.nodes.BulletAgeNode
 
-class example.systems.BulletAgeSystem extends ash.core.System
+class example.systems.BulletAgeSystem extends ash.core.ListIteratingSystem
 
-    creator: null
-    nodeList: null
+  constructor: () ->
 
-    constructor: (creator) ->
-      @creator = creator
-      return
+    super(AudioNode, @updateNode)
 
-    addToEngine: (engine) ->
-      @nodeList = engine.getNodeList(BulletAge)
-      return
+  updateNode: (node, time) =>
 
-    removeFromEngine: (engine) ->
-      @nodeList = null
-      return
-
-    update: (time) =>
-      node = @nodeList.head
-
-      while node
-        @updateNode node, time
-        node = node.next
-      return
-
-    updateNode: (node, time) =>
-      bullet = node.bullet
-      bullet.lifeRemaining -= time
-      @creator.destroyEntity node.entity  if bullet.lifeRemaining <= 0
-      return
+    bullet = node.bullet
+    bullet.lifeRemaining -= time
+    if bullet.lifeRemaining <= 0
+      @creator.destroyEntity node.entity
+    return
 

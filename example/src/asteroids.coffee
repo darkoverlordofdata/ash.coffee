@@ -1,3 +1,18 @@
+#+--------------------------------------------------------------------+
+#| asteroids.coffee
+#+--------------------------------------------------------------------+
+#| Copyright DarkOverlordOfData (c) 2015
+#+--------------------------------------------------------------------+
+#|
+#| This file is a part of ash.coffee
+#|
+#| ash.coffee is free software; you can copy, modify, and distribute
+#| it under the terms of the MIT License
+#|
+#+--------------------------------------------------------------------+
+#
+# Asteroids
+#
 'use strict'
 ash = require('../../lib')
 example = require('../../example')
@@ -13,6 +28,7 @@ PhysicsSystem         = example.systems.PhysicsSystem
 RenderSystem          = example.systems.RenderSystem
 SystemPriorities      = example.systems.SystemPriorities
 EntityCreator         = example.EntityCreator
+GameConfig            = example.GameConfig
 KeyPoll               = example.input.KeyPoll
 b2Vec2                = Box2D.Common.Math.b2Vec2
 b2World               = Box2D.Dynamics.b2World
@@ -37,12 +53,12 @@ class example.Asteroids
     @engine = new ash.core.Engine()
     @creator = new EntityCreator(@engine, @container, @world)
     @keyPoll = new KeyPoll(window)
-    @config = new GameState()
+    @config = new GameConfig()
     @config.height = height
     @config.width = width
 
     @engine.addSystem(new PhysicsSystem(@world), SystemPriorities.preUpdate)
-    @engine.addSystem(new GameManager(@config, @creator), SystemPriorities.preUpdate)
+    @engine.addSystem(new GameManager(@creator, @config), SystemPriorities.preUpdate)
     @engine.addSystem(new MotionControlSystem(@keyPoll), SystemPriorities.update)
     @engine.addSystem(new GunControlSystem(@keyPoll, @creator), SystemPriorities.update)
     @engine.addSystem(new BulletAgeSystem(@creator), SystemPriorities.update)

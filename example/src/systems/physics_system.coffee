@@ -2,7 +2,7 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-Physics           = example.nodes.Physics
+Physics           = example.nodes.PhysicsNode
 b2Vec2            = Box2D.Common.Math.b2Vec2
 
 class example.systems.PhysicsSystem extends ash.core.System

@@ -2,7 +2,7 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-class example.nodes.BulletAge extends ash.core.Node
+class example.nodes.BulletAgeNode extends ash.core.Node
 
   @components:
     bullet : example.components.Bullet

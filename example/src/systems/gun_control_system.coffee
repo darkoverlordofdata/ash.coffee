@@ -2,32 +2,14 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-GunControl = example.nodes.GunControl
+GunControlNode = example.nodes.GunControlNode
 
-class example.systems.GunControlSystem extends ash.core.System
+class example.systems.GunControlSystem extends ash.core.ListIteratingSystem
     keyPoll: null
     creator: null
     nodeList: null
-    constructor: (keyPoll, creator) ->
-      @keyPoll = keyPoll
-      @creator = creator
-      return
-
-    addToEngine: (engine) ->
-      @nodeList = engine.getNodeList(GunControl)
-      return
-
-    removeFromEngine: (engine) ->
-      @nodeList = null
-      return
-
-    update: (time) =>
-      node = @nodeList.head
-
-      while node
-        @updateNode node, time
-        node = node.next
-      return
+    constructor: (@keyPoll, @creator) ->
+      super(GunControlNode, @updateNode)
 
     updateNode: (node, time) =>
       control = node.control

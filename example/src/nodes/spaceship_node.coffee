@@ -2,7 +2,7 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-class example.nodes.SpaceshipCollision extends ash.core.Node
+class example.nodes.SpaceshipNode extends ash.core.Node
 
   @components:
     spaceship : example.components.Spaceship

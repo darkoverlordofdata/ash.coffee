@@ -20,6 +20,7 @@
 # get     - gets package dependencies using bower
 # deps    - list dependencies
 # gh      - publish gh-pages
+# release - run vulcanize on the build
 #
 # project
 # | -- bin                    tools
@@ -104,6 +105,10 @@ module.exports = ->
         cwd: __dirname
         src: ["web/packages/#{$packageName}/#{$packageName}.js"]
         dest: "web/packages/#{$packageName}/#{$packageName}.min.js"
+      example:
+        cwd: __dirname
+        src: ["web/packages/example/example.js"]
+        dest: "web/packages/example/example.min.js"
 
     ###
     Copy Resources
@@ -180,6 +185,10 @@ module.exports = ->
       gh:
         cwd: __dirname
         command: "./bin/publish.sh  #{$authorName} #{$projectName}"
+      release:
+        cwd: __dirname
+        command: "./bin/vulcanize.sh"
+
 
   ###
   Load grunt plugins
@@ -204,6 +213,7 @@ module.exports = ->
   @registerTask 'build', ['clean','coffee', 'browserify', 'uglify', 'copy:res', 'copy:build']
   @registerTask 'get', 'bowercopy'
   @registerTask 'gh', 'shell:gh'
+  @registerTask 'release', 'shell:release'
   @registerTask 'deps', ->
 
     rep = (c, n) -> Array(n).join(c)

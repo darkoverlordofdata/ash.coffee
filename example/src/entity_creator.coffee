@@ -1,3 +1,18 @@
+#+--------------------------------------------------------------------+
+#| entity_creator.coffee
+#+--------------------------------------------------------------------+
+#| Copyright DarkOverlordOfData (c) 2015
+#+--------------------------------------------------------------------+
+#|
+#| This file is a part of ash.coffee
+#|
+#| ash.coffee is free software; you can copy, modify, and distribute
+#| it under the terms of the MIT License
+#|
+#+--------------------------------------------------------------------+
+#
+# EntityCreator
+#
 'use strict'
 ash = require('../../lib')
 example = require('../../example')
@@ -24,8 +39,11 @@ WaitForStart          = example.components.WaitForStart
 ###
  * Drawable Components
 ###
+AsteroidDeathView     = example.graphics.AsteroidDeathView
 AsteroidView          = example.graphics.AsteroidView
 BulletView            = example.graphics.BulletView
+HudView               = example.graphics.HudView
+SpaceshipDeathView    = example.graphics.SpaceshipDeathView
 SpaceshipView         = example.graphics.SpaceshipView
 
 ###
@@ -58,13 +76,42 @@ class example.EntityCreator
   KEY_RIGHT   = 39
   KEY_Z       = 90
 
-  game: null
+  engine: null
+  waitEntity; null
   graphics: null
-  constructor: (@game, @graphics, @world) ->
+
+  constructor: (@engine, @graphics, @world) ->
 
   destroyEntity: (entity) ->
-    @game.removeEntity entity
+    @engine.removeEntity entity
     return
+
+  createGame: () ->
+
+    hud = new HudView()
+
+    gameEntity = new ash.core.Entity('game')
+    .add(new GameState())
+    .add(new Hud(hud))
+    .add(new Display(hud))
+    .add(new Position(0, 0, 0, 0))
+    @engine.addEntity gameEntity
+    return gameEntity
+
+  createWaitForClick: () ->
+
+    if not @waitEntity
+
+      waitView = new WaitForStartView()
+      waitEntity = new ash.core.Entity('wait')
+      .add(new WaitForStart(waitView))
+      .add(new Display(waitView))
+      .add(new Position(0, 0, 0, 0))
+
+    waitEntity.get(WaitForStart).startGame = false
+    @engine.addEntity(waitEntity)
+    return waitEntity
+
 
   createAsteroid: (radius, x, y) ->
 
@@ -78,10 +125,12 @@ class example.EntityCreator
 
     asteroid = new ash.core.Entity()
     .add(new Asteroid())
-    .add(new Position(x, y, rotation, collisionRadius))
+    .add(new Position(x, y, rotation))
+    .add(new Audio())
     .add(new Motion(velocityX, velocityY, angularVelocity, damping))
+    .add(new Collision(collisionRadius))
     .add(new Display(new AsteroidView(@graphics, radius)))
-    @game.addEntity asteroid
+    @engine.addEntity asteroid
     return asteroid
 
   createSpaceship: ->
@@ -119,14 +168,16 @@ class example.EntityCreator
     spaceship = new ash.core.Entity()
     .add(new Spaceship())
     .add(new Physics(body))
-    .add(new Position(x, y, rotation, collisionRadius))
+    .add(new Position(x, y, rotation))
+    .add(new Audio())
     .add(new Motion(velocityX, velocityY, angularVelocity, damping))
     .add(new MotionControls(KEY_LEFT, KEY_RIGHT, KEY_UP, 100, 3))
     .add(new Gun(8, 0, 0.3, 2))
     .add(new GunControls(KEY_Z))
+    .add(new Collision(collisionRadius))
     .add(new Display(new SpaceshipView(@graphics)))
     body.SetUserData(spaceship)
-    @game.addEntity spaceship
+    @engine.addEntity spaceship
     return spaceship
 
   createUserBullet: (gun, parentPosition) ->
@@ -146,9 +197,10 @@ class example.EntityCreator
 
     bullet = new ash.core.Entity()
     .add(new Bullet(gun.bulletLifetime))
-    .add(new Position(x, y, rotation, collisionRadius))
+    .add(new Position(x, y, rotation))
+    .add(new Collision(collisionRadius))
     .add(new Motion(velocityX, velocityY, angularVelocity, damping))
     .add(new Display(new BulletView(@graphics)))
-    @game.addEntity bullet
+    @engine.addEntity bullet
     return bullet
 
