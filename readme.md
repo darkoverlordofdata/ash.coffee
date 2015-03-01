@@ -16,6 +16,8 @@
 
 A Port of Ash to CoffeeScript
 
+Demo at http://darkoverlordofdata.com/ash.coffee/example.html
+
 ### Install
     $ git clone https://github.com/darkoverlordofdata/ash.coffee
     $ cd ash.coffee
