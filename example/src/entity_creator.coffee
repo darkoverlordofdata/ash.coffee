@@ -16,6 +16,10 @@
 'use strict'
 ash = require('../../lib')
 example = require('../../example')
+
+WaitForStartView      = example.graphics.WaitForStartView
+Entity                = ash.core.Entity
+EntityStateMachine    = ash.fsm.EntityStateMachine
 ###
  * Asteroid Game Components
 ###
@@ -45,31 +49,6 @@ BulletView            = example.graphics.BulletView
 HudView               = example.graphics.HudView
 SpaceshipDeathView    = example.graphics.SpaceshipDeathView
 SpaceshipView         = example.graphics.SpaceshipView
-WaitForStartView      = example.graphics.WaitForStartView
-
-Entity                = ash.core.Entity
-EntityStateMachine    = ash.fsm.EntityStateMachine
-###
- * Box2D subset supported by cocoon's IDTK_SRV_BOX2D:
-###
-#b2Mat22               = Box2D.Common.Math.b2Mat22                 # 2 x 2 Matrix
-#b2Math                = Box2D.Common.Math.b2Math                  # ??
-#b2Transform           = Box2D.Common.Math.b2Transform             # A transform contains translation and rotation.
-#b2Vec2                = Box2D.Common.Math.b2Vec2                  # A 2D column vector.
-#b2Body                = Box2D.Dynamics.b2Body                     # A rigid body.
-#b2BodyDef             = Box2D.Dynamics.b2BodyDef                  # A body definition holds all the data needed to construct a rigid body.
-#b2Contact             = Box2D.Dynamics.b2Contact
-#b2ContactFilter       = Box2D.Dynamics.b2ContactFilter            # Implement this class to provide collision filtering.
-#b2ContactListener     = Box2D.Dynamics.b2ContactListener          # Implement this class to get contact information.
-#b2DebugDraw           = Box2D.Dynamics.b2DebugDraw                # Implement and register this class with a b2World to provide debug drawing of physics entities in your game.
-#b2Fixture             = Box2D.Dynamics.b2Fixture                  # A fixture is used to attach a shape to a body for collision detection.
-#b2FixtureDef          = Box2D.Dynamics.b2FixtureDef               # A fixture definition is used to create a fixture.
-#b2World               = Box2D.Dynamics.b2World                    # The world class manages all physics entities, dynamic simulation, and asynchronous queries
-#b2CircleShape         = Box2D.Collision.Shapes.b2CircleShape      # A circle shape.
-#b2PolygonShape        = Box2D.Collision.Shapes.b2PolygonShape     # Convex polygon.
-#b2DistanceJointDef    = Box2D.Dynamics.Joints.b2DistanceJointDef  # Distance joint definition.
-#b2Joint               = Box2D.Dynamics.Joints.b2Joint             # The base joint class.
-#b2RevoluteJointDef    = Box2D.Dynamics.Joints.b2RevoluteJointDef  # Revolute joint definition.
 
 class example.EntityCreator
 

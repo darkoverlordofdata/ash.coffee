@@ -44,6 +44,8 @@ class example.systems.CollisionSystem extends ash.core.System
           @creator.createAsteroid asteroid.collision.radius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5  if asteroid.collision.radius > 10
           @creator.destroyEntity asteroid.entity
 
+          asteroid.asteroid.fsm.changeState('destroyed')
+          #asteroid.audio.play(ExplodeAsteroid)
           if (@games.head)
             @games.head.state.hits++
 
@@ -58,6 +60,8 @@ class example.systems.CollisionSystem extends ash.core.System
         if asteroid.position.position.distanceTo(spaceship.position.position) <= asteroid.collision.radius + spaceship.collision.radius
           @creator.destroyEntity spaceship.entity
 
+          spaceship.spaceship.fsm.changeState('destroyed')
+          #asteroid.audio.play(ExplodeShip)
           if (@games.head)
             @games.head.state.lives++
 
