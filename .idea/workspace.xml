@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6712069e-648c-4d4f-9349-eba564fd5c35" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/example/src/graphics/click_to_start_view.coffee" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/asteroids.coffee" afterPath="$PROJECT_DIR$/example/src/asteroids.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/game_manager.coffee" afterPath="$PROJECT_DIR$/example/src/systems/game_manager.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/game_state.coffee" afterPath="$PROJECT_DIR$/example/src/components/game_state.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/hud_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/hud_view.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/index.coffee" afterPath="$PROJECT_DIR$/example/index.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/physics_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/physics_system.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/wait_for_start_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/wait_for_start_view.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="template.iws" />
@@ -84,13 +77,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.coffee" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.coffee" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/index.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.088" vertical-offset="309" max-vertical-offset="1764">
-              <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1389" max-vertical-offset="1764">
+              <caret line="40" column="37" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/readme.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6763006" vertical-offset="216" max-vertical-offset="1008">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
           </provider>
         </entry>
       </file>
@@ -102,7 +108,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/example/src/game_config.coffee" />
         <option value="$PROJECT_DIR$/example/src/nodes/spaceship_collision.coffee" />
         <option value="$PROJECT_DIR$/example/src/nodes/game_node.coffee" />
         <option value="$PROJECT_DIR$/example/src/nodes/animation_node.coffee" />
@@ -153,6 +158,7 @@
         <option value="$PROJECT_DIR$/example/src/systems/game_manager.coffee" />
         <option value="$PROJECT_DIR$/example/src/graphics/hud_view.coffee" />
         <option value="$PROJECT_DIR$/example/index.coffee" />
+        <option value="$PROJECT_DIR$/readme.md" />
       </list>
     </option>
   </component>
@@ -331,6 +337,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="packages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ash.coffee" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ash.coffee" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="build" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -632,7 +652,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425174584965</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="daily">
+      <created>1425180803192</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1425180803192</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1091,10 +1117,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/index.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.088" vertical-offset="309" max-vertical-offset="1764">
-          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1389" max-vertical-offset="1764">
+          <caret line="40" column="37" selection-start-line="40" selection-start-column="37" selection-end-line="40" selection-end-column="37" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6763006" vertical-offset="216" max-vertical-offset="1008">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
       </provider>
     </entry>
   </component>

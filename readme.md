@@ -23,8 +23,6 @@ A Port of Ash to CoffeeScript
 
 ### To build
 
-    the example is a work in progress, and requires grunt and bower
-
     $ grunt get
     $ grunt build
 
