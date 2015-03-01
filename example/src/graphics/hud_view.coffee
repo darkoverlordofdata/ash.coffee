@@ -42,8 +42,8 @@ class example.graphics.HudView
     s = "LIVES: #{@lives}"
     l = @graphic.measureText(s)
     x = l.width
-    y = l.height
-    @graphic.fillText(s, x, 20)
+    y = 20
+    @graphic.fillText(s, x, y)
     @graphic.fill()
     @graphic.restore()
     return
@@ -57,8 +57,8 @@ class example.graphics.HudView
     s = "SCORE: #{@score}"
     l = @graphic.measureText(s)
     x = (window.window.innerWidth*window.devicePixelRatio)-l.width
-    y = l.height
-    @graphic.fillText(s, x, 20)
+    y = 20
+    @graphic.fillText(s, x, y)
     @graphic.fill()
     @graphic.restore()
     return

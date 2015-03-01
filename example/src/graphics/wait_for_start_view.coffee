@@ -15,11 +15,13 @@ class example.graphics.WaitForStartView
 
   gameOver: null
   clickToStart: null
+  instructions: null
   click: null
   
   constructor: (@graphic) ->
     @click = new Signal0()
     @gameOver = @createGameOver
+    @instructions = @createInstructions
     @clickToStart = @createClickToStart
     @graphic.canvas.addEventListener 'click', (event) =>
       @click.dispatch()
@@ -31,8 +33,13 @@ class example.graphics.WaitForStartView
     @graphic.beginPath()
     @graphic.font = 'bold 32px Helvetica'
     @graphic.fillStyle = '#FFFFFF'
-    @graphic.textAlign = 'center'
-    @graphic.fillText('ASTEROIDS', 200, 175)
+#    @graphic.textAlign = 'center'
+
+    s = 'ASTEROIDS'
+    l = @graphic.measureText(s)
+    x = Math.floor(((window.innerWidth*window.devicePixelRatio)-l.width)/2)
+    y = 175
+    @graphic.fillText(s, x, y)
     @graphic.fill()
     @graphic.restore()
     return
@@ -42,8 +49,29 @@ class example.graphics.WaitForStartView
     @graphic.beginPath()
     @graphic.font = 'bold 18px Helvetica'
     @graphic.fillStyle = '#FFFFFF'
-    @graphic.textAlign = 'center'
-    @graphic.fillText('CLICK TO START', 200, 225)
+#    @graphic.textAlign = 'center'
+
+    s = 'CLICK TO START'
+    l = @graphic.measureText(s)
+    x = Math.floor(((window.innerWidth*window.devicePixelRatio)-l.width)/2)
+    y = 225
+    @graphic.fillText(s, x, y)
+    @graphic.fill()
+    @graphic.restore()
+    return
+
+  createInstructions: () ->
+    @graphic.save()
+    @graphic.beginPath()
+    @graphic.font = 'bold 14px Helvetica'
+    @graphic.fillStyle = '#FFFFFF'
+    #    @graphic.textAlign = 'center'
+
+    s = 'CTRL-Z to Fire  ~  Arrow Keys to Move'
+    l = @graphic.measureText(s)
+    x = 10
+    y = window.innerHeight*window.devicePixelRatio-20
+    @graphic.fillText(s, x, y)
     @graphic.fill()
     @graphic.restore()
     return
@@ -51,5 +79,6 @@ class example.graphics.WaitForStartView
   draw: ->
     @gameOver()
     @clickToStart()
+    @instructions()
     return
 
