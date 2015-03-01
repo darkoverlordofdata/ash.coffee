@@ -4,7 +4,7 @@ example = require('../../../example')
 
 HudNode = example.nodes.HudNode
 
-class example.systems.AnimationSystem extends ash.tools.ListIteratingSystem
+class example.systems.HudSystem extends ash.tools.ListIteratingSystem
 
   constructor: () ->
 
@@ -14,3 +14,4 @@ class example.systems.AnimationSystem extends ash.tools.ListIteratingSystem
 
     node.hud.view.setLives(node.state.lives)
     node.hud.view.setScore(node.state.hits)
+    return # Void

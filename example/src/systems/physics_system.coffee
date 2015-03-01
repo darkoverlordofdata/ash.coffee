@@ -30,8 +30,7 @@ class example.systems.PhysicsSystem extends ash.core.System
     while node
       @updateNode node, time
       node = node.next
-
-    return
+    return # Void
 
   updateNode: (node, time) =>
     if @count is 1
@@ -45,4 +44,4 @@ class example.systems.PhysicsSystem extends ash.core.System
 #      node.physics.body.ApplyForce(new b2Vec2(100, 100), node.physics.body.GetWorldCenter())
 #
 
-    return
+    return # Void

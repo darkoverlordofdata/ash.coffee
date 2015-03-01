@@ -17,16 +17,23 @@
 ash = require('../../lib')
 example = require('../../example')
 
-GameState             = example.components.GameState
-GameManager           = example.systems.GameManager
-MotionControlSystem   = example.systems.MotionControlSystem
-GunControlSystem      = example.systems.GunControlSystem
+AnimationSystem       = example.systems.AnimationSystem
+AudioSystem           = example.systems.AudioSystem
 BulletAgeSystem       = example.systems.BulletAgeSystem
-MovementSystem        = example.systems.MovementSystem
 CollisionSystem       = example.systems.CollisionSystem
-PhysicsSystem         = example.systems.PhysicsSystem
+DeathThroesSystem     = example.systems.DeathThroesSystem
+GameManager           = example.systems.GameManager
+GunControlSystem      = example.systems.GunControlSystem
+HudSystem             = example.systems.HudSystem
+MotionControlSystem   = example.systems.MotionControlSystem
+MovementSystem        = example.systems.MovementSystem
 RenderSystem          = example.systems.RenderSystem
 SystemPriorities      = example.systems.SystemPriorities
+WaitForStartSystem    = example.systems.WaitForStartSystem
+PhysicsSystem         = example.systems.PhysicsSystem
+
+
+GameState             = example.components.GameState
 EntityCreator         = example.EntityCreator
 GameConfig            = example.GameConfig
 KeyPoll               = example.input.KeyPoll
@@ -58,13 +65,21 @@ class example.Asteroids
     @config.width = width
 
     @engine.addSystem(new PhysicsSystem(@world), SystemPriorities.preUpdate)
+    @engine.addSystem(new WaitForStartSystem(@creator), SystemPriorities.preUpdate );
     @engine.addSystem(new GameManager(@creator, @config), SystemPriorities.preUpdate)
     @engine.addSystem(new MotionControlSystem(@keyPoll), SystemPriorities.update)
     @engine.addSystem(new GunControlSystem(@keyPoll, @creator), SystemPriorities.update)
     @engine.addSystem(new BulletAgeSystem(@creator), SystemPriorities.update)
+    @engine.addSystem(new DeathThroesSystem(@creator), SystemPriorities.update)
     @engine.addSystem(new MovementSystem(@config), SystemPriorities.move)
     @engine.addSystem(new CollisionSystem(@creator), SystemPriorities.resolveCollisions)
+    @engine.addSystem(new AnimationSystem(), SystemPriorities.animate);
+    @engine.addSystem(new HudSystem(), SystemPriorities.animate);
     @engine.addSystem(new RenderSystem(@container), SystemPriorities.render)
+    @engine.addSystem(new AudioSystem(), SystemPriorities.render);
+
+    @creator.createWaitForClick()
+    @creator.createGame()
     return
 
   start: ->

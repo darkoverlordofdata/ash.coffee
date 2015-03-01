@@ -4,7 +4,7 @@ example = require('../../../example')
 
 DeathThroesNode = example.nodes.DeathThroesNode
 
-class example.systems.AnimationSystem extends ash.tools.ListIteratingSystem
+class example.systems.DeathThroesSystem extends ash.tools.ListIteratingSystem
 
   creator: null
 
@@ -15,5 +15,6 @@ class example.systems.AnimationSystem extends ash.tools.ListIteratingSystem
   updateNode: (node, time) =>
 
     node.death.countdown -= time
-    if ( node.death.countdown <= 0 )
+    if (node.death.countdown <= 0)
       @creator.destroyEntity(node.entity)
+    return # Void

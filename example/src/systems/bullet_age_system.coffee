@@ -6,7 +6,9 @@ BulletAgeNode = example.nodes.BulletAgeNode
 
 class example.systems.BulletAgeSystem extends ash.tools.ListIteratingSystem
 
-  constructor: () ->
+  creator: null
+
+  constructor: (@creator) ->
 
     super(BulletAgeNode, @updateNode)
 
@@ -16,5 +18,5 @@ class example.systems.BulletAgeSystem extends ash.tools.ListIteratingSystem
     bullet.lifeRemaining -= time
     if bullet.lifeRemaining <= 0
       @creator.destroyEntity node.entity
-    return
+    return # Void
 

@@ -13,3 +13,4 @@ class example.systems.AnimationSystem extends ash.tools.ListIteratingSystem
   updateNode: (node, time) =>
 
     node.animation.animation.animate(time)
+    return # Void

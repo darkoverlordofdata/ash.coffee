@@ -22,3 +22,7 @@ class example.graphics.HudView
     graphic.restore()
     return
 
+
+  setLives: (lives) ->
+
+  setScore: (score) ->

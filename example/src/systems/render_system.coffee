@@ -16,21 +16,14 @@ class example.systems.RenderSystem extends ash.core.System
     while node
       @addToDisplay node
       node = node.next
-    @nodes.nodeAdded.add @addToDisplay, this
-    @nodes.nodeRemoved.add @removeFromDisplay, this
-    return
+#    @nodes.nodeAdded.add @addToDisplay, this
+#    @nodes.nodeRemoved.add @removeFromDisplay, this
+    return # Void
 
   removeFromEngine: (engine) ->
     @nodes = null
-    return
+    return # Void
 
-  addToDisplay: (node) ->
-
-  
-  # Intentionally left blank
-  removeFromDisplay: (node) ->
-
-  
   # Intentionally left blank
   update: (time) =>
 
@@ -52,4 +45,4 @@ class example.systems.RenderSystem extends ash.core.System
       node = node.next
 
     @graphic.restore()
-    return
+    return # Void

@@ -6,9 +6,9 @@ GunControlNode = example.nodes.GunControlNode
 
 class example.systems.GunControlSystem extends ash.tools.ListIteratingSystem
 
-  keyPoll: null
-  creator: null
-  nodeList: null
+  keyPoll     : null
+  creator     : null
+  nodeList    : null
 
   constructor: (@keyPoll, @creator) ->
     super(GunControlNode, @updateNode)
@@ -22,5 +22,5 @@ class example.systems.GunControlSystem extends ash.tools.ListIteratingSystem
     if gun.shooting and gun.timeSinceLastShot >= gun.minimumShotInterval
       @creator.createUserBullet gun, position
       gun.timeSinceLastShot = 0
-    return
+    return # Void
 

@@ -11,3 +11,4 @@ class example.components.WaitForStart
 
   setStartGame: () =>
     @startGame = true
+    return

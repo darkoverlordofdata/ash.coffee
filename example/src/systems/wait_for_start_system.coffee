@@ -2,7 +2,7 @@
 ash = require('../../../lib')
 example = require('../../../example')
 
-WaitForStartSystem      = example.nodes.WaitForStartSystem
+WaitForStartNode        = example.nodes.WaitForStartNode
 AsteroidCollisionNode   = example.nodes.AsteroidCollisionNode
 GameNode                = example.nodes.GameNode
 
@@ -18,21 +18,22 @@ class example.systems.WaitForStartSystem extends ash.core.System
 
   addToEngine: (engine) ->
     @engine = engine
-    @waitNodes = engine.getNodeList(WaitForStartSystem)
+    @waitNodes = engine.getNodeList(WaitForStartNode)
     @gameNodes = engine.getNodeList(GameNode)
     @asteroids = engine.getNodeList(AsteroidCollisionNode)
-    return
+    return # Void
 
   removeFromEngine: (engine) ->
     @waitNodes = null
     @gameNodes = null
-    return
+    return # Void
 
   update: (time) =>
     node = @waitNodes.head
     game = @gameNodes.head
+
     if (node and node.wait.startGame and game)
-      asteroid = asteroids.head
+      asteroid = @asteroids.head
       while asteroid
         @creator.destroyEntity(asteroid.entity)
         asteroid = asteroid.next
@@ -40,4 +41,4 @@ class example.systems.WaitForStartSystem extends ash.core.System
       game.state.setForStart()
       node.wait.startGame = false
       @engine.removeEntity(node.entity)
-    return
+    return # Void

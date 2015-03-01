@@ -45,6 +45,7 @@ BulletView            = example.graphics.BulletView
 HudView               = example.graphics.HudView
 SpaceshipDeathView    = example.graphics.SpaceshipDeathView
 SpaceshipView         = example.graphics.SpaceshipView
+WaitForStartView      = example.graphics.WaitForStartView
 
 ###
  * Box2D subset supported by cocoon's IDTK_SRV_BOX2D:
@@ -88,7 +89,7 @@ class example.EntityCreator
 
   createGame: () ->
 
-    hud = new HudView()
+    hud = new HudView(@graphics)
 
     gameEntity = new ash.core.Entity('game')
     .add(new GameState())
@@ -102,7 +103,7 @@ class example.EntityCreator
 
     if not @waitEntity
 
-      waitView = new WaitForStartView()
+      waitView = new WaitForStartView(@graphics)
       @waitEntity = new ash.core.Entity('wait')
       .add(new WaitForStart(waitView))
       .add(new Display(waitView))

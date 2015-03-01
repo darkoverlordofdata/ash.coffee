@@ -8,8 +8,9 @@ class example.components.GameState
   points: 0
   playing: false
 
-  constructor: () ->
+  setForStart: () ->
     @lives = 3
     @level = 0
     @points = 0
     @playing = true
+    return

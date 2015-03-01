@@ -18,10 +18,10 @@ class example.systems.MovementSystem extends ash.tools.ListIteratingSystem
     position.position.y += motion.velocity.y * time
 
     # check boundaries
-    position.position.x += @gameState.width  if position.position.x < 0
-    position.position.x -= @gameState.width  if position.position.x > @gameState.width
-    position.position.y += @gameState.height  if position.position.y < 0
-    position.position.y -= @gameState.height  if position.position.y > @gameState.height
+    position.position.x += @config.width  if position.position.x < 0
+    position.position.x -= @config.width  if position.position.x > @config.width
+    position.position.y += @config.height  if position.position.y < 0
+    position.position.y -= @config.height  if position.position.y > @config.height
     position.rotation += motion.angularVelocity * time
     if motion.damping > 0
       xDamp = Math.abs(Math.cos(position.rotation) * motion.damping * time)
@@ -38,5 +38,5 @@ class example.systems.MovementSystem extends ash.tools.ListIteratingSystem
         motion.velocity.y += yDamp
       else
         motion.velocity.y = 0
-    return
+    return # Void
 

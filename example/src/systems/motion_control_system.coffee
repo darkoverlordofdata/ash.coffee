@@ -30,6 +30,5 @@ class example.systems.MotionControlSystem extends ash.tools.ListIteratingSystem
 
     physics.body.ApplyForce(new b2Vec2(100, 100), physics.body.GetWorldCenter()) if left
     physics.body.ApplyForce(new b2Vec2(-100, -100), physics.body.GetWorldCenter()) if right
-
-    return
+    return # Void
 
