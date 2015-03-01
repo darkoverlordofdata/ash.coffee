@@ -87,6 +87,14 @@ module.exports = ->
             standalone: $libName
         cwd: __dirname
         src: ["tmp/lib/index.js"]
+        dest: "dist/#{$packageName}.js"
+      web:
+        options:
+          browserifyOptions:
+            debug: true
+            standalone: $libName
+        cwd: __dirname
+        src: ["tmp/lib/index.js"]
         dest: "web/packages/#{$packageName}/#{$packageName}.js"
       example:
         options:
@@ -102,6 +110,10 @@ module.exports = ->
     ###
     uglify:
       dist:
+        cwd: __dirname
+        src: ["dist/#{$packageName}.js"]
+        dest: "dist/#{$packageName}.min.js"
+      web:
         cwd: __dirname
         src: ["web/packages/#{$packageName}/#{$packageName}.js"]
         dest: "web/packages/#{$packageName}/#{$packageName}.min.js"
