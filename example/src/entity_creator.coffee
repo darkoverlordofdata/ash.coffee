@@ -47,27 +47,29 @@ SpaceshipDeathView    = example.graphics.SpaceshipDeathView
 SpaceshipView         = example.graphics.SpaceshipView
 WaitForStartView      = example.graphics.WaitForStartView
 
+Entity                = ash.core.Entity
+EntityStateMachine    = ash.fsm.EntityStateMachine
 ###
  * Box2D subset supported by cocoon's IDTK_SRV_BOX2D:
 ###
-b2Mat22               = Box2D.Common.Math.b2Mat22                 # 2 x 2 Matrix
-b2Math                = Box2D.Common.Math.b2Math                  # ??
-b2Transform           = Box2D.Common.Math.b2Transform             # A transform contains translation and rotation.
-b2Vec2                = Box2D.Common.Math.b2Vec2                  # A 2D column vector.
-b2Body                = Box2D.Dynamics.b2Body                     # A rigid body.
-b2BodyDef             = Box2D.Dynamics.b2BodyDef                  # A body definition holds all the data needed to construct a rigid body.
-b2Contact             = Box2D.Dynamics.b2Contact
-b2ContactFilter       = Box2D.Dynamics.b2ContactFilter            # Implement this class to provide collision filtering.
-b2ContactListener     = Box2D.Dynamics.b2ContactListener          # Implement this class to get contact information.
-b2DebugDraw           = Box2D.Dynamics.b2DebugDraw                # Implement and register this class with a b2World to provide debug drawing of physics entities in your game.
-b2Fixture             = Box2D.Dynamics.b2Fixture                  # A fixture is used to attach a shape to a body for collision detection.
-b2FixtureDef          = Box2D.Dynamics.b2FixtureDef               # A fixture definition is used to create a fixture.
-b2World               = Box2D.Dynamics.b2World                    # The world class manages all physics entities, dynamic simulation, and asynchronous queries
-b2CircleShape         = Box2D.Collision.Shapes.b2CircleShape      # A circle shape.
-b2PolygonShape        = Box2D.Collision.Shapes.b2PolygonShape     # Convex polygon.
-b2DistanceJointDef    = Box2D.Dynamics.Joints.b2DistanceJointDef  # Distance joint definition.
-b2Joint               = Box2D.Dynamics.Joints.b2Joint             # The base joint class.
-b2RevoluteJointDef    = Box2D.Dynamics.Joints.b2RevoluteJointDef  # Revolute joint definition.
+#b2Mat22               = Box2D.Common.Math.b2Mat22                 # 2 x 2 Matrix
+#b2Math                = Box2D.Common.Math.b2Math                  # ??
+#b2Transform           = Box2D.Common.Math.b2Transform             # A transform contains translation and rotation.
+#b2Vec2                = Box2D.Common.Math.b2Vec2                  # A 2D column vector.
+#b2Body                = Box2D.Dynamics.b2Body                     # A rigid body.
+#b2BodyDef             = Box2D.Dynamics.b2BodyDef                  # A body definition holds all the data needed to construct a rigid body.
+#b2Contact             = Box2D.Dynamics.b2Contact
+#b2ContactFilter       = Box2D.Dynamics.b2ContactFilter            # Implement this class to provide collision filtering.
+#b2ContactListener     = Box2D.Dynamics.b2ContactListener          # Implement this class to get contact information.
+#b2DebugDraw           = Box2D.Dynamics.b2DebugDraw                # Implement and register this class with a b2World to provide debug drawing of physics entities in your game.
+#b2Fixture             = Box2D.Dynamics.b2Fixture                  # A fixture is used to attach a shape to a body for collision detection.
+#b2FixtureDef          = Box2D.Dynamics.b2FixtureDef               # A fixture definition is used to create a fixture.
+#b2World               = Box2D.Dynamics.b2World                    # The world class manages all physics entities, dynamic simulation, and asynchronous queries
+#b2CircleShape         = Box2D.Collision.Shapes.b2CircleShape      # A circle shape.
+#b2PolygonShape        = Box2D.Collision.Shapes.b2PolygonShape     # Convex polygon.
+#b2DistanceJointDef    = Box2D.Dynamics.Joints.b2DistanceJointDef  # Distance joint definition.
+#b2Joint               = Box2D.Dynamics.Joints.b2Joint             # The base joint class.
+#b2RevoluteJointDef    = Box2D.Dynamics.Joints.b2RevoluteJointDef  # Revolute joint definition.
 
 class example.EntityCreator
 
@@ -87,11 +89,12 @@ class example.EntityCreator
     @engine.removeEntity entity
     return
 
+  ###
+   * Game State
+  ###
   createGame: () ->
-
     hud = new HudView(@graphics)
-
-    gameEntity = new ash.core.Entity('game')
+    gameEntity = new Entity('game')
     .add(new GameState())
     .add(new Hud(hud))
     .add(new Display(hud))
@@ -99,12 +102,13 @@ class example.EntityCreator
     @engine.addEntity gameEntity
     return gameEntity
 
+  ###
+   * Start...
+  ###
   createWaitForClick: () ->
-
     if not @waitEntity
-
       waitView = new WaitForStartView(@graphics)
-      @waitEntity = new ash.core.Entity('wait')
+      @waitEntity = new Entity('wait')
       .add(new WaitForStart(waitView))
       .add(new Display(waitView))
       .add(new Position(0, 0, 0, 0))
@@ -114,94 +118,85 @@ class example.EntityCreator
     return @waitEntity
 
 
+  ###
+   * Create an Asteroid with FSM Animation
+  ###
   createAsteroid: (radius, x, y) ->
 
-    velocityX = (Math.random() - 0.5) * 4 * (50 - radius)
-    velocityY = (Math.random() - 0.5) * 4 * (50 - radius)
-    angularVelocity = Math.random() * 2 - 1
-    damping = 0
+    asteroid = new Entity()
+    fsm = new EntityStateMachine(asteroid)
 
-    rotation = 0
-    collisionRadius = radius
+    fsm.createState('alive')
+    .add(Motion).withInstance(new Motion((Math.random() - 0.5) * 4 * (50 - radius), (Math.random() - 0.5) * 4 * (50 - radius), Math.random() * 2 - 1, 0))
+    .add(Collision).withInstance(new Collision(radius))
+    .add(Display).withInstance(new Display(new AsteroidView(@graphics, radius)))
 
-    asteroid = new ash.core.Entity()
-    .add(new Asteroid())
-    .add(new Position(x, y, rotation))
+    deathView = new AsteroidDeathView(@graphics, radius)
+    fsm.createState('destroyed')
+    .add(DeathThroes).withInstance(new DeathThroes(3))
+    .add(Display).withInstance(new Display(deathView))
+    .add(Animation).withInstance(new Animation(deathView))
+
+    asteroid
+    .add(new Asteroid(fsm))
+    .add(new Position(x, y, 0))
     .add(new Audio())
-    .add(new Motion(velocityX, velocityY, angularVelocity, damping))
-    .add(new Collision(collisionRadius))
-    .add(new Display(new AsteroidView(@graphics, radius)))
+
+    fsm.changeState('alive')
     @engine.addEntity asteroid
     return asteroid
 
+  ###
+   * Create Player Spaceship with FSM Animation
+  ###
   createSpaceship: ->
 
-    velocityX = 0
-    velocityY = 0
-    angularVelocity = 0
-    damping = 15
+    spaceship = new Entity()
+    fsm = new EntityStateMachine(spaceship)
 
-    x = 400
-    y = 300
-    rotation = 1
-    collisionRadius = 6
+    fsm.createState('playing')
+    .add(Motion).withInstance(new Motion(0, 0, 0, 15))
+    .add(MotionControls).withInstance(new MotionControls(KEY_LEFT, KEY_RIGHT, KEY_UP, 100, 3))
+    .add(Gun).withInstance(new Gun(8, 0, 0.3, 2 ))
+    .add(GunControls).withInstance(new GunControls(KEY_Z))
+    .add(Collision).withInstance(new Collision(9))
+    .add(Display).withInstance(new Display(new SpaceshipView(@graphics)))
 
-    bodyDef = new b2BodyDef()
-    bodyDef.type = b2Body.b2_dynamicBody
-    bodyDef.fixedRotation = true
-    bodyDef.position.x = x
-    bodyDef.position.y = y
-    bodyDef.linearVelocity.Set(velocityX, velocityY)
-    bodyDef.angularVelocity = angularVelocity
+    deathView = new SpaceshipDeathView(@graphics)
+    fsm.createState('destroyed')
+    .add(DeathThroes).withInstance(new DeathThroes(5))
+    .add(Display).withInstance(new Display(deathView))
+    .add(Animation).withInstance(new Animation(deathView))
 
-    vertices = [new b2Vec2(.45, 0), new b2Vec2(-.25, .25), new b2Vec2(-.25, -.25)]
-
-    fixDef = new b2FixtureDef()
-    fixDef.density = 1.0
-    fixDef.friction = 0.5
-    fixDef.restitution = 0.2
-    fixDef.shape = new b2PolygonShape()
-    fixDef.shape.SetAsArray(vertices, vertices.length)
-
-    body = @world.CreateBody(bodyDef)
-    body.CreateFixture(fixDef)
-
-    spaceship = new ash.core.Entity()
-    .add(new Spaceship())
-    .add(new Physics(body))
-    .add(new Position(x, y, rotation))
+    spaceship
+    .add(new Spaceship(fsm))
+    .add(new Physics())
+    .add(new Position(300, 225, 0))
     .add(new Audio())
-    .add(new Motion(velocityX, velocityY, angularVelocity, damping))
-    .add(new MotionControls(KEY_LEFT, KEY_RIGHT, KEY_UP, 100, 3))
-    .add(new Gun(8, 0, 0.3, 2))
-    .add(new GunControls(KEY_Z))
-    .add(new Collision(collisionRadius))
-    .add(new Display(new SpaceshipView(@graphics)))
-    body.SetUserData(spaceship)
+
+    fsm.changeState('playing')
     @engine.addEntity spaceship
     return spaceship
 
+
+  ###
+   * Create a Bullet
+  ###
   createUserBullet: (gun, parentPosition) ->
 
     cos = Math.cos(parentPosition.rotation)
     sin = Math.sin(parentPosition.rotation)
 
-    velocityX = cos * 150
-    velocityY = sin * 150
-    angularVelocity = 0
-    damping = 0
-
     x = cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x
     y = sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y
-    rotation = 0
-    collisionRadius = 0
 
-    bullet = new ash.core.Entity()
+    bullet = new Entity()
     .add(new Bullet(gun.bulletLifetime))
-    .add(new Position(x, y, rotation))
-    .add(new Collision(collisionRadius))
-    .add(new Motion(velocityX, velocityY, angularVelocity, damping))
+    .add(new Position(x, y, 0))
+    .add(new Collision(0))
+    .add(new Motion(cos * 150, sin * 150, 0, 0))
     .add(new Display(new BulletView(@graphics)))
-    @engine.addEntity bullet
+    @engine.addEntity(bullet)
     return bullet
+
 

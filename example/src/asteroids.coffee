@@ -64,7 +64,7 @@ class example.Asteroids
     @config.height = height
     @config.width = width
 
-    @engine.addSystem(new PhysicsSystem(@world), SystemPriorities.preUpdate)
+#    @engine.addSystem(new PhysicsSystem(@world), SystemPriorities.preUpdate)
     @engine.addSystem(new WaitForStartSystem(@creator), SystemPriorities.preUpdate );
     @engine.addSystem(new GameManager(@creator, @config), SystemPriorities.preUpdate)
     @engine.addSystem(new MotionControlSystem(@keyPoll), SystemPriorities.update)

@@ -28,7 +28,7 @@ class example.systems.MotionControlSystem extends ash.tools.ListIteratingSystem
       motion.velocity.y += Math.sin(position.rotation) * control.accelerationRate * time
 
 
-    physics.body.ApplyForce(new b2Vec2(100, 100), physics.body.GetWorldCenter()) if left
-    physics.body.ApplyForce(new b2Vec2(-100, -100), physics.body.GetWorldCenter()) if right
+#    physics.body.ApplyForce(new b2Vec2(100, 100), physics.body.GetWorldCenter()) if left
+#    physics.body.ApplyForce(new b2Vec2(-100, -100), physics.body.GetWorldCenter()) if right
     return # Void
 

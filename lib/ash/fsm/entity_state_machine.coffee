@@ -46,6 +46,17 @@ class ash.fsm.EntityStateMachine
     @states = new Dictionary()
 
   ###
+		 * Add a state to this state machine.
+		 *
+		 * @param name The name of this state - used to identify it later in the changeState method call.
+		 * @param state The state.
+		 * @return This state machine, so methods can be chained.
+  ###
+  addState: (name, state) ->
+    @states[name] = state
+    return this
+
+  ###
    * Create a new state in this state machine.
    *
    * @param name The name of the new state - used to identify it later in the changeState method call.
@@ -54,7 +65,7 @@ class ash.fsm.EntityStateMachine
   ###
   createState: (name) ->
     state = new EntityState()
-    @states.push(state)
+    @states[name] = state
     return state
 
   ###
@@ -87,5 +98,5 @@ class ash.fsm.EntityStateMachine
       toAdd = newState.providers
 
     for type of toAdd
-      @entity.add(toAdd[type].getComponent(), type)
+      @entity.add(toAdd[type].getComponent()) #, type)
     currentState = newState
