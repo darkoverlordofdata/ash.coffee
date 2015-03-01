@@ -33,8 +33,8 @@ class example.systems.PhysicsSystem extends ash.core.System
     return # Void
 
   updateNode: (node, time) =>
-    if @count is 1
-      console.log node.physics.body.m_xf.position.x
+    #if @count is 1
+      #console.log node.physics.body.m_xf.position.x
     @count++
     if @count is 60 then @count = 0
 

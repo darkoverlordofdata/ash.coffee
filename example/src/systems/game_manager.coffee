@@ -43,7 +43,6 @@ class example.systems.GameManager extends ash.core.System
             asteroid = asteroid.next
           if clearToAddSpaceship
             @creator.createSpaceship()
-            node.state.lives--
         else
           node.state.playing = false
           @creator.createWaitForClick()
@@ -63,8 +62,6 @@ class example.systems.GameManager extends ash.core.System
             position = new Point(Math.random() * @config.width, Math.random() * @config.height)
             break unless position.distanceTo(spaceship.position.position) <= 80
 
-
-          console.log "createAsteroid #{position.x},#{position.y}"
           @creator.createAsteroid 30, position.x, position.y
           ++i
     return # Void

@@ -18,7 +18,6 @@ class example.graphics.WaitForStartView
   click: null
   
   constructor: (@graphic) ->
-    console.log 'Initialize Class WaitForStartView'
     @click = new Signal0()
     @gameOver = @createGameOver
     @clickToStart = @createClickToStart
