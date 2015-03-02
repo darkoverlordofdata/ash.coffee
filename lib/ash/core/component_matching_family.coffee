@@ -91,7 +91,9 @@ class ash.core.ComponentMatchingFamily #extends Family
    * remove it if so.
   ###
   componentRemovedFromEntity: (entity, componentClass) ->
-    if componentClass.name of @components
+    name = if componentClass.name? then componentClass.name else componentClass
+#    name = if 'string' is typeof componentClass then componentClass else componentClass.name
+    if name of @components
       @removeIfMatch(entity)
     return # Void
 

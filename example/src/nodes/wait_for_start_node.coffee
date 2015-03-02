@@ -1,10 +1,10 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.nodes.WaitForStartNode extends ash.core.Node
+class asteroids.nodes.WaitForStartNode extends ash.core.Node
 
   @components:
-    wait : example.components.WaitForStart
+    wait : asteroids.components.WaitForStart
 
   wait : null

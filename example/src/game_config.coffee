@@ -14,9 +14,9 @@
 # GameConfig
 #
 'use strict'
-example = require('../../example')
+asteroids = require('../../example')
 
-class example.GameConfig
+class asteroids.GameConfig
 
   width: 0
   height: 0

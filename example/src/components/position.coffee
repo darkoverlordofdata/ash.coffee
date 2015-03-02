@@ -1,8 +1,8 @@
 'use strict'
-example = require('../../../example')
-Point = example.graphics.Point
+asteroids = require('../../../example')
+Point = asteroids.ui.Point
 
-class example.components.Position
+class asteroids.components.Position
 
   position: null
   rotation: 0

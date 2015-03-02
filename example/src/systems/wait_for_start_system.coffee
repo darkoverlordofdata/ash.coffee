@@ -1,12 +1,12 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-WaitForStartNode        = example.nodes.WaitForStartNode
-AsteroidCollisionNode   = example.nodes.AsteroidCollisionNode
-GameNode                = example.nodes.GameNode
+WaitForStartNode        = asteroids.nodes.WaitForStartNode
+AsteroidCollisionNode   = asteroids.nodes.AsteroidCollisionNode
+GameNode                = asteroids.nodes.GameNode
 
-class example.systems.WaitForStartSystem extends ash.core.System
+class asteroids.systems.WaitForStartSystem extends ash.core.System
 
   engine: null
   creator: null

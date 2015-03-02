@@ -39,7 +39,7 @@ class ash.fsm.EntityState
    * @return The component mapping to use when setting the provider for the component
   ###
   add: (type) ->
-    return new StateComponentMapping(this, type)
+    return new StateComponentMapping(this, type.name)
 
   ###
    * Get the ComponentProvider for a particular component type.

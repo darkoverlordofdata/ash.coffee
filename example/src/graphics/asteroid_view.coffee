@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.graphics.AsteroidView
+class asteroids.graphics.AsteroidView
 
   x: 0
   y: 0
@@ -28,7 +28,6 @@ class example.graphics.AsteroidView
         y: posY
 
       angle += Math.random() * 0.5
-    @draw()
 
   draw: ->
     graphic = @graphic

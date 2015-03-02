@@ -120,12 +120,14 @@ class ash.core.Entity
    * @return the component, or null if the component doesn't exist in the entity
   ###
   remove: (componentClass) ->
-    name = if 'string' is typeof componentClass then componentClass else componentClass.name
+    name = if componentClass.name? then componentClass.name else componentClass
+#    name = if 'string' is typeof componentClass then componentClass else componentClass.name
     component = @components[name]
-    if (component isnt null)
+    if (component)
       delete @components[name]
       @componentRemoved.dispatch(this, name)
       return component
+
     return null
 
   ###

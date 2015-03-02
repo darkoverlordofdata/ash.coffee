@@ -2,9 +2,82 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6712069e-648c-4d4f-9349-eba564fd5c35" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/example/src/ui/point.coffee" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/example/src/ui/shape.coffee" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/example/src/components/physics.coffee" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/example/src/nodes/physics_node.coffee" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/example/src/systems/physics_system.coffee" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/example/src/graphics/point.coffee" afterPath="$PROJECT_DIR$/example/src/ui/container.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/animation.coffee" afterPath="$PROJECT_DIR$/example/src/components/animation.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/animation_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/animation_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/animation_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/animation_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/ash.js" afterPath="$PROJECT_DIR$/dist/ash.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/ash.min.js" afterPath="$PROJECT_DIR$/dist/ash.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/asteroid.coffee" afterPath="$PROJECT_DIR$/example/src/components/asteroid.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/asteroid_collision_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/asteroid_collision_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/asteroid_death_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/asteroid_death_view.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/asteroid_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/asteroid_view.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/asteroids.coffee" afterPath="$PROJECT_DIR$/example/src/asteroids.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/audio.coffee" afterPath="$PROJECT_DIR$/example/src/components/audio.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/audio_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/audio_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/audio_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/audio_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/bullet.coffee" afterPath="$PROJECT_DIR$/example/src/components/bullet.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/bullet_age_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/bullet_age_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/bullet_age_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/bullet_age_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/bullet_collision_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/bullet_collision_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/bullet_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/bullet_view.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/collision.coffee" afterPath="$PROJECT_DIR$/example/src/components/collision.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/collision_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/collision_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/death_throes.coffee" afterPath="$PROJECT_DIR$/example/src/components/death_throes.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/death_throes_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/death_throes_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/death_throes_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/death_throes_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/display.coffee" afterPath="$PROJECT_DIR$/example/src/components/display.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/engine.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/engine.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/entity.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/entity.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/entity_creator.coffee" afterPath="$PROJECT_DIR$/example/src/entity_creator.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/entity_list.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/entity_list.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/fsm/entity_state.coffee" afterPath="$PROJECT_DIR$/lib/ash/fsm/entity_state.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/fsm/entity_state_machine.coffee" afterPath="$PROJECT_DIR$/lib/ash/fsm/entity_state_machine.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/game_config.coffee" afterPath="$PROJECT_DIR$/example/src/game_config.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/game_manager.coffee" afterPath="$PROJECT_DIR$/example/src/systems/game_manager.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/game_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/game_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/game_state.coffee" afterPath="$PROJECT_DIR$/example/src/components/game_state.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/gun.coffee" afterPath="$PROJECT_DIR$/example/src/components/gun.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/gun_control_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/gun_control_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/gun_control_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/gun_control_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/gun_controls.coffee" afterPath="$PROJECT_DIR$/example/src/components/gun_controls.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/hud.coffee" afterPath="$PROJECT_DIR$/example/src/components/hud.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/hud_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/hud_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/hud_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/hud_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/hud_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/hud_view.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/index.coffee" afterPath="$PROJECT_DIR$/example/index.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/input/key_poll.coffee" afterPath="$PROJECT_DIR$/example/src/input/key_poll.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/main.coffee" afterPath="$PROJECT_DIR$/example/src/main.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/motion.coffee" afterPath="$PROJECT_DIR$/example/src/components/motion.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/motion_control_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/motion_control_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/motion_control_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/motion_control_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/motion_controls.coffee" afterPath="$PROJECT_DIR$/example/src/components/motion_controls.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/movement_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/movement_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/movement_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/movement_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/node_list.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/node_list.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/node_pool.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/node_pool.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/position.coffee" afterPath="$PROJECT_DIR$/example/src/components/position.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/render_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/render_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/render_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/render_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/signals/signal2.coffee" afterPath="$PROJECT_DIR$/lib/ash/signals/signal2.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/signals/signal_base.coffee" afterPath="$PROJECT_DIR$/lib/ash/signals/signal_base.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/spaceship.coffee" afterPath="$PROJECT_DIR$/example/src/components/spaceship.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/spaceship_collision_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/spaceship_collision_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/spaceship_death_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/spaceship_death_view.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/spaceship_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/spaceship_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/spaceship_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/spaceship_view.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ash/core/system_list.coffee" afterPath="$PROJECT_DIR$/lib/ash/core/system_list.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/system_priorities.coffee" afterPath="$PROJECT_DIR$/example/src/systems/system_priorities.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/components/wait_for_start.coffee" afterPath="$PROJECT_DIR$/example/src/components/wait_for_start.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/nodes/wait_for_start_node.coffee" afterPath="$PROJECT_DIR$/example/src/nodes/wait_for_start_node.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/systems/wait_for_start_system.coffee" afterPath="$PROJECT_DIR$/example/src/systems/wait_for_start_system.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/example/src/graphics/wait_for_start_view.coffee" afterPath="$PROJECT_DIR$/example/src/graphics/wait_for_start_view.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="template.iws" />
@@ -32,38 +105,51 @@
       <file leaf-file-name="example.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/example.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="486">
-              <caret line="6" column="72" selection-start-line="6" selection-start-column="72" selection-end-line="6" selection-end-column="72" />
+            <state vertical-scroll-proportion="-2.6666667" vertical-offset="0" max-vertical-offset="486">
+              <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="entity_creator.coffee" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/readme.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.6242775" vertical-offset="216" max-vertical-offset="1044">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="spaceship_death_view.coffee" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/src/graphics/spaceship_death_view.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1191" max-vertical-offset="1566">
+              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="asteroid_death_view.coffee" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/example/src/graphics/asteroid_death_view.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="993" max-vertical-offset="1368">
+              <caret line="62" column="23" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="entity_creator.coffee" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/example/src/entity_creator.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.5966851" vertical-offset="594" max-vertical-offset="3366">
-              <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="collision_system.coffee" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/src/systems/collision_system.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="700" max-vertical-offset="1404">
-              <caret line="44" column="37" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="spaceship.coffee" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/example/src/components/spaceship.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
-              <caret line="8" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2374" max-vertical-offset="3924">
+              <caret line="148" column="58" selection-start-line="148" selection-start-column="58" selection-end-line="148" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -77,57 +163,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/example/src/nodes/bullet_age.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/bullet_collision.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/death_throes_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/gun_control_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/hud_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/motion_control_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/movement_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/physics_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/render_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/spaceship_collision_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/wait_for_start_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/graphics/asteroid_death_view.coffee" />
-        <option value="$PROJECT_DIR$/example/src/graphics/spaceship_death_view.coffee" />
-        <option value="$PROJECT_DIR$/example/src/graphics/click_to_start_view.coffee" />
-        <option value="$PROJECT_DIR$/example/src/components/position.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/bullet_collision_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/nodes/spaceship_node.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/wait_for-start_system.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/tools/list_iterating_system.coffee" />
-        <option value="$PROJECT_DIR$/web/packages/example/example.js" />
-        <option value="$PROJECT_DIR$/example/src/systems/animation_system.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/audio_system.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/death_throes_system.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/gun_control_system.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/hud_system.coffee" />
-        <option value="$PROJECT_DIR$/example/src/components/wait_for_start.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/system_priorities.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/core/engine.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/render_system.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/core/node_list.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/bullet_age_system.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/wait_for_start_system.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/movement_system.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/physics_system.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/tick/frame_tick_provider.coffee" />
-        <option value="$PROJECT_DIR$/example/src/components/game_state.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/game_manager.coffee" />
-        <option value="$PROJECT_DIR$/example/index.coffee" />
-        <option value="$PROJECT_DIR$/readme.md" />
-        <option value="$PROJECT_DIR$/bower.json" />
-        <option value="$PROJECT_DIR$/Gruntfile.coffee" />
-        <option value="$PROJECT_DIR$/example/src/graphics/hud_view.coffee" />
-        <option value="$PROJECT_DIR$/example/src/graphics/wait_for_start_view.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/fsm/entity_state.coffee" />
         <option value="$PROJECT_DIR$/lib/index.coffee" />
-        <option value="$PROJECT_DIR$/example/src/asteroids.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/motion_control_system.coffee" />
-        <option value="$PROJECT_DIR$/lib/ash/fsm/entity_state_machine.coffee" />
-        <option value="$PROJECT_DIR$/example/src/systems/collision_system.coffee" />
         <option value="$PROJECT_DIR$/example/src/components/asteroid.coffee" />
+        <option value="$PROJECT_DIR$/example/src/components/animation.coffee" />
+        <option value="$PROJECT_DIR$/example/src/graphics/point.coffee" />
+        <option value="$PROJECT_DIR$/example/src/asteroids.coffee" />
+        <option value="$PROJECT_DIR$/example/src/components/gun.coffee" />
+        <option value="$PROJECT_DIR$/example/src/ui/shape.coffee" />
+        <option value="$PROJECT_DIR$/example/src/ui/container.coffee" />
+        <option value="$PROJECT_DIR$/example/src/graphics/bullet_view.coffee" />
+        <option value="$PROJECT_DIR$/example/src/graphics/hud_view.coffee" />
+        <option value="$PROJECT_DIR$/example/src/systems/render_system.coffee" />
+        <option value="$PROJECT_DIR$/example/src/graphics/asteroid_view.coffee" />
+        <option value="$PROJECT_DIR$/example/src/graphics/spaceship_view.coffee" />
+        <option value="$PROJECT_DIR$/example/src/ui/point.coffee" />
+        <option value="$PROJECT_DIR$/example/src/systems/game_manager.coffee" />
+        <option value="$PROJECT_DIR$/example/src/graphics/wait_for_start_view.coffee" />
+        <option value="$PROJECT_DIR$/example/index.coffee" />
+        <option value="$PROJECT_DIR$/example/src/nodes/motion_control_node.coffee" />
+        <option value="$PROJECT_DIR$/example/src/systems/motion_control_system.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/family.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/component_instance_provider.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/component_singleton_provider.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/component_type_provider.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/dynamic_component_provider.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/dynamic_system_provider.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/engine_state.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/engine_state_machine.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/entity_state.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/entity_state_machine.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/state_component_mapping.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/state_system_mapping.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/system_singleton_provider.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/fsm/system_instance_provider.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/tick/frame_tick_provider.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/tools/component_pool.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/tools/list_iterating_system.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/entity_list.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/node_list.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/system_list.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/signals/signal_base.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/signals/signal2.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/entity.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/node_pool.coffee" />
+        <option value="$PROJECT_DIR$/example/src/systems/death_throes_system.coffee" />
+        <option value="$PROJECT_DIR$/example/src/systems/collision_system.coffee" />
         <option value="$PROJECT_DIR$/example/src/entity_creator.coffee" />
+        <option value="$PROJECT_DIR$/lib/ash/core/engine.coffee" />
+        <option value="$PROJECT_DIR$/example/src/systems/animation_system.coffee" />
+        <option value="$PROJECT_DIR$/example/src/graphics/spaceship_death_view.coffee" />
+        <option value="$PROJECT_DIR$/example/src/graphics/asteroid_death_view.coffee" />
       </list>
     </option>
   </component>
@@ -258,7 +344,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -287,110 +372,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="systems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="input" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ash.coffee" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="graphics" />
+              <option name="myItemId" value="web" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -404,18 +392,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/example/src/ui" />
       <recent name="$PROJECT_DIR$/example/src/systems" />
       <recent name="$PROJECT_DIR$/example/src/graphics" />
       <recent name="$PROJECT_DIR$/example/src/nodes" />
       <recent name="$PROJECT_DIR$/packages" />
-      <recent name="$PROJECT_DIR$/bin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/example/src/ui" />
       <recent name="$PROJECT_DIR$/bin" />
       <recent name="$PROJECT_DIR$/web/packages/box2d" />
       <recent name="$PROJECT_DIR$/example/src/graphics" />
       <recent name="$PROJECT_DIR$/test/lib/ash" />
-      <recent name="$PROJECT_DIR$/lib/ash/core" />
     </key>
   </component>
   <component name="RunManager" selected="Bash.compress.sh">
@@ -705,7 +693,13 @@
       <option name="project" value="LOCAL" />
       <updated>1425195554661</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="daily">
+      <created>1425230218279</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1425230218279</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -714,7 +708,6 @@
     <layout>
       <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -727,6 +720,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -770,57 +764,25 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/ash/core/engine.coffee">
+    <entry file="file://$PROJECT_DIR$/web/example.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.768" vertical-offset="1620" max-vertical-offset="5094">
-          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/core/node_list.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2320442" vertical-offset="1284" max-vertical-offset="5238">
-          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/systems/bullet_age_system.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.432" vertical-offset="0" max-vertical-offset="504">
-          <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="486">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/src/systems/gun_control_system.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.096" vertical-offset="108" max-vertical-offset="576">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/systems/death_throes_system.coffee">
+    <entry file="file://$PROJECT_DIR$/example/src/systems/hud_system.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.712" vertical-offset="93" max-vertical-offset="468">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/systems/wait_for_start_system.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2460733" vertical-offset="327" max-vertical-offset="900">
-          <caret line="26" column="21" selection-start-line="26" selection-start-column="21" selection-end-line="26" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/nodes/movement_node.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="573">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -828,13 +790,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/example/src/systems/movement_system.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="864">
-          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+        <state vertical-scroll-proportion="-0.4712042" vertical-offset="270" max-vertical-offset="864">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/components/position.coffee">
+    <entry file="file://$PROJECT_DIR$/example/src/systems/render_system.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56020945" vertical-offset="471" max-vertical-offset="1044">
+          <caret line="44" column="37" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/systems/system_priorities.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -842,7 +812,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/components/hud.coffee">
+    <entry file="file://$PROJECT_DIR$/example/src/components/motion_controls.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="573">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -850,338 +820,278 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/components/collision.coffee">
+    <entry file="file://$PROJECT_DIR$/example/src/graphics/wait_for_start_view.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="573">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/components/death_throes.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="573">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/components/wait_for_start.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2827225" vertical-offset="0" max-vertical-offset="573">
-          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/graphics/point.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="432">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/tick/frame_tick_provider.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.243094" vertical-offset="540" max-vertical-offset="1296">
-          <caret line="55" column="43" selection-start-line="55" selection-start-column="43" selection-end-line="55" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/systems/render_system.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.184" vertical-offset="21" max-vertical-offset="972">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/components/game_state.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.328" vertical-offset="21" max-vertical-offset="396">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/systems/hud_system.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.528" vertical-offset="0" max-vertical-offset="414">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bower.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.3448275" vertical-offset="0" max-vertical-offset="612">
+        <state vertical-scroll-proportion="0.5733333" vertical-offset="253" max-vertical-offset="1584">
           <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LICENSE">
+    <entry file="file://$PROJECT_DIR$/example/src/systems/wait_for_start_system.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="594">
+        <state vertical-scroll-proportion="-0.432" vertical-offset="162" max-vertical-offset="900">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/license.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="544">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Gruntfile.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.376" vertical-offset="1803" max-vertical-offset="4500">
-          <caret line="108" column="10" selection-start-line="108" selection-start-column="10" selection-end-line="108" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/ash.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.116022" vertical-offset="2214" max-vertical-offset="62496">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dist/ash.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="362">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/main.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.424" vertical-offset="363" max-vertical-offset="774">
-          <caret line="29" column="61" selection-start-line="29" selection-start-column="20" selection-end-line="29" selection-end-column="61" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/index.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.312" vertical-offset="108" max-vertical-offset="1764">
-          <caret line="75" column="43" selection-start-line="75" selection-start-column="43" selection-end-line="75" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/systems/game_manager.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29834256" vertical-offset="702" max-vertical-offset="1458">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/graphics/hud_view.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.184" vertical-offset="831" max-vertical-offset="1260">
-          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6286765" vertical-offset="0" max-vertical-offset="1044">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/graphics/wait_for_start_view.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18848167" vertical-offset="0" max-vertical-offset="1620">
-          <caret line="6" column="39" selection-start-line="6" selection-start-column="39" selection-end-line="6" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/graphics/asteroid_view.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.2827225" vertical-offset="162" max-vertical-offset="1026">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/graphics/spaceship_view.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.16230367" vertical-offset="93" max-vertical-offset="666">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/input/key_poll.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/graphics/bullet_view.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="576">
-          <caret line="17" column="18" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/index.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1119" max-vertical-offset="1710">
-          <caret line="72" column="46" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/systems/physics_system.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.008" vertical-offset="525" max-vertical-offset="954">
-          <caret line="29" column="14" selection-start-line="29" selection-start-column="14" selection-end-line="29" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/asteroids.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="993" max-vertical-offset="1962">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/graphics/asteroid_death_view.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.09424084" vertical-offset="54" max-vertical-offset="1026">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/fsm/engine_state.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.19371727" vertical-offset="111" max-vertical-offset="1494">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/fsm/engine_state_machine.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="885" max-vertical-offset="1836">
-          <caret line="65" column="4" selection-start-line="65" selection-start-column="4" selection-end-line="65" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.432" vertical-offset="1296" max-vertical-offset="1746">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/src/systems/motion_control_system.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37172773" vertical-offset="147" max-vertical-offset="720">
-          <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.8429319" vertical-offset="21" max-vertical-offset="648">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/fsm/component_instance_provider.coffee">
+    <entry file="file://$PROJECT_DIR$/example/src/nodes/motion_control_node.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.19371727" vertical-offset="111" max-vertical-offset="1008">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.4712042" vertical-offset="0" max-vertical-offset="573">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/fsm/entity_state.coffee">
+    <entry file="file://$PROJECT_DIR$/example/src/nodes/spaceship_collision_node.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18324608" vertical-offset="597" max-vertical-offset="1170">
-          <caret line="39" column="5" selection-start-line="39" selection-start-column="5" selection-end-line="39" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/fsm/state_component_mapping.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.6073298" vertical-offset="1641" max-vertical-offset="2214">
-          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/core/entity.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.7964287" vertical-offset="1566" max-vertical-offset="2952">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ash/fsm/entity_state_machine.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.616" vertical-offset="1353" max-vertical-offset="1926">
-          <caret line="88" column="36" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/example/src/components/spaceship.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="252">
-          <caret line="8" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.48" vertical-offset="0" max-vertical-offset="414">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/src/components/asteroid.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12565444" vertical-offset="0" max-vertical-offset="573">
-          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/components/spaceship.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.384" vertical-offset="0" max-vertical-offset="375">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/nodes/asteroid_collision_node.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="396">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/tools/list_iterating_system.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0828729" vertical-offset="754" max-vertical-offset="1656">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/signals/listener_node_pool.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1206">
+          <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/signals/signal2.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4973822" vertical-offset="57" max-vertical-offset="630">
+          <caret line="19" column="26" selection-start-line="19" selection-start-column="26" selection-end-line="19" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/signals/signal_base.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3560209" vertical-offset="1227" max-vertical-offset="3132">
+          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/entity_list.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58214283" vertical-offset="628" max-vertical-offset="1188">
+          <caret line="53" column="20" selection-start-line="53" selection-start-column="19" selection-end-line="53" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/family.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1368">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/node.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.21989529" vertical-offset="0" max-vertical-offset="573">
+          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/node_list.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2339286" vertical-offset="1055" max-vertical-offset="5238">
+          <caret line="97" column="19" selection-start-line="97" selection-start-column="18" selection-end-line="97" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/system.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36474696" vertical-offset="241" max-vertical-offset="1476">
+          <caret line="25" column="77" selection-start-line="25" selection-start-column="77" selection-end-line="25" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/system_list.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3892857" vertical-offset="1042" max-vertical-offset="1602">
+          <caret line="70" column="20" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/components/animation.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/node_pool.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="847" max-vertical-offset="1530">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/systems/death_throes_system.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.768" vertical-offset="0" max-vertical-offset="468">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/engine.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="2773" max-vertical-offset="5040">
+          <caret line="161" column="0" selection-start-line="161" selection-start-column="0" selection-end-line="161" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/component_matching_family.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="2755" max-vertical-offset="3132">
+          <caret line="160" column="15" selection-start-line="160" selection-start-column="15" selection-end-line="160" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/fsm/entity_state_machine.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334" vertical-offset="1567" max-vertical-offset="1944">
+          <caret line="94" column="17" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ash/core/entity.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5801105" vertical-offset="1968" max-vertical-offset="2988">
+          <caret line="121" column="23" selection-start-line="121" selection-start-column="23" selection-end-line="121" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/systems/animation_system.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.672" vertical-offset="0" max-vertical-offset="378">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/src/systems/collision_system.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="700" max-vertical-offset="1404">
-          <caret line="44" column="37" selection-start-line="44" selection-start-column="37" selection-end-line="44" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.40331492" vertical-offset="1762" max-vertical-offset="2502">
+          <caret line="106" column="0" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/example.html">
+    <entry file="file://$PROJECT_DIR$/example/src/asteroids.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="486">
-          <caret line="6" column="72" selection-start-line="6" selection-start-column="72" selection-end-line="6" selection-end-column="72" />
+        <state vertical-scroll-proportion="0.424" vertical-offset="1065" max-vertical-offset="1872">
+          <caret line="68" column="27" selection-start-line="68" selection-start-column="27" selection-end-line="68" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/graphics/spaceship_death_view.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="795" max-vertical-offset="1566">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/example/src/graphics/asteroid_death_view.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="993" max-vertical-offset="1368">
+          <caret line="62" column="23" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/example/src/entity_creator.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.5966851" vertical-offset="594" max-vertical-offset="3366">
-          <caret line="21" column="50" selection-start-line="21" selection-start-column="50" selection-end-line="21" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2374" max-vertical-offset="3924">
+          <caret line="148" column="58" selection-start-line="148" selection-start-column="58" selection-end-line="148" selection-end-column="58" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/example.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.6666667" vertical-offset="0" max-vertical-offset="486">
+          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6242775" vertical-offset="216" max-vertical-offset="1044">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
       </provider>
     </entry>
   </component>

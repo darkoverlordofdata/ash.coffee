@@ -1,12 +1,12 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.nodes.HudNode extends ash.core.Node
+class asteroids.nodes.HudNode extends ash.core.Node
 
   @components:
-    state : example.components.GameState
-    hud   : example.components.Hud
+    state : asteroids.components.GameState
+    hud   : asteroids.components.Hud
 
   state : null
   hud   : null

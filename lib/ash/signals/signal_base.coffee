@@ -18,7 +18,6 @@ ash = require('../../../lib')
 
 ListenerNodePool = ash.signals.ListenerNodePool
 
-
 class ash.signals.SignalBase
 
   head: null
@@ -26,12 +25,16 @@ class ash.signals.SignalBase
 
   numListeners: 0
 
+  keys: null
+  nodes: null
   listenerNodePool: null
   toAddHead: null
   toAddTail: null
   dispatching: false
 
   constructor: ->
+    @nodes = []
+    @keys = []
     @listenerNodePool = new ListenerNodePool()
     @numListeners = 0
 
@@ -41,9 +44,9 @@ class ash.signals.SignalBase
 
   endDispatch: () ->
     @dispatching = false
-    if (@toAddHead isnt null)
+    if (@toAddHead)
 
-      if (@head is null)
+      if (not @head)
         @head = @toAddHead
         @tail = @toAddTail
 
@@ -77,25 +80,26 @@ class ash.signals.SignalBase
     return node
 
 
-  nodeExists: (listener) ->
-    return @getNode(listener) isnt null
-
   add: (listener) ->
-    if (@nodeExists(listener))
+    if (@keys.indexOf(listener) isnt -1)
       return
 
     node = @listenerNodePool.get()
     node.listener = listener
+    @nodes.push(node)
+    @keys.push(listener)
     @addNode(node)
     return # Void
 
   addOnce: (listener) ->
-    if (@nodeExists(listener))
+    if (@keys.indexOf(listener) isnt -1)
       return
 
     node = @listenerNodePool.get()
     node.listener = listener
     node.once = true
+    @nodes.push(node)
+    @keys.push(listener)
     @addNode(node)
     return # Void
 
@@ -121,8 +125,9 @@ class ash.signals.SignalBase
     return # Void
 
   remove: (listener) ->
-    node = @getNode(listener)
-    if (node isnt null)
+    index = @keys.indexOf(listener)
+    node = @nodes[index]
+    if (node)
       if (@head is node)
         @head = @head.next
       if (@tail is node)
@@ -131,10 +136,14 @@ class ash.signals.SignalBase
         @toAddHead = @toAddHead.next
       if (@toAddTail is node)
         @toAddTail = @toAddTail.previous
-      if (node.previous isnt null)
+      if (node.previous)
         node.previous.next = node.next
-      if (node.next isnt null)
+      if (node.next)
         node.next.previous = node.previous
+
+      @nodes.splice(index, 1)
+      @keys.splice(index, 1)
+
       if (@dispatching)
         @listenerNodePool.cache(node)
       else
@@ -144,11 +153,14 @@ class ash.signals.SignalBase
     return # Void
 
   removeAll: () ->
-    while (@head isnt null)
+    while (@head)
       node = @head
       @head = @head.next
+      @nodes.splice(index, 1)
       @listenerNodePool.dispose(node)
-      
+
+    @nodes = []
+    @keys = []
     @tail = null
     @toAddHead = null
     @toAddTail = null

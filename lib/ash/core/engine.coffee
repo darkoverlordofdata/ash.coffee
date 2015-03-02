@@ -29,10 +29,10 @@ class Dictionary # inline definition
 ###
 class ash.core.Engine
 
-  entityNames: null
-  entityList: null
-  systemList: null
-  families: null
+  entityNames   : null  # Dictionary
+  entityList    : null  # EntityList
+  systemList    : null  # SystemList
+  families      : null  # Dictionary
 
   ###
    * Indicates if the engine is currently in its update loop.
@@ -123,7 +123,7 @@ class ash.core.Engine
     return # Void
 
 
-  entityNameChanged: (entity, oldName) ->
+  entityNameChanged: (entity, oldName) =>
     if (@entityNames[oldName] is entity)
       delete @entityNames[oldName]
       @entityNames[entity.name] = entity
@@ -150,7 +150,7 @@ class ash.core.Engine
   ###
    @private
   ###
-  componentAdded: (entity, componentClass) ->
+  componentAdded: (entity, componentClass) =>
     for each, family of @families
       family.componentAddedToEntity(entity, componentClass)
     return # Void
@@ -158,7 +158,7 @@ class ash.core.Engine
   ###
    @private
   ###
-  componentRemoved: (entity, componentClass) ->
+  componentRemoved: (entity, componentClass) =>
     for each, family of @families
       family.componentRemovedFromEntity(entity, componentClass)
     return # Void
@@ -186,8 +186,6 @@ class ash.core.Engine
       family.newEntity(entity)
       entity = entity.next
 
-
-
     return family.nodeList
 
   ###
@@ -205,7 +203,6 @@ class ash.core.Engine
       @families[nodeClass.name].cleanUp()
       delete @families[nodeClass.name]
     return # Void
-
 
   ###
    * Add a system to the engine, and set its priority for the order in which the

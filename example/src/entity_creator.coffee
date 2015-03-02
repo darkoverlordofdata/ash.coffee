@@ -15,42 +15,42 @@
 #
 'use strict'
 ash = require('../../lib')
-example = require('../../example')
+asteroids = require('../../example')
 
-WaitForStartView      = example.graphics.WaitForStartView
+WaitForStartView      = asteroids.graphics.WaitForStartView
 Entity                = ash.core.Entity
 EntityStateMachine    = ash.fsm.EntityStateMachine
 ###
  * Asteroid Game Components
 ###
-Animation             = example.components.Animation
-Asteroid              = example.components.Asteroid
-Audio                 = example.components.Audio
-Bullet                = example.components.Bullet
-Collision             = example.components.Collision
-DeathThroes           = example.components.DeathThroes
-Display               = example.components.Display
-GameState             = example.components.GameState
-Gun                   = example.components.Gun
-GunControls           = example.components.GunControls
-Hud                   = example.components.Hud
-Motion                = example.components.Motion
-MotionControls        = example.components.MotionControls
-Physics               = example.components.Physics
-Position              = example.components.Position
-Spaceship             = example.components.Spaceship
-WaitForStart          = example.components.WaitForStart
+Animation             = asteroids.components.Animation
+Asteroid              = asteroids.components.Asteroid
+Audio                 = asteroids.components.Audio
+Bullet                = asteroids.components.Bullet
+Collision             = asteroids.components.Collision
+DeathThroes           = asteroids.components.DeathThroes
+Display               = asteroids.components.Display
+GameState             = asteroids.components.GameState
+Gun                   = asteroids.components.Gun
+GunControls           = asteroids.components.GunControls
+Hud                   = asteroids.components.Hud
+Motion                = asteroids.components.Motion
+MotionControls        = asteroids.components.MotionControls
+Physics               = asteroids.components.Physics
+Position              = asteroids.components.Position
+Spaceship             = asteroids.components.Spaceship
+WaitForStart          = asteroids.components.WaitForStart
 ###
  * Drawable Components
 ###
-AsteroidDeathView     = example.graphics.AsteroidDeathView
-AsteroidView          = example.graphics.AsteroidView
-BulletView            = example.graphics.BulletView
-HudView               = example.graphics.HudView
-SpaceshipDeathView    = example.graphics.SpaceshipDeathView
-SpaceshipView         = example.graphics.SpaceshipView
+AsteroidDeathView     = asteroids.graphics.AsteroidDeathView
+AsteroidView          = asteroids.graphics.AsteroidView
+BulletView            = asteroids.graphics.BulletView
+HudView               = asteroids.graphics.HudView
+SpaceshipDeathView    = asteroids.graphics.SpaceshipDeathView
+SpaceshipView         = asteroids.graphics.SpaceshipView
 
-class example.EntityCreator
+class asteroids.EntityCreator
 
 
   KEY_LEFT    = 37
@@ -60,9 +60,9 @@ class example.EntityCreator
 
   engine: null
   waitEntity: null
-  graphics: null
+  graphic: null
 
-  constructor: (@engine, @graphics, @world) ->
+  constructor: (@engine, @graphic, @world) ->
 
   destroyEntity: (entity) ->
     @engine.removeEntity entity
@@ -72,7 +72,7 @@ class example.EntityCreator
    * Game State
   ###
   createGame: () ->
-    hud = new HudView(@graphics)
+    hud = new HudView(@graphic)
     gameEntity = new Entity('game')
     .add(new GameState())
     .add(new Hud(hud))
@@ -86,7 +86,7 @@ class example.EntityCreator
   ###
   createWaitForClick: () ->
     if not @waitEntity
-      waitView = new WaitForStartView(@graphics)
+      waitView = new WaitForStartView(@graphic)
       @waitEntity = new Entity('wait')
       .add(new WaitForStart(waitView))
       .add(new Display(waitView))
@@ -95,6 +95,38 @@ class example.EntityCreator
     @waitEntity.get(WaitForStart).startGame = false
     @engine.addEntity(@waitEntity)
     return @waitEntity
+
+  ###
+   * Create Player Spaceship
+  ###
+  createSpaceshipWithoutFsm: ->
+    spaceship = new Entity()
+    .add(new Spaceship())
+    .add(new Position(300, 225, 0))
+    .add(new Audio())
+    .add(new Motion(0, 0, 0, 15))
+    .add(new MotionControls(KEY_LEFT, KEY_RIGHT, KEY_UP, 100, 3))
+    .add(new Gun(8, 0, 0.3, 2 ))
+    .add(new GunControls(KEY_Z))
+    .add(new Collision(9))
+    .add(new Display(new SpaceshipView(@graphic)))
+    @engine.addEntity(spaceship)
+    return spaceship
+
+  ###
+   * Create an Asteroid
+  ###
+  createAsteroidWithoutFsm: (radius, x, y) ->
+    asteroid = new Entity()
+    .add(new Asteroid())
+    .add(new Position(x, y, 0))
+    .add(new Audio())
+    .add(new Motion((Math.random() - 0.5) * 4 * (50 - radius), (Math.random() - 0.5) * 4 * (50 - radius), Math.random() * 2 - 1, 0))
+    .add(new Collision(radius))
+    .add(new Display(new AsteroidView(@graphic, radius)))
+    @engine.addEntity(asteroid)
+    return asteroid
+
 
 
   ###
@@ -108,9 +140,9 @@ class example.EntityCreator
     fsm.createState('alive')
     .add(Motion).withInstance(new Motion((Math.random() - 0.5) * 4 * (50 - radius), (Math.random() - 0.5) * 4 * (50 - radius), Math.random() * 2 - 1, 0))
     .add(Collision).withInstance(new Collision(radius))
-    .add(Display).withInstance(new Display(new AsteroidView(@graphics, radius)))
+    .add(Display).withInstance(new Display(new AsteroidView(@graphic, radius)))
 
-    deathView = new AsteroidDeathView(@graphics, radius)
+    deathView = new AsteroidDeathView(@graphic, radius)
     fsm.createState('destroyed')
     .add(DeathThroes).withInstance(new DeathThroes(3))
     .add(Display).withInstance(new Display(deathView))
@@ -139,9 +171,9 @@ class example.EntityCreator
     .add(Gun).withInstance(new Gun(8, 0, 0.3, 2 ))
     .add(GunControls).withInstance(new GunControls(KEY_Z))
     .add(Collision).withInstance(new Collision(9))
-    .add(Display).withInstance(new Display(new SpaceshipView(@graphics)))
+    .add(Display).withInstance(new Display(new SpaceshipView(@graphic)))
 
-    deathView = new SpaceshipDeathView(@graphics)
+    deathView = new SpaceshipDeathView(@graphic)
     fsm.createState('destroyed')
     .add(DeathThroes).withInstance(new DeathThroes(5))
     .add(Display).withInstance(new Display(deathView))
@@ -149,7 +181,6 @@ class example.EntityCreator
 
     spaceship
     .add(new Spaceship(fsm))
-    .add(new Physics())
     .add(new Position(300, 225, 0))
     .add(new Audio())
 
@@ -174,7 +205,7 @@ class example.EntityCreator
     .add(new Position(x, y, 0))
     .add(new Collision(0))
     .add(new Motion(cos * 150, sin * 150, 0, 0))
-    .add(new Display(new BulletView(@graphics)))
+    .add(new Display(new BulletView(@graphic)))
     @engine.addEntity(bullet)
     return bullet
 

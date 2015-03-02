@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.components.Asteroid
+class asteroids.components.Asteroid
 
   fsm: null
 

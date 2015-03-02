@@ -29,7 +29,6 @@ class ash.core.NodePool
   nodeClass     : null  # Class
   cacheTail     : null  # Node
   components    : null  # Dictionary
-
   ###
    * Creates a pool for the given node class.
   ###
@@ -40,13 +39,13 @@ class ash.core.NodePool
    * Fetches a node from the pool.
   ###
   get: ->
-    if (@tail isnt null)
+    if (@tail)
       node = @tail
       @tail = @tail.previous
       node.previous = null
       return node
     else
-      return new @nodeClass.constructor()
+      return new @nodeClass()
 
   ###
    * Adds a node to the pool.
@@ -72,11 +71,9 @@ class ash.core.NodePool
    * Releases all nodes from the cache into the pool
   ###
   releaseCache: () ->
-    while (@cacheTail isnt null)
+    while (@cacheTail)
       node = @cacheTail
       @cacheTail = node.previous
-      node.next = null
-      node.previous = @tail
-      @tail = node
+      @dispose(node)
 
     return # Void

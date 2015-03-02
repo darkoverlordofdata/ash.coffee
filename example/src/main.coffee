@@ -14,14 +14,14 @@
 # box2d map
 #
 'use strict'
-example = require('../../example')
+asteroids = require('../../example')
 
 
-class example.Main
+class asteroids.Main
 
   constructor: ->
     canvas = @canvas()
-    asteroids = new example.Asteroids(canvas.getContext('2d'), canvas.width, canvas.height)
+    asteroids = new asteroids.Asteroids(canvas.getContext('2d'), canvas.width, canvas.height)
     asteroids.start()
     return
 

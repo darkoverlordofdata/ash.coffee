@@ -1,10 +1,10 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-GunControlNode = example.nodes.GunControlNode
+GunControlNode = asteroids.nodes.GunControlNode
 
-class example.systems.GunControlSystem extends ash.tools.ListIteratingSystem
+class asteroids.systems.GunControlSystem extends ash.tools.ListIteratingSystem
 
   keyPoll     : null
   creator     : null

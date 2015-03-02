@@ -1,10 +1,10 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-RenderNode = example.nodes.RenderNode
+RenderNode = asteroids.nodes.RenderNode
 
-class example.systems.RenderSystem extends ash.core.System
+class asteroids.systems.RenderSystem extends ash.core.System
   graphic: null
   nodes: null
   constructor: (@graphic) ->
@@ -20,11 +20,15 @@ class example.systems.RenderSystem extends ash.core.System
 #    @nodes.nodeRemoved.add @removeFromDisplay, this
     return # Void
 
+  addToDisplay:(node) ->
+
+  removeFromDisplay: (node) ->
+
+
   removeFromEngine: (engine) ->
     @nodes = null
     return # Void
 
-  # Intentionally left blank
   update: (time) =>
 
     @graphic.save()

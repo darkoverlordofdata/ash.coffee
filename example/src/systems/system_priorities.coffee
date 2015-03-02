@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.systems.SystemPriorities
+class asteroids.systems.SystemPriorities
 
   @preUpdate: 1
   @update: 2

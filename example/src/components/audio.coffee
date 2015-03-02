@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.components.Audio
+class asteroids.components.Audio
 
   toPlay: null
 

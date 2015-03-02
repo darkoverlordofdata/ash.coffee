@@ -65,7 +65,7 @@ class ash.core.NodeList
     @nodeRemoved = new Signal1()
 
   add: (node) ->
-    if (@head is null)
+    if (not @head)
       @head = @tail = node
       node.next = node.previous = null
     else
@@ -81,16 +81,16 @@ class ash.core.NodeList
       @head = @head.next
     if (@tail is node)
       @tail = @tail.previous
-    if (node.previous isnt null)
+    if (node.previous)
       node.previous.next = node.next
-    if (node.next isnt null)
+    if (node.next)
       node.next.previous = node.previous
     # N.B. Don't set node.next and node.previous to null because that will break the list iteration if node is the current node in the iteration.
     @nodeRemoved.dispatch(node)
     return # Void
 
   removeAll: () ->
-    while (@head isnt null)
+    while (@head)
       node = @head
       @head = @head.next
       node.previous = null

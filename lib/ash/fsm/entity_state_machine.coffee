@@ -75,7 +75,6 @@ class ash.fsm.EntityStateMachine
    * @param name The name of the state to change to.
   ###
   changeState: (name) ->
-
     newState = @states[name]
     if (not newState)
       throw(new Error("Entity state " + name + " doesn't exist"))
@@ -90,13 +89,15 @@ class ash.fsm.EntityStateMachine
         toAdd[type] = newState.providers[type]
       for type of @currentState.providers
         other = toAdd[type]
-        if other and other.identifier is currentState.providers[type].identifier
+        if other and other.identifier is @currentState.providers[type].identifier
           delete toAdd[type]
         else
           @entity.remove(type)
     else
       toAdd = newState.providers
 
+
     for type of toAdd
       @entity.add(toAdd[type].getComponent()) #, type)
-    currentState = newState
+
+    @currentState = newState

@@ -1,10 +1,10 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 ash = require('../../../lib')
 
 Signal0 = ash.signals.Signal0
 
-class example.graphics.WaitForStartView
+class asteroids.graphics.WaitForStartView
 
   x: 0
   y: 0
@@ -25,8 +25,6 @@ class example.graphics.WaitForStartView
     @clickToStart = @createClickToStart
     @graphic.canvas.addEventListener 'click', (event) =>
       @click.dispatch()
-
-    @draw()
 
   createGameOver: () ->
     @graphic.save()

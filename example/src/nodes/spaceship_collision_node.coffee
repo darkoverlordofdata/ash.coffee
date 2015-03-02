@@ -1,14 +1,14 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.nodes.SpaceshipCollisionNode extends ash.core.Node
+class asteroids.nodes.SpaceshipCollisionNode extends ash.core.Node
 
   @components:
-    spaceship   : example.components.Spaceship
-    position    : example.components.Position
-    collision   : example.components.Collision
-    audio       : example.components.Audio
+    spaceship   : asteroids.components.Spaceship
+    position    : asteroids.components.Position
+    collision   : asteroids.components.Collision
+    audio       : asteroids.components.Audio
 
   spaceship   : 0
   position    : 0

@@ -25,12 +25,12 @@ class ash.core.SystemList
   tail: null  # System
 
   add: (system) ->
-    if (@head is null)
+    if (not @head)
       @head = @tail = system
       system.next = system.previous = null
     else
       node = @tail
-      while (node isnt null)
+      while (node)
         if (node.priority <= system.priority)
           break
         node = node.previous
@@ -40,7 +40,7 @@ class ash.core.SystemList
         system.previous = @tail
         system.next = null
         @tail = system
-      else if (node is null)
+      else if (not node)
         system.next = @head
         system.previous = null
         @head.previous = system
@@ -58,15 +58,15 @@ class ash.core.SystemList
     if (@tail == system)
       @tail = @tail.previous
 
-    if (system.previous isnt null)
+    if (system.previous)
       system.previous.next = system.next
-    if (system.next isnt null)
+    if (system.next)
       system.next.previous = system.previous
     # N.B. Don't set system.next and system.previous to null because that will break the list iteration if system is the current system in the iteration.
     return # Void
 
   removeAll: () ->
-    while (@head isnt null)
+    while (@head)
       system = @head
       @head = @head.next
       system.previous = null
@@ -75,7 +75,7 @@ class ash.core.SystemList
     return # Void
 
   get: (type) ->
-    system = @systemList.head
+    system = @head
     while system
       return system if (system.constructor is type)
       system = system.next

@@ -1,14 +1,14 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-GameNode                  = example.nodes.GameNode
-SpaceshipNode             = example.nodes.SpaceshipNode
-AsteroidCollisionNode     = example.nodes.AsteroidCollisionNode
-BulletCollisionNode       = example.nodes.BulletCollisionNode
-Point                     = example.graphics.Point
+GameNode                  = asteroids.nodes.GameNode
+SpaceshipNode             = asteroids.nodes.SpaceshipNode
+AsteroidCollisionNode     = asteroids.nodes.AsteroidCollisionNode
+BulletCollisionNode       = asteroids.nodes.BulletCollisionNode
+Point                     = asteroids.ui.Point
 
-class example.systems.GameManager extends ash.core.System
+class asteroids.systems.GameManager extends ash.core.System
 
   config        : null  # GameConfig
   creator       : null  # EntityCreator
@@ -34,10 +34,9 @@ class example.systems.GameManager extends ash.core.System
         if node.state.lives > 0
           newSpaceshipPosition = new Point(@config.width * 0.5, @config.height * 0.5)
           clearToAddSpaceship = true
-
           asteroid = @asteroids.head
           while asteroid
-            if asteroid.position.position.distanceTo(newSpaceshipPosition) <= asteroid.position.collisionRadius + 50
+            if Point.distance(asteroid.position.position, newSpaceshipPosition) <= asteroid.collision.radius + 50
               clearToAddSpaceship = false
               break
             asteroid = asteroid.next
@@ -60,7 +59,7 @@ class example.systems.GameManager extends ash.core.System
           # check not on top of spaceship
           loop
             position = new Point(Math.random() * @config.width, Math.random() * @config.height)
-            break unless position.distanceTo(spaceship.position.position) <= 80
+            break unless Point.distance(position, spaceship.position.position) <= 80
 
           @creator.createAsteroid 30, position.x, position.y
           ++i

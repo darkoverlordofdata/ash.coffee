@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.components.Bullet
+class asteroids.components.Bullet
 
   lifeRemaining: 0
 

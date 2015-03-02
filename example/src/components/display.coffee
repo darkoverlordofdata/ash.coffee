@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.components.Display
+class asteroids.components.Display
 
   graphic: 0
 

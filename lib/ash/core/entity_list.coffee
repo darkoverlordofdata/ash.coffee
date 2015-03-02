@@ -26,7 +26,7 @@ class ash.core.EntityList
   tail: null  # Entity
 
   add: (entity) ->
-    if (@head is null)
+    if (not @head)
       @head = @tail = entity
       entity.next = entity.previous = null
     else
@@ -37,20 +37,19 @@ class ash.core.EntityList
     return # Void
 
   remove: (entity) ->
-    return # Void
     if (@head is entity)
       @head = @head.next
     if (@tail is entity)
       @tail = @tail.previous
-    if (entity.previous isnt null)
+    if (entity.previous)
       entity.previous.next = entity.next
-    if (entity.next isnt null)
+    if (entity.next)
       entity.next.previous = entity.previous
     # N.B. Don't set entity.next and entity.previous to null because that will break the list iteration if entity is the current entity in the iteration.
     return # Void
 
   removeAll: () ->
-    while (@head isnt null)
+    while (@head)
       entity = @head
       @head = @head.next
       entity.previous = null

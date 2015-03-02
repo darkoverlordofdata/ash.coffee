@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.graphics.HudView
+class asteroids.graphics.HudView
 
   x: 0
   y: 0
@@ -17,7 +17,6 @@ class example.graphics.HudView
   constructor: (@graphic) ->
     @drawScore = @createScore
     @drawLives = @createLives
-    @draw()
 
   draw: =>
     @drawScore()
@@ -26,8 +25,6 @@ class example.graphics.HudView
 
 
   setLives: (lives) =>
-    if (@lives isnt lives)
-      console.log "setLives #{lives}"
     @lives = lives
 
   setScore: (score) =>

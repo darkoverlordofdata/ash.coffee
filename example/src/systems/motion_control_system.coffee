@@ -1,11 +1,11 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-MotionControlNode     = example.nodes.MotionControlNode
+MotionControlNode     = asteroids.nodes.MotionControlNode
 b2Vec2                = Box2D.Common.Math.b2Vec2
 
-class example.systems.MotionControlSystem extends ash.tools.ListIteratingSystem
+class asteroids.systems.MotionControlSystem extends ash.tools.ListIteratingSystem
   keyPoll: null
 
   constructor: (@keyPoll) ->
@@ -16,7 +16,6 @@ class example.systems.MotionControlSystem extends ash.tools.ListIteratingSystem
     control = node.control
     position = node.position
     motion = node.motion
-    physics = node.physics
 
     left = @keyPoll.isDown(control.left)
     right = @keyPoll.isDown(control.right)
@@ -27,8 +26,5 @@ class example.systems.MotionControlSystem extends ash.tools.ListIteratingSystem
       motion.velocity.x += Math.cos(position.rotation) * control.accelerationRate * time
       motion.velocity.y += Math.sin(position.rotation) * control.accelerationRate * time
 
-
-#    physics.body.ApplyForce(new b2Vec2(100, 100), physics.body.GetWorldCenter()) if left
-#    physics.body.ApplyForce(new b2Vec2(-100, -100), physics.body.GetWorldCenter()) if right
     return # Void
 

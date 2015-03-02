@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.components.Collision
+class asteroids.components.Collision
 
   radius: 0
 

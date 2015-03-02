@@ -1,12 +1,17 @@
 'use strict'
-example = require('../../index')
+asteroids = require('../../index')
 
-class example.graphics.Point
+class asteroids.ui.Point
 
   x: 0
   y: 0
 
   constructor: (@x = 0, @y = 0) ->
+
+  @distance: (point1, point2) ->
+    dx = point1.x - point2.x
+    dy = point1.y - point2.y
+    return Math.sqrt( dx * dx + dy * dy )
 
   distanceSquaredTo: (targetPoint) ->
     dx = this.x - targetPoint.x

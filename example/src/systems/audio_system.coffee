@@ -1,10 +1,10 @@
 'use strict'
 ash = require('../../../lib')
-example = require('../../../example')
+asteroids = require('../../../example')
 
-AudioNode       = example.nodes.AudioNode
+AudioNode       = asteroids.nodes.AudioNode
 
-class example.systems.AudioSystem extends ash.tools.ListIteratingSystem
+class asteroids.systems.AudioSystem extends ash.tools.ListIteratingSystem
 
   constructor: () ->
 

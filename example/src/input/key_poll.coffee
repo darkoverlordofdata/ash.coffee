@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.input.KeyPoll
+class asteroids.input.KeyPoll
 
   states = null
   displayObj = null

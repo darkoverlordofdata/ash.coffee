@@ -15,48 +15,44 @@
 #
 'use strict'
 ash = require('../../lib')
-example = require('../../example')
+asteroids = require('../../example')
 
-AnimationSystem       = example.systems.AnimationSystem
-AudioSystem           = example.systems.AudioSystem
-BulletAgeSystem       = example.systems.BulletAgeSystem
-CollisionSystem       = example.systems.CollisionSystem
-DeathThroesSystem     = example.systems.DeathThroesSystem
-GameManager           = example.systems.GameManager
-GunControlSystem      = example.systems.GunControlSystem
-HudSystem             = example.systems.HudSystem
-MotionControlSystem   = example.systems.MotionControlSystem
-MovementSystem        = example.systems.MovementSystem
-RenderSystem          = example.systems.RenderSystem
-SystemPriorities      = example.systems.SystemPriorities
-WaitForStartSystem    = example.systems.WaitForStartSystem
-PhysicsSystem         = example.systems.PhysicsSystem
+AnimationSystem       = asteroids.systems.AnimationSystem
+AudioSystem           = asteroids.systems.AudioSystem
+BulletAgeSystem       = asteroids.systems.BulletAgeSystem
+CollisionSystem       = asteroids.systems.CollisionSystem
+DeathThroesSystem     = asteroids.systems.DeathThroesSystem
+GameManager           = asteroids.systems.GameManager
+GunControlSystem      = asteroids.systems.GunControlSystem
+HudSystem             = asteroids.systems.HudSystem
+MotionControlSystem   = asteroids.systems.MotionControlSystem
+MovementSystem        = asteroids.systems.MovementSystem
+RenderSystem          = asteroids.systems.RenderSystem
+SystemPriorities      = asteroids.systems.SystemPriorities
+WaitForStartSystem    = asteroids.systems.WaitForStartSystem
+PhysicsSystem         = asteroids.systems.PhysicsSystem
 
 
-GameState             = example.components.GameState
-EntityCreator         = example.EntityCreator
-GameConfig            = example.GameConfig
-KeyPoll               = example.input.KeyPoll
-b2Vec2                = Box2D.Common.Math.b2Vec2
-b2World               = Box2D.Dynamics.b2World
+GameState             = asteroids.components.GameState
+EntityCreator         = asteroids.EntityCreator
+GameConfig            = asteroids.GameConfig
+KeyPoll               = asteroids.input.KeyPoll
 
-class example.Asteroids
+class asteroids.Asteroids
 
-  container: null
-  engine: null
-  tickProvider: null
-  creator: null
-  keyPoll: null
-  config: null
+  container       : null #  DisplayObjectContainer
+  engine          : null #  Engine
+  tickProvider    : null #  FrameTickProvider
+  creator         : null #  EntityCreator
+  keyPoll         : null #  KeyPoll
+  config          : null #  GameConfig
 
-  constructor: (container, width, height) ->
+  constructor: (@container, width, height) ->
 
-    @container = container
     @prepare(width, height)
 
   prepare: (width, height) ->
 
-    @world = new b2World(new b2Vec2(0, 0), true)
     @engine = new ash.core.Engine()
     @creator = new EntityCreator(@engine, @container, @world)
     @keyPoll = new KeyPoll(window)
@@ -64,7 +60,6 @@ class example.Asteroids
     @config.height = height
     @config.width = width
 
-#    @engine.addSystem(new PhysicsSystem(@world), SystemPriorities.preUpdate)
     @engine.addSystem(new WaitForStartSystem(@creator), SystemPriorities.preUpdate );
     @engine.addSystem(new GameManager(@creator, @config), SystemPriorities.preUpdate)
     @engine.addSystem(new MotionControlSystem(@keyPoll), SystemPriorities.update)

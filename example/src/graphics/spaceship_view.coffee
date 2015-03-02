@@ -1,7 +1,7 @@
 'use strict'
-example = require('../../../example')
+asteroids = require('../../../example')
 
-class example.graphics.SpaceshipView
+class asteroids.graphics.SpaceshipView
 
   x: 0
   y: 0
@@ -11,7 +11,6 @@ class example.graphics.SpaceshipView
   graphic: null
 
   constructor: (@graphic) ->
-    @draw()
 
   draw: ->
     graphic = @graphic
