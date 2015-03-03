@@ -97,39 +97,6 @@ class asteroids.EntityCreator
     return @waitEntity
 
   ###
-   * Create Player Spaceship
-  ###
-  createSpaceshipWithoutFsm: ->
-    spaceship = new Entity()
-    .add(new Spaceship())
-    .add(new Position(300, 225, 0))
-    .add(new Audio())
-    .add(new Motion(0, 0, 0, 15))
-    .add(new MotionControls(KEY_LEFT, KEY_RIGHT, KEY_UP, 100, 3))
-    .add(new Gun(8, 0, 0.3, 2 ))
-    .add(new GunControls(KEY_Z))
-    .add(new Collision(9))
-    .add(new Display(new SpaceshipView(@graphic)))
-    @engine.addEntity(spaceship)
-    return spaceship
-
-  ###
-   * Create an Asteroid
-  ###
-  createAsteroidWithoutFsm: (radius, x, y) ->
-    asteroid = new Entity()
-    .add(new Asteroid())
-    .add(new Position(x, y, 0))
-    .add(new Audio())
-    .add(new Motion((Math.random() - 0.5) * 4 * (50 - radius), (Math.random() - 0.5) * 4 * (50 - radius), Math.random() * 2 - 1, 0))
-    .add(new Collision(radius))
-    .add(new Display(new AsteroidView(@graphic, radius)))
-    @engine.addEntity(asteroid)
-    return asteroid
-
-
-
-  ###
    * Create an Asteroid with FSM Animation
   ###
   createAsteroid: (radius, x, y) ->

@@ -6,7 +6,8 @@ MotionControlNode     = asteroids.nodes.MotionControlNode
 b2Vec2                = Box2D.Common.Math.b2Vec2
 
 class asteroids.systems.MotionControlSystem extends ash.tools.ListIteratingSystem
-  keyPoll: null
+
+  keyPoll: null # KeyPoll
 
   constructor: (@keyPoll) ->
     super(MotionControlNode, @updateNode)

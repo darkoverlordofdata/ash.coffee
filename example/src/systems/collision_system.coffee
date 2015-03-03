@@ -66,28 +66,14 @@ class asteroids.systems.CollisionSystem extends ash.core.System
       asteroid = @asteroids.head
       while asteroid
         if asteroid.position.position.distanceTo(bullet.position.position) <= asteroid.collision.radius
+          ###
+           You hit an asteroid
+          ###
           @creator.destroyEntity bullet.entity
           if (asteroid.collision.radius > 10)
             @creator.createAsteroid(asteroid.collision.radius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5)
             @creator.createAsteroid(asteroid.collision.radius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5)
-
-#          @creator.destroyEntity asteroid.entity
           asteroid.asteroid.fsm.changeState('destroyed')
-
-          ###
-           emulate the fsm state change
-          ###
-#          deathView = new AsteroidDeathView(@creator.graphic, asteroid.collision.radius)
-#          asteroid.entity.remove(Motion)
-#          asteroid.entity.remove(Collision)
-#          asteroid.entity.remove(Display)
-#          asteroid.entity.remove(Audio)
-#          asteroid.entity.remove(Position)
-#          asteroid.entity.remove(Asteroid)
-#          asteroid.entity.add(new DeathThroes(3))
-#          asteroid.entity.add(new Display(deathView))
-#          asteroid.entity.add(new Animation(deathView))
-
           #asteroid.audio.play(ExplodeAsteroid)
           if (@games.head)
             @games.head.state.hits++
@@ -101,28 +87,11 @@ class asteroids.systems.CollisionSystem extends ash.core.System
       asteroid = @asteroids.head
       while asteroid
         if asteroid.position.position.distanceTo(spaceship.position.position) <= asteroid.collision.radius + spaceship.collision.radius
-#          @creator.destroyEntity spaceship.entity
+          ###
+           You were hit
+          ###
           spaceship.spaceship.fsm.changeState('destroyed')
-
-          ###
-           emulate the fsm state change
-          ###
-#          deathView = new SpaceshipDeathView(@creator.graphic)
-#          spaceship.entity.remove(Motion)
-#          spaceship.entity.remove(MotionControls)
-#          spaceship.entity.remove(Gun)
-#          spaceship.entity.remove(GunControls)
-#          spaceship.entity.remove(Collision)
-#          spaceship.entity.remove(Display)
-#          spaceship.entity.remove(Audio)
-#          spaceship.entity.remove(Position)
-#          spaceship.entity.remove(Spaceship)
-#          spaceship.entity.add(new DeathThroes(5))
-#          spaceship.entity.add(new Display(deathView))
-#          spaceship.entity.add(new Animation(deathView))
-
-
-        #          asteroid.audio.play(ExplodeShip)
+          #asteroid.audio.play(ExplodeShip)
           if (@games.head)
             @games.head.state.lives++
           break

@@ -8,11 +8,11 @@ GameNode                = asteroids.nodes.GameNode
 
 class asteroids.systems.WaitForStartSystem extends ash.core.System
 
-  engine: null
-  creator: null
-  gameNodes: null
-  waitNodes: null
-  asteroids: null
+  engine      : null  # Engine
+  creator     : null  # EntityCreator
+  gameNodes   : null  # NodeList
+  waitNodes   : null  # NodeList
+  asteroids   : null  # NodeList
 
   constructor: (@creator) ->
 

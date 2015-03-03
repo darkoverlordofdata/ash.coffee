@@ -5,8 +5,10 @@ asteroids = require('../../../example')
 RenderNode = asteroids.nodes.RenderNode
 
 class asteroids.systems.RenderSystem extends ash.core.System
-  graphic: null
-  nodes: null
+
+  graphic   : null  # 2D Context
+  nodes     : null  # NodeList
+
   constructor: (@graphic) ->
 
   addToEngine: (engine) ->

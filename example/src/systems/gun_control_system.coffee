@@ -6,9 +6,8 @@ GunControlNode = asteroids.nodes.GunControlNode
 
 class asteroids.systems.GunControlSystem extends ash.tools.ListIteratingSystem
 
-  keyPoll     : null
-  creator     : null
-  nodeList    : null
+  keyPoll     : null  # KeyPoll
+  creator     : null  # EntityCreator
 
   constructor: (@keyPoll, @creator) ->
     super(GunControlNode, @updateNode)

@@ -6,7 +6,7 @@ MovementNode = asteroids.nodes.MovementNode
 
 class asteroids.systems.MovementSystem extends ash.tools.ListIteratingSystem
 
-  config: null
+  config: null  # GameConfig
 
   constructor: (@config) ->
     super(MovementNode, @updateNode)

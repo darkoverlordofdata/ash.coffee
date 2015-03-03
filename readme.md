@@ -14,7 +14,7 @@
 
 #Ash.coffee
 
-A Port of Ash to CoffeeScript
+A Port of the [Ash Framework](http://www.ashframework.org/) to CoffeeScript
 
 Demo at http://darkoverlordofdata.com/ash.coffee/example.html
 
