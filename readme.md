@@ -16,17 +16,27 @@
 
 A Port of the [Ash Framework](http://www.ashframework.org/) to CoffeeScript
 
-Demo at http://darkoverlordofdata.com/ash.coffee/example.html
+View the example [asteroids](http://darkoverlordofdata.com/ash.coffee/example.html)
 
 ### Install
-    $ git clone https://github.com/darkoverlordofdata/ash.coffee
-    $ cd ash.coffee
-    $ npm install
+```bash
+$ cd <project name>
+$ npm install ash.coffee --save
+```
+
+```javascript
+require('ash.coffee');
+```
 
 ### To build
 
-    $ grunt get
-    $ grunt build
+```bash
+$ git clone https://github.com/darkoverlordofdata/ash.coffee
+$ cd ash.coffee
+$ npm install
+$ grunt get
+$ grunt build
+```
 
 # MIT License
 

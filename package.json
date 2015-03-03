@@ -2,9 +2,19 @@
   "name": "ash.coffee",
   "version": "0.0.1",
   "description": "Ash port to Coffeescript",
+  "keywords": [
+    "ash",
+    "coffee-script"
+  ],
   "main": "index.js",
   "scripts": {},
   "author": "darkoverlordofdata",
+  "contributors": [
+    {
+      "name": "bruce davidson",
+      "email": "brucedavidson@darkoverlordofdata.com"
+    }
+  ],
   "license": "MIT",
   "devDependencies": {
     "coffee-script": "~1.8.0",
@@ -23,6 +33,10 @@
     "grunt-bowercopy": "~1.1.0",
     "grunt-contrib-copy": "~0.7.0",
     "grunt-shell": "~1.1.2"
+  },
+  "engines": {
+    "node": ">=0.10.x",
+    "npm": ">=1.x.x"
   },
   "dependencies": {}
 }
