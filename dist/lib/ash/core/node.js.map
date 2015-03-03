@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "node.js",
+  "sourceRoot": "../../../../lib/ash/core/",
+  "sources": [
+    "node.coffee"
+  ],
+  "names": [],
+  "mappings": "AAeA,YAAA,CAAA;AAAA,IAAA,GAAA;;AAAA,GACA,GAAM,OAAA,CAAQ,cAAR,CADN,CAAA;;AAAA,GAGS,CAAC,IAAI,CAAC;oBAEb;;AAAA,iBAAA,MAAA,GAAQ,IAAR,CAAA;;AAAA,iBACA,QAAA,GAAU,IADV,CAAA;;AAAA,iBAEA,IAAA,GAAM,IAFN,CAAA;;cAAA;;IALF,CAAA"
+}

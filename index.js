@@ -1,1 +1,1 @@
-module.exports = require('./dist/ash.js');
+module.exports = require('./dist/lib');

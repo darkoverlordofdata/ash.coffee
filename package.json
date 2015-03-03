@@ -1,6 +1,6 @@
 {
   "name": "ash.coffee",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Ash port to Coffeescript",
   "keywords": [
     "ash",
@@ -15,6 +15,7 @@
       "email": "brucedavidson@darkoverlordofdata.com"
     }
   ],
+  "repository": "git://github.com/darkoverlordofdata/ash.coffee",
   "license": "MIT",
   "devDependencies": {
     "coffee-script": "~1.8.0",
