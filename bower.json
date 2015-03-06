@@ -9,11 +9,13 @@
   "private": true,
   "ignore": [
     "**/.*",
+    "bin",
     "tmp",
     "build",
     "node_modules",
     "packages",
     "web/packages",
+    "tmp",
     "test",
     "tests"
   ],
