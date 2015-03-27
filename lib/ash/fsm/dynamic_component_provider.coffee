@@ -1,4 +1,4 @@
-class DynamicComponentProvider
+ash.fsm.DynamicComponentProvider = class DynamicComponentProvider
 
 
   _closure: null

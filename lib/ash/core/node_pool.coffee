@@ -6,7 +6,7 @@
  * while iterating through the NodeList, the pool also maintains a cache of nodes that are added to the pool
  * but should not be reused yet. They are then released into the pool by calling the releaseCache method.
 ###
-class NodePool
+ash.core.NodePool = class NodePool
 
   tail          : null  # Node
   nodeClass     : null  # Class

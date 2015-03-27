@@ -1,7 +1,7 @@
 ###
  * Used by the EntityState class to create the mappings of components to providers via a fluent interface.
 ###
-class StateComponentMapping
+ash.fsm.StateComponentMapping = class StateComponentMapping
 
   componentType: null
   creatingState: null

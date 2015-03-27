@@ -1,7 +1,7 @@
 ###
  * A node in the list of listeners in a signal.
 ###
-class ListenerNode
+ash.signals.ListenerNode = class ListenerNode
 
   previous: null
   next: null

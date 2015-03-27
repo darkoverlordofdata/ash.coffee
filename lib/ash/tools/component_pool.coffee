@@ -21,7 +21,7 @@
  *
  * <p>ComponentPool.dispose( entity.remove( component ) );</p>
 ###
-class ComponentPool
+ash.tools.ComponentPool = class ComponentPool
 
   pools = new Dictionary()
 

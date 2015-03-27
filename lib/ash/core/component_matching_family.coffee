@@ -5,7 +5,7 @@
  * It uses the basic entity matching pattern of an entity system - entities are added to the list if
  * they contain components matching all the public properties of the node class.
 ###
-class ComponentMatchingFamily #extends Family
+ash.core.ComponentMatchingFamily = class ComponentMatchingFamily #extends Family
 
   nodes         : null  # NodeList
   entities      : null  # Dictionary

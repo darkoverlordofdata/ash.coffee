@@ -2,7 +2,7 @@
  * This System provider always returns the same instance of the System. The instance
  * is created when first required and is of the type passed in to the constructor.
 ###
-class SystemSingletonProvider
+ash.fsm.SystemSingletonProvider = class SystemSingletonProvider
 
   componentType: null
   instance: null

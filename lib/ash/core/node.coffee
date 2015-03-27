@@ -1,4 +1,4 @@
-class Node
+ash.core.Node = class Node
 
   entity: null
   previous: null

@@ -2,7 +2,7 @@
  * This System provider always returns the same instance of the component. The system
  * is passed to the provider at initialisation.
 ###
-class SystemInstanceProvider
+ash.fsm.SystemInstanceProvider = class SystemInstanceProvider
 
   instance: null
   systemPriority: 0

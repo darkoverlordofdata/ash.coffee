@@ -3,7 +3,7 @@
  * each of which has a set of component providers. When the state machine changes the state, it removes
  * components associated with the previous state and adds components associated with the new state.
 ###
-class EntityStateMachine
+ash.fsm.EntityStateMachine = class EntityStateMachine
 
   states: null
 

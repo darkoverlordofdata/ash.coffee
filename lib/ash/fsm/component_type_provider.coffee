@@ -1,4 +1,4 @@
-class ComponentTypeProvider
+ash.fsm.ComponentTypeProvider = class ComponentTypeProvider
 
   componentType: null
 

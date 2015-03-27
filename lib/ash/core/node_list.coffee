@@ -15,7 +15,7 @@
  * NodeList it's previous and next properties still point to the nodes that were before and after
  * it in the NodeList just before it was removed.</p>
 ###
-class NodeList
+ash.core.NodeList = class NodeList
 
   ###
    * The first item in the node list, or null if the list contains no nodes.

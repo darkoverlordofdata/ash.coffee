@@ -2,7 +2,7 @@
  * Represents a state for an EntityStateMachine. The state contains any number of ComponentProviders which
  * are used to add components to the entity when this state is entered.
 ###
-class EntityState
+ash.fsm.EntityState = class EntityState
 
   providers: null
 

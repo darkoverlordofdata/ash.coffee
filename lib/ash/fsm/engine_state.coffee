@@ -2,7 +2,7 @@
  * Represents a state for a SystemStateMachine. The state contains any number of SystemProviders which
  * are used to add Systems to the Engine when this state is entered.
 ###
-class EngineState
+ash.fsm.EngineState = class EngineState
 
   providers: null
 

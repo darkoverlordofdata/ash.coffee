@@ -2,7 +2,7 @@
  * The Engine class is the central point for creating and managing your game state. Add
  * entities and systems to the engine, and fetch families of nodes from the engine.
 ###
-class Engine
+ash.core.Engine = class Engine
 
   entityNames   : null  # Dictionary
   entityList    : null  # EntityList

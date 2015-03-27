@@ -2,7 +2,7 @@
  * This component provider always returns the same instance of the component. The instance
  * is passed to the provider at initialisation.
 ###
-class ComponentInstanceProvider
+ash.fsm.ComponentInstanceProvider = class ComponentInstanceProvider
 
   instance: null
 

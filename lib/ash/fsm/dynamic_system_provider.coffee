@@ -2,7 +2,7 @@
  * This System provider returns results of a method call. The method
  * is passed to the provider at initialisation.
 ###
-class DynamicSystemProvider
+ash.fsm.DynamicSystemProvider = class DynamicSystemProvider
 
   method: ->
   systemPriority: 0

@@ -69,7 +69,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * A node in the list of listeners in a signal.
    */
 
-  ListenerNode = (function() {
+  ash.signals.ListenerNode = ListenerNode = (function() {
     function ListenerNode() {}
 
     ListenerNode.prototype.previous = null;
@@ -90,7 +90,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * the overhead from object creation and garbage collection.
    */
 
-  ListenerNodePool = (function() {
+  ash.signals.ListenerNodePool = ListenerNodePool = (function() {
     function ListenerNodePool() {}
 
     ListenerNodePool.prototype.tail = null;
@@ -138,7 +138,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })();
 
-  SignalBase = (function() {
+  ash.signals.SignalBase = SignalBase = (function() {
     SignalBase.prototype.head = null;
 
     SignalBase.prototype.tail = null;
@@ -306,7 +306,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })();
 
-  Signal0 = (function(_super) {
+  ash.signals.Signal0 = Signal0 = (function(_super) {
     __extends(Signal0, _super);
 
     function Signal0() {
@@ -331,7 +331,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })(SignalBase);
 
-  Signal1 = (function(_super) {
+  ash.signals.Signal1 = Signal1 = (function(_super) {
     __extends(Signal1, _super);
 
     function Signal1() {
@@ -356,7 +356,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })(SignalBase);
 
-  Signal2 = (function(_super) {
+  ash.signals.Signal2 = Signal2 = (function(_super) {
     __extends(Signal2, _super);
 
     function Signal2() {
@@ -381,7 +381,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })(SignalBase);
 
-  Signal3 = (function(_super) {
+  ash.signals.Signal3 = Signal3 = (function(_super) {
     __extends(Signal3, _super);
 
     function Signal3() {
@@ -426,7 +426,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * position component. Systems operate on entities based on the components they have.</p>
    */
 
-  Entity = (function() {
+  ash.core.Entity = Entity = (function() {
     var nameCount;
 
     nameCount = 0;
@@ -601,7 +601,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * managing the entities.
    */
 
-  EntityList = (function() {
+  ash.core.EntityList = EntityList = (function() {
     function EntityList() {}
 
     EntityList.prototype.head = null;
@@ -650,7 +650,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })();
 
-  Node = (function() {
+  ash.core.Node = Node = (function() {
     function Node() {}
 
     Node.prototype.entity = null;
@@ -682,7 +682,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * it in the NodeList just before it was removed.</p>
    */
 
-  NodeList = (function() {
+  ash.core.NodeList = NodeList = (function() {
 
     /*
      * The first item in the node list, or null if the list contains no nodes.
@@ -971,7 +971,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * but should not be reused yet. They are then released into the pool by calling the releaseCache method.
    */
 
-  NodePool = (function() {
+  ash.core.NodePool = NodePool = (function() {
     NodePool.prototype.tail = null;
 
     NodePool.prototype.nodeClass = null;
@@ -1065,7 +1065,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * that match the node.</p>
    */
 
-  System = (function() {
+  ash.core.System = System = (function() {
     function System() {
       this.update = __bind(this.update, this);
     }
@@ -1135,7 +1135,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * Used internally, this is an ordered list of Systems for use by the engine update loop.
    */
 
-  SystemList = (function() {
+  ash.core.SystemList = SystemList = (function() {
     function SystemList() {}
 
     SystemList.prototype.head = null;
@@ -1223,7 +1223,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * is used by default and suits most needs.
    */
 
-  Family = (function() {
+  ash.core.Family = Family = (function() {
     Family.prototype.nodes = null;
 
 
@@ -1305,7 +1305,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * they contain components matching all the public properties of the node class.
    */
 
-  ComponentMatchingFamily = (function() {
+  ash.core.ComponentMatchingFamily = ComponentMatchingFamily = (function() {
     ComponentMatchingFamily.prototype.nodes = null;
 
     ComponentMatchingFamily.prototype.entities = null;
@@ -1497,7 +1497,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * entities and systems to the engine, and fetch families of nodes from the engine.
    */
 
-  Engine = (function() {
+  ash.core.Engine = Engine = (function() {
     Engine.prototype.entityNames = null;
 
     Engine.prototype.entityList = null;
@@ -1820,7 +1820,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * is passed to the provider at initialisation.
    */
 
-  ComponentInstanceProvider = (function() {
+  ash.fsm.ComponentInstanceProvider = ComponentInstanceProvider = (function() {
     ComponentInstanceProvider.prototype.instance = null;
 
 
@@ -1865,7 +1865,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })();
 
-  ComponentSingletonProvider = (function() {
+  ash.fsm.ComponentSingletonProvider = ComponentSingletonProvider = (function() {
     ComponentSingletonProvider.prototype.componentType = null;
 
     ComponentSingletonProvider.prototype.instance = null;
@@ -1914,7 +1914,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })();
 
-  ComponentTypeProvider = (function() {
+  ash.fsm.ComponentTypeProvider = ComponentTypeProvider = (function() {
     ComponentTypeProvider.prototype.componentType = null;
 
 
@@ -1959,7 +1959,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   })();
 
-  DynamicComponentProvider = (function() {
+  ash.fsm.DynamicComponentProvider = DynamicComponentProvider = (function() {
     DynamicComponentProvider.prototype._closure = null;
 
 
@@ -2009,7 +2009,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * is passed to the provider at initialisation.
    */
 
-  DynamicSystemProvider = (function() {
+  ash.fsm.DynamicSystemProvider = DynamicSystemProvider = (function() {
     DynamicSystemProvider.prototype.method = function() {};
 
     DynamicSystemProvider.prototype.systemPriority = 0;
@@ -2071,7 +2071,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * are used to add Systems to the Engine when this state is entered.
    */
 
-  EngineState = (function() {
+  ash.fsm.EngineState = EngineState = (function() {
     EngineState.prototype.providers = null;
 
     function EngineState() {
@@ -2145,7 +2145,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * Used by the EntityState class to create the mappings of components to providers via a fluent interface.
    */
 
-  StateComponentMapping = (function() {
+  ash.fsm.StateComponentMapping = StateComponentMapping = (function() {
     StateComponentMapping.prototype.componentType = null;
 
     StateComponentMapping.prototype.creatingState = null;
@@ -2273,7 +2273,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * Systems associated with the previous state and adds Systems associated with the new state.
    */
 
-  EngineStateMachine = (function() {
+  ash.fsm.EngineStateMachine = EngineStateMachine = (function() {
     EngineStateMachine.prototype.engine = null;
 
     EngineStateMachine.prototype.states = null;
@@ -2375,7 +2375,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * are used to add components to the entity when this state is entered.
    */
 
-  EntityState = (function() {
+  ash.fsm.EntityState = EntityState = (function() {
     EntityState.prototype.providers = null;
 
     function EntityState() {
@@ -2430,7 +2430,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * components associated with the previous state and adds components associated with the new state.
    */
 
-  EntityStateMachine = (function() {
+  ash.fsm.EntityStateMachine = EntityStateMachine = (function() {
     EntityStateMachine.prototype.states = null;
 
 
@@ -2536,7 +2536,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * Used by the SystemState class to create the mappings of Systems to providers via a fluent interface.
    */
 
-  StateSystemMapping = (function() {
+  ash.fsm.StateSystemMapping = StateSystemMapping = (function() {
     StateSystemMapping.prototype.creatingState = null;
 
     StateSystemMapping.prototype.provider = null;
@@ -2639,7 +2639,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * is passed to the provider at initialisation.
    */
 
-  SystemInstanceProvider = (function() {
+  ash.fsm.SystemInstanceProvider = SystemInstanceProvider = (function() {
     SystemInstanceProvider.prototype.instance = null;
 
     SystemInstanceProvider.prototype.systemPriority = 0;
@@ -2703,7 +2703,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * is created when first required and is of the type passed in to the constructor.
    */
 
-  SystemSingletonProvider = (function() {
+  ash.fsm.SystemSingletonProvider = SystemSingletonProvider = (function() {
     SystemSingletonProvider.prototype.componentType = null;
 
     SystemSingletonProvider.prototype.instance = null;
@@ -2773,7 +2773,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * the longest period a frame can be.
    */
 
-  FrameTickProvider = (function(_super) {
+  ash.tick.FrameTickProvider = FrameTickProvider = (function(_super) {
     __extends(FrameTickProvider, _super);
 
     FrameTickProvider.prototype.displayObject = null;
@@ -2866,7 +2866,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * <p>ComponentPool.dispose( entity.remove( component ) );</p>
    */
 
-  ComponentPool = (function() {
+  ash.tools.ComponentPool = ComponentPool = (function() {
     var getPool, pools;
 
     function ComponentPool() {}
@@ -2952,7 +2952,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * </code>
    */
 
-  ListIteratingSystem = (function(_super) {
+  ash.tools.ListIteratingSystem = ListIteratingSystem = (function(_super) {
     __extends(ListIteratingSystem, _super);
 
     ListIteratingSystem.prototype.nodeList = null;

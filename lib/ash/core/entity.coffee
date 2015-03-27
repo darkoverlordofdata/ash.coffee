@@ -16,7 +16,7 @@
  * <p>All entities that have a position in the game world, will have an instance of the
  * position component. Systems operate on entities based on the components they have.</p>
 ###
-class Entity
+ash.core.Entity = class Entity
 
   nameCount = 0
 

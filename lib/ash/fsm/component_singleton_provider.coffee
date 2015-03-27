@@ -1,4 +1,4 @@
-class ComponentSingletonProvider
+ash.fsm.ComponentSingletonProvider = class ComponentSingletonProvider
 
   componentType: null
   instance: null

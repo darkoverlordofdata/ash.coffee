@@ -19,7 +19,7 @@
  * }
  * </code>
 ###
-class ListIteratingSystem extends System
+ash.tools.ListIteratingSystem = class ListIteratingSystem extends System
 
   nodeList: null
   nodeClass: null

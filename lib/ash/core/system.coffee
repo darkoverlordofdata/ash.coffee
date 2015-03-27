@@ -10,7 +10,7 @@
  * node lists - collections of nodes. Each node contains the components from an entity in the engine
  * that match the node.</p>
 ###
-class System
+ash.core.System = class System
 
   ###
     * Used internally to manage the list of systems within the engine. The previous system in the list.

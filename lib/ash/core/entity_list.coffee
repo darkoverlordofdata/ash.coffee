@@ -2,7 +2,7 @@
  * An internal class for a linked list of entities. Used inside the framework for
  * managing the entities.
 ###
-class EntityList
+ash.core.EntityList = class EntityList
 
   head: null  # Entity
   tail: null  # Entity

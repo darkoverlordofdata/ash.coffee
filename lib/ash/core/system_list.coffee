@@ -1,7 +1,7 @@
 ###
  * Used internally, this is an ordered list of Systems for use by the engine update loop.
 ###
-class SystemList
+ash.core.SystemList = class SystemList
 
   head: null  # System
   tail: null  # System

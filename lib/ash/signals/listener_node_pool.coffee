@@ -2,7 +2,7 @@
  * This internal class maintains a pool of deleted listener nodes for reuse by framework. This reduces
  * the overhead from object creation and garbage collection.
 ###
-class ListenerNodePool
+ash.signals.ListenerNodePool = class ListenerNodePool
 
   tail: null
   cacheTail: null

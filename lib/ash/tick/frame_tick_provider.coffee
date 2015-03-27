@@ -3,7 +3,7 @@
  * There is a maximum frame time parameter in the constructor that can be used to limit
  * the longest period a frame can be.
 ###
-class FrameTickProvider extends Signal1
+ash.tick.FrameTickProvider = class FrameTickProvider extends Signal1
 
   displayObject: null
   previousTime: 0

@@ -1,4 +1,4 @@
-class SignalBase
+ash.signals.SignalBase = class SignalBase
 
   head: null
   tail: null

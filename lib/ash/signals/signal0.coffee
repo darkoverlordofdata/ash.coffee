@@ -1,4 +1,4 @@
-class Signal0 extends SignalBase
+ash.signals.Signal0 = class Signal0 extends SignalBase
 
   dispatch: () ->
     @startDispatch()

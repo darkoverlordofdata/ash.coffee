@@ -3,7 +3,7 @@
  * each of which has a set of System providers. When the state machine changes the state, it removes
  * Systems associated with the previous state and adds Systems associated with the new state.
 ###
-class EngineStateMachine
+ash.fsm.EngineStateMachine = class EngineStateMachine
 
   engine: null
   states: null

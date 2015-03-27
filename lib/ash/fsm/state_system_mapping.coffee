@@ -1,7 +1,7 @@
 ###
  * Used by the SystemState class to create the mappings of Systems to providers via a fluent interface.
 ###
-class StateSystemMapping
+ash.fsm.StateSystemMapping = class StateSystemMapping
 
   creatingState: null
   provider: null
