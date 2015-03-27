@@ -1,31 +1,8 @@
-#+--------------------------------------------------------------------+
-#| engine_state.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# EngineState
-#
-'use strict'
-ash = require('../../../lib')
-
-SystemInstanceProvider = ash.fsm.SystemInstanceProvider
-SystemSingletonProvider = ash.fsm.SystemSingletonProvider
-DynamicSystemProvider = ash.fsm.DynamicSystemProvider
-StateSystemMapping = ash.fsm.StateSystemMapping
-
 ###
  * Represents a state for a SystemStateMachine. The state contains any number of SystemProviders which
  * are used to add Systems to the Engine when this state is entered.
 ###
-class ash.fsm.EngineState
+class EngineState
 
   providers: null
 

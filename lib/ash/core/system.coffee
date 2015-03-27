@@ -1,20 +1,3 @@
-#+--------------------------------------------------------------------+
-#| system.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# System
-#
-'use strict'
-ash = require('../../../lib')
 ###
  * The base class for a system.
  *
@@ -27,7 +10,7 @@ ash = require('../../../lib')
  * node lists - collections of nodes. Each node contains the components from an entity in the engine
  * that match the node.</p>
 ###
-class ash.core.System
+class System
 
   ###
     * Used internally to manage the list of systems within the engine. The previous system in the list.

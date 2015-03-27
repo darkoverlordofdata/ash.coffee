@@ -1,26 +1,8 @@
-#+--------------------------------------------------------------------+
-#| entity_list.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# Entity List
-#
-'use strict'
-ash = require('../../../lib')
-
 ###
  * An internal class for a linked list of entities. Used inside the framework for
  * managing the entities.
 ###
-class ash.core.EntityList
+class EntityList
 
   head: null  # Entity
   tail: null  # Entity

@@ -1,23 +1,3 @@
-#+--------------------------------------------------------------------+
-#| component_pool.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# ComponentPool
-#
-'use strict'
-ash = require('../../../lib')
-
-class Dictionary
-
 ###
  * An object pool for re-using components. This is not integrated in to Ash but is used dierectly by
  * the developer. It expects components to not require any parameters in their constructor.
@@ -41,7 +21,7 @@ class Dictionary
  *
  * <p>ComponentPool.dispose( entity.remove( component ) );</p>
 ###
-class ash.tools.ComponentPool
+class ComponentPool
 
   pools = new Dictionary()
 

@@ -1,25 +1,3 @@
-#+--------------------------------------------------------------------+
-#| component_matching_family.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# ComponentMatchingFamily
-#
-'use strict'
-ash = require('../../../lib')
-
-NodeList = ash.core.NodeList
-NodePool = ash.core.NodePool
-
-class Dictionary # inline
 ###
  * The default class for managing a NodeList. This class creates the NodeList and adds and removes
  * nodes to/from the list as the entities and the components in the engine change.
@@ -27,7 +5,7 @@ class Dictionary # inline
  * It uses the basic entity matching pattern of an entity system - entities are added to the list if
  * they contain components matching all the public properties of the node class.
 ###
-class ash.core.ComponentMatchingFamily #extends Family
+class ComponentMatchingFamily #extends Family
 
   nodes         : null  # NodeList
   entities      : null  # Dictionary

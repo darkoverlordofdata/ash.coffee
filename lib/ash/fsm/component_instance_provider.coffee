@@ -1,26 +1,8 @@
-#+--------------------------------------------------------------------+
-#| component_instance_provider.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# ComponentInstanceProvider
-#
-'use strict'
-ash = require('../../../lib')
-
 ###
  * This component provider always returns the same instance of the component. The instance
  * is passed to the provider at initialisation.
 ###
-class ash.fsm.ComponentInstanceProvider
+class ComponentInstanceProvider
 
   instance: null
 

@@ -1,27 +1,9 @@
-#+--------------------------------------------------------------------+
-#| family.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# Family
-#
-'use strict'
-ash = require('../../../lib')
-
 ###
  * The interface for classes that are used to manage NodeLists (set as the familyClass property
  * in the Engine object). Most developers don't need to use this since the default implementation
  * is used by default and suits most needs.
 ###
-class ash.core.Family
+class Family
 
   nodes: null
 

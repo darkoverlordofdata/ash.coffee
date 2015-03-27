@@ -1,31 +1,9 @@
-#+--------------------------------------------------------------------+
-#| entity_state_machine.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# EntityStateMachine
-#
-'use strict'
-ash = require('../../../lib')
-
-EntityState = ash.fsm.EntityState
-
-class Dictionary
-
 ###
  * This is a state machine for an entity. The state machine manages a set of states,
  * each of which has a set of component providers. When the state machine changes the state, it removes
  * components associated with the previous state and adds components associated with the new state.
 ###
-class ash.fsm.EntityStateMachine
+class EntityStateMachine
 
   states: null
 

@@ -1,30 +1,8 @@
-#+--------------------------------------------------------------------+
-#| entity_state.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# EntityState
-#
-'use strict'
-ash = require('../../../lib')
-
-StateComponentMapping = ash.fsm.StateComponentMapping
-
-class Dictionary
-
 ###
  * Represents a state for an EntityStateMachine. The state contains any number of ComponentProviders which
  * are used to add components to the entity when this state is entered.
 ###
-class ash.fsm.EntityState
+class EntityState
 
   providers: null
 

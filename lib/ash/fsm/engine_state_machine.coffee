@@ -1,31 +1,9 @@
-#+--------------------------------------------------------------------+
-#| engine_state_machine.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# EngineStateMachine
-#
-'use strict'
-ash = require('../../../lib')
-
-EngineState = ash.fsm.EngineState
-
-class Dictionary
-
 ###
  * This is a state machine for the Engine. The state machine manages a set of states,
  * each of which has a set of System providers. When the state machine changes the state, it removes
  * Systems associated with the previous state and adds Systems associated with the new state.
 ###
-class ash.fsm.EngineStateMachine
+class EngineStateMachine
 
   engine: null
   states: null

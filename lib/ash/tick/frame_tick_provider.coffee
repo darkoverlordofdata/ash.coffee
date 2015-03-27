@@ -1,29 +1,9 @@
-#+--------------------------------------------------------------------+
-#| frame_tick_provider.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# FrameTickProvider
-#
-'use strict'
-ash = require('../../../lib')
-
-Signal1 = ash.signals.Signal1
-
 ###
  * Uses the enter frame event to provide a frame tick where the frame duration is the time since the previous frame.
  * There is a maximum frame time parameter in the constructor that can be used to limit
  * the longest period a frame can be.
 ###
-class ash.tick.FrameTickProvider extends Signal1
+class FrameTickProvider extends Signal1
 
   displayObject: null
   previousTime: 0

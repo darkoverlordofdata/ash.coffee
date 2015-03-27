@@ -1,25 +1,7 @@
-#+--------------------------------------------------------------------+
-#| system_list.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# System List
-#
-'use strict'
-ash = require('../../../lib')
-
 ###
  * Used internally, this is an ordered list of Systems for use by the engine update loop.
 ###
-class ash.core.SystemList
+class SystemList
 
   head: null  # System
   tail: null  # System

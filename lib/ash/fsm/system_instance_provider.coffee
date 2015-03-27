@@ -1,26 +1,8 @@
-#+--------------------------------------------------------------------+
-#| system_instance_provider.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# SystemInstanceProvider
-#
-'use strict'
-ash = require('../../../lib')
-
 ###
  * This System provider always returns the same instance of the component. The system
  * is passed to the provider at initialisation.
 ###
-class ash.fsm.SystemInstanceProvider
+class SystemInstanceProvider
 
   instance: null
   systemPriority: 0

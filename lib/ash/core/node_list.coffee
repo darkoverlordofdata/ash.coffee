@@ -1,23 +1,3 @@
-#+--------------------------------------------------------------------+
-#| node_list.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# Node List
-#
-'use strict'
-ash = require('../../../lib')
-
-Signal1 = ash.signals.Signal1
-
 ###
  * A collection of nodes.
  *
@@ -35,7 +15,7 @@ Signal1 = ash.signals.Signal1
  * NodeList it's previous and next properties still point to the nodes that were before and after
  * it in the NodeList just before it was removed.</p>
 ###
-class ash.core.NodeList
+class NodeList
 
   ###
    * The first item in the node list, or null if the list contains no nodes.

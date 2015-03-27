@@ -1,33 +1,8 @@
-#+--------------------------------------------------------------------+
-#| engine.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# Engine
-#
-'use strict'
-ash = require('../../../lib')
-
-ComponentMatchingFamily   = ash.core.ComponentMatchingFamily
-EntityList                = ash.core.EntityList
-Signal0                   = ash.signals.Signal0
-SystemList                = ash.core.SystemList
-
-class Dictionary # inline definition
-
 ###
  * The Engine class is the central point for creating and managing your game state. Add
  * entities and systems to the engine, and fetch families of nodes from the engine.
 ###
-class ash.core.Engine
+class Engine
 
   entityNames   : null  # Dictionary
   entityList    : null  # EntityList

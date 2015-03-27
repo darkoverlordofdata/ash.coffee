@@ -1,31 +1,7 @@
-#+--------------------------------------------------------------------+
-#| state_component_mapping.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# StateComponentMapping
-#
-'use strict'
-ash = require('../../../lib')
-
-ComponentInstanceProvider     = ash.fsm.ComponentInstanceProvider
-ComponentTypeProvider         = ash.fsm.ComponentTypeProvider
-ComponentSingletonProvider    = ash.fsm.ComponentSingletonProvider
-DynamicComponentProvider      = ash.fsm.DynamicComponentProvider
-
-
 ###
  * Used by the EntityState class to create the mappings of components to providers via a fluent interface.
 ###
-class ash.fsm.StateComponentMapping
+class StateComponentMapping
 
   componentType: null
   creatingState: null

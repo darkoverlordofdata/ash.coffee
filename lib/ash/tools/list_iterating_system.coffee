@@ -1,26 +1,3 @@
-#+--------------------------------------------------------------------+
-#| list_iterating_system.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# List Iterating System
-#
-'use strict'
-ash = require('../../../lib')
-
-Engine        = ash.core.Engine
-Node          = ash.core.Node
-NodeList      = ash.core.NodeList
-System        = ash.core.System
-
 ###
  * A useful class for systems which simply iterate over a set of nodes, performing the same action on each node. This
  * class removes the need for a lot of boilerplate code in such systems. Extend this class and pass the node type and
@@ -42,7 +19,7 @@ System        = ash.core.System
  * }
  * </code>
 ###
-class ash.tools.ListIteratingSystem extends System
+class ListIteratingSystem extends System
 
   nodeList: null
   nodeClass: null

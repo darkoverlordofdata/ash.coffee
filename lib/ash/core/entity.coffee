@@ -1,24 +1,3 @@
-#+--------------------------------------------------------------------+
-#| entity.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# Entity
-#
-'use strict'
-ash = require('../../../lib')
-
-Signal2 = ash.signals.Signal2
-class Dictionary # inline
-
 ###
  * An entity is composed from components. As such, it is essentially a collection object for components.
  * Sometimes, the entities in a game will mirror the actual characters and objects in the game, but this
@@ -37,7 +16,7 @@ class Dictionary # inline
  * <p>All entities that have a position in the game world, will have an instance of the
  * position component. Systems operate on entities based on the components they have.</p>
 ###
-class ash.core.Entity
+class Entity
 
   nameCount = 0
 

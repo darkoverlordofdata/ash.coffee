@@ -1,25 +1,7 @@
-#+--------------------------------------------------------------------+
-#| state_system_mapping.coffee
-#+--------------------------------------------------------------------+
-#| Copyright DarkOverlordOfData (c) 2015
-#+--------------------------------------------------------------------+
-#|
-#| This file is a part of ash.coffee
-#|
-#| ash.coffee is free software; you can copy, modify, and distribute
-#| it under the terms of the MIT License
-#|
-#+--------------------------------------------------------------------+
-#
-# StateSystemMapping
-#
-'use strict'
-ash = require('../../../lib')
-
 ###
  * Used by the SystemState class to create the mappings of Systems to providers via a fluent interface.
 ###
-class ash.fsm.StateSystemMapping
+class StateSystemMapping
 
   creatingState: null
   provider: null

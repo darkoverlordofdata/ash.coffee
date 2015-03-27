@@ -4,7 +4,7 @@
   "authors": [
     "darkoverlordofdata <darkoverlordofdata@gmail.com>"
   ],
-  "description": "Ash port to coffeescript",
+  "description": "Ash Framework port to coffeescript",
   "license": "MIT",
   "private": true,
   "ignore": [
