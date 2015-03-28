@@ -55,15 +55,6 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
     @families = new Dictionary()
     @updateComplete = new Signal0()
 
-  ###
-   * postRender
-   *
-   * Phaser.Plugin interface
-  ###
-  postRender: =>
-    @update(@game.time.elapsed * 0.001)
-    return
-
   Object.defineProperties PhaserEngine::,
     ###
      * Returns a vector containing all the entities in the engine.
@@ -94,7 +85,7 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    *
    * @param entity The entity to add.
   ###
-  addEntity: (entity) ->
+  addEntity: (entity) =>
     if (@entityNames[entity.name])
       throw "The entity name " + entity.name + " is already in use by another entity."
 
@@ -112,7 +103,7 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    *
    * @param entity The entity to remove.
   ###
-  removeEntity: (entity) ->
+  removeEntity: (entity) =>
     entity.componentAdded.remove(@componentAdded);
     entity.componentRemoved.remove(@componentRemoved);
     entity.nameChanged.remove(@entityNameChanged);
@@ -135,14 +126,14 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    * @param name The name of the entity
    * @return The entity, or null if no entity with that name exists on the engine
   ###
-  getEntityByName: (name) ->
+  getEntityByName: (name) =>
     return @entityNames[name]
 
 
   ###
    * Remove all entities from the engine.
   ###
-  removeAllEntities: () ->
+  removeAllEntities: () =>
     while (@entityList.head != null)
       @removeEntity(@entityList.head)
     return # Void
@@ -175,7 +166,7 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    * @param nodeClass The type of node required.
    * @return A linked list of all nodes of this type from all entities in the engine.
   ###
-  getNodeList: (nodeClass) ->
+  getNodeList: (nodeClass) =>
     if (nodeClass.name of @families)
       return @families[nodeClass.name].nodeList
 
@@ -198,7 +189,7 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    *
    * @param nodeClass The type of the node class if the list to be released.
   ###
-  releaseNodeList: (nodeClass) ->
+  releaseNodeList: (nodeClass) =>
     if (nodeClass.name of @families)
       @families[nodeClass.name].cleanUp()
       delete @families[nodeClass.name]
@@ -216,7 +207,7 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    * @param priority The priority for updating the systems during the engine loop. A
    * lower number means the system is updated sooner.
   ###
-  addSystem: (system, priority) ->
+  addSystem: (system, priority) =>
     system.priority = priority
     system.addToEngine(this)
     @systemList.add(system)
@@ -229,7 +220,7 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    * @return The instance of the system type that is in the engine, or
    * null if no systems of this type are in the engine.
   ###
-  getSystem: (type) ->
+  getSystem: (type) =>
     return systemList.get(type)
 
   ###
@@ -237,7 +228,7 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    *
    * @param system The system to remove from the engine.
   ###
-  removeSystem: (system) ->
+  removeSystem: (system) =>
     @systemList.remove(system)
     system.removeFromEngine(this)
     return # Void
@@ -246,13 +237,16 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
   ###
    * Remove all systems from the engine.
   ###
-  removeAllSystems: () ->
+  removeAllSystems: () =>
     while (@systemList.head isnt null)
       @removeSystem(@systemList.head)
     return # Void
 
-
   ###
+   * postRender
+   *
+   * Phaser.Plugin interface
+   *
    * Update the engine. This causes the engine update loop to run, calling update on all the
    * systems in the engine.
    *
@@ -261,7 +255,8 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    *
    * @time The duration, in seconds, of this update step.
   ###
-  update: (time) =>
+  postRender: =>
+    time = @game.time.elapsed * 0.001
     @updating = true
     system = @systemList.head
     while system
