@@ -5,7 +5,7 @@
  * This version is implemented as a Phaser Plugin. It uses the Phaser postRender cycle
  * to provide tick for the ash engine update.
 ###
-ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
+ash.ext.PhaserEngine = class PhaserEngine extends Phaser.Plugin
 
   entityNames   : null  # Dictionary
   entityList    : null  # EntityList

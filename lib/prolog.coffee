@@ -47,6 +47,8 @@ ash =
 
   core: {}
 
+  ext: {}
+
   fsm: {}
 
   tick: {}
