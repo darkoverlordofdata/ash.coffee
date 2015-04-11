@@ -11,6 +11,8 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
   entityList    : null  # EntityList
   systemList    : null  # SystemList
   families      : null  # Dictionary
+  nodes         : null  # Active Node Registry
+  components    : null  # Active Component Registry
 
   ###
    * Phaser.Plugin members
@@ -49,11 +51,62 @@ ash.core.PhaserEngine = class PhaserEngine extends Phaser.Plugin
   ###
   constructor: (game, parent) ->
     super(game, parent) # Phaser.Plugin
+    @nodes = {}
+    @components = {}
     @entityList = new EntityList()
     @entityNames = new Dictionary()
     @systemList = new SystemList()
     @families = new Dictionary()
     @updateComplete = new Signal0()
+
+  addNode: (name, def) ->
+    if not def.components?
+      def.components = {}
+      for own property, type of def::
+        def.components[property] = type
+        def::[property] = null
+      def::entity = null
+      def::previous = null
+      def::next = null
+    @nodes[name] = def
+
+  ####
+  # * Called by the phaser plugin manager
+  # *
+  # *
+  # *
+  # * @param nodes  list of node descriptors
+  # * @param components (optional)
+  # * @returns none
+  ####
+  init: (nodes, components) =>
+
+    ###
+     * register components
+    ###
+    if components?
+      for name, klass of components
+        @components[name] = klass
+
+    ###
+     * register nodes
+    ###
+    if nodes?
+      for name, klass of nodes
+        ###
+         * convert template to an actual node class
+        ###
+        if not klass.components?
+          klass.components = {}
+          for own property, type of klass::
+            klass.components[property] = type
+            klass::[property] = null
+          klass::entity = null
+          klass::previous = null
+          klass::next = null
+        @nodes[name] = klass if components?
+
+
 
   Object.defineProperties PhaserEngine::,
     ###

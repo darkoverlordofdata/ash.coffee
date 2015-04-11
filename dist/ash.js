@@ -1834,6 +1834,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     PhaserEngine.prototype.families = null;
 
+    PhaserEngine.prototype.nodes = null;
+
+    PhaserEngine.prototype.components = null;
+
 
     /*
      * Phaser.Plugin members
@@ -1897,13 +1901,81 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.entityNameChanged = __bind(this.entityNameChanged, this);
       this.removeEntity = __bind(this.removeEntity, this);
       this.addEntity = __bind(this.addEntity, this);
+      this.init = __bind(this.init, this);
       PhaserEngine.__super__.constructor.call(this, game, parent);
+      this.nodes = {};
+      this.components = {};
       this.entityList = new EntityList();
       this.entityNames = new Dictionary();
       this.systemList = new SystemList();
       this.families = new Dictionary();
       this.updateComplete = new Signal0();
     }
+
+    PhaserEngine.prototype.addNode = function(name, def) {
+      var property, type, _ref;
+      if (def.components == null) {
+        def.components = {};
+        _ref = def.prototype;
+        for (property in _ref) {
+          if (!__hasProp.call(_ref, property)) continue;
+          type = _ref[property];
+          def.components[property] = type;
+          def.prototype[property] = null;
+        }
+        def.prototype.entity = null;
+        def.prototype.previous = null;
+        def.prototype.next = null;
+      }
+      return this.nodes[name] = def;
+    };
+
+    PhaserEngine.prototype.init = function(nodes, components) {
+
+      /*
+       * register components
+       */
+      var klass, name, property, type, _ref, _results;
+      if (components != null) {
+        for (name in components) {
+          klass = components[name];
+          this.components[name] = klass;
+        }
+      }
+
+      /*
+       * register nodes
+       */
+      if (nodes != null) {
+        _results = [];
+        for (name in nodes) {
+          klass = nodes[name];
+
+          /*
+           * convert template to an actual node class
+           */
+          if (klass.components == null) {
+            klass.components = {};
+            _ref = klass.prototype;
+            for (property in _ref) {
+              if (!__hasProp.call(_ref, property)) continue;
+              type = _ref[property];
+              klass.components[property] = type;
+              klass.prototype[property] = null;
+            }
+            klass.prototype.entity = null;
+            klass.prototype.previous = null;
+            klass.prototype.next = null;
+          }
+          if (components != null) {
+            _results.push(this.nodes[name] = klass);
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
+      }
+    };
 
     Object.defineProperties(PhaserEngine.prototype, {
 
