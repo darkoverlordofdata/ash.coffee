@@ -2,12 +2,12 @@
  * The Engine class is the central point for creating and managing your game state. Add
  * entities and systems to the engine, and fetch families of nodes from the engine.
  *
- * This version is implemented as a Phaser Plugin. It uses the Phaser postRender cycle
+ * This version is implemented as a Phaser Plugin. It uses the Phaser update cycle
  * to provide tick for the ash engine update.
  *
- * Use this version if the phaser update cycle clashes with Ash updates
+ * Use this version if Phaser drives the updates
 ###
-ash.ext.PhaserEngine = class PhaserEngine extends Phaser.Plugin
+ash.ext.PhaserPlugin = class PhaserPlugin extends Phaser.Plugin
 
   entityNames   : null  # Dictionary
   entityList    : null  # EntityList
@@ -298,7 +298,7 @@ ash.ext.PhaserEngine = class PhaserEngine extends Phaser.Plugin
     return # Void
 
   ###
-   * postRender
+   * update
    *
    * Phaser.Plugin interface
    *
@@ -310,7 +310,7 @@ ash.ext.PhaserEngine = class PhaserEngine extends Phaser.Plugin
    *
    * @time The duration, in seconds, of this update step.
   ###
-  postRender: =>
+  update: =>
     time = @game.time.elapsed * 0.001
     @updating = true
     system = @systemList.head

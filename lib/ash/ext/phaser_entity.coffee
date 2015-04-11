@@ -1,4 +1,15 @@
 ###
+  After reading http://www.paolodistefano.com/2015/01/18/ecs2/,
+  I tried making entity inherit from Sprite. Turns out this can't work.
+  Sprite already has a component collection named components.
+
+  While we could re-implement ash so that there are no named collisions when merging into
+  Sprite, the whole super object approach is a bad idea, and why we are using ecs in the
+  first place ;)
+
+  Sprite should be a component of an entity, just like everything else
+###
+###
  * An entity is composed from components. As such, it is essentially a collection object for components.
  * Sometimes, the entities in a game will mirror the actual characters and objects in the game, but this
  * is not necessary.

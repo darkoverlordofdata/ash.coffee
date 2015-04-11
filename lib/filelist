@@ -18,6 +18,7 @@ lib/ash/core/component_matching_family.coffee
 lib/ash/core/engine.coffee
 lib/ash/ext/phaser_engine.coffee
 lib/ash/ext/phaser_entity.coffee
+lib/ash/ext/phaser_plugin.coffee
 lib/ash/fsm/component_instance_provider.coffee
 lib/ash/fsm/component_singleton_provider.coffee
 lib/ash/fsm/component_type_provider.coffee
