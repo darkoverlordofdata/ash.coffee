@@ -110,7 +110,7 @@ ash.ext.PhaserPlugin = class PhaserPlugin extends Phaser.Plugin
 
 
 
-  Object.defineProperties PhaserEngine::,
+  Object.defineProperties PhaserPlugin::,
     ###
      * Returns a vector containing all the entities in the engine.
     ###

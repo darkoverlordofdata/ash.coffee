@@ -2624,7 +2624,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
     };
 
-    Object.defineProperties(PhaserEngine.prototype, {
+    Object.defineProperties(PhaserPlugin.prototype, {
 
       /*
        * Returns a vector containing all the entities in the engine.
