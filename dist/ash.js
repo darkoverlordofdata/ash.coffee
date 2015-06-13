@@ -43,7 +43,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 (function() {
   'use strict';
-  var ComponentInstanceProvider, ComponentMatchingFamily, ComponentPool, ComponentSingletonProvider, ComponentTypeProvider, Dictionary, DynamicComponentProvider, DynamicSystemProvider, Engine, EngineState, EngineStateMachine, Entity, EntityList, EntityState, EntityStateMachine, Family, FrameTickProvider, ListIteratingSystem, ListenerNode, ListenerNodePool, Node, NodeList, NodePool, PhaserEngine, PhaserEntity, PhaserPlugin, Signal0, Signal1, Signal2, Signal3, SignalBase, StateComponentMapping, StateSystemMapping, System, SystemInstanceProvider, SystemList, SystemSingletonProvider, ash,
+  var ComponentInstanceProvider, ComponentMatchingFamily, ComponentPool, ComponentSingletonProvider, ComponentTypeProvider, Dictionary, DynamicComponentProvider, DynamicSystemProvider, Engine, EngineState, EngineStateMachine, Entity, EntityList, EntityState, EntityStateMachine, Family, FrameTickProvider, Helper, ListIteratingSystem, ListenerNode, ListenerNodePool, Node, NodeList, NodePool, PhaserEngine, PhaserEntity, PhaserPlugin, Signal0, Signal1, Signal2, Signal3, SignalBase, StateComponentMapping, StateSystemMapping, System, SystemInstanceProvider, SystemList, SystemSingletonProvider, ash,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -2903,6 +2903,68 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     })(Phaser.Plugin);
   }
+
+
+  /*
+   * A Helper for Components & Nodes
+   *
+   * Creates a common registry object
+   * Fix-up up Node templates
+   */
+
+  ash.ext.Helper = Helper = (function() {
+    Helper.prototype.components = null;
+
+    Helper.prototype.nodes = null;
+
+    function Helper(components, nodes) {
+      var klass, name, property, type, _ref;
+      this.components = {};
+      this.nodes = {};
+
+      /*
+       * register components
+       */
+      if (components != null) {
+        for (name in components) {
+          klass = components[name];
+          this.components[name] = klass;
+        }
+      }
+
+      /*
+       * register nodes
+       */
+      if (nodes != null) {
+        for (name in nodes) {
+          klass = nodes[name];
+
+          /*
+           * convert template to an actual node class
+           */
+          if (klass.components == null) {
+            klass.components = {};
+            _ref = klass.prototype;
+            for (property in _ref) {
+              if (!__hasProp.call(_ref, property)) continue;
+              type = _ref[property];
+              klass.components[property] = type;
+              klass.prototype[property] = null;
+            }
+            klass.prototype.entity = null;
+            klass.prototype.previous = null;
+            klass.prototype.next = null;
+          }
+          if (components != null) {
+            this.nodes[name] = klass;
+          }
+        }
+      }
+    }
+
+    return Helper;
+
+  })();
 
 
   /*
