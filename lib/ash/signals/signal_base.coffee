@@ -136,6 +136,7 @@ ash.signals.SignalBase = class SignalBase
     while (@head)
       node = @head
       @head = @head.next
+      index = @keys.indexOf(node.listener)
       @nodes.splice(index, 1)
       @listenerNodePool.dispose(node)
 

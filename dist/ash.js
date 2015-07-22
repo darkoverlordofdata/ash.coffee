@@ -288,10 +288,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
     SignalBase.prototype.removeAll = function() {
-      var node;
+      var index, node;
       while (this.head) {
         node = this.head;
         this.head = this.head.next;
+        index = this.keys.indexOf(node.listener);
         this.nodes.splice(index, 1);
         this.listenerNodePool.dispose(node);
       }
