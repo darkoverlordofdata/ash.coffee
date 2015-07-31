@@ -1,6 +1,4 @@
 'use strict'
-asteroids = require('../../../example')
-ash = require('../../../lib')
 
 Signal0 = ash.signals.Signal0
 

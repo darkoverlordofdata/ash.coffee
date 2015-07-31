@@ -1,6 +1,4 @@
 'use strict'
-ash = require('../../../lib')
-asteroids = require('../../../example')
 
 BulletAgeNode = asteroids.nodes.BulletAgeNode
 

@@ -1,6 +1,4 @@
 'use strict'
-ash = require('../../../lib')
-asteroids = require('../../../example')
 
 GameNode                  = asteroids.nodes.GameNode
 SpaceshipNode             = asteroids.nodes.SpaceshipNode

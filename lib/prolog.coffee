@@ -41,19 +41,31 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ###
 'use strict'
-ash =
+@ash =
 
   signals: {}
 
   core: {}
 
-  ext: {}
+  ext:
+    Dictionary: class Dictionary
+
+      ###
+       * Get Class Name
+
+        closure compiler changes the class name, or sets it to ''
+        In that case, add a static className property to all
+        Nodes and Components so they can be identified.
+
+
+      ###
+    getClassName:(klass) ->
+      return klass.className ? klass.name
+
 
   fsm: {}
 
   tick: {}
 
   tools: {}
-
-class Dictionary # inline
 

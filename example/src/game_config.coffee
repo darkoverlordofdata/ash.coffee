@@ -14,8 +14,6 @@
 # GameConfig
 #
 'use strict'
-asteroids = require('../../example')
-
 class asteroids.GameConfig
 
   width: 0

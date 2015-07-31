@@ -1,0 +1,64 @@
+{
+  "name": "ash.coffee",
+  "version": "0.0.5",
+  "description": "Ash port to Coffeescript",
+  "keywords": [
+    "ash",
+    "coffee-script"
+  ],
+  "main": "index.js",
+  "scripts": {},
+  "author": "darkoverlordofdata",
+  "contributors": [
+    {
+      "name": "bruce davidson",
+      "email": "brucedavidson@darkoverlordofdata.com"
+    }
+  ],
+  "repository": "git://github.com/darkoverlordofdata/ash.coffee",
+  "license": "MIT",
+  "devDependencies": {
+    "coffee-script": "~1.9.3",
+    "browserify": "~6.2.0",
+    "chai": "~1.9.2",
+    "mocha": "~2.0.1",
+    "grunt": "~0.4.5",
+    "grunt-adb-tools": "~0.1.0",
+    "grunt-bowercopy": "~1.1.0",
+    "grunt-browserify": "~3.1.0",
+    "grunt-contrib-clean": "~0.6.0",
+    "grunt-contrib-coffee": "~0.12.0",
+    "grunt-contrib-compress": "~0.12.0",
+    "grunt-contrib-concat": "~0.5.1",
+    "grunt-contrib-copy": "~0.7.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-shell": "~1.1.2",
+    "grunt-simple-mocha": "~0.4.0",
+    "load-grunt-tasks": "~3.1.0",
+    "del": "^1.2.0",
+    "gulp": "^3.9.0",
+    "gulp-bower-deps": "^0.2.3",
+    "gulp-coffee": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-copy": "0.0.2",
+    "gulp-filter": "^2.0.2",
+    "gulp-flatten": "^0.1.0",
+    "gulp-gh-pages": "^0.5.2",
+    "gulp-json-editor": "^2.2.1",
+    "gulp-manifest": "0.0.7",
+    "gulp-rename": "^1.2.2",
+    "gulp-shell": "^0.4.2",
+    "gulp-uglify": "^1.2.0",
+    "gulp-util": "^3.0.6",
+    "open": "0.0.5",
+    "reflect-metadata": "^0.1.0",
+    "superstatic": "^2.2.1"
+
+  },
+  "engines": {
+    "node": ">=0.10.x",
+    "npm": ">=1.x.x"
+  },
+  "dependencies": {}
+}

@@ -1,6 +1,4 @@
 'use strict'
-ash = require('../../../lib')
-asteroids = require('../../../example')
 
 class asteroids.nodes.MovementNode extends ash.core.Node
 

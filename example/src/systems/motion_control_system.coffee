@@ -1,6 +1,4 @@
 'use strict'
-ash = require('../../../lib')
-asteroids = require('../../../example')
 
 MotionControlNode     = asteroids.nodes.MotionControlNode
 b2Vec2                = Box2D.Common.Math.b2Vec2

@@ -14,9 +14,6 @@
 # Asteroids
 #
 'use strict'
-ash = require('../../lib')
-asteroids = require('../../example')
-
 AnimationSystem       = asteroids.systems.AnimationSystem
 AudioSystem           = asteroids.systems.AudioSystem
 BulletAgeSystem       = asteroids.systems.BulletAgeSystem

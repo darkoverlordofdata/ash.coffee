@@ -1,5 +1,4 @@
 'use strict'
-asteroids = require('../../../example')
 Point = asteroids.ui.Point
 
 class asteroids.components.Motion

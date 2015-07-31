@@ -1,5 +1,4 @@
 'use strict'
-asteroids = require('../../../example')
 
 class asteroids.components.WaitForStart
 

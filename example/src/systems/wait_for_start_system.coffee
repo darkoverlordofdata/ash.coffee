@@ -1,6 +1,4 @@
 'use strict'
-ash = require('../../../lib')
-asteroids = require('../../../example')
 
 WaitForStartNode        = asteroids.nodes.WaitForStartNode
 AsteroidCollisionNode   = asteroids.nodes.AsteroidCollisionNode

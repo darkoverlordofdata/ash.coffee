@@ -1,6 +1,4 @@
 'use strict'
-ash = require('../../../lib')
-asteroids = require('../../../example')
 
 SpaceshipCollisionNode    = asteroids.nodes.SpaceshipCollisionNode
 AsteroidCollisionNode     = asteroids.nodes.AsteroidCollisionNode

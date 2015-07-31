@@ -1,6 +1,4 @@
 'use strict'
-ash = require('../../../lib')
-asteroids = require('../../../example')
 
 AudioNode       = asteroids.nodes.AudioNode
 

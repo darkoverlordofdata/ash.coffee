@@ -14,9 +14,6 @@
 # EntityCreator
 #
 'use strict'
-ash = require('../../lib')
-asteroids = require('../../example')
-
 WaitForStartView      = asteroids.graphics.WaitForStartView
 Entity                = ash.core.Entity
 EntityStateMachine    = ash.fsm.EntityStateMachine
