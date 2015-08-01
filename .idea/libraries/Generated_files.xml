@@ -2,11 +2,13 @@
   <library name="Generated files" type="javaScript">
     <properties>
       <sourceFilesUrls>
+        <item url="file://$PROJECT_DIR$/gulpfile.js" />
         <item url="file://$PROJECT_DIR$/index.js" />
         <item url="file://$PROJECT_DIR$/gulpfile.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
+      <root url="file://$PROJECT_DIR$/gulpfile.js" />
       <root url="file://$PROJECT_DIR$/index.js" />
       <root url="file://$PROJECT_DIR$/gulpfile.js" />
     </CLASSES>
