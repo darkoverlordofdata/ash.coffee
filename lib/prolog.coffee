@@ -75,4 +75,4 @@ ash =
 if 'function' is typeof define and define.amd?
   define -> ash
 else
-  @ash = ash
+  @['ash'] = ash
