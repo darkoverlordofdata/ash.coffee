@@ -41,7 +41,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ###
 'use strict'
-@ash =
+ash =
 
   signals: {}
 
@@ -69,3 +69,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   tools: {}
 
+###
+ * Export ash
+###
+if 'function' is typeof define and define.amd?
+  define -> ash
+else
+  @ash = ash
