@@ -1,6 +1,6 @@
 ###
 #+--------------------------------------------------------------------+
-#| gulpfile.coffee
+#| tools/gulpfile.coffee
 #+--------------------------------------------------------------------+
 #| Copyright DarkOverlordOfData (c) 2014-2015
 #+--------------------------------------------------------------------+
@@ -31,7 +31,7 @@
 # | -- node_modules           npm dependencies
 # | -- packages               bower external packages
 # | -- test                   unit tests
-# | -- (tmp)                  temporary
+# | -- tools                  other tools
 # | -- web                    source
 # |     | -- index.html       default web page
 # |     | -- main.js          cocos2d boot
@@ -39,7 +39,7 @@
 # |     | -- project.json     cocos2d manifest
 # |     | -- frameworks       cocos2d lib
 # |     | -- res              resources
-# |     + -- src              packages + lib
+# |     + -- (src | packages) packages
 # |           | -- {lib}
 # |           | -- example
 # |
@@ -53,7 +53,7 @@
 # | -- packages.json          output packages name
 # + -- readme.md
 #
-# coffee -cb gulpfile.coffee > gulpfile.js
+# coffee -cb gulpfile.coffee > ../gulpfile.js
 #
 ###
 
