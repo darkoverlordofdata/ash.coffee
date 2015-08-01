@@ -1,6 +1,6 @@
 {
   "name": "ash",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "authors": [
     "darkoverlordofdata <darkoverlordofdata@gmail.com>"
   ],
@@ -19,6 +19,8 @@
     "test",
     "tests"
   ],
+  "dependencies": {
+  },
   "devDependencies": {
     "cocoonjs": "git://github.com/ludei/cocoonjs-plugins#~3.0.4",
     "box2d": "git://github.com/darkoverlordofdata/Box2dWeb"
