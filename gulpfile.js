@@ -59,7 +59,7 @@
  */
 
 (function() {
-  var authorName, bower, bowerDeps, bowerrc, cocos2d, coffee, concat, config, copy, del, dependencies, filter, flatten, fs, gh_pages, gulp, gutil, json, libName, manifest, maps, packages, project, projectName, rename, replace, repository, shell, uglify, webserver;
+  var authorName, bower, bowerDeps, bowerrc, cocos2d, coffee, concat, config, copy, del, dependencies, filter, flatten, fs, gh_pages, gulp, gutil, jsconfig, json, libName, manifest, maps, packages, project, projectName, rename, replace, repository, shell, uglify, webserver;
 
   require('coffee-script');
 
@@ -110,6 +110,8 @@
   bowerrc = fs.existsSync('./.bowerrc.json') ? require('./.bowerrc.json') : false;
 
   cocos2d = fs.existsSync('./web/project.json') ? require('./web/project.json') : false;
+
+  jsconfig = fs.existsSync('./jsconfig.json') ? require('./jsconfig.json') : false;
 
   config = fs.existsSync('./gulpfile.json') ? require('./gulpfile.json') : false;
 
@@ -340,7 +342,8 @@
   });
 
   gulp.task('dist1', function() {
-    return gulp.src("web/" + packages + "/" + libName + "/**/*.js").pipe(maps.init()).pipe(concat(libName + ".js")).pipe(maps.write(".")).pipe(gulp.dest("build/"));
+    var ref;
+    return gulp.src((ref = jsconfig.files) != null ? ref : "web/" + packages + "/" + libName + "/**/*.js").pipe(maps.init()).pipe(concat(libName + ".js")).pipe(maps.write(".")).pipe(gulp.dest("build/"));
   });
 
   gulp.task('dist0', ['dist1'], function() {

@@ -82,6 +82,7 @@ project     = require('./package.json')
 bower       = require('./bower.json')
 bowerrc     = if fs.existsSync('./.bowerrc.json') then require('./.bowerrc.json') else false
 cocos2d     = if fs.existsSync('./web/project.json') then require('./web/project.json') else false
+jsconfig    = if fs.existsSync('./jsconfig.json') then require('./jsconfig.json') else false
 config      = if fs.existsSync('./gulpfile.json') then require('./gulpfile.json') else false
 
 
@@ -313,7 +314,7 @@ gulp.task 'dependencies', ->
   .pipe(gulp.dest("web/#{packages}/"))
 
 gulp.task 'dist1', ->
-  return gulp.src("web/#{packages}/#{libName}/**/*.js")
+  return gulp.src(jsconfig.files ? "web/#{packages}/#{libName}/**/*.js")
   .pipe(maps.init())
   .pipe(concat("#{libName}.js"))
   .pipe(maps.write("."))
