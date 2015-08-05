@@ -7,6 +7,7 @@
   "description": "Ash Framework port to coffeescript",
   "license": "MIT",
   "private": true,
+  "main": "build/ash.js",
   "ignore": [
     "**/.*",
     "bin",

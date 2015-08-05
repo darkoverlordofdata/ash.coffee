@@ -41,6 +41,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ###
 'use strict'
+
+###
+ * ash namespace
+ * @const
+###
 ash =
 
   signals: {}
@@ -49,16 +54,21 @@ ash =
 
   ext:
     Dictionary: class Dictionary
-
       ###
-       * Get Class Name
-
-        closure compiler changes the class name, or sets it to ''
-        In that case, add a static className property to all
-        Nodes and Components so they can be identified.
-
-
+       * @constructor
+       * @dict
       ###
+
+    ###
+     * Get Class Name
+     *
+     * closure compiler changes the class name, or sets it to ''
+     * In that case, add a static className property to all
+     * Nodes and Components so they can be identified.
+     *
+     * @param {function} klass
+     * @return {string}
+    ###
     getClassName:(klass) ->
       return klass.className ? klass.name
 

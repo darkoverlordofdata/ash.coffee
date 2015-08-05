@@ -55,7 +55,7 @@
  * | -- packages.json          output packages name
  * + -- readme.md
 #
- * coffee -cb gulpfile.coffee > ../gulpfile.js
+ * coffee -o .. -cb gulpfile.coffee
 #
  */
 
