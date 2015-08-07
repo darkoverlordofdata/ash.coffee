@@ -20,8 +20,8 @@ require('ash.coffee');
 $ git clone https://github.com/darkoverlordofdata/ash.coffee
 $ cd ash.coffee
 $ npm install
-$ grunt get
-$ grunt build
+$ npm run build
+$ npm start
 ```
 
 

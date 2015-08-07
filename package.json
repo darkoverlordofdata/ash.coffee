@@ -12,7 +12,7 @@
     "clean": "rimraf build/*",
     "get": "bower-installer",
     "postinstall": "bower install && npm run get",
-    "prebuild": "npm run clean -s && coffee -o web/src/ash -cm lib ",
+    "prebuild": "npm run clean -s && npm run transpile",
     "publish": "cake publish",
     "start": "node ./tools/server.js",
     "serve": "node ./tools/server.js build/web",
