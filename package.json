@@ -8,17 +8,15 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "cake -c ADVANCED_OPTIMIZATIONS make",
+    "build": "cake build",
     "clean": "rimraf build/*",
-    "dist": "cake dist",
     "get": "bower-installer",
     "postinstall": "bower install && npm run get",
-    "prebuild": "npm run clean -s && npm run transpile && npm run resources",
+    "prebuild": "npm run clean -s && coffee -o web/src/ash -cm lib ",
     "publish": "cake publish",
-    "resources": "cp -fr lib/res web/res",
     "start": "node ./tools/server.js",
     "serve": "node ./tools/server.js build/web",
-    "transpile": "coffee -o web/packages/ash -cm lib",
+    "transpile": "coffee -o web/src/ash -cm lib && coffee -o web/src/example -cm example/src",
     "test": "NODE_ENV=test mocha --reporter nyan"
   },
   "author": "darkoverlordofdata",
@@ -37,6 +35,7 @@
   "devDependencies": {
     "browserify": "~6.2.0",
     "chai": "~1.9.2",
+    "closure-compiler": "^0.2.7",
     "coffee-script": "~1.9.3",
     "executive": "^0.5.0",
     "fs-extra": "^0.22.1",

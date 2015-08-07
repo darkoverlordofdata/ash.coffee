@@ -32,7 +32,7 @@
     "sources": {
       "stats.js": "packages/stats.js/build/stats.min.js",
       "cocoonjs": "packages/cocoonjs/build/cocoon.min.js",
-      "box2d": "packages/box2d/lib/*.js"
+      "box2d": "packages/box2d/dist/box2d.min.js"
     }
   }
 }
