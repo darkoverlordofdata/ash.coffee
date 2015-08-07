@@ -21,9 +21,18 @@
     "tests"
   ],
   "dependencies": {
-  },
-  "devDependencies": {
+    "stats.js": "*",
     "cocoonjs": "git://github.com/ludei/cocoonjs-plugins#~3.0.4",
     "box2d": "git://github.com/darkoverlordofdata/Box2dWeb"
+  },
+  "devDependencies": {
+  },
+  "install": {
+    "path": "web/src",
+    "sources": {
+      "stats.js": "packages/stats.js/build/stats.min.js",
+      "cocoonjs": "packages/cocoonjs/build/cocoon.min.js",
+      "box2d": "packages/box2d/lib/*.js"
+    }
   }
 }

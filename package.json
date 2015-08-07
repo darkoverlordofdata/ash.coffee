@@ -7,7 +7,20 @@
     "coffee-script"
   ],
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "cake -c ADVANCED_OPTIMIZATIONS make",
+    "clean": "rimraf build/*",
+    "dist": "cake dist",
+    "get": "bower-installer",
+    "postinstall": "bower install && npm run get",
+    "prebuild": "npm run clean -s && npm run transpile && npm run resources",
+    "publish": "cake publish",
+    "resources": "cp -fr lib/res web/res",
+    "start": "node ./tools/server.js",
+    "serve": "node ./tools/server.js build/web",
+    "transpile": "coffee -o web/packages/ash -cm lib",
+    "test": "NODE_ENV=test mocha --reporter nyan"
+  },
   "author": "darkoverlordofdata",
   "contributors": [
     {
@@ -15,38 +28,27 @@
       "email": "brucedavidson@darkoverlordofdata.com"
     }
   ],
+  "directories": {
+    "lib": "./lib",
+    "example": "./example"
+  },
   "repository": "git://github.com/darkoverlordofdata/ash.coffee",
   "license": "MIT",
   "devDependencies": {
     "browserify": "~6.2.0",
     "chai": "~1.9.2",
     "coffee-script": "~1.9.3",
-    "del": "^1.2.0",
+    "executive": "^0.5.0",
+    "fs-extra": "^0.22.1",
     "gulp": "^3.9.0",
-    "gulp-batch-replace": "0.0.0",
-    "gulp-bower-deps": "^0.2.3",
-    "gulp-coffee": "^2.3.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-copy": "0.0.2",
-    "gulp-filter": "^2.0.2",
-    "gulp-flatten": "^0.1.0",
     "gulp-gh-pages": "^0.5.2",
-    "gulp-json-editor": "^2.2.1",
     "gulp-manifest": "0.0.7",
-    "gulp-rename": "^1.2.2",
     "gulp-shell": "^0.4.2",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglify": "^1.2.0",
-    "gulp-util": "^3.0.6",
     "gulp-webserver": "^0.9.1",
+    "liquid.coffee": "^0.1.1",
     "mocha": "~2.0.1",
-    "open": "0.0.5",
-    "reflect-metadata": "^0.1.0",
-    "superstatic": "^2.2.1"
-  },
-  "engines": {
-    "node": ">=0.10.x",
-    "npm": ">=1.x.x"
+    "morgan": "^1.6.1",
+    "rimraf": "^2.4.2"
   },
   "dependencies": {}
 }

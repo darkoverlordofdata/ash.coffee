@@ -1,10 +1,6 @@
 # Created by .gitignore support plugin (hsz.mobi)
+.idea
 build/web
 node_modules
-tmp
 packages
-
-/ashteroids
-
 npm-debug.log
-libz

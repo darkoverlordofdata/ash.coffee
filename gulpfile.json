@@ -1,7 +1,0 @@
-{
-  "packages": {
-    "cocoonjs": "cocoonjs/build/cocoon.min.js",
-    "box2d": "box2d/lib/*.js"
-  }
-
-}

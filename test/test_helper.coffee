@@ -3,7 +3,7 @@
 #
 #
 #
-do(ash  = require("../lib")) ->
+do(ash  = require("../build/ash.js")) ->
 
   class MockComponent
     x: 0
