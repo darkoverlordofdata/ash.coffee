@@ -4,7 +4,6 @@ describe 'Smoke test: ' , ->
 
     it "class module", ->
 
-      #Liquid.should.be.a 'function'
       ash.should.have.property 'core'
       ash.should.have.property 'fsm'
       ash.should.have.property 'signals'

@@ -82,7 +82,8 @@ ash =
 ###
  * Export ash
 ###
-if 'function' is typeof define and define.amd?
-  define -> ash
-else
+if window?
   @['ash'] = ash
+else # Toto, I've a feeling we're not in the browser any more.
+  global['ash'] = ash
+

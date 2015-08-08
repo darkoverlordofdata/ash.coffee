@@ -12,15 +12,14 @@
 #|
 #+--------------------------------------------------------------------+
 #
-# Tasks:
+# npm tasks:
 #
-# build   - compile app to build/
-# deploy  - deploy build/web/ to location
+# build   - compile app to build
 # get     - get dependencies from bower repository
-# help    - display this message
-# publish - publish build/web/ to gh-pages
-# serve   - open build/web in browser
-# test    - open web/ in browser with live reload
+# publish - publish build to gh-pages
+# serve   - open build in browser
+# start   - open dev in browser
+# test    - run tests
 #
 # | -- bin                    public tools
 # | -- build                  compiled output
@@ -52,10 +51,9 @@
 ###
  * load dependencies
 ###
-fs = require('fs-extra')
+require 'shelljs/global'
 path = require('path')
-exec = require('executive')
-
+{exec} = require('child_process')
 ###
  * Task release
  *
@@ -66,28 +64,24 @@ exec = require('executive')
 ###
 task 'build', 'compile app to build/', (options) ->
 
-  fs.copySync "lib/ash.d.ts", "build/ash.d.ts"
-  fs.mkdirs "build/web"
-  fs.mkdirs "build/lib"
-  fs.copySync "lib", "build/lib"
-  fs.copySync "web/src", "build/web/src"
-  fs.copySync "web/example.html", "build/web/example.html"
-  fs.copySync "web/favicon.png", "build/web/favicon.png"
-  fs.copySync "web/icon128.png", "build/web/icon128.png"
-  fs.copySync "web/index.html", "build/web/index.html"
-  fs.copySync "web/main.js", "build/web/main.js"
+  cp '-f', "lib/ash.d.ts", "build/ash.d.ts"
+  mkdir "build/web"
+  mkdir "build/lib"
+  cp '-Rf', "lib", "build/lib"
+  cp '-Rf', "web/src", "build/web/src"
+  cp '-f', "web/example.html", "build/web/example.html"
+  cp '-f', "web/favicon.png", "build/web/favicon.png"
+  cp '-f', "web/icon128.png", "build/web/icon128.png"
+  cp '-f', "web/index.html", "build/web/index.html"
+  cp '-f', "web/main.js", "build/web/main.js"
 
-  code = (fs.readFileSync(file, 'utf8') for file in require('./jsconfig.json').files).join('\n')
+#  code = (fs.readFileSync(file, 'utf8') for file in require('./jsconfig.json').files).join('\n')
+#  fs.writeFileSync("build/ash.js", code)
 
-  fs.writeFileSync("build/ash.js", code)
+  files = require('./jsconfig.json').files.join(' ')
 
-  require('closure-compiler').compile code,
-    compilation_level: 'WHITESPACE_ONLY'
-    js_output_file: "build/ash.min.js",
-  , (err, code, stderr) ->
-
-    throw err if err
-
+  exec "cat #{files} > build/ash.js"
+  exec "java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js #{files}"
 
 ###
  * Publish
@@ -102,3 +96,16 @@ task 'publish', 'publish build/web/ to gh-pages', (options) ->
   gulp.src("build/web/**/*.*")
   .pipe(gh_pages())
 
+task "test", "run tests", ->
+
+  REPORTER = "nyan"
+  exec "NODE_ENV=test
+      ./node_modules/.bin/mocha
+      --compilers coffee:coffee-script
+      --reporter #{REPORTER}
+      --require coffee-script
+      --require test/test_helper.js
+      --recursive
+      ", (err, output) ->
+    console.log output
+    console.log err.message if err?

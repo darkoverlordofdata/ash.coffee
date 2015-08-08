@@ -26,10 +26,12 @@
     "box2d": "git://github.com/darkoverlordofdata/Box2dWeb"
   },
   "devDependencies": {
+    "closure-compiler": "~0.2.7"
   },
   "install": {
     "path": "web/src",
     "sources": {
+      "closure-compiler": "packages/closure-compiler/lib/vendor/compiler.jar",
       "stats.js": "packages/stats.js/build/stats.min.js",
       "cocoonjs": "packages/cocoonjs/build/cocoon.min.js",
       "box2d": "packages/box2d/dist/box2d.min.js"

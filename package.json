@@ -11,14 +11,16 @@
     "build": "cake build",
     "clean": "rimraf build/*",
     "get": "bower-installer",
+    "postget": "ncp packages/closure-compiler/lib/vendor/compiler.jar ./tools",
     "postinstall": "bower install && npm run get",
     "prebuild": "npm run clean -s && npm run transpile",
     "publish": "cake publish",
     "start": "node ./tools/server.js",
     "serve": "node ./tools/server.js build/web",
     "transpile": "coffee -o web/src/ash -cm lib && coffee -o web/src/example -cm example/src",
-    "test": "NODE_ENV=test mocha --reporter nyan"
+    "test": "NODE_ENV=test mocha --compilers coffee:coffee-script --require test/test_helper.js --recursive"
   },
+  "config": {},
   "author": "darkoverlordofdata",
   "contributors": [
     {
@@ -35,7 +37,6 @@
   "devDependencies": {
     "browserify": "~6.2.0",
     "chai": "~1.9.2",
-    "closure-compiler": "^0.2.7",
     "coffee-script": "~1.9.3",
     "executive": "^0.5.0",
     "fs-extra": "^0.22.1",
@@ -47,7 +48,9 @@
     "liquid.coffee": "^0.1.1",
     "mocha": "~2.0.1",
     "morgan": "^1.6.1",
-    "rimraf": "^2.4.2"
+    "ncp": "^2.0.0",
+    "rimraf": "^2.4.2",
+    "shelljs": "^0.5.1"
   },
   "dependencies": {}
 }
