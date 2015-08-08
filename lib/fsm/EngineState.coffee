@@ -59,3 +59,4 @@ class ash.fsm.EngineState
     mapping = new StateSystemMapping(this, provider)
     @providers.push(provider)
     return mapping
+    

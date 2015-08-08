@@ -63,3 +63,4 @@ class ash.tools.ComponentPool
   ###
   @empty: () ->
     pools = new Dictionary()
+    

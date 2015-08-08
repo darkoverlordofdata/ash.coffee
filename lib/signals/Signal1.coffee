@@ -11,3 +11,4 @@ class ash.signals.Signal1 extends ash.signals.SignalBase
         @remove(node.listener)
       node = node.next
     @endDispatch()
+    

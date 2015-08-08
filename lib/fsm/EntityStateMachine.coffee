@@ -84,3 +84,4 @@ class ash.fsm.EntityStateMachine
       @entity.add(toAdd[type].getComponent()) #, type)
 
     @currentState = newState
+    

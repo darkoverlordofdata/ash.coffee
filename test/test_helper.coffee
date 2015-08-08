@@ -4,8 +4,8 @@
 #
 #
 #
-require("../build/ash.js")
-do ->
+
+do (ash = require("../build/ash")) ->
 
   class MockComponent
     x: 0

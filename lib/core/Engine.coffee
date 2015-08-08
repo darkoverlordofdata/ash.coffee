@@ -3,7 +3,6 @@
  * entities and systems to the engine, and fetch families of nodes from the engine.
 ###
 'use strict'
-
 EntityList = ash.core.EntityList
 Dictionary = ash.ext.Dictionary
 SystemList = ash.core.SystemList

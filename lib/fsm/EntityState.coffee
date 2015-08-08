@@ -43,3 +43,4 @@ class ash.fsm.EntityState
   ###
   has: (type) ->
     return @providers[type] isnt null
+    

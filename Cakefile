@@ -67,21 +67,23 @@ task 'build', 'compile app to build/', (options) ->
   cp '-f', "lib/ash.d.ts", "build/ash.d.ts"
   mkdir "build/web"
   mkdir "build/lib"
-  cp '-Rf', "lib", "build/lib"
-  cp '-Rf', "web/src", "build/web/src"
+  cp '-Rf', "lib", "build"
+  cp '-Rf', "web/src", "build/web"
   cp '-f', "web/example.html", "build/web/example.html"
   cp '-f', "web/favicon.png", "build/web/favicon.png"
   cp '-f', "web/icon128.png", "build/web/icon128.png"
-  cp '-f', "web/index.html", "build/web/index.html"
+  cp '-f', "web/example_build.html", "build/web/index.html"
   cp '-f', "web/main.js", "build/web/main.js"
 
-#  code = (fs.readFileSync(file, 'utf8') for file in require('./jsconfig.json').files).join('\n')
-#  fs.writeFileSync("build/ash.js", code)
-
-  files = require('./jsconfig.json').files.join(' ')
-
-  exec "cat #{files} > build/ash.js"
-  exec "java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js #{files}"
+  # files = require('./jsconfig.json').files.join(' ')
+  # exec "cat #{files} > build/ash.js"
+  # exec "java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js #{files}"
+  
+  files = require('./csconfig.json').files.join(' ')
+  exec "cat #{files} | coffee -cs > build/ash.js"
+  exec "cat #{files} | coffee -cs | java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js"
+  
+  
 
 ###
  * Publish
@@ -93,19 +95,5 @@ task 'publish', 'publish build/web/ to gh-pages', (options) ->
   gulp = require('gulp')
   gh_pages = require('gulp-gh-pages')
 
-  gulp.src("build/web/**/*.*")
-  .pipe(gh_pages())
+  gulp.src("build/web/**/*.*").pipe(gh_pages())
 
-task "test", "run tests", ->
-
-  REPORTER = "nyan"
-  exec "NODE_ENV=test
-      ./node_modules/.bin/mocha
-      --compilers coffee:coffee-script
-      --reporter #{REPORTER}
-      --require coffee-script
-      --require test/test_helper.js
-      --recursive
-      ", (err, output) ->
-    console.log output
-    console.log err.message if err?

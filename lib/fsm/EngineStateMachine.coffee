@@ -78,3 +78,4 @@ class ash.fsm.EngineStateMachine
       @engine.addSystem(provider.getSystem(), provider.priority)
 
     @currentState = newState
+    

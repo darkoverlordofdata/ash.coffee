@@ -1,6 +1,6 @@
 {
   "name": "ash.coffee",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Ash port to Coffeescript",
   "keywords": [
     "ash",
@@ -11,10 +11,11 @@
     "build": "cake build",
     "clean": "rimraf build/*",
     "get": "bower-installer",
+    "gh-pages": "cake publish",
     "postget": "ncp packages/closure-compiler/lib/vendor/compiler.jar ./tools",
+    "postbuild": "ncp build/ash.js build/web/src/ash/ash.js",
     "postinstall": "bower install && npm run get",
     "prebuild": "npm run clean -s && npm run transpile",
-    "publish": "cake publish",
     "start": "node ./tools/server.js",
     "serve": "node ./tools/server.js build/web",
     "transpile": "coffee -o web/src/ash -cm lib && coffee -o web/src/example -cm example/src",

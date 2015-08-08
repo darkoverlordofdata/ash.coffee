@@ -151,3 +151,4 @@ if Phaser?
     ###
     has: (componentClass) ->
       return componentClass.className of @components
+      

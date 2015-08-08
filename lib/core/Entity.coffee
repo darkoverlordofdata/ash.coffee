@@ -146,3 +146,4 @@ class ash.core.Entity
   ###
   has: (componentClass) ->
     return getClassName(componentClass) of @components
+    
