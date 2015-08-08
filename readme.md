@@ -1,5 +1,7 @@
 #Ash.coffee
 
+[![Build Status](https://travis-ci.org/darkoverlordofdata/ash.coffee.svg?branch=master)](https://travis-ci.org/darkoverlordofdata/ash.coffee)
+
 A Port of the [Ash Framework](http://www.ashframework.org/) to CoffeeScript
 
 View the example [asteroids](http://darkoverlordofdata.com/ash.coffee/example.html)
