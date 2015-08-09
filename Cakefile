@@ -49,48 +49,41 @@
 
 
 ###
- * load dependencies
-###
-require 'shelljs/global'
-path = require('path')
-{exec} = require('child_process')
-###
- * Task release
+ * Make
  *
- * create the outputs
- * bump the version number
- * write the version source file
+ * make the build command
  *
 ###
-task 'build', 'compile app to build/', (options) ->
+task 'make:build', 'stuff the build script', (options) ->
 
-  cp '-f', "lib/ash.d.ts", "build/ash.d.ts"
-  mkdir "build/web"
-  mkdir "build/lib"
-  cp '-Rf', "lib", "build"
-  cp '-Rf', "web/src", "build/web"
-  cp '-f', "web/example.html", "build/web/example.html"
-  cp '-f', "web/favicon.png", "build/web/favicon.png"
-  cp '-f', "web/icon128.png", "build/web/icon128.png"
-  cp '-f', "web/example_build.html", "build/web/index.html"
-  cp '-f', "web/main.js", "build/web/main.js"
+  c0 = """
+    cp -f lib/ash.d.ts build/ash.d.ts
+    cp -rf lib build
+    cp -rf web/src build/web/src
+    cp -f web/example.html build/web/example.html
+    cp -f web/favicon.png build/web/favicon.png
+    cp -f web/icon128.png build/web/icon128.png
+    cp -f web/example_build.html build/web/index.html
+    cp -f web/main.js build/web/main.js  
+    """.split('\n').join(' && ')
 
-  # files = require('./jsconfig.json').files.join(' ')
-  # exec "cat #{files} > build/ash.js"
-  # exec "java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js #{files}"
+  files = require('./csconfig.json').files.join(" ")
+  c1 = "cat #{files} | coffee -cs > build/ash.js"
+  c2 = "cat #{files} | coffee -cs | java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js"
   
-  files = require('./csconfig.json').files.join(' ')
-  exec "cat #{files} | coffee -cs > build/ash.js"
-  exec "cat #{files} | coffee -cs | java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js"
+  project = require('./package.json')  
   
+  project['scripts']['build'] = "#{c0} && #{c1} && #{c2}"
+  require('fs').writeFileSync('./package.json', JSON.stringify(project, null, '  '))
   
+
 
 ###
  * Publish
  *
  * publish to github gh-pages
 ###
-task 'publish', 'publish build/web/ to gh-pages', (options) ->
+task 'publish:gh-pages', 'publish build/web/ to gh-pages', (options) ->
 
   gulp = require('gulp')
   gh_pages = require('gulp-gh-pages')

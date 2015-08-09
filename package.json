@@ -8,18 +8,18 @@
   ],
   "main": "index.js",
   "scripts": {
-    "build": "cake build",
-    "clean": "rimraf build/*",
+    "clean": "rm -rf build/*",
     "get": "bower-installer",
-    "gh-pages": "cake publish",
-    "postget": "ncp packages/closure-compiler/lib/vendor/compiler.jar ./tools",
-    "postbuild": "ncp build/ash.js build/web/src/ash/ash.js",
+    "gh-pages": "cake publish:gh-pages",
+    "postget": "cp packages/closure-compiler/lib/vendor/compiler.jar ./tools",
+    "postbuild": "cp build/ash.js build/web/src/ash/ash.js",
     "postinstall": "bower install && npm run get",
-    "prebuild": "npm run clean -s && npm run transpile",
+    "prebuild": "cake make:build && npm run clean -s && npm run transpile && mkdir build/web",
     "start": "node ./tools/server.js",
     "serve": "node ./tools/server.js build/web",
     "transpile": "coffee -o web/src/ash -cm lib && coffee -o web/src/example -cm example/src",
-    "test": "NODE_ENV=test mocha --compilers coffee:coffee-script --require test/test_helper.js --recursive"
+    "test": "NODE_ENV=test mocha --compilers coffee:coffee-script --require test/test_helper.js --recursive",
+    "build": "cp -f lib/ash.d.ts build/ash.d.ts && cp -rf lib build && cp -rf web/src build/web/src && cp -f web/example.html build/web/example.html && cp -f web/favicon.png build/web/favicon.png && cp -f web/icon128.png build/web/icon128.png && cp -f web/example_build.html build/web/index.html && cp -f web/main.js build/web/main.js   && cat lib/prolog.coffee lib/signals/ListenerNode.coffee lib/signals/ListenerNodePool.coffee lib/signals/SignalBase.coffee lib/signals/Signal0.coffee lib/signals/Signal1.coffee lib/signals/Signal2.coffee lib/signals/Signal3.coffee lib/core/Entity.coffee lib/core/EntityList.coffee lib/core/Node.coffee lib/core/NodeList.coffee lib/core/NodePool.coffee lib/core/System.coffee lib/core/SystemList.coffee lib/core/Family.coffee lib/core/ComponentMatchingFamily.coffee lib/core/Engine.coffee lib/ext/phaser_engine.coffee lib/ext/phaser_entity.coffee lib/ext/phaser_plugin.coffee lib/ext/Helper.coffee lib/fsm/ComponentInstanceProvider.coffee lib/fsm/ComponentSingletonProvider.coffee lib/fsm/ComponentTypeProvider.coffee lib/fsm/DynamicComponentProvider.coffee lib/fsm/DynamicSystemProvider.coffee lib/fsm/EngineState.coffee lib/fsm/StateComponentMapping.coffee lib/fsm/EngineStateMachine.coffee lib/fsm/EntityState.coffee lib/fsm/EntityStateMachine.coffee lib/fsm/StateSystemMapping.coffee lib/fsm/SystemInstanceProvider.coffee lib/fsm/SystemSingletonProvider.coffee lib/tick/FrameTickProvider.coffee lib/tools/ComponentPool.coffee lib/tools/ListIteratingSystem.coffee lib/export.coffee | coffee -cs > build/ash.js && cat lib/prolog.coffee lib/signals/ListenerNode.coffee lib/signals/ListenerNodePool.coffee lib/signals/SignalBase.coffee lib/signals/Signal0.coffee lib/signals/Signal1.coffee lib/signals/Signal2.coffee lib/signals/Signal3.coffee lib/core/Entity.coffee lib/core/EntityList.coffee lib/core/Node.coffee lib/core/NodeList.coffee lib/core/NodePool.coffee lib/core/System.coffee lib/core/SystemList.coffee lib/core/Family.coffee lib/core/ComponentMatchingFamily.coffee lib/core/Engine.coffee lib/ext/phaser_engine.coffee lib/ext/phaser_entity.coffee lib/ext/phaser_plugin.coffee lib/ext/Helper.coffee lib/fsm/ComponentInstanceProvider.coffee lib/fsm/ComponentSingletonProvider.coffee lib/fsm/ComponentTypeProvider.coffee lib/fsm/DynamicComponentProvider.coffee lib/fsm/DynamicSystemProvider.coffee lib/fsm/EngineState.coffee lib/fsm/StateComponentMapping.coffee lib/fsm/EngineStateMachine.coffee lib/fsm/EntityState.coffee lib/fsm/EntityStateMachine.coffee lib/fsm/StateSystemMapping.coffee lib/fsm/SystemInstanceProvider.coffee lib/fsm/SystemSingletonProvider.coffee lib/tick/FrameTickProvider.coffee lib/tools/ComponentPool.coffee lib/tools/ListIteratingSystem.coffee lib/export.coffee | coffee -cs | java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js"
   },
   "config": {},
   "author": "darkoverlordofdata",
@@ -48,10 +48,7 @@
     "gulp-webserver": "^0.9.1",
     "liquid.coffee": "^0.1.1",
     "mocha": "~2.0.1",
-    "morgan": "^1.6.1",
-    "ncp": "^2.0.0",
-    "rimraf": "^2.4.2",
-    "shelljs": "^0.5.1"
+    "morgan": "^1.6.1"
   },
   "dependencies": {}
 }

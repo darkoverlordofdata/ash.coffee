@@ -37,7 +37,8 @@
         "web/src/ash/fsm/SystemSingletonProvider.js",
         "web/src/ash/tick/FrameTickProvider.js",
         "web/src/ash/tools/ComponentPool.js",
-        "web/src/ash/tools/ListIteratingSystem.js"
+        "web/src/ash/tools/ListIteratingSystem.js",
+        "web/src/ash/export.js"
     ]
 	
 }

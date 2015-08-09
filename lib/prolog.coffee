@@ -79,22 +79,3 @@ ash =
 
   tools: {}
 
-###
- * Export ash
-###
-# if window?
-#   @['ash'] = ash
-# else # Toto, I've a feeling we're not in the browser any more.
-#   global['ash'] = ash
-
-if typeof define is 'function' and define.amd?
-  define ['ash'], -> ash
-else if typeof exports is 'object'
-  module.exports = ash
-  # global['ash'] = ash
-else
-  if typeof window isnt 'undefined'
-    window['ash'] = ash
-  else # Toto, I've a feeling we're not in the browser any more.
-    global['ash'] = ash
-    
