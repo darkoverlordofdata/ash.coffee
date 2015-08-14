@@ -2,8 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: ComponentMatchingFamily</title>
+    <title>Ash.coffee</title>
     
+    <meta name="description" content="A Port of the Ash Framework to CoffeeScript" />
+    
+        <meta name="keywords" content="coffeescript ash" />
+        <meta name="keyword" content="coffeescript ash" />
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
     
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -17,7 +29,7 @@
     
     
     <script>
-    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    var config = {"monospaceLinks":true,"cleverLinks":true,"default":{"outputSourceFiles":true},"applicationName":"Ash.coffee","disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"Ash.coffee","description":"A Port of the Ash Framework to CoffeeScript","keyword":"coffeescript ash"},"linenums":false};
     </script>
     
 
@@ -27,7 +39,7 @@
 <div id="wrap" class="clearfix">
     
 <div class="navigation">
-    <h3 class="applicationName"><a href="index.html"></a></h3>
+    <h3 class="applicationName"><a href="index.html">Ash.coffee</a></h3>
 
     <div class="search">
         <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
@@ -1275,8 +1287,8 @@
     
     
     <div class="description">
-        The constructor. Creates a ComponentMatchingFamily to provide a NodeList for the
-given node class.
+        <p>The constructor. Creates a ComponentMatchingFamily to provide a NodeList for the
+given node class.</p>
     </div>
     
 
@@ -1323,7 +1335,7 @@ given node class.
             
             <td class="description last">
                 
-                The type of node to create and manage a NodeList for.</td>
+                <p>The type of node to create and manage a NodeList for.</p></td>
         </tr>
 	
 	
@@ -1346,7 +1358,7 @@ given node class.
             
             <td class="description last">
                 
-                The engine that this family is managing teh NodeList for.</td>
+                <p>The engine that this family is managing teh NodeList for.</p></td>
         </tr>
 	
 	
@@ -1683,8 +1695,8 @@ given node class.
     
     
     <div class="description">
-        If the entity is not in this family's NodeList, tests the components of the entity to see
-if it should be in this NodeList and adds it if so.
+        <p>If the entity is not in this family's NodeList, tests the components of the entity to see
+if it should be in this NodeList and adds it if so.</p>
     </div>
     
 
@@ -1731,7 +1743,7 @@ if it should be in this NodeList and adds it if so.
             
             <td class="description last">
                 
-                to check</td>
+                <p>to check</p></td>
         </tr>
 	
 	
@@ -1800,7 +1812,7 @@ if it should be in this NodeList and adds it if so.
     
     
     <div class="description">
-        Removes all nodes from the NodeList.
+        <p>Removes all nodes from the NodeList.</p>
     </div>
     
 
@@ -1871,8 +1883,8 @@ if it should be in this NodeList and adds it if so.
     
     
     <div class="description">
-        Called by the engine when a component has been added to an entity. We check if the entity is not in
-this family's NodeList and should be, and add it if appropriate.
+        <p>Called by the engine when a component has been added to an entity. We check if the entity is not in
+this family's NodeList and should be, and add it if appropriate.</p>
     </div>
     
 
@@ -1919,7 +1931,7 @@ this family's NodeList and should be, and add it if appropriate.
             
             <td class="description last">
                 
-                with component that was added</td>
+                <p>with component that was added</p></td>
         </tr>
 	
 	
@@ -1942,7 +1954,7 @@ this family's NodeList and should be, and add it if appropriate.
             
             <td class="description last">
                 
-                that was added</td>
+                <p>that was added</p></td>
         </tr>
 	
 	
@@ -2011,9 +2023,9 @@ this family's NodeList and should be, and add it if appropriate.
     
     
     <div class="description">
-        Called by the engine when a component has been removed from an entity. We check if the removed component
+        <p>Called by the engine when a component has been removed from an entity. We check if the removed component
 is required by this family's NodeList and if so, we check if the entity is in this this NodeList and
-remove it if so.
+remove it if so.</p>
     </div>
     
 
@@ -2060,7 +2072,7 @@ remove it if so.
             
             <td class="description last">
                 
-                with component that was removed</td>
+                <p>with component that was removed</p></td>
         </tr>
 	
 	
@@ -2083,7 +2095,7 @@ remove it if so.
             
             <td class="description last">
                 
-                that was removed</td>
+                <p>that was removed</p></td>
         </tr>
 	
 	
@@ -2152,8 +2164,8 @@ remove it if so.
     
     
     <div class="description">
-        Called by the engine when an entity has been added to it. We check if the entity should be in
-this family's NodeList and add it if appropriate.
+        <p>Called by the engine when an entity has been added to it. We check if the entity should be in
+this family's NodeList and add it if appropriate.</p>
     </div>
     
 
@@ -2200,7 +2212,7 @@ this family's NodeList and add it if appropriate.
             
             <td class="description last">
                 
-                that was added</td>
+                <p>that was added</p></td>
         </tr>
 	
 	
@@ -2269,8 +2281,8 @@ this family's NodeList and add it if appropriate.
     
     
     <div class="description">
-        Releases the nodes that were added to the node pool during this engine update, so they can
-be reused.
+        <p>Releases the nodes that were added to the node pool during this engine update, so they can
+be reused.</p>
     </div>
     
 
@@ -2341,8 +2353,8 @@ be reused.
     
     
     <div class="description">
-        Called by the engine when an entity has been rmoved from it. We check if the entity is in
-this family's NodeList and remove it if so.
+        <p>Called by the engine when an entity has been rmoved from it. We check if the entity is in
+this family's NodeList and remove it if so.</p>
     </div>
     
 
@@ -2389,7 +2401,7 @@ this family's NodeList and remove it if so.
             
             <td class="description last">
                 
-                to remove</td>
+                <p>to remove</p></td>
         </tr>
 	
 	
@@ -2458,7 +2470,7 @@ this family's NodeList and remove it if so.
     
     
     <div class="description">
-        Removes the entity if it is in this family's NodeList.
+        <p>Removes the entity if it is in this family's NodeList.</p>
     </div>
     
 
@@ -2505,7 +2517,7 @@ this family's NodeList and remove it if so.
             
             <td class="description last">
                 
-                to check</td>
+                <p>to check</p></td>
         </tr>
 	
 	
@@ -2569,7 +2581,7 @@ this family's NodeList and remove it if so.
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Aug 14 2015 09:46:24 GMT-0700 (PDT)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Aug 14 2015 11:06:55 GMT-0700 (PDT)
         </footer>
     </div>
 </div>

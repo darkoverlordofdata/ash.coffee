@@ -2,8 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: Engine</title>
+    <title>Ash.coffee</title>
     
+    <meta name="description" content="A Port of the Ash Framework to CoffeeScript" />
+    
+        <meta name="keywords" content="coffeescript ash" />
+        <meta name="keyword" content="coffeescript ash" />
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
     
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -17,7 +29,7 @@
     
     
     <script>
-    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    var config = {"monospaceLinks":true,"cleverLinks":true,"default":{"outputSourceFiles":true},"applicationName":"Ash.coffee","disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"Ash.coffee","description":"A Port of the Ash Framework to CoffeeScript","keyword":"coffeescript ash"},"linenums":false};
     </script>
     
 
@@ -27,7 +39,7 @@
 <div id="wrap" class="clearfix">
     
 <div class="navigation">
-    <h3 class="applicationName"><a href="index.html"></a></h3>
+    <h3 class="applicationName"><a href="index.html">Ash.coffee</a></h3>
 
     <div class="search">
         <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
@@ -1471,11 +1483,10 @@
 <dd>
     
     <div class="description">
-        The class used to manage node lists. In most cases the default class is sufficient
+        <p>The class used to manage node lists. In most cases the default class is sufficient
 but it is exposed here so advanced developers can choose to create and use a
-different implementation.
-
-The class must implement the IFamily interface.
+different implementation.</p>
+<p>The class must implement the IFamily interface.</p>
     </div>
     
     
@@ -1561,9 +1572,9 @@ The class must implement the IFamily interface.
 <dd>
     
     <div class="description">
-        Dispatched when the update loop ends. If you want to add and remove systems from the
+        <p>Dispatched when the update loop ends. If you want to add and remove systems from the
 engine it is usually best not to do so during the update loop. To avoid this you can
-listen for this signal and make the change when the signal is dispatched.
+listen for this signal and make the change when the signal is dispatched.</p>
     </div>
     
     
@@ -1608,7 +1619,7 @@ listen for this signal and make the change when the signal is dispatched.
 <dd>
     
     <div class="description">
-        Indicates if the engine is currently in its update loop.
+        <p>Indicates if the engine is currently in its update loop.</p>
     </div>
     
     
@@ -1669,7 +1680,7 @@ listen for this signal and make the change when the signal is dispatched.
     
     
     <div class="description">
-        Add an entity to the engine.
+        <p>Add an entity to the engine.</p>
     </div>
     
 
@@ -1716,7 +1727,7 @@ listen for this signal and make the change when the signal is dispatched.
             
             <td class="description last">
                 
-                The entity to add.</td>
+                <p>The entity to add.</p></td>
         </tr>
 	
 	
@@ -1785,9 +1796,8 @@ listen for this signal and make the change when the signal is dispatched.
     
     
     <div class="description">
-        Add a system to the engine, and set its priority for the order in which the
-systems are updated by the engine update loop.
-
+        <p>Add a system to the engine, and set its priority for the order in which the
+systems are updated by the engine update loop.</p>
 <p>The priority dictates the order in which the systems are updated by the engine update
 loop. Lower numbers for priority are updated first. i.e. a priority of 1 is
 updated before a priority of 2.</p>
@@ -1837,7 +1847,7 @@ updated before a priority of 2.</p>
             
             <td class="description last">
                 
-                The system to add to the engine.</td>
+                <p>The system to add to the engine.</p></td>
         </tr>
 	
 	
@@ -1860,8 +1870,8 @@ updated before a priority of 2.</p>
             
             <td class="description last">
                 
-                The priority for updating the systems during the engine loop. A
-lower number means the system is updated sooner.</td>
+                <p>The priority for updating the systems during the engine loop. A
+lower number means the system is updated sooner.</p></td>
         </tr>
 	
 	
@@ -1930,7 +1940,7 @@ lower number means the system is updated sooner.</td>
     
     
     <div class="description">
-        Entity Name Changed
+        <p>Entity Name Changed</p>
     </div>
     
 
@@ -1977,7 +1987,7 @@ lower number means the system is updated sooner.</td>
             
             <td class="description last">
                 
-                The entity that Changed</td>
+                <p>The entity that Changed</p></td>
         </tr>
 	
 	
@@ -2000,7 +2010,7 @@ lower number means the system is updated sooner.</td>
             
             <td class="description last">
                 
-                the old name</td>
+                <p>the old name</p></td>
         </tr>
 	
 	
@@ -2069,7 +2079,7 @@ lower number means the system is updated sooner.</td>
     
     
     <div class="description">
-        Get an entity based n its name.
+        <p>Get an entity based n its name.</p>
     </div>
     
 
@@ -2116,7 +2126,7 @@ lower number means the system is updated sooner.</td>
             
             <td class="description last">
                 
-                The name of the entity</td>
+                <p>The name of the entity</p></td>
         </tr>
 	
 	
@@ -2214,8 +2224,7 @@ lower number means the system is updated sooner.</td>
     
     
     <div class="description">
-        Get a collection of nodes from the engine, based on the type of the node required.
-
+        <p>Get a collection of nodes from the engine, based on the type of the node required.</p>
 <p>The engine will create the appropriate NodeList if it doesn't already exist and
 will keep its contents up to date as entities are added to and removed from the
 engine.</p>
@@ -2267,7 +2276,7 @@ engine.</p>
             
             <td class="description last">
                 
-                The type of node required.</td>
+                <p>The type of node required.</p></td>
         </tr>
 	
 	
@@ -2365,7 +2374,7 @@ engine.</p>
     
     
     <div class="description">
-        Get the system instance of a particular type from within the engine.
+        <p>Get the system instance of a particular type from within the engine.</p>
     </div>
     
 
@@ -2412,7 +2421,7 @@ engine.</p>
             
             <td class="description last">
                 
-                The type of system</td>
+                <p>The type of system</p></td>
         </tr>
 	
 	
@@ -2511,10 +2520,9 @@ null if no systems of this type are in the engine.</td>
     
     
     <div class="description">
-        If a NodeList is no longer required, this method will stop the engine updating
+        <p>If a NodeList is no longer required, this method will stop the engine updating
 the list and will release all references to the list within the framework
-classes, enabling it to be garbage collected.
-
+classes, enabling it to be garbage collected.</p>
 <p>It is not essential to release a list, but releasing it will free
 up memory and processor resources.</p>
     </div>
@@ -2563,7 +2571,7 @@ up memory and processor resources.</p>
             
             <td class="description last">
                 
-                The type of the node class if the list to be released.</td>
+                <p>The type of the node class if the list to be released.</p></td>
         </tr>
 	
 	
@@ -2632,7 +2640,7 @@ up memory and processor resources.</p>
     
     
     <div class="description">
-        Remove all entities from the engine.
+        <p>Remove all entities from the engine.</p>
     </div>
     
 
@@ -2703,7 +2711,7 @@ up memory and processor resources.</p>
     
     
     <div class="description">
-        Remove all systems from the engine.
+        <p>Remove all systems from the engine.</p>
     </div>
     
 
@@ -2774,7 +2782,7 @@ up memory and processor resources.</p>
     
     
     <div class="description">
-        Remove an entity from the engine.
+        <p>Remove an entity from the engine.</p>
     </div>
     
 
@@ -2821,7 +2829,7 @@ up memory and processor resources.</p>
             
             <td class="description last">
                 
-                The entity to remove.</td>
+                <p>The entity to remove.</p></td>
         </tr>
 	
 	
@@ -2890,7 +2898,7 @@ up memory and processor resources.</p>
     
     
     <div class="description">
-        Remove a system from the engine.
+        <p>Remove a system from the engine.</p>
     </div>
     
 
@@ -2937,7 +2945,7 @@ up memory and processor resources.</p>
             
             <td class="description last">
                 
-                The system to remove from the engine.</td>
+                <p>The system to remove from the engine.</p></td>
         </tr>
 	
 	
@@ -3006,9 +3014,8 @@ up memory and processor resources.</p>
     
     
     <div class="description">
-        Update the engine. This causes the engine update loop to run, calling update on all the
-systems in the engine.
-
+        <p>Update the engine. This causes the engine update loop to run, calling update on all the
+systems in the engine.</p>
 <p>The package ash.tick contains classes that can be used to provide
 a steady or variable tick that calls this update method.</p>
     </div>
@@ -3076,7 +3083,7 @@ a steady or variable tick that calls this update method.</p>
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Aug 14 2015 09:46:24 GMT-0700 (PDT)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Aug 14 2015 11:06:55 GMT-0700 (PDT)
         </footer>
     </div>
 </div>

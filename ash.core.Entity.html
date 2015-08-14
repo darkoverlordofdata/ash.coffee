@@ -2,8 +2,20 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Class: Entity</title>
+    <title>Ash.coffee</title>
     
+    <meta name="description" content="A Port of the Ash Framework to CoffeeScript" />
+    
+        <meta name="keywords" content="coffeescript ash" />
+        <meta name="keyword" content="coffeescript ash" />
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
     
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -17,7 +29,7 @@
     
     
     <script>
-    var config = {"monospaceLinks":false,"cleverLinks":false,"default":{"outputSourceFiles":true}};
+    var config = {"monospaceLinks":true,"cleverLinks":true,"default":{"outputSourceFiles":true},"applicationName":"Ash.coffee","disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"Ash.coffee","description":"A Port of the Ash Framework to CoffeeScript","keyword":"coffeescript ash"},"linenums":false};
     </script>
     
 
@@ -27,7 +39,7 @@
 <div id="wrap" class="clearfix">
     
 <div class="navigation">
-    <h3 class="applicationName"><a href="index.html"></a></h3>
+    <h3 class="applicationName"><a href="index.html">Ash.coffee</a></h3>
 
     <div class="search">
         <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
@@ -1318,7 +1330,7 @@
             
             <td class="description last">
                 
-                Entity name</td>
+                <p>Entity name</p></td>
         </tr>
 	
 	
@@ -1393,7 +1405,7 @@
 <dd>
     
     <div class="description">
-        Optional, give the entity a name. This can help with debugging and with serialising the entity.
+        <p>Optional, give the entity a name. This can help with debugging and with serialising the entity.</p>
     </div>
     
     
@@ -1438,7 +1450,7 @@
 <dd>
     
     <div class="description">
-        This signal is dispatched when a component is added to the entity.
+        <p>This signal is dispatched when a component is added to the entity.</p>
     </div>
     
     
@@ -1483,7 +1495,7 @@
 <dd>
     
     <div class="description">
-        This signal is dispatched when a component is removed from the entity.
+        <p>This signal is dispatched when a component is removed from the entity.</p>
     </div>
     
     
@@ -1528,7 +1540,7 @@
 <dd>
     
     <div class="description">
-        Dispatched when the name of the entity changes. Used internally by the engine to track entities based on their names.
+        <p>Dispatched when the name of the entity changes. Used internally by the engine to track entities based on their names.</p>
     </div>
     
     
@@ -1589,7 +1601,7 @@
     
     
     <div class="description">
-        Add a component to the entity.
+        <p>Add a component to the entity.</p>
     </div>
     
 
@@ -1636,7 +1648,7 @@
             
             <td class="description last">
                 
-                The component object to add.</td>
+                <p>The component object to add.</p></td>
         </tr>
 	
 	
@@ -1659,9 +1671,9 @@
             
             <td class="description last">
                 
-                The class of the component. This is only necessary if the component
+                <p>The class of the component. This is only necessary if the component
 extends another component class and you want the framework to treat the component as of
-the base class type. If not set, the class type is determined directly from the component.</td>
+the base class type. If not set, the class type is determined directly from the component.</p></td>
         </tr>
 	
 	
@@ -1728,7 +1740,6 @@ the base class type. If not set, the class type is determined directly from the 
             </td>
             <td class="description last">A reference to the entity. This enables the chaining of calls to add, to make
 creating and configuring entities cleaner. e.g.
-
 <code>var entity:Entity = new Entity()
     .add(new Position(100, 200)
     .add(new Display(new PlayerClip());</code></td>
@@ -1764,7 +1775,7 @@ creating and configuring entities cleaner. e.g.
     
     
     <div class="description">
-        Get a component from the entity.
+        <p>Get a component from the entity.</p>
     </div>
     
 
@@ -1811,7 +1822,7 @@ creating and configuring entities cleaner. e.g.
             
             <td class="description last">
                 
-                The class of the component requested.</td>
+                <p>The class of the component requested.</p></td>
         </tr>
 	
 	
@@ -1909,7 +1920,7 @@ creating and configuring entities cleaner. e.g.
     
     
     <div class="description">
-        Get all components from the entity.
+        <p>Get all components from the entity.</p>
     </div>
     
 
@@ -2009,7 +2020,7 @@ creating and configuring entities cleaner. e.g.
     
     
     <div class="description">
-        Does the entity have a component of a particular type.
+        <p>Does the entity have a component of a particular type.</p>
     </div>
     
 
@@ -2056,7 +2067,7 @@ creating and configuring entities cleaner. e.g.
             
             <td class="description last">
                 
-                The class of the component sought.</td>
+                <p>The class of the component sought.</p></td>
         </tr>
 	
 	
@@ -2154,7 +2165,7 @@ creating and configuring entities cleaner. e.g.
     
     
     <div class="description">
-        Remove a component from the entity.
+        <p>Remove a component from the entity.</p>
     </div>
     
 
@@ -2201,7 +2212,7 @@ creating and configuring entities cleaner. e.g.
             
             <td class="description last">
                 
-                The class of the component to be removed.</td>
+                <p>The class of the component to be removed.</p></td>
         </tr>
 	
 	
@@ -2294,7 +2305,7 @@ creating and configuring entities cleaner. e.g.
         
 
         <footer>
-            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Aug 14 2015 09:46:24 GMT-0700 (PDT)
+            Documentation generated by <a target="_blank" href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Aug 14 2015 11:06:55 GMT-0700 (PDT)
         </footer>
     </div>
 </div>

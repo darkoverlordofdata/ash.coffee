@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Source: signals/Signal3.js</title>
+    
+    
+    
+    
+    
+    <meta property="og:title" content=""/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content=""/>
+    
+    <meta property="og:url" content=""/>
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/jaguar.css">
+    
+    
+    <script>
+    var config = {"monospaceLinks":true,"cleverLinks":true,"default":{"outputSourceFiles":true},"applicationName":"Demo","disqus":"","googleAnalytics":"","openGraph":{"title":"","type":"website","image":"","site_name":"","url":""},"meta":{"title":"","description":"","keyword":""},"linenums":false};
+    </script>
+    
+
+    
+</head>
+<body>
+<div id="wrap" class="clearfix">
+    
+<div class="navigation">
+    <h3 class="applicationName"><a href="index.html">Demo</a></h3>
+
+    <div class="search">
+        <input id="search" type="text" class="form-control input-sm" placeholder="Search Documentations">
+    </div>
+    <ul class="list">
+    
+        <li class="item" data-name="ash.core.ComponentMatchingFamily">
+            <span class="title">
+                <a href="ash.core.ComponentMatchingFamily.html">ash.core.ComponentMatchingFamily</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#components"><a href="ash.core.ComponentMatchingFamily.html#components">components</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#engine"><a href="ash.core.ComponentMatchingFamily.html#engine">engine</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#entities"><a href="ash.core.ComponentMatchingFamily.html#entities">entities</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#nodeClass"><a href="ash.core.ComponentMatchingFamily.html#nodeClass">nodeClass</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#nodePool"><a href="ash.core.ComponentMatchingFamily.html#nodePool">nodePool</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#nodes"><a href="ash.core.ComponentMatchingFamily.html#nodes">nodes</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#addIfMatch"><a href="ash.core.ComponentMatchingFamily.html#addIfMatch">addIfMatch</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#cleanUp"><a href="ash.core.ComponentMatchingFamily.html#cleanUp">cleanUp</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#componentAddedToEntity"><a href="ash.core.ComponentMatchingFamily.html#componentAddedToEntity">componentAddedToEntity</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#componentRemovedFromEntity"><a href="ash.core.ComponentMatchingFamily.html#componentRemovedFromEntity">componentRemovedFromEntity</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#newEntity"><a href="ash.core.ComponentMatchingFamily.html#newEntity">newEntity</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#releaseNodePoolCache"><a href="ash.core.ComponentMatchingFamily.html#releaseNodePoolCache">releaseNodePoolCache</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#removeEntity"><a href="ash.core.ComponentMatchingFamily.html#removeEntity">removeEntity</a></li>
+            
+                <li data-name="ash.core.ComponentMatchingFamily#removeIfMatch"><a href="ash.core.ComponentMatchingFamily.html#removeIfMatch">removeIfMatch</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.core.Engine">
+            <span class="title">
+                <a href="ash.core.Engine.html">ash.core.Engine</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.core.Engine#entityList"><a href="ash.core.Engine.html#entityList">entityList</a></li>
+            
+                <li data-name="ash.core.Engine#entityNames"><a href="ash.core.Engine.html#entityNames">entityNames</a></li>
+            
+                <li data-name="ash.core.Engine#families"><a href="ash.core.Engine.html#families">families</a></li>
+            
+                <li data-name="ash.core.Engine#familyClass"><a href="ash.core.Engine.html#familyClass">familyClass</a></li>
+            
+                <li data-name="ash.core.Engine#systemList"><a href="ash.core.Engine.html#systemList">systemList</a></li>
+            
+                <li data-name="ash.core.Engine#updateComplete"><a href="ash.core.Engine.html#updateComplete">updateComplete</a></li>
+            
+                <li data-name="ash.core.Engine#updating"><a href="ash.core.Engine.html#updating">updating</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.core.Engine#addEntity"><a href="ash.core.Engine.html#addEntity">addEntity</a></li>
+            
+                <li data-name="ash.core.Engine#addSystem"><a href="ash.core.Engine.html#addSystem">addSystem</a></li>
+            
+                <li data-name="ash.core.Engine#entityNameChanged"><a href="ash.core.Engine.html#entityNameChanged">entityNameChanged</a></li>
+            
+                <li data-name="ash.core.Engine#getEntityByName"><a href="ash.core.Engine.html#getEntityByName">getEntityByName</a></li>
+            
+                <li data-name="ash.core.Engine#getNodeList"><a href="ash.core.Engine.html#getNodeList">getNodeList</a></li>
+            
+                <li data-name="ash.core.Engine#getSystem"><a href="ash.core.Engine.html#getSystem">getSystem</a></li>
+            
+                <li data-name="ash.core.Engine#releaseNodeList"><a href="ash.core.Engine.html#releaseNodeList">releaseNodeList</a></li>
+            
+                <li data-name="ash.core.Engine#removeAllEntities"><a href="ash.core.Engine.html#removeAllEntities">removeAllEntities</a></li>
+            
+                <li data-name="ash.core.Engine#removeAllSystems"><a href="ash.core.Engine.html#removeAllSystems">removeAllSystems</a></li>
+            
+                <li data-name="ash.core.Engine#removeEntity"><a href="ash.core.Engine.html#removeEntity">removeEntity</a></li>
+            
+                <li data-name="ash.core.Engine#removeSystem"><a href="ash.core.Engine.html#removeSystem">removeSystem</a></li>
+            
+                <li data-name="ash.core.Engine#update"><a href="ash.core.Engine.html#update">update</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.core.Entity">
+            <span class="title">
+                <a href="ash.core.Entity.html">ash.core.Entity</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.core.Entity#_name"><a href="ash.core.Entity.html#_name">_name</a></li>
+            
+                <li data-name="ash.core.Entity#componentAdded"><a href="ash.core.Entity.html#componentAdded">componentAdded</a></li>
+            
+                <li data-name="ash.core.Entity#componentRemoved"><a href="ash.core.Entity.html#componentRemoved">componentRemoved</a></li>
+            
+                <li data-name="ash.core.Entity#nameChanged"><a href="ash.core.Entity.html#nameChanged">nameChanged</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.core.Entity#add"><a href="ash.core.Entity.html#add">add</a></li>
+            
+                <li data-name="ash.core.Entity#get"><a href="ash.core.Entity.html#get">get</a></li>
+            
+                <li data-name="ash.core.Entity#getAll"><a href="ash.core.Entity.html#getAll">getAll</a></li>
+            
+                <li data-name="ash.core.Entity#has"><a href="ash.core.Entity.html#has">has</a></li>
+            
+                <li data-name="ash.core.Entity#remove"><a href="ash.core.Entity.html#remove">remove</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.core.EntityList">
+            <span class="title">
+                <a href="ash.core.EntityList.html">ash.core.EntityList</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.core.EntityList#head"><a href="ash.core.EntityList.html#head">head</a></li>
+            
+                <li data-name="ash.core.EntityList#tail"><a href="ash.core.EntityList.html#tail">tail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.core.EntityList#add"><a href="ash.core.EntityList.html#add">add</a></li>
+            
+                <li data-name="ash.core.EntityList#remove"><a href="ash.core.EntityList.html#remove">remove</a></li>
+            
+                <li data-name="ash.core.EntityList#removeAll"><a href="ash.core.EntityList.html#removeAll">removeAll</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.core.Node">
+            <span class="title">
+                <a href="ash.core.Node.html">ash.core.Node</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.core.Node#entity"><a href="ash.core.Node.html#entity">entity</a></li>
+            
+                <li data-name="ash.core.Node#next"><a href="ash.core.Node.html#next">next</a></li>
+            
+                <li data-name="ash.core.Node#previous"><a href="ash.core.Node.html#previous">previous</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.core.NodeList">
+            <span class="title">
+                <a href="ash.core.NodeList.html">ash.core.NodeList</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.core.NodeList#head"><a href="ash.core.NodeList.html#head">head</a></li>
+            
+                <li data-name="ash.core.NodeList#nodeAdded"><a href="ash.core.NodeList.html#nodeAdded">nodeAdded</a></li>
+            
+                <li data-name="ash.core.NodeList#nodeRemoved"><a href="ash.core.NodeList.html#nodeRemoved">nodeRemoved</a></li>
+            
+                <li data-name="ash.core.NodeList#tail"><a href="ash.core.NodeList.html#tail">tail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.core.NodeList#add"><a href="ash.core.NodeList.html#add">add</a></li>
+            
+                <li data-name="ash.core.NodeList#remove"><a href="ash.core.NodeList.html#remove">remove</a></li>
+            
+                <li data-name="ash.core.NodeList#removeAll"><a href="ash.core.NodeList.html#removeAll">removeAll</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.core.NodePool">
+            <span class="title">
+                <a href="ash.core.NodePool.html">ash.core.NodePool</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.core.NodePool#cacheTail"><a href="ash.core.NodePool.html#cacheTail">cacheTail</a></li>
+            
+                <li data-name="ash.core.NodePool#components"><a href="ash.core.NodePool.html#components">components</a></li>
+            
+                <li data-name="ash.core.NodePool#nodeClass"><a href="ash.core.NodePool.html#nodeClass">nodeClass</a></li>
+            
+                <li data-name="ash.core.NodePool#tail"><a href="ash.core.NodePool.html#tail">tail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.core.NodePool#cache"><a href="ash.core.NodePool.html#cache">cache</a></li>
+            
+                <li data-name="ash.core.NodePool#dispose"><a href="ash.core.NodePool.html#dispose">dispose</a></li>
+            
+                <li data-name="ash.core.NodePool#get"><a href="ash.core.NodePool.html#get">get</a></li>
+            
+                <li data-name="ash.core.NodePool#releaseCache"><a href="ash.core.NodePool.html#releaseCache">releaseCache</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.ext.Helper">
+            <span class="title">
+                <a href="ash.ext.Helper.html">ash.ext.Helper</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.ext.Helper#components"><a href="ash.ext.Helper.html#components">components</a></li>
+            
+                <li data-name="ash.ext.Helper#nodes"><a href="ash.ext.Helper.html#nodes">nodes</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.ComponentInstanceProvider">
+            <span class="title">
+                <a href="ash.fsm.ComponentInstanceProvider.html">ash.fsm.ComponentInstanceProvider</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.ComponentInstanceProvider#instance"><a href="ash.fsm.ComponentInstanceProvider.html#instance">instance</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.ComponentInstanceProvider#getComponent"><a href="ash.fsm.ComponentInstanceProvider.html#getComponent">getComponent</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.ComponentSingletonProvider">
+            <span class="title">
+                <a href="ash.fsm.ComponentSingletonProvider.html">ash.fsm.ComponentSingletonProvider</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.ComponentSingletonProvider#componentType"><a href="ash.fsm.ComponentSingletonProvider.html#componentType">componentType</a></li>
+            
+                <li data-name="ash.fsm.ComponentSingletonProvider#instance"><a href="ash.fsm.ComponentSingletonProvider.html#instance">instance</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.ComponentSingletonProvider#getComponent"><a href="ash.fsm.ComponentSingletonProvider.html#getComponent">getComponent</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.ComponentTypeProvider">
+            <span class="title">
+                <a href="ash.fsm.ComponentTypeProvider.html">ash.fsm.ComponentTypeProvider</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.ComponentTypeProvider#componentType"><a href="ash.fsm.ComponentTypeProvider.html#componentType">componentType</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.ComponentTypeProvider#getComponent"><a href="ash.fsm.ComponentTypeProvider.html#getComponent">getComponent</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.DynamicComponentProvider">
+            <span class="title">
+                <a href="ash.fsm.DynamicComponentProvider.html">ash.fsm.DynamicComponentProvider</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.DynamicComponentProvider#_closure"><a href="ash.fsm.DynamicComponentProvider.html#_closure">_closure</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.DynamicComponentProvider#getComponent"><a href="ash.fsm.DynamicComponentProvider.html#getComponent">getComponent</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.DynamicSystemProvider">
+            <span class="title">
+                <a href="ash.fsm.DynamicSystemProvider.html">ash.fsm.DynamicSystemProvider</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.DynamicSystemProvider#systemPriority"><a href="ash.fsm.DynamicSystemProvider.html#systemPriority">systemPriority</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.DynamicSystemProvider#method"><a href="ash.fsm.DynamicSystemProvider.html#method">method</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.EngineState">
+            <span class="title">
+                <a href="ash.fsm.EngineState.html">ash.fsm.EngineState</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.EngineState#providers"><a href="ash.fsm.EngineState.html#providers">providers</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.EngineState#addInstance"><a href="ash.fsm.EngineState.html#addInstance">addInstance</a></li>
+            
+                <li data-name="ash.fsm.EngineState#addMethod"><a href="ash.fsm.EngineState.html#addMethod">addMethod</a></li>
+            
+                <li data-name="ash.fsm.EngineState#addProvider"><a href="ash.fsm.EngineState.html#addProvider">addProvider</a></li>
+            
+                <li data-name="ash.fsm.EngineState#addSingleton"><a href="ash.fsm.EngineState.html#addSingleton">addSingleton</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.EngineStateMachine">
+            <span class="title">
+                <a href="ash.fsm.EngineStateMachine.html">ash.fsm.EngineStateMachine</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.EngineStateMachine#currentState"><a href="ash.fsm.EngineStateMachine.html#currentState">currentState</a></li>
+            
+                <li data-name="ash.fsm.EngineStateMachine#engine"><a href="ash.fsm.EngineStateMachine.html#engine">engine</a></li>
+            
+                <li data-name="ash.fsm.EngineStateMachine#states"><a href="ash.fsm.EngineStateMachine.html#states">states</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.EngineStateMachine#addState"><a href="ash.fsm.EngineStateMachine.html#addState">addState</a></li>
+            
+                <li data-name="ash.fsm.EngineStateMachine#changeState"><a href="ash.fsm.EngineStateMachine.html#changeState">changeState</a></li>
+            
+                <li data-name="ash.fsm.EngineStateMachine#createState"><a href="ash.fsm.EngineStateMachine.html#createState">createState</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.EntityState">
+            <span class="title">
+                <a href="ash.fsm.EntityState.html">ash.fsm.EntityState</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.EntityState#providers"><a href="ash.fsm.EntityState.html#providers">providers</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.EntityState#add"><a href="ash.fsm.EntityState.html#add">add</a></li>
+            
+                <li data-name="ash.fsm.EntityState#get"><a href="ash.fsm.EntityState.html#get">get</a></li>
+            
+                <li data-name="ash.fsm.EntityState#has"><a href="ash.fsm.EntityState.html#has">has</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.EntityStateMachine">
+            <span class="title">
+                <a href="ash.fsm.EntityStateMachine.html">ash.fsm.EntityStateMachine</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.EntityStateMachine#currentState"><a href="ash.fsm.EntityStateMachine.html#currentState">currentState</a></li>
+            
+                <li data-name="ash.fsm.EntityStateMachine#states"><a href="ash.fsm.EntityStateMachine.html#states">states</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.EntityStateMachine#addState"><a href="ash.fsm.EntityStateMachine.html#addState">addState</a></li>
+            
+                <li data-name="ash.fsm.EntityStateMachine#changeState"><a href="ash.fsm.EntityStateMachine.html#changeState">changeState</a></li>
+            
+                <li data-name="ash.fsm.EntityStateMachine#createState"><a href="ash.fsm.EntityStateMachine.html#createState">createState</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.StateComponentMapping">
+            <span class="title">
+                <a href="ash.fsm.StateComponentMapping.html">ash.fsm.StateComponentMapping</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.StateComponentMapping#componentType"><a href="ash.fsm.StateComponentMapping.html#componentType">componentType</a></li>
+            
+                <li data-name="ash.fsm.StateComponentMapping#creatingState"><a href="ash.fsm.StateComponentMapping.html#creatingState">creatingState</a></li>
+            
+                <li data-name="ash.fsm.StateComponentMapping#provider"><a href="ash.fsm.StateComponentMapping.html#provider">provider</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.StateComponentMapping#add"><a href="ash.fsm.StateComponentMapping.html#add">add</a></li>
+            
+                <li data-name="ash.fsm.StateComponentMapping#setProvider"><a href="ash.fsm.StateComponentMapping.html#setProvider">setProvider</a></li>
+            
+                <li data-name="ash.fsm.StateComponentMapping#withInstance"><a href="ash.fsm.StateComponentMapping.html#withInstance">withInstance</a></li>
+            
+                <li data-name="ash.fsm.StateComponentMapping#withMethod"><a href="ash.fsm.StateComponentMapping.html#withMethod">withMethod</a></li>
+            
+                <li data-name="ash.fsm.StateComponentMapping#withProvider"><a href="ash.fsm.StateComponentMapping.html#withProvider">withProvider</a></li>
+            
+                <li data-name="ash.fsm.StateComponentMapping#withSingleton"><a href="ash.fsm.StateComponentMapping.html#withSingleton">withSingleton</a></li>
+            
+                <li data-name="ash.fsm.StateComponentMapping#withType"><a href="ash.fsm.StateComponentMapping.html#withType">withType</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.StateSystemMapping">
+            <span class="title">
+                <a href="ash.fsm.StateSystemMapping.html">ash.fsm.StateSystemMapping</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.StateSystemMapping#creatingState"><a href="ash.fsm.StateSystemMapping.html#creatingState">creatingState</a></li>
+            
+                <li data-name="ash.fsm.StateSystemMapping#provider"><a href="ash.fsm.StateSystemMapping.html#provider">provider</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.StateSystemMapping#addInstance"><a href="ash.fsm.StateSystemMapping.html#addInstance">addInstance</a></li>
+            
+                <li data-name="ash.fsm.StateSystemMapping#addMethod"><a href="ash.fsm.StateSystemMapping.html#addMethod">addMethod</a></li>
+            
+                <li data-name="ash.fsm.StateSystemMapping#addSingleton"><a href="ash.fsm.StateSystemMapping.html#addSingleton">addSingleton</a></li>
+            
+                <li data-name="ash.fsm.StateSystemMapping#withPriority"><a href="ash.fsm.StateSystemMapping.html#withPriority">withPriority</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.SystemInstanceProvider">
+            <span class="title">
+                <a href="ash.fsm.SystemInstanceProvider.html">ash.fsm.SystemInstanceProvider</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.SystemInstanceProvider#instance"><a href="ash.fsm.SystemInstanceProvider.html#instance">instance</a></li>
+            
+                <li data-name="ash.fsm.SystemInstanceProvider#systemPriority"><a href="ash.fsm.SystemInstanceProvider.html#systemPriority">systemPriority</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.SystemInstanceProvider#getSystem"><a href="ash.fsm.SystemInstanceProvider.html#getSystem">getSystem</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.fsm.SystemSingletonProvider">
+            <span class="title">
+                <a href="ash.fsm.SystemSingletonProvider.html">ash.fsm.SystemSingletonProvider</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.fsm.SystemSingletonProvider#componentType"><a href="ash.fsm.SystemSingletonProvider.html#componentType">componentType</a></li>
+            
+                <li data-name="ash.fsm.SystemSingletonProvider#instance"><a href="ash.fsm.SystemSingletonProvider.html#instance">instance</a></li>
+            
+                <li data-name="ash.fsm.SystemSingletonProvider#systemPriority"><a href="ash.fsm.SystemSingletonProvider.html#systemPriority">systemPriority</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.fsm.SystemSingletonProvider#getSystem"><a href="ash.fsm.SystemSingletonProvider.html#getSystem">getSystem</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.signals.ListenerNode">
+            <span class="title">
+                <a href="ash.signals.ListenerNode.html">ash.signals.ListenerNode</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.signals.ListenerNode#listener"><a href="ash.signals.ListenerNode.html#listener">listener</a></li>
+            
+                <li data-name="ash.signals.ListenerNode#next"><a href="ash.signals.ListenerNode.html#next">next</a></li>
+            
+                <li data-name="ash.signals.ListenerNode#once"><a href="ash.signals.ListenerNode.html#once">once</a></li>
+            
+                <li data-name="ash.signals.ListenerNode#previous"><a href="ash.signals.ListenerNode.html#previous">previous</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.signals.ListenerNodePool">
+            <span class="title">
+                <a href="ash.signals.ListenerNodePool.html">ash.signals.ListenerNodePool</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.signals.ListenerNodePool#cacheTail"><a href="ash.signals.ListenerNodePool.html#cacheTail">cacheTail</a></li>
+            
+                <li data-name="ash.signals.ListenerNodePool#tail"><a href="ash.signals.ListenerNodePool.html#tail">tail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.signals.ListenerNodePool#cache"><a href="ash.signals.ListenerNodePool.html#cache">cache</a></li>
+            
+                <li data-name="ash.signals.ListenerNodePool#dispose"><a href="ash.signals.ListenerNodePool.html#dispose">dispose</a></li>
+            
+                <li data-name="ash.signals.ListenerNodePool#get"><a href="ash.signals.ListenerNodePool.html#get">get</a></li>
+            
+                <li data-name="ash.signals.ListenerNodePool#releaseCache"><a href="ash.signals.ListenerNodePool.html#releaseCache">releaseCache</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.signals.Signal0">
+            <span class="title">
+                <a href="ash.signals.Signal0.html">ash.signals.Signal0</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.signals.Signal0#dispatching"><a href="ash.signals.Signal0.html#dispatching">dispatching</a></li>
+            
+                <li data-name="ash.signals.Signal0#head"><a href="ash.signals.Signal0.html#head">head</a></li>
+            
+                <li data-name="ash.signals.Signal0#keys"><a href="ash.signals.Signal0.html#keys">keys</a></li>
+            
+                <li data-name="ash.signals.Signal0#listenerNodePool"><a href="ash.signals.Signal0.html#listenerNodePool">listenerNodePool</a></li>
+            
+                <li data-name="ash.signals.Signal0#nodes"><a href="ash.signals.Signal0.html#nodes">nodes</a></li>
+            
+                <li data-name="ash.signals.Signal0#numListeners"><a href="ash.signals.Signal0.html#numListeners">numListeners</a></li>
+            
+                <li data-name="ash.signals.Signal0#tail"><a href="ash.signals.Signal0.html#tail">tail</a></li>
+            
+                <li data-name="ash.signals.Signal0#toAddHead"><a href="ash.signals.Signal0.html#toAddHead">toAddHead</a></li>
+            
+                <li data-name="ash.signals.Signal0#toAddTail"><a href="ash.signals.Signal0.html#toAddTail">toAddTail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.signals.Signal0#add"><a href="ash.signals.Signal0.html#add">add</a></li>
+            
+                <li data-name="ash.signals.Signal0#addNode"><a href="ash.signals.Signal0.html#addNode">addNode</a></li>
+            
+                <li data-name="ash.signals.Signal0#addOnce"><a href="ash.signals.Signal0.html#addOnce">addOnce</a></li>
+            
+                <li data-name="ash.signals.Signal0#dispatch"><a href="ash.signals.Signal0.html#dispatch">dispatch</a></li>
+            
+                <li data-name="ash.signals.Signal0#endDispatch"><a href="ash.signals.Signal0.html#endDispatch">endDispatch</a></li>
+            
+                <li data-name="ash.signals.Signal0#getNode"><a href="ash.signals.Signal0.html#getNode">getNode</a></li>
+            
+                <li data-name="ash.signals.Signal0#remove"><a href="ash.signals.Signal0.html#remove">remove</a></li>
+            
+                <li data-name="ash.signals.Signal0#removeAll"><a href="ash.signals.Signal0.html#removeAll">removeAll</a></li>
+            
+                <li data-name="ash.signals.Signal0#startDispatch"><a href="ash.signals.Signal0.html#startDispatch">startDispatch</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.signals.Signal1">
+            <span class="title">
+                <a href="ash.signals.Signal1.html">ash.signals.Signal1</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.signals.Signal1#dispatching"><a href="ash.signals.Signal1.html#dispatching">dispatching</a></li>
+            
+                <li data-name="ash.signals.Signal1#head"><a href="ash.signals.Signal1.html#head">head</a></li>
+            
+                <li data-name="ash.signals.Signal1#keys"><a href="ash.signals.Signal1.html#keys">keys</a></li>
+            
+                <li data-name="ash.signals.Signal1#listenerNodePool"><a href="ash.signals.Signal1.html#listenerNodePool">listenerNodePool</a></li>
+            
+                <li data-name="ash.signals.Signal1#nodes"><a href="ash.signals.Signal1.html#nodes">nodes</a></li>
+            
+                <li data-name="ash.signals.Signal1#numListeners"><a href="ash.signals.Signal1.html#numListeners">numListeners</a></li>
+            
+                <li data-name="ash.signals.Signal1#tail"><a href="ash.signals.Signal1.html#tail">tail</a></li>
+            
+                <li data-name="ash.signals.Signal1#toAddHead"><a href="ash.signals.Signal1.html#toAddHead">toAddHead</a></li>
+            
+                <li data-name="ash.signals.Signal1#toAddTail"><a href="ash.signals.Signal1.html#toAddTail">toAddTail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.signals.Signal1#add"><a href="ash.signals.Signal1.html#add">add</a></li>
+            
+                <li data-name="ash.signals.Signal1#addNode"><a href="ash.signals.Signal1.html#addNode">addNode</a></li>
+            
+                <li data-name="ash.signals.Signal1#addOnce"><a href="ash.signals.Signal1.html#addOnce">addOnce</a></li>
+            
+                <li data-name="ash.signals.Signal1#dispatch"><a href="ash.signals.Signal1.html#dispatch">dispatch</a></li>
+            
+                <li data-name="ash.signals.Signal1#endDispatch"><a href="ash.signals.Signal1.html#endDispatch">endDispatch</a></li>
+            
+                <li data-name="ash.signals.Signal1#getNode"><a href="ash.signals.Signal1.html#getNode">getNode</a></li>
+            
+                <li data-name="ash.signals.Signal1#remove"><a href="ash.signals.Signal1.html#remove">remove</a></li>
+            
+                <li data-name="ash.signals.Signal1#removeAll"><a href="ash.signals.Signal1.html#removeAll">removeAll</a></li>
+            
+                <li data-name="ash.signals.Signal1#startDispatch"><a href="ash.signals.Signal1.html#startDispatch">startDispatch</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.signals.Signal2">
+            <span class="title">
+                <a href="ash.signals.Signal2.html">ash.signals.Signal2</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.signals.Signal2#dispatching"><a href="ash.signals.Signal2.html#dispatching">dispatching</a></li>
+            
+                <li data-name="ash.signals.Signal2#head"><a href="ash.signals.Signal2.html#head">head</a></li>
+            
+                <li data-name="ash.signals.Signal2#keys"><a href="ash.signals.Signal2.html#keys">keys</a></li>
+            
+                <li data-name="ash.signals.Signal2#listenerNodePool"><a href="ash.signals.Signal2.html#listenerNodePool">listenerNodePool</a></li>
+            
+                <li data-name="ash.signals.Signal2#nodes"><a href="ash.signals.Signal2.html#nodes">nodes</a></li>
+            
+                <li data-name="ash.signals.Signal2#numListeners"><a href="ash.signals.Signal2.html#numListeners">numListeners</a></li>
+            
+                <li data-name="ash.signals.Signal2#tail"><a href="ash.signals.Signal2.html#tail">tail</a></li>
+            
+                <li data-name="ash.signals.Signal2#toAddHead"><a href="ash.signals.Signal2.html#toAddHead">toAddHead</a></li>
+            
+                <li data-name="ash.signals.Signal2#toAddTail"><a href="ash.signals.Signal2.html#toAddTail">toAddTail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.signals.Signal2#add"><a href="ash.signals.Signal2.html#add">add</a></li>
+            
+                <li data-name="ash.signals.Signal2#addNode"><a href="ash.signals.Signal2.html#addNode">addNode</a></li>
+            
+                <li data-name="ash.signals.Signal2#addOnce"><a href="ash.signals.Signal2.html#addOnce">addOnce</a></li>
+            
+                <li data-name="ash.signals.Signal2#dispatch"><a href="ash.signals.Signal2.html#dispatch">dispatch</a></li>
+            
+                <li data-name="ash.signals.Signal2#endDispatch"><a href="ash.signals.Signal2.html#endDispatch">endDispatch</a></li>
+            
+                <li data-name="ash.signals.Signal2#getNode"><a href="ash.signals.Signal2.html#getNode">getNode</a></li>
+            
+                <li data-name="ash.signals.Signal2#remove"><a href="ash.signals.Signal2.html#remove">remove</a></li>
+            
+                <li data-name="ash.signals.Signal2#removeAll"><a href="ash.signals.Signal2.html#removeAll">removeAll</a></li>
+            
+                <li data-name="ash.signals.Signal2#startDispatch"><a href="ash.signals.Signal2.html#startDispatch">startDispatch</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.signals.Signal3">
+            <span class="title">
+                <a href="ash.signals.Signal3.html">ash.signals.Signal3</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.signals.Signal3#dispatching"><a href="ash.signals.Signal3.html#dispatching">dispatching</a></li>
+            
+                <li data-name="ash.signals.Signal3#head"><a href="ash.signals.Signal3.html#head">head</a></li>
+            
+                <li data-name="ash.signals.Signal3#keys"><a href="ash.signals.Signal3.html#keys">keys</a></li>
+            
+                <li data-name="ash.signals.Signal3#listenerNodePool"><a href="ash.signals.Signal3.html#listenerNodePool">listenerNodePool</a></li>
+            
+                <li data-name="ash.signals.Signal3#nodes"><a href="ash.signals.Signal3.html#nodes">nodes</a></li>
+            
+                <li data-name="ash.signals.Signal3#numListeners"><a href="ash.signals.Signal3.html#numListeners">numListeners</a></li>
+            
+                <li data-name="ash.signals.Signal3#tail"><a href="ash.signals.Signal3.html#tail">tail</a></li>
+            
+                <li data-name="ash.signals.Signal3#toAddHead"><a href="ash.signals.Signal3.html#toAddHead">toAddHead</a></li>
+            
+                <li data-name="ash.signals.Signal3#toAddTail"><a href="ash.signals.Signal3.html#toAddTail">toAddTail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.signals.Signal3#add"><a href="ash.signals.Signal3.html#add">add</a></li>
+            
+                <li data-name="ash.signals.Signal3#addNode"><a href="ash.signals.Signal3.html#addNode">addNode</a></li>
+            
+                <li data-name="ash.signals.Signal3#addOnce"><a href="ash.signals.Signal3.html#addOnce">addOnce</a></li>
+            
+                <li data-name="ash.signals.Signal3#dispatch"><a href="ash.signals.Signal3.html#dispatch">dispatch</a></li>
+            
+                <li data-name="ash.signals.Signal3#endDispatch"><a href="ash.signals.Signal3.html#endDispatch">endDispatch</a></li>
+            
+                <li data-name="ash.signals.Signal3#getNode"><a href="ash.signals.Signal3.html#getNode">getNode</a></li>
+            
+                <li data-name="ash.signals.Signal3#remove"><a href="ash.signals.Signal3.html#remove">remove</a></li>
+            
+                <li data-name="ash.signals.Signal3#removeAll"><a href="ash.signals.Signal3.html#removeAll">removeAll</a></li>
+            
+                <li data-name="ash.signals.Signal3#startDispatch"><a href="ash.signals.Signal3.html#startDispatch">startDispatch</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.signals.SignalBase">
+            <span class="title">
+                <a href="ash.signals.SignalBase.html">ash.signals.SignalBase</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.signals.SignalBase#dispatching"><a href="ash.signals.SignalBase.html#dispatching">dispatching</a></li>
+            
+                <li data-name="ash.signals.SignalBase#head"><a href="ash.signals.SignalBase.html#head">head</a></li>
+            
+                <li data-name="ash.signals.SignalBase#keys"><a href="ash.signals.SignalBase.html#keys">keys</a></li>
+            
+                <li data-name="ash.signals.SignalBase#listenerNodePool"><a href="ash.signals.SignalBase.html#listenerNodePool">listenerNodePool</a></li>
+            
+                <li data-name="ash.signals.SignalBase#nodes"><a href="ash.signals.SignalBase.html#nodes">nodes</a></li>
+            
+                <li data-name="ash.signals.SignalBase#numListeners"><a href="ash.signals.SignalBase.html#numListeners">numListeners</a></li>
+            
+                <li data-name="ash.signals.SignalBase#tail"><a href="ash.signals.SignalBase.html#tail">tail</a></li>
+            
+                <li data-name="ash.signals.SignalBase#toAddHead"><a href="ash.signals.SignalBase.html#toAddHead">toAddHead</a></li>
+            
+                <li data-name="ash.signals.SignalBase#toAddTail"><a href="ash.signals.SignalBase.html#toAddTail">toAddTail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.signals.SignalBase#add"><a href="ash.signals.SignalBase.html#add">add</a></li>
+            
+                <li data-name="ash.signals.SignalBase#addNode"><a href="ash.signals.SignalBase.html#addNode">addNode</a></li>
+            
+                <li data-name="ash.signals.SignalBase#addOnce"><a href="ash.signals.SignalBase.html#addOnce">addOnce</a></li>
+            
+                <li data-name="ash.signals.SignalBase#endDispatch"><a href="ash.signals.SignalBase.html#endDispatch">endDispatch</a></li>
+            
+                <li data-name="ash.signals.SignalBase#getNode"><a href="ash.signals.SignalBase.html#getNode">getNode</a></li>
+            
+                <li data-name="ash.signals.SignalBase#remove"><a href="ash.signals.SignalBase.html#remove">remove</a></li>
+            
+                <li data-name="ash.signals.SignalBase#removeAll"><a href="ash.signals.SignalBase.html#removeAll">removeAll</a></li>
+            
+                <li data-name="ash.signals.SignalBase#startDispatch"><a href="ash.signals.SignalBase.html#startDispatch">startDispatch</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.tick.FrameTickProvider">
+            <span class="title">
+                <a href="ash.tick.FrameTickProvider.html">ash.tick.FrameTickProvider</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.tick.FrameTickProvider#dispatching"><a href="ash.tick.FrameTickProvider.html#dispatching">dispatching</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#displayObject"><a href="ash.tick.FrameTickProvider.html#displayObject">displayObject</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#head"><a href="ash.tick.FrameTickProvider.html#head">head</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#isPlaying"><a href="ash.tick.FrameTickProvider.html#isPlaying">isPlaying</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#keys"><a href="ash.tick.FrameTickProvider.html#keys">keys</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#listenerNodePool"><a href="ash.tick.FrameTickProvider.html#listenerNodePool">listenerNodePool</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#maximumFrameTime"><a href="ash.tick.FrameTickProvider.html#maximumFrameTime">maximumFrameTime</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#nodes"><a href="ash.tick.FrameTickProvider.html#nodes">nodes</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#numListeners"><a href="ash.tick.FrameTickProvider.html#numListeners">numListeners</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#previousTime"><a href="ash.tick.FrameTickProvider.html#previousTime">previousTime</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#request"><a href="ash.tick.FrameTickProvider.html#request">request</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#tail"><a href="ash.tick.FrameTickProvider.html#tail">tail</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#timeAdjustment"><a href="ash.tick.FrameTickProvider.html#timeAdjustment">timeAdjustment</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#toAddHead"><a href="ash.tick.FrameTickProvider.html#toAddHead">toAddHead</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#toAddTail"><a href="ash.tick.FrameTickProvider.html#toAddTail">toAddTail</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.tick.FrameTickProvider#add"><a href="ash.tick.FrameTickProvider.html#add">add</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#addNode"><a href="ash.tick.FrameTickProvider.html#addNode">addNode</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#addOnce"><a href="ash.tick.FrameTickProvider.html#addOnce">addOnce</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#dispatch"><a href="ash.tick.FrameTickProvider.html#dispatch">dispatch</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#dispatchTick"><a href="ash.tick.FrameTickProvider.html#dispatchTick">dispatchTick</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#endDispatch"><a href="ash.tick.FrameTickProvider.html#endDispatch">endDispatch</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#getNode"><a href="ash.tick.FrameTickProvider.html#getNode">getNode</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#remove"><a href="ash.tick.FrameTickProvider.html#remove">remove</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#removeAll"><a href="ash.tick.FrameTickProvider.html#removeAll">removeAll</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#start"><a href="ash.tick.FrameTickProvider.html#start">start</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#startDispatch"><a href="ash.tick.FrameTickProvider.html#startDispatch">startDispatch</a></li>
+            
+                <li data-name="ash.tick.FrameTickProvider#stop"><a href="ash.tick.FrameTickProvider.html#stop">stop</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+        <li class="item" data-name="ash.tools.ListIteratingSystem">
+            <span class="title">
+                <a href="ash.tools.ListIteratingSystem.html">ash.tools.ListIteratingSystem</a>
+                
+            </span>
+            <ul class="members itemMembers">
+            
+            <span class="subtitle">Members</span>
+            
+                <li data-name="ash.tools.ListIteratingSystem#next"><a href="ash.tools.ListIteratingSystem.html#next">next</a></li>
+            
+                <li data-name="ash.tools.ListIteratingSystem#nodeAddedFunction"><a href="ash.tools.ListIteratingSystem.html#nodeAddedFunction">nodeAddedFunction</a></li>
+            
+                <li data-name="ash.tools.ListIteratingSystem#nodeClass"><a href="ash.tools.ListIteratingSystem.html#nodeClass">nodeClass</a></li>
+            
+                <li data-name="ash.tools.ListIteratingSystem#nodeList"><a href="ash.tools.ListIteratingSystem.html#nodeList">nodeList</a></li>
+            
+                <li data-name="ash.tools.ListIteratingSystem#nodeRemovedFunction"><a href="ash.tools.ListIteratingSystem.html#nodeRemovedFunction">nodeRemovedFunction</a></li>
+            
+                <li data-name="ash.tools.ListIteratingSystem#nodeUpdateFunction"><a href="ash.tools.ListIteratingSystem.html#nodeUpdateFunction">nodeUpdateFunction</a></li>
+            
+                <li data-name="ash.tools.ListIteratingSystem#previous"><a href="ash.tools.ListIteratingSystem.html#previous">previous</a></li>
+            
+            </ul>
+            <ul class="typedefs itemMembers">
+            
+            </ul>
+            <ul class="methods itemMembers">
+            
+            <span class="subtitle">Methods</span>
+            
+                <li data-name="ash.tools.ListIteratingSystem#addToEngine"><a href="ash.tools.ListIteratingSystem.html#addToEngine">addToEngine</a></li>
+            
+                <li data-name="ash.tools.ListIteratingSystem#removeFromEngine"><a href="ash.tools.ListIteratingSystem.html#removeFromEngine">removeFromEngine</a></li>
+            
+                <li data-name="ash.tools.ListIteratingSystem#update"><a href="ash.tools.ListIteratingSystem.html#update">update</a></li>
+            
+            </ul>
+            <ul class="events itemMembers">
+            
+            </ul>
+        </li>
+    
+    </ul>
+</div>
+    <div class="main">
+        <h1 class="page-title" data-filename="signals_Signal3.js.html">Source: signals/Signal3.js</h1>
+        
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source "><code>goog.provide('ash.signals.Signal3');
+/**
+ * @extends {ash.signals.SignalBase}
+ * @constructor
+ */
+ash.signals.Signal3 = function() {
+  return ash.signals.Signal3.superClass_.constructor.apply(this, arguments);
+}
+goog.inherits(ash.signals.Signal3, ash.signals.SignalBase);
+
+/**
+ * dispatch the event
+ * @param {any} 
+ * @param {any} 
+ * @param {any}
+ */
+ash.signals.Signal3.prototype.dispatch = function($1, $2, $3) {
+  var node;
+  this.startDispatch();
+  node = this.head;
+  while (node !== null) {
+    node.listener($1, $2, $3);
+    if (node.once) {
+      this.remove(node.listener);
+    }
+    node = node.next;
+  }
+  return this.endDispatch();
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+
+        
+
+        <footer>
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Fri Aug 14 2015 10:59:08 GMT-0700 (PDT)
+        </footer>
+    </div>
+</div>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+<script src="scripts/main.js"></script>
+</body>
+</html>
