@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "spaceship_collision_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/spaceship_collision_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,sBAAC,CAAA,UAAD,GACE;MAAA,SAAA,EAAc,SAAS,CAAC,UAAU,CAAC,SAAnC;MACA,QAAA,EAAc,SAAS,CAAC,UAAU,CAAC,QADnC;MAEA,SAAA,EAAc,SAAS,CAAC,UAAU,CAAC,SAFnC;MAGA,KAAA,EAAc,SAAS,CAAC,UAAU,CAAC,KAHnC;;;qCAKF,SAAA,GAAc;;qCACd,QAAA,GAAc;;qCACd,SAAA,GAAc;;qCACd,KAAA,GAAc;;;;KAXqC,GAAG,CAAC,IAAI,CAAC;AAF9D"
+}

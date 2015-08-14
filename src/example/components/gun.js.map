@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "gun.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/gun.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;EACA,KAAA,GAAQ,SAAS,CAAC,EAAE,CAAC;;EAEf,SAAS,CAAC,UAAU,CAAC;kBAEzB,QAAA,GAAU;;kBACV,gBAAA,GAAkB;;kBAClB,iBAAA,GAAmB;;kBACnB,gBAAA,GAAkB;;IAEL,aAAC,OAAD,EAAU,OAAV,EAAmB,mBAAnB,EAAyC,cAAzC;MAAmB,IAAC,CAAA,sBAAD;MAAsB,IAAC,CAAA,iBAAD;MAEpD,IAAC,CAAA,QAAD,GAAY;MACZ,IAAC,CAAA,gBAAD,GAAoB;MACpB,IAAC,CAAA,iBAAD,GAAqB;MACrB,IAAC,CAAA,gBAAD,GAAwB,IAAA,KAAA,CAAM,OAAN,EAAe,OAAf;IALb;;;;;AAVf"
+}

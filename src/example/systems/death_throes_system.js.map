@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "death_throes_system.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/systems/death_throes_system.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA,eAAA;IAAA;;;;EAEA,eAAA,GAAkB,SAAS,CAAC,KAAK,CAAC;;EAE5B,SAAS,CAAC,OAAO,CAAC;;;gCAEtB,OAAA,GAAS;;IAEI,2BAAC,OAAD;MAAC,IAAC,CAAA,UAAD;;MAEZ,mDAAM,eAAN,EAAuB,IAAC,CAAA,UAAxB;IAFW;;gCAIb,UAAA,GAAY,SAAC,IAAD,EAAO,IAAP;MAEV,IAAI,CAAC,KAAK,CAAC,SAAX,IAAwB;MACxB,IAAI,IAAI,CAAC,KAAK,CAAC,SAAX,IAAwB,CAA5B;QACE,IAAC,CAAA,OAAO,CAAC,aAAT,CAAuB,IAAI,CAAC,MAA5B,EADF;;IAHU;;;;KARoC,GAAG,CAAC,KAAK,CAAC;AAJ5D"
+}

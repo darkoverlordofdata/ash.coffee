@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "Node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/core/Node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,GAAG,CAAC,IAAI,CAAC;;;mBAEb,MAAA,GAAQ;;mBACR,QAAA,GAAU;;mBACV,IAAA,GAAM;;;;;AANR"
+}

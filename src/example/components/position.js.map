@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "position.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/position.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;EACA,KAAA,GAAQ,SAAS,CAAC,EAAE,CAAC;;EAEf,SAAS,CAAC,UAAU,CAAC;uBAEzB,QAAA,GAAU;;uBACV,QAAA,GAAU;;IAEG,kBAAC,CAAD,EAAI,CAAJ,EAAO,QAAP;MAAO,IAAC,CAAA,WAAD;MAElB,IAAC,CAAA,QAAD,GAAgB,IAAA,KAAA,CAAM,CAAN,EAAS,CAAT;IAFL;;;;;AARf"
+}

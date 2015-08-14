@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "game_state.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/game_state.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;;;wBAEzB,KAAA,GAAO;;wBACP,KAAA,GAAO;;wBACP,IAAA,GAAM;;wBACN,OAAA,GAAS;;wBAET,WAAA,GAAa,SAAA;MACX,IAAC,CAAA,KAAD,GAAS;MACT,IAAC,CAAA,KAAD,GAAS;MACT,IAAC,CAAA,IAAD,GAAQ;MACR,IAAC,CAAA,OAAD,GAAW;IAJA;;;;;AATf"
+}

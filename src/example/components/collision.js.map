@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "collision.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/collision.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;wBAEzB,MAAA,GAAQ;;IAEK,mBAAC,MAAD;MAAC,IAAC,CAAA,SAAD;IAAD;;;;;AANf"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "audio_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/audio_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EACM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,SAAC,CAAA,UAAD,GACE;MAAA,KAAA,EAAQ,SAAS,CAAC,UAAU,CAAC,KAA7B;;;wBAEF,KAAA,GAAQ;;;;KAL8B,GAAG,CAAC,IAAI,CAAC;AADjD"
+}

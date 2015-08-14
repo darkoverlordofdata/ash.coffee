@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "bullet.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/bullet.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;qBAEzB,aAAA,GAAe;;IAEF,gBAAC,aAAD;MAAC,IAAC,CAAA,gBAAD;IAAD;;;;;AANf"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "system_priorities.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/systems/system_priorities.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,OAAO,CAAC;;;IAEtB,gBAAC,CAAA,SAAD,GAAwB;;IACxB,gBAAC,CAAA,MAAD,GAAwB;;IACxB,gBAAC,CAAA,IAAD,GAAwB;;IACxB,gBAAC,CAAA,iBAAD,GAAwB;;IACxB,gBAAC,CAAA,aAAD,GAAwB;;IACxB,gBAAC,CAAA,OAAD,GAAwB;;IACxB,gBAAC,CAAA,MAAD,GAAwB;;;;;AAV1B"
+}

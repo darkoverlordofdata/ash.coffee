@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ComponentTypeProvider.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/fsm/ComponentTypeProvider.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,GAAG,CAAC,GAAG,CAAC;oCAEZ,aAAA,GAAe;;;AAEf;;;;;;IAKa,+BAAC,IAAD;MACX,IAAC,CAAA,aAAD,GAAiB;IADN;;;AAGb;;;;;;oCAKA,YAAA,GAAc,SAAA;AACZ,aAAW,IAAA,IAAC,CAAA,aAAD,CAAA;IADC;;;AAGd;;;;;;;IAMA,MAAM,CAAC,gBAAP,CAAwB,qBAAqB,CAAA,SAA7C,EACE;MAAA,UAAA,EAAY;QAAA,GAAA,EAAK,SAAA;AAAG,iBAAO,IAAC,CAAA;QAAX,CAAL;OAAZ;KADF;;;;;AA5BF"
+}

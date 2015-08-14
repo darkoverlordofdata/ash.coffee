@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "animation_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/animation_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,aAAC,CAAA,UAAD,GACE;MAAA,SAAA,EAAY,SAAS,CAAC,UAAU,CAAC,SAAjC;;;4BAEF,SAAA,GAAY;;;;KAL8B,GAAG,CAAC,IAAI,CAAC;AAFrD"
+}

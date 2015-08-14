@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "render_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/render_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,UAAC,CAAA,UAAD,GACE;MAAA,QAAA,EAAY,SAAS,CAAC,UAAU,CAAC,QAAjC;MACA,OAAA,EAAY,SAAS,CAAC,UAAU,CAAC,OADjC;;;yBAGF,QAAA,GAAY;;yBACZ,OAAA,GAAY;;;;KAP2B,GAAG,CAAC,IAAI,CAAC;AAFlD"
+}

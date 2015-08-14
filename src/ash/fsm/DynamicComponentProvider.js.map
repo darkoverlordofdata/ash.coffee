@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "DynamicComponentProvider.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/fsm/DynamicComponentProvider.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,GAAG,CAAC,GAAG,CAAC;uCAGZ,QAAA,GAAU;;;AAEV;;;;;;IAKa,kCAAC,OAAD;MACX,IAAC,CAAA,QAAD,GAAY;;AACZ;;;;;IAFW;;uCAOb,YAAA,GAAc,SAAA;AACZ,aAAO,IAAC,CAAA;IADI;;;AAGd;;;;;;;IAMA,MAAM,CAAC,gBAAP,CAAwB,wBAAwB,CAAA,SAAhD,EACE;MAAA,UAAA,EAAY;QAAA,GAAA,EAAK,SAAA;AAAG,iBAAO,IAAC,CAAA;QAAX,CAAL;OAAZ;KADF;;;;;AA5BF"
+}

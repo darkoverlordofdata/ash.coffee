@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "hud_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/hud_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,OAAC,CAAA,UAAD,GACE;MAAA,KAAA,EAAQ,SAAS,CAAC,UAAU,CAAC,SAA7B;MACA,GAAA,EAAQ,SAAS,CAAC,UAAU,CAAC,GAD7B;;;sBAGF,KAAA,GAAQ;;sBACR,GAAA,GAAQ;;;;KAP4B,GAAG,CAAC,IAAI,CAAC;AAF/C"
+}

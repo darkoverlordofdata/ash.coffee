@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "container.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/ui/container.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,EAAE,CAAC;wBAEjB,OAAA,GAAS;;wBACT,QAAA,GAAU;;IAEG,mBAAC,OAAD;MAAC,IAAC,CAAA,UAAD;MACZ,IAAC,CAAA,QAAD,GAAY;IADD;;wBAGb,QAAA,GAAU,SAAC,KAAD;aACR,IAAC,CAAA,QAAQ,CAAC,IAAV,CAAe,KAAf;IADQ;;wBAIV,IAAA,GAAM,SAAA;AACJ,UAAA;AAAA;WAAA,0CAAA;;qBACE,KAAK,CAAC,IAAN,CAAA;AADF;;IADI;;;;;AAdR"
+}

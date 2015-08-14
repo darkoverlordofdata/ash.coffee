@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "spaceship_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/spaceship_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,aAAC,CAAA,UAAD,GACE;MAAA,SAAA,EAAY,SAAS,CAAC,UAAU,CAAC,SAAjC;MACA,QAAA,EAAY,SAAS,CAAC,UAAU,CAAC,QADjC;;;4BAGF,SAAA,GAAY;;4BACZ,QAAA,GAAY;;;;KAP8B,GAAG,CAAC,IAAI,CAAC;AAFrD"
+}

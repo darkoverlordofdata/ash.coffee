@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "asteroid.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/asteroid.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;uBAEzB,GAAA,GAAK;;IAEQ,kBAAC,GAAD;MAAC,IAAC,CAAA,MAAD;IAAD;;;;;AANf"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "asteroid_collision_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/asteroid_collision_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,qBAAC,CAAA,UAAD,GACE;MAAA,QAAA,EAAY,SAAS,CAAC,UAAU,CAAC,QAAjC;MACA,QAAA,EAAY,SAAS,CAAC,UAAU,CAAC,QADjC;MAEA,SAAA,EAAY,SAAS,CAAC,UAAU,CAAC,SAFjC;MAGA,KAAA,EAAY,SAAS,CAAC,UAAU,CAAC,KAHjC;;;oCAKF,QAAA,GAAY;;oCACZ,QAAA,GAAY;;oCACZ,SAAA,GAAY;;oCACZ,KAAA,GAAY;;;;KAXsC,GAAG,CAAC,IAAI,CAAC;AAF7D"
+}

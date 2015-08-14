@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "animation_system.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/systems/animation_system.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA,aAAA;IAAA;;;;EAEA,aAAA,GAAgB,SAAS,CAAC,KAAK,CAAC;;EAE1B,SAAS,CAAC,OAAO,CAAC;;;IAET,yBAAA;;MAEX,iDAAM,aAAN,EAAqB,IAAC,CAAA,UAAtB;IAFW;;8BAIb,UAAA,GAAY,SAAC,IAAD,EAAO,IAAP;MAEV,IAAI,CAAC,SAAS,CAAC,SAAS,CAAC,OAAzB,CAAiC,IAAjC;IAFU;;;;KANkC,GAAG,CAAC,KAAK,CAAC;AAJ1D"
+}

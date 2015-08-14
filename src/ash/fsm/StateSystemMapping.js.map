@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "StateSystemMapping.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/fsm/StateSystemMapping.coffee"
+  ],
+  "names": [],
+  "mappings": ";;AAAA;;;;AAAA;EAGA;EAEM,GAAG,CAAC,GAAG,CAAC;iCAEZ,aAAA,GAAe;;iCACf,QAAA,GAAU;;;AAEV;;;;;;;;;IAQa,4BAAC,cAAD,EAAiB,SAAjB;MAAC,IAAC,CAAA,gBAAD;MAAgB,IAAC,CAAA,WAAD;IAAjB;;;AAGb;;;;;;;iCAMA,YAAA,GAAc,SAAC,QAAD;MACZ,IAAC,CAAA,QAAQ,CAAC,QAAV,GAAqB;AACrB,aAAO;IAFK;;;AAId;;;;;;;;iCAOA,WAAA,GAAa,SAAC,MAAD;AACX,aAAO,aAAa,CAAC,WAAd,CAA0B,MAA1B;IADI;;;AAGb;;;;;;;;;;;iCAUA,YAAA,GAAc,SAAC,IAAD;AACZ,aAAO,aAAa,CAAC,YAAd,CAA2B,IAA3B;IADK;;;AAGd;;;;;;;;;iCAQA,SAAA,GAAW,SAAC,MAAD;AACT,aAAO,aAAa,CAAC,SAAd,CAAwB,MAAxB;IADE;;;AAGX;;;;;;;;iCAOA,WAAA,GAAa,SAAC,QAAD;AACX,aAAO,aAAa,CAAC,WAAd,CAA0B,QAA1B;IADI;;;AAGb;;;;;;AA3EF"
+}

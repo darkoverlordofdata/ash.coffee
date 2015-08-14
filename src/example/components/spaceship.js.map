@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "spaceship.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/spaceship.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;wBAEzB,GAAA,GAAK;;IAEQ,mBAAC,GAAD;MAAC,IAAC,CAAA,MAAD;IAAD;;;;;AANf"
+}

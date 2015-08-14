@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "motion_controls.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/motion_controls.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;6BAEzB,IAAA,GAAM;;6BACN,KAAA,GAAO;;6BACP,UAAA,GAAY;;6BACZ,gBAAA,GAAkB;;6BAClB,YAAA,GAAc;;IAED,wBAAC,IAAD,EAAQ,KAAR,EAAgB,UAAhB,EAA6B,gBAA7B,EAAgD,YAAhD;MAAC,IAAC,CAAA,OAAD;MAAO,IAAC,CAAA,QAAD;MAAQ,IAAC,CAAA,aAAD;MAAa,IAAC,CAAA,mBAAD;MAAmB,IAAC,CAAA,eAAD;IAAhD;;;;;AAVf"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "audio.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/audio.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;oBAEzB,MAAA,GAAQ;;IAEK,eAAA;MACX,IAAC,CAAA,MAAD,GAAU;IADC;;oBAGb,IAAA,GAAM,SAAC,KAAD;aACJ,IAAC,CAAA,MAAM,CAAC,IAAR,CAAa,KAAb;IADI;;;;;AATR"
+}

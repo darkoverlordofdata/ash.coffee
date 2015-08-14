@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "wait_for_start.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/wait_for_start.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;EAEM,SAAS,CAAC,UAAU,CAAC;2BAEzB,YAAA,GAAc;;2BACd,SAAA,GAAW;;IAEE,sBAAC,YAAD;MAAC,IAAC,CAAA,eAAD;;MACZ,IAAC,CAAA,YAAY,CAAC,KAAK,CAAC,GAApB,CAAwB,IAAC,CAAA,YAAzB;IADW;;2BAGb,YAAA,GAAc,SAAA;MACZ,IAAC,CAAA,SAAD,GAAa;IADD;;;;;AAVhB"
+}

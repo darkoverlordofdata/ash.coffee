@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "System.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/core/System.coffee"
+  ],
+  "names": [],
+  "mappings": ";;AAAA;;;;;;;;;;;;;AAAA;EAYA;AAZA,MAAA;;EAcM,GAAG,CAAC,IAAI,CAAC;;;;;;AAEb;;;;qBAGA,QAAA,GAAU;;;AACV;;;;qBAGA,IAAA,GAAM;;;AACN;;;;;qBAIA,QAAA,GAAU;;;AAEV;;;;;;;qBAMA,WAAA,GAAa,SAAC,MAAD,GAAA;;;AAGb;;;;;;;qBAMA,gBAAA,GAAkB,SAAC,MAAD,GAAA;;;AAIlB;;;;;;;;;;;qBAUA,MAAA,GAAQ,SAAC,IAAD,GAAA;;;;;AA3DV"
+}

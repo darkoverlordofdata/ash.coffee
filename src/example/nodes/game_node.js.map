@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "game_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/game_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,QAAC,CAAA,UAAD,GACE;MAAA,KAAA,EAAQ,SAAS,CAAC,UAAU,CAAC,SAA7B;;;uBAEF,KAAA,GAAQ;;;;KAL6B,GAAG,CAAC,IAAI,CAAC;AAFhD"
+}

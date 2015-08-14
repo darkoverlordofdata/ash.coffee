@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "display.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/display.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;sBAEzB,OAAA,GAAS;;IAEI,iBAAC,OAAD;MAAC,IAAC,CAAA,UAAD;IAAD;;;;;AANf"
+}

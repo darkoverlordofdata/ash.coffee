@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "gun_control_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/gun_control_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,cAAC,CAAA,UAAD,GACE;MAAA,KAAA,EAAY,SAAS,CAAC,UAAU,CAAC,KAAjC;MACA,OAAA,EAAY,SAAS,CAAC,UAAU,CAAC,WADjC;MAEA,GAAA,EAAY,SAAS,CAAC,UAAU,CAAC,GAFjC;MAGA,QAAA,EAAY,SAAS,CAAC,UAAU,CAAC,QAHjC;;;6BAKF,OAAA,GAAY;;6BACZ,GAAA,GAAY;;6BACZ,QAAA,GAAY;;6BACZ,KAAA,GAAY;;;;KAX+B,GAAG,CAAC,IAAI,CAAC;AAFtD"
+}

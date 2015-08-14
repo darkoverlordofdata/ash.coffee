@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ComponentSingletonProvider.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/fsm/ComponentSingletonProvider.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;EAEM,GAAG,CAAC,GAAG,CAAC;yCAEZ,aAAA,GAAe;;yCACf,QAAA,GAAU;;;AAEV;;;;;;IAKa,oCAAC,IAAD;MACX,IAAC,CAAA,aAAD,GAAiB;;AAEjB;;;;;IAHW;;yCAQb,YAAA,GAAc,SAAA;MACZ,IAAO,qBAAP;QACE,IAAC,CAAA,QAAD,GAAgB,IAAA,IAAC,CAAA,aAAD,CAAA,EADlB;;AAEA,aAAO,IAAC,CAAA;IAHI;;;AAKd;;;;;;;IAMA,MAAM,CAAC,gBAAP,CAAwB,0BAA0B,CAAA,SAAlD,EACE;MAAA,UAAA,EAAY;QAAA,GAAA,EAAK,SAAA;AAAG,iBAAO,IAAC,CAAA,YAAD,CAAA;QAAV,CAAL;OAAZ;KADF;;;;;AA/BF"
+}

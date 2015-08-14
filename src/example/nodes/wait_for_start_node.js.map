@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "wait_for_start_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/wait_for_start_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,gBAAC,CAAA,UAAD,GACE;MAAA,IAAA,EAAO,SAAS,CAAC,UAAU,CAAC,YAA5B;;;+BAEF,IAAA,GAAO;;;;KALsC,GAAG,CAAC,IAAI,CAAC;AAFxD"
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "prolog.js",
+  "sourceRoot": "../../..",
+  "sources": [
+    "lib/prolog.coffee"
+  ],
+  "names": [],
+  "mappings": ";;AAAA;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;EA0CA;;AAEA;;;;AA5CA,MAAA;;EAgDA,GAAA,GAEE;IAAA,OAAA,EAAS,EAAT;IAEA,IAAA,EAAM,EAFN;IAIA,GAAA,EACE;MAAA,UAAA,EAAkB;;AAChB;;;;;;;;UADF;;AAMA;;;;;;;;;;MAUA,YAAA,EAAa,SAAC,KAAD;AACX,YAAA;AAAA,uDAAyB,KAAK,CAAC;MADpB,CAhBb;KALF;IAyBA,GAAA,EAAK,EAzBL;IA2BA,IAAA,EAAM,EA3BN;IA6BA,KAAA,EAAO,EA7BP;;AAlDF"
+}

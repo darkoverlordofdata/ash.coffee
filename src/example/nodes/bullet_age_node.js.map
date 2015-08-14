@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "bullet_age_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/bullet_age_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,aAAC,CAAA,UAAD,GACE;MAAA,MAAA,EAAS,SAAS,CAAC,UAAU,CAAC,MAA9B;;;4BAEF,MAAA,GAAS;;;;KALiC,GAAG,CAAC,IAAI,CAAC;AAFrD"
+}

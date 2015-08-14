@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "hud_system.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/systems/hud_system.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA,OAAA;IAAA;;;;EAEA,OAAA,GAAU,SAAS,CAAC,KAAK,CAAC;;EAEpB,SAAS,CAAC,OAAO,CAAC;;;IAET,mBAAA;;MAEX,2CAAM,OAAN,EAAe,IAAC,CAAA,UAAhB;IAFW;;wBAIb,UAAA,GAAY,SAAC,IAAD,EAAO,IAAP;MAEV,IAAI,CAAC,GAAG,CAAC,IAAI,CAAC,QAAd,CAAuB,IAAI,CAAC,KAAK,CAAC,KAAlC;MACA,IAAI,CAAC,GAAG,CAAC,IAAI,CAAC,QAAd,CAAuB,IAAI,CAAC,KAAK,CAAC,IAAlC;IAHU;;;;KAN4B,GAAG,CAAC,KAAK,CAAC;AAJpD"
+}

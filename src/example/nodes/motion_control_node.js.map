@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "motion_control_node.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/nodes/motion_control_node.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,iBAAC,CAAA,UAAD,GACE;MAAA,OAAA,EAAY,SAAS,CAAC,UAAU,CAAC,cAAjC;MACA,QAAA,EAAY,SAAS,CAAC,UAAU,CAAC,QADjC;MAEA,MAAA,EAAY,SAAS,CAAC,UAAU,CAAC,MAFjC;;;gCAKF,OAAA,GAAY;;gCACZ,QAAA,GAAY;;gCACZ,MAAA,GAAY;;;;KAVkC,GAAG,CAAC,IAAI,CAAC;AAFzD"
+}

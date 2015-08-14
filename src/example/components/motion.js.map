@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "motion.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/src/components/motion.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;EAAA;AAAA,MAAA;;EACA,KAAA,GAAQ,SAAS,CAAC,EAAE,CAAC;;EAEf,SAAS,CAAC,UAAU,CAAC;qBAEzB,QAAA,GAAU;;qBACV,eAAA,GAAiB;;qBACjB,OAAA,GAAS;;IAEI,gBAAC,SAAD,EAAY,SAAZ,EAAuB,eAAvB,EAAyC,OAAzC;MAAuB,IAAC,CAAA,kBAAD;MAAkB,IAAC,CAAA,UAAD;MAEpD,IAAC,CAAA,QAAD,GAAgB,IAAA,KAAA,CAAM,SAAN,EAAiB,SAAjB;IAFL;;;;;AATf"
+}

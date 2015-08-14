@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ComponentInstanceProvider.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/fsm/ComponentInstanceProvider.coffee"
+  ],
+  "names": [],
+  "mappings": ";;AAAA;;;;;AAAA;EAIA;EAEM,GAAG,CAAC,GAAG,CAAC;wCAEZ,QAAA,GAAU;;;AAEV;;;;;;IAKa,mCAAC,QAAD;MAAC,IAAC,CAAA,WAAD;IAAD;;;AAEb;;;;;;wCAKA,YAAA,GAAc,SAAA;AACZ,aAAO,IAAC,CAAA;IADI;;;AAGd;;;;;;;IAMA,MAAM,CAAC,gBAAP,CAAwB,yBAAyB,CAAA,SAAjD,EACE;MAAA,UAAA,EAAY;QAAA,GAAA,EAAK,SAAA;AAAG,iBAAO,IAAC,CAAA;QAAX,CAAL;OAAZ;KADF;;;;;AA/BF"
+}

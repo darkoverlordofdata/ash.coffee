@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ListenerNode.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/signals/ListenerNode.coffee"
+  ],
+  "names": [],
+  "mappings": ";;AAAA;;;;AAAA;EAGA;EAEM,GAAG,CAAC,OAAO,CAAC;;;2BAEhB,QAAA,GAAU;;2BACV,IAAA,GAAM;;2BACN,QAAA,GAAU;;2BACV,IAAA,GAAM;;;;;AAVR"
+}
