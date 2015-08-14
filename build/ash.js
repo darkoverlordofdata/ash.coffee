@@ -49,47 +49,37 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    * ash namespace
    * @const
    */
-  var ComponentInstanceProvider, ComponentSingletonProvider, ComponentTypeProvider, Dictionary, DynamicComponentProvider, DynamicSystemProvider, EngineState, EntityList, EntityState, ListenerNode, ListenerNodePool, NodeList, NodePool, PhaserEngine, PhaserEntity, PhaserPlugin, Signal0, Signal1, Signal2, StateComponentMapping, StateSystemMapping, SystemInstanceProvider, SystemList, SystemSingletonProvider, ash, getClassName,
+  var ComponentInstanceProvider, ComponentSingletonProvider, ComponentTypeProvider, Dictionary, DynamicComponentProvider, DynamicSystemProvider, EngineState, EntityList, EntityState, ListenerNode, ListenerNodePool, NodeList, NodePool, Signal0, Signal1, Signal2, StateComponentMapping, StateSystemMapping, SystemInstanceProvider, SystemList, SystemSingletonProvider, Util, ash,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   ash = {
-    signals: {},
     core: {},
-    ext: {
-      Dictionary: Dictionary = (function() {
-
-        /*
-         * @constructor
-         * @dict
-         */
-        function Dictionary() {}
-
-        return Dictionary;
-
-      })(),
-
-      /*
-       * Get Class Name
-       *
-       * closure compiler changes the class name, or sets it to ''
-       * In that case, add a static className property to all
-       * Nodes and Components so they can be identified.
-       *
-       * @param {function} klass
-       * @return {string}
-       */
-      getClassName: function(klass) {
-        var ref;
-        return (ref = klass.className) != null ? ref : klass.name;
-      }
-    },
+    ext: {},
     fsm: {},
+    signals: {},
     tick: {},
     tools: {}
   };
+
+  (function(root, factory) {
+    'use strict';
+
+    /*
+     * Export ash - umd header
+     */
+    if ('function' === typeof define && define.amd) {
+      define(factory);
+    } else if ('object' === typeof exports) {
+      module.exports = factory();
+    } else {
+      root['ash'] = factory();
+    }
+  })(this, (function() {
+    return ash;
+  }));
 
 
   /*
@@ -98,14 +88,39 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /**
+   * @constructor
+   */
+
   ash.signals.ListenerNode = (function() {
     function ListenerNode() {}
 
+
+    /**
+     * @param {ash.signals.ListenerNode}
+     */
+
     ListenerNode.prototype.previous = null;
+
+
+    /**
+     * @param {ash.signals.ListenerNode}
+     */
 
     ListenerNode.prototype.next = null;
 
+
+    /**
+     * @param {ash.signals.SignalBase}
+     */
+
     ListenerNode.prototype.listener = null;
+
+
+    /**
+     * @param {boolean}
+     */
 
     ListenerNode.prototype.once = false;
 
@@ -123,12 +138,33 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   ListenerNode = ash.signals.ListenerNode;
 
+
+  /**
+   * @constructor
+   */
+
   ash.signals.ListenerNodePool = (function() {
     function ListenerNodePool() {}
 
+
+    /**
+     * @type {ash.signals.ListenerNodePool}
+     */
+
     ListenerNodePool.prototype.tail = null;
 
+
+    /**
+     * @type {ash.signals.ListenerNodePool}
+     */
+
     ListenerNodePool.prototype.cacheTail = null;
+
+
+    /**
+     * Get listener node
+     * @return {ash.signals.ListenerNode}
+     */
 
     ListenerNodePool.prototype.get = function() {
       var node;
@@ -142,6 +178,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
     };
 
+
+    /**
+     * Dispose of listener node
+     * @param {ash.signals.ListenerNode}
+     */
+
     ListenerNodePool.prototype.dispose = function(node) {
       node.listener = null;
       node.once = false;
@@ -150,11 +192,22 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.tail = node;
     };
 
+
+    /**
+     * Cache listener node
+     * @param {ash.signals.ListenerNode}
+     */
+
     ListenerNodePool.prototype.cache = function(node) {
       node.listener = null;
       node.previous = this.cacheTail;
       this.cacheTail = node;
     };
+
+
+    /**
+     * Release cache
+     */
 
     ListenerNodePool.prototype.releaseCache = function() {
       var node;
@@ -176,23 +229,72 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   ListenerNodePool = ash.signals.ListenerNodePool;
 
   ash.signals.SignalBase = (function() {
+
+    /**
+     * @type {ash.signals.ListenerNode}
+     */
     SignalBase.prototype.head = null;
+
+
+    /**
+     * @type {ash.signals.ListenerNode}
+     */
 
     SignalBase.prototype.tail = null;
 
+
+    /**
+     * @type {number}
+     */
+
     SignalBase.prototype.numListeners = 0;
+
+
+    /**
+     * @type {Array<Object>}
+     */
 
     SignalBase.prototype.keys = null;
 
+
+    /**
+     * @type {ash.signals.ListenerNode}
+     */
+
     SignalBase.prototype.nodes = null;
+
+
+    /**
+     * @type {ash.signals.ListenerNodePool}
+     */
 
     SignalBase.prototype.listenerNodePool = null;
 
+
+    /**
+     * @type {ash.signals.ListenerNode}
+     */
+
     SignalBase.prototype.toAddHead = null;
+
+
+    /**
+     * @type {ash.signals.ListenerNode}
+     */
 
     SignalBase.prototype.toAddTail = null;
 
+
+    /**
+     * @type {boolean}
+     */
+
     SignalBase.prototype.dispatching = false;
+
+
+    /**
+     * @constructor
+     */
 
     function SignalBase() {
       this.nodes = [];
@@ -201,9 +303,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.numListeners = 0;
     }
 
+
+    /**
+     */
+
     SignalBase.prototype.startDispatch = function() {
       this.dispatching = true;
     };
+
+
+    /**
+     */
 
     SignalBase.prototype.endDispatch = function() {
       this.dispatching = false;
@@ -221,6 +331,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
       this.listenerNodePool.releaseCache();
     };
+
+
+    /**
+     * @param {Object} listener
+     */
 
     SignalBase.prototype.getNode = function(listener) {
       var node;
@@ -243,6 +358,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       return node;
     };
 
+
+    /**
+     * @param {Object} listener
+     */
+
     SignalBase.prototype.add = function(listener) {
       var node;
       if (this.keys.indexOf(listener) !== -1) {
@@ -254,6 +374,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.keys.push(listener);
       this.addNode(node);
     };
+
+
+    /**
+     * @param {Object} listener
+     */
 
     SignalBase.prototype.addOnce = function(listener) {
       var node;
@@ -267,6 +392,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.keys.push(listener);
       this.addNode(node);
     };
+
+
+    /**
+     * @param {ash.signals.ListenerNode} node
+     */
 
     SignalBase.prototype.addNode = function(node) {
       if (this.dispatching) {
@@ -288,6 +418,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
       this.numListeners++;
     };
+
+
+    /**
+     * @param {Object} listener
+     */
 
     SignalBase.prototype.remove = function(listener) {
       var index, node;
@@ -323,6 +458,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
     };
 
+
+    /**
+     */
+
     SignalBase.prototype.removeAll = function() {
       var index, node;
       while (this.head) {
@@ -346,12 +485,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /**
+   * @extends {ash.signals.SignalBase}
+   * @constructor
+   */
+
   ash.signals.Signal0 = (function(superClass) {
     extend(Signal0, superClass);
 
     function Signal0() {
       return Signal0.__super__.constructor.apply(this, arguments);
     }
+
+
+    /**
+     * dispatch the event
+     */
 
     Signal0.prototype.dispatch = function() {
       var node;
@@ -373,12 +523,24 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /**
+   * @extends {ash.signals.SignalBase}
+   * @constructor
+   */
+
   ash.signals.Signal1 = (function(superClass) {
     extend(Signal1, superClass);
 
     function Signal1() {
       return Signal1.__super__.constructor.apply(this, arguments);
     }
+
+
+    /**
+     * dispatch the event
+     * @param {any}
+     */
 
     Signal1.prototype.dispatch = function($1) {
       var node;
@@ -400,12 +562,25 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /**
+   * @extends {ash.signals.SignalBase}
+   * @constructor
+   */
+
   ash.signals.Signal2 = (function(superClass) {
     extend(Signal2, superClass);
 
     function Signal2() {
       return Signal2.__super__.constructor.apply(this, arguments);
     }
+
+
+    /**
+     * dispatch the event
+     * @param {any} 
+     * @param {any}
+     */
 
     Signal2.prototype.dispatch = function($1, $2) {
       var node;
@@ -427,12 +602,26 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /**
+   * @extends {ash.signals.SignalBase}
+   * @constructor
+   */
+
   ash.signals.Signal3 = (function(superClass) {
     extend(Signal3, superClass);
 
     function Signal3() {
       return Signal3.__super__.constructor.apply(this, arguments);
     }
+
+
+    /**
+     * dispatch the event
+     * @param {any} 
+     * @param {any} 
+     * @param {any}
+     */
 
     Signal3.prototype.dispatch = function($1, $2, $3) {
       var node;
@@ -478,7 +667,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   Dictionary = ash.ext.Dictionary;
 
-  getClassName = ash.ext.getClassName;
+  Util = ash.ext.Util;
 
   ash.core.Entity = (function() {
     var nameCount;
@@ -488,29 +677,37 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     nameCount = 0;
 
 
-    /*
+    /**
      * Optional, give the entity a name. This can help with debugging and with serialising the entity.
+     *
+     * @type {string}
      */
 
     Entity.prototype._name = '';
 
 
-    /*
+    /**
      * This signal is dispatched when a component is added to the entity.
+     * 
+     * @type {ash.signals.Signal2}
      */
 
     Entity.prototype.componentAdded = null;
 
 
-    /*
+    /**
      * This signal is dispatched when a component is removed from the entity.
+     * 
+     * @type {ash.signals.Signal2}
      */
 
     Entity.prototype.componentRemoved = null;
 
 
-    /*
+    /**
      * Dispatched when the name of the entity changes. Used internally by the engine to track entities based on their names.
+     * 
+     * @type {ash.signals.Signal2}
      */
 
     Entity.prototype.nameChanged = null;
@@ -520,6 +717,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     Entity.prototype.next = null;
 
     Entity.prototype.components = null;
+
+
+    /**
+     * @constructor
+     * @param {string} name Entity name
+     */
 
     function Entity(name) {
       if (name == null) {
@@ -560,15 +763,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Add a component to the entity.
      *
-     * @param component The component object to add.
-     * @param componentClass The class of the component. This is only necessary if the component
+     * @param {Object} component The component object to add.
+     * @param {Object} componentClass The class of the component. This is only necessary if the component
      * extends another component class and you want the framework to treat the component as of
      * the base class type. If not set, the class type is determined directly from the component.
      *
-     * @return A reference to the entity. This enables the chaining of calls to add, to make
+     * @return {ash.core.Entity} A reference to the entity. This enables the chaining of calls to add, to make
      * creating and configuring entities cleaner. e.g.
      *
      * <code>var entity:Entity = new Entity()
@@ -580,25 +783,25 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       if (componentClass == null) {
         componentClass = component.constructor;
       }
-      if (getClassName(componentClass) in this.components) {
+      if (Util.getClassName(componentClass) in this.components) {
         this.remove(componentClass);
       }
-      this.components[getClassName(componentClass)] = component;
+      this.components[Util.getClassName(componentClass)] = component;
       this.componentAdded.dispatch(this, componentClass);
       return this;
     };
 
 
-    /*
+    /**
      * Remove a component from the entity.
      *
-     * @param componentClass The class of the component to be removed.
-     * @return the component, or null if the component doesn't exist in the entity
+     * @param {Object} componentClass The class of the component to be removed.
+     * @return {Object} the component, or null if the component doesn't exist in the entity
      */
 
     Entity.prototype.remove = function(componentClass) {
       var component, name;
-      name = getClassName(componentClass) != null ? getClassName(componentClass) : componentClass;
+      name = Util.getClassName(componentClass) != null ? Util.getClassName(componentClass) : componentClass;
       component = this.components[name];
       if (component) {
         delete this.components[name];
@@ -609,22 +812,22 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Get a component from the entity.
      *
-     * @param componentClass The class of the component requested.
-     * @return The component, or null if none was found.
+     * @param {Object} componentClass The class of the component requested.
+     * @return {Object} The component, or null if none was found.
      */
 
     Entity.prototype.get = function(componentClass) {
-      return this.components[getClassName(componentClass)];
+      return this.components[Util.getClassName(componentClass)];
     };
 
 
-    /*
+    /**
      * Get all components from the entity.
      *
-     * @return An array containing all the components that are on the entity.
+     * @return {Array<Object>} An array containing all the components that are on the entity.
      */
 
     Entity.prototype.getAll = function() {
@@ -639,15 +842,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Does the entity have a component of a particular type.
      *
-     * @param componentClass The class of the component sought.
-     * @return true if the entity has a component of the type, false if not.
+     * @param {Object} componentClass The class of the component sought.
+     * @return {boolean} true if the entity has a component of the type, false if not.
      */
 
     Entity.prototype.has = function(componentClass) {
-      return getClassName(componentClass) in this.components;
+      return Util.getClassName(componentClass) in this.components;
     };
 
     return Entity;
@@ -662,12 +865,34 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /**
+   * @constructor
+   */
+
   ash.core.EntityList = (function() {
     function EntityList() {}
 
+
+    /**
+     * @type {ash.core.Entity}
+     */
+
     EntityList.prototype.head = null;
 
+
+    /**
+     * @type {ash.core.Entity}
+     */
+
     EntityList.prototype.tail = null;
+
+
+    /**
+     * Add an entity to the list
+     *
+     * @param {ash.core.Entity}
+     */
 
     EntityList.prototype.add = function(entity) {
       if (!this.head) {
@@ -680,6 +905,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         this.tail = entity;
       }
     };
+
+
+    /**
+     * Remove an entity from the list
+     *
+     * @param {ash.core.Entity}
+     */
 
     EntityList.prototype.remove = function(entity) {
       if (this.head === entity) {
@@ -695,6 +927,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         entity.next.previous = entity.previous;
       }
     };
+
+
+    /**
+     * Remove all entities
+     */
 
     EntityList.prototype.removeAll = function() {
       var entity;
@@ -713,12 +950,32 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /**
+   * @constructor
+   */
+
   ash.core.Node = (function() {
     function Node() {}
 
+
+    /**
+     * @type {ash.core.Entity}
+     */
+
     Node.prototype.entity = null;
 
+
+    /**
+     * @type {ash.core.Node}
+     */
+
     Node.prototype.previous = null;
+
+
+    /**
+     * @type {ash.core.Node}
+     */
 
     Node.prototype.next = null;
 
@@ -751,40 +1008,54 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   ash.core.NodeList = (function() {
 
-    /*
+    /**
      * The first item in the node list, or null if the list contains no nodes.
+     * @type {ash.core.Node}
      */
     NodeList.prototype.head = null;
 
 
-    /*
+    /**
      * The last item in the node list, or null if the list contains no nodes.
+     * @type {ash.core.Node}
      */
 
     NodeList.prototype.tail = null;
 
 
-    /*
+    /**
      * A signal that is dispatched whenever a node is added to the node list.
      *
      * <p>The signal will pass a single parameter to the listeners - the node that was added.</p>
+     * @type {ash.signals.Signal1}
      */
 
     NodeList.prototype.nodeAdded = null;
 
 
-    /*
+    /**
      * A signal that is dispatched whenever a node is removed from the node list.
      *
      * <p>The signal will pass a single parameter to the listeners - the node that was removed.</p>
+     * @type {ash.signals.Signal1}
      */
 
     NodeList.prototype.nodeRemoved = null;
+
+
+    /**
+     * @constructor
+     */
 
     function NodeList() {
       this.nodeAdded = new Signal1();
       this.nodeRemoved = new Signal1();
     }
+
+
+    /**
+     * @param {ash.core.Node} node to add
+     */
 
     NodeList.prototype.add = function(node) {
       if (!this.head) {
@@ -798,6 +1069,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
       this.nodeAdded.dispatch(node);
     };
+
+
+    /**
+     * @param {ash.core.Node} node to remove
+     */
 
     NodeList.prototype.remove = function(node) {
       if (this.head === node) {
@@ -815,6 +1091,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.nodeRemoved.dispatch(node);
     };
 
+
+    /**
+     * remove all nodes
+     */
+
     NodeList.prototype.removeAll = function() {
       var node;
       while (this.head) {
@@ -828,8 +1109,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * true if the list is empty, false otherwise.
+     * @type {boolean}
      */
 
     Object.defineProperties(NodeList.prototype, {
@@ -841,8 +1123,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     });
 
 
-    /*
+    /**
      * Swaps the positions of two nodes in the list. Useful when sorting a list.
+     *
+     * @private
      */
 
     NodeList.prototype.swap = function(node1, node2) {
@@ -890,7 +1174,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Performs an insertion sort on the node list. In general, insertion sort is very efficient with short lists
      * and with lists that are mostly sorted, but is inefficient with large lists that are randomly ordered.
      *
@@ -903,6 +1187,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * and the original order will be retained.</p>
      *
      * <p>This insertion sort implementation runs in place so no objects are created during the sort.</p>
+     *
+     * @private
+     * @param {Function} sort function
      */
 
     NodeList.prototype.insertionSort = function(sortFunction) {
@@ -964,6 +1251,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * than zero the second node should be before the first. If it is zero the order of the nodes doesn't matter.</p>
      *
      * <p>This merge sort implementation creates and uses a single Vector during the sort operation.</p>
+     *
+     * @private
+     * @param {Function} sort function
      */
 
     NodeList.prototype.mergeSort = function(sortFunction) {
@@ -991,6 +1281,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         this.tail = this.tail.next;
       }
     };
+
+
+    /*
+     *
+     * @private
+     * @param {ash.core.Node} head1
+     * @param {ash.core.Node} head2
+     * @param {Function} sort function
+     */
 
     NodeList.prototype.merge = function(head1, head2, sortFunction) {
       var head, node;
@@ -1041,17 +1340,40 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.core.NodePool = (function() {
+
+    /**
+     * @type {ash.core.Node}
+     */
     NodePool.prototype.tail = null;
+
+
+    /**
+     * @type {Function}
+     */
 
     NodePool.prototype.nodeClass = null;
 
+
+    /**
+     * @type {ash.core.Node}
+     */
+
     NodePool.prototype.cacheTail = null;
+
+
+    /**
+     * @type {ash.ext.Dictionary}
+     */
 
     NodePool.prototype.components = null;
 
 
-    /*
+    /**
      * Creates a pool for the given node class.
+     * 
+     * @constructor
+     * @param {Function} nodeClass
+     * @param {ash.core.Dictionary}
      */
 
     function NodePool(nodeClass1, components1) {
@@ -1060,8 +1382,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Fetches a node from the pool.
+     * @return {ash.core.Node}
      */
 
     NodePool.prototype.get = function() {
@@ -1078,8 +1401,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
-     * Adds a node to the pool.
+    /**
+     * dispose of a node
+     * @param {ash.core.Node}
      */
 
     NodePool.prototype.dispose = function(node) {
@@ -1094,8 +1418,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Adds a node to the cache
+     * @param {ash.core.Node}
      */
 
     NodePool.prototype.cache = function(node) {
@@ -1104,7 +1429,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Releases all nodes from the cache into the pool
      */
 
@@ -1137,21 +1462,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /*
+   * @constructor
+   */
+
   ash.core.System = (function() {
     function System() {
       this.update = bind(this.update, this);
     }
 
 
-    /*
+    /**
       * Used internally to manage the list of systems within the engine. The previous system in the list.
+      * @type {ash.core.System}
      */
 
     System.prototype.previous = null;
 
 
-    /*
+    /**
      * Used internally to manage the list of systems within the engine. The next system in the list.
+     * @type {ash.core.System}
      */
 
     System.prototype.next = null;
@@ -1160,6 +1492,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     /*
      * Used internally to hold the priority of this system within the system list. This is
      * used to order the systems so they are updated in the correct order.
+     * @type {number}
      */
 
     System.prototype.priority = 0;
@@ -1169,7 +1502,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * Called just after the system is added to the engine, before any calls to the update method.
      * Override this method to add your own functionality.
      *
-     * @param engine The engine the system was added to.
+     * @param {ash.core.Engine} engine The engine the system was added to.
      */
 
     System.prototype.addToEngine = function(engine) {};
@@ -1179,7 +1512,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * Called just after the system is removed from the engine, after all calls to the update method.
      * Override this method to add your own functionality.
      *
-     * @param engine The engine the system was removed from.
+     * @param {ash.core.Engine} engine The engine the system was removed from.
      */
 
     System.prototype.removeFromEngine = function(engine) {};
@@ -1193,7 +1526,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * systems in the engine and you don't want to do it while they're updating) add a listener to
      * the engine's updateComplete signal to be notified when the update loop completes.</p>
      *
-     * @param time The duration, in seconds, of the frame.
+     * @param {number} time The duration, in seconds, of the frame.
      */
 
     System.prototype.update = function(time) {};
@@ -1209,12 +1542,33 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   'use strict';
 
+
+  /*
+   * @constructor
+   */
+
   ash.core.SystemList = (function() {
     function SystemList() {}
 
+
+    /**
+     * @type {ash.core.System}
+     */
+
     SystemList.prototype.head = null;
 
+
+    /**
+     * @type {ash.core.System}
+     */
+
     SystemList.prototype.tail = null;
+
+
+    /**
+     * Add system
+     * @param {ash.core.System}
+     */
 
     SystemList.prototype.add = function(system) {
       var node;
@@ -1248,6 +1602,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
     };
 
+
+    /**
+     * remove system
+     * @param {ash.core.System}
+     */
+
     SystemList.prototype.remove = function(system) {
       if (this.head === system) {
         this.head = this.head.next;
@@ -1263,6 +1623,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
     };
 
+
+    /**
+     * Remove all systems
+     */
+
     SystemList.prototype.removeAll = function() {
       var system;
       while (this.head) {
@@ -1273,6 +1638,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
       this.tail = null;
     };
+
+
+    /**
+     * Get system for class
+     * @param {Function}
+     * @return {ash.core.System}
+     */
 
     SystemList.prototype.get = function(type) {
       var system;
@@ -1300,13 +1672,19 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.core.Family = (function() {
+
+    /**
+     * @type {ash.core.NodeList}
+     */
     Family.prototype.nodes = null;
 
 
-    /*
+    /**
      * Returns the NodeList managed by this class. This should be a reference that remains valid always
      * since it is retained and reused by Systems that use the list. i.e. never recreate the list,
      * always modify it in place.
+     *
+     * @interface
      */
 
     function Family() {
@@ -1320,9 +1698,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * An entity has been added to the engine. It may already have components so test the entity
      * for inclusion in this family's NodeList.
+     * 
+     * @param {ash.core.Entity} entity that was added
      */
 
     Family.prototype.newEntity = function(entity) {
@@ -1330,8 +1710,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * An entity has been removed from the engine. If it's in this family's NodeList it should be removed.
+     *
+     * @param {ash.core.Entity} entity to remove
      */
 
     Family.prototype.removeEntity = function(entity) {
@@ -1339,9 +1721,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * A component has been added to an entity. Test whether the entity's inclusion in this family's
      * NodeList should be modified.
+     *
+     * @param {ash.core.Entity} entity with component that was added
+     * @param {Object} componentClass that was added
      */
 
     Family.prototype.componentAddedToEntity = function(entity, componentClass) {
@@ -1349,9 +1734,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * A component has been removed from an entity. Test whether the entity's inclusion in this family's
      * NodeList should be modified.
+     *
+     * @param {ash.core.Entity} entity with component that was removed
+     * @param {Object} componentClass that was removed
      */
 
     Family.prototype.componentRemovedFromEntity = function(entity, componentClass) {
@@ -1359,7 +1747,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * The family is about to be discarded. Clean up all properties as necessary. Usually, you will
      * want to empty the NodeList at this time.
      */
@@ -1391,28 +1779,60 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   NodePool = ash.core.NodePool;
 
-  getClassName = ash.ext.getClassName;
+  Util = ash.ext.Util;
 
   ash.core.ComponentMatchingFamily = (function() {
+
+    /**
+     * @type {ash.core.NodeList}
+     */
     ComponentMatchingFamily.prototype.nodes = null;
+
+
+    /**
+     * @type {ash.ext.Dictionary}
+     */
 
     ComponentMatchingFamily.prototype.entities = null;
 
+
+    /**
+     * @type {Function}
+     */
+
     ComponentMatchingFamily.prototype.nodeClass = null;
+
+
+    /**
+     * @type {ash.ext.Dictionary}
+     */
 
     ComponentMatchingFamily.prototype.components = null;
 
+
+    /**
+     * @type {ash.core.NodePool}
+     */
+
     ComponentMatchingFamily.prototype.nodePool = null;
+
+
+    /**
+     * @type {ash.core.Engine}
+     */
 
     ComponentMatchingFamily.prototype.engine = null;
 
 
-    /*
+    /**
      * The constructor. Creates a ComponentMatchingFamily to provide a NodeList for the
      * given node class.
      *
-     * @param nodeClass The type of node to create and manage a NodeList for.
-     * @param engine The engine that this family is managing teh NodeList for.
+     * @constructor
+     * @implements {ash.core.Family}
+     *
+     * @param {Object} nodeClass The type of node to create and manage a NodeList for.
+     * @param {ash.core.Engine} engine The engine that this family is managing teh NodeList for.
      */
 
     function ComponentMatchingFamily(nodeClass1, engine1) {
@@ -1423,9 +1843,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Initialises the class. Creates the nodelist and other tools. Analyses the node to determine
      * what component types the node requires.
+     * @private
      */
 
     ComponentMatchingFamily.prototype.init = function() {
@@ -1437,7 +1858,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       ref = this.nodeClass.components;
       for (name in ref) {
         type = ref[name];
-        this.components[getClassName(type)] = type;
+        this.components[Util.getClassName(type)] = type;
       }
     };
 
@@ -1457,9 +1878,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     });
 
 
-    /*
+    /**
      * Called by the engine when an entity has been added to it. We check if the entity should be in
      * this family's NodeList and add it if appropriate.
+     *
+     * @param {ash.core.Entity} entity that was added
      */
 
     ComponentMatchingFamily.prototype.newEntity = function(entity) {
@@ -1467,9 +1890,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Called by the engine when a component has been added to an entity. We check if the entity is not in
      * this family's NodeList and should be, and add it if appropriate.
+     *
+     * @param {ash.core.Entity} entity with component that was added
+     * @param {Object} componentClass that was added
      */
 
     ComponentMatchingFamily.prototype.componentAddedToEntity = function(entity, componentClass) {
@@ -1477,24 +1903,29 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Called by the engine when a component has been removed from an entity. We check if the removed component
      * is required by this family's NodeList and if so, we check if the entity is in this this NodeList and
      * remove it if so.
+     *
+     * @param {ash.core.Entity} entity with component that was removed
+     * @param {Object} componentClass that was removed
      */
 
     ComponentMatchingFamily.prototype.componentRemovedFromEntity = function(entity, componentClass) {
       var name;
-      name = getClassName(componentClass) != null ? getClassName(componentClass) : componentClass;
+      name = Util.getClassName(componentClass) != null ? Util.getClassName(componentClass) : componentClass;
       if (name in this.components) {
         this.removeIfMatch(entity);
       }
     };
 
 
-    /*
+    /**
      * Called by the engine when an entity has been rmoved from it. We check if the entity is in
      * this family's NodeList and remove it if so.
+     *
+     * @param {ash.core.Entity} entity to remove
      */
 
     ComponentMatchingFamily.prototype.removeEntity = function(entity) {
@@ -1502,9 +1933,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * If the entity is not in this family's NodeList, tests the components of the entity to see
      * if it should be in this NodeList and adds it if so.
+     *
+     * @param {ash.core.Entity} entity to check
      */
 
     ComponentMatchingFamily.prototype.addIfMatch = function(entity) {
@@ -1530,8 +1963,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Removes the entity if it is in this family's NodeList.
+     *
+     * @param {ash.core.Entity} entity to check
      */
 
     ComponentMatchingFamily.prototype.removeIfMatch = function(entity) {
@@ -1550,7 +1985,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Releases the nodes that were added to the node pool during this engine update, so they can
      * be reused.
      */
@@ -1561,7 +1996,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Removes all nodes from the NodeList.
      */
 
@@ -1595,43 +2030,72 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   Signal0 = ash.signals.Signal0;
 
-  getClassName = ash.ext.getClassName;
+  Util = ash.ext.Util;
 
   ash.core.Engine = (function() {
+
+    /**
+     * @type {ash.ext.Dictionary}
+     */
     Engine.prototype.entityNames = null;
+
+
+    /**
+     * @type {ash.core.EntityList}
+     */
 
     Engine.prototype.entityList = null;
 
+
+    /**
+     * @type {ash.core.SystemList}
+     */
+
     Engine.prototype.systemList = null;
+
+
+    /**
+     * @type {ash.ext.Dictionary}
+     */
 
     Engine.prototype.families = null;
 
 
-    /*
+    /**
      * Indicates if the engine is currently in its update loop.
+     *
+     * @type {boolean}
      */
 
     Engine.prototype.updating = false;
 
 
-    /*
+    /**
      * Dispatched when the update loop ends. If you want to add and remove systems from the
      * engine it is usually best not to do so during the update loop. To avoid this you can
      * listen for this signal and make the change when the signal is dispatched.
+     *
+     * @type {ash.signals.Signal0}
      */
 
     Engine.prototype.updateComplete = null;
 
 
-    /*
+    /**
      * The class used to manage node lists. In most cases the default class is sufficient
      * but it is exposed here so advanced developers can choose to create and use a
      * different implementation.
      *
      * The class must implement the IFamily interface.
+     * @type {Function}
      */
 
     Engine.prototype.familyClass = ash.core.ComponentMatchingFamily;
+
+
+    /**
+     * @constructor
+     */
 
     function Engine() {
       this.update = bind(this.update, this);
@@ -1681,10 +2145,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     });
 
 
-    /*
+    /**
      * Add an entity to the engine.
      *
-     * @param entity The entity to add.
+     * @param {ash.core.Entity} entity The entity to add.
      */
 
     Engine.prototype.addEntity = function(entity) {
@@ -1705,10 +2169,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Remove an entity from the engine.
      *
-     * @param entity The entity to remove.
+     * @param {ash.core.Entity} entity The entity to remove.
      */
 
     Engine.prototype.removeEntity = function(entity) {
@@ -1725,6 +2189,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.entityList.remove(entity);
     };
 
+
+    /**
+     * Entity Name Changed
+     *
+     * @param {ash.core.Entity} entity The entity that Changed
+     * @param {string} name the old name
+     */
+
     Engine.prototype.entityNameChanged = function(entity, oldName) {
       if (this.entityNames[oldName] === entity) {
         delete this.entityNames[oldName];
@@ -1733,11 +2205,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Get an entity based n its name.
      *
-     * @param name The name of the entity
-     * @return The entity, or null if no entity with that name exists on the engine
+     * @param {string} name The name of the entity
+     * @return {ash.core.Entity} The entity, or null if no entity with that name exists on the engine
      */
 
     Engine.prototype.getEntityByName = function(name) {
@@ -1745,7 +2217,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Remove all entities from the engine.
      */
 
@@ -1756,8 +2228,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
-     @private
+    /**
+     * @private
+     * @param {ash.core.Entity} entity The entity that Changed
+     * @param {Object} componentClass the class object
      */
 
     Engine.prototype.componentAdded = function(entity, componentClass) {
@@ -1770,8 +2244,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
-     @private
+    /**
+     * @private
+     * @param {ash.core.Entity} entity The entity that Changed
+     * @param {Object} componentClass the class object
      */
 
     Engine.prototype.componentRemoved = function(entity, componentClass) {
@@ -1784,7 +2260,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Get a collection of nodes from the engine, based on the type of the node required.
      *
      * <p>The engine will create the appropriate NodeList if it doesn't already exist and
@@ -1793,17 +2269,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      *
      * <p>If a NodeList is no longer required, release it with the releaseNodeList method.</p>
      *
-     * @param nodeClass The type of node required.
-     * @return A linked list of all nodes of this type from all entities in the engine.
+     * @param {Object} nodeClass The type of node required.
+     * @return {ash.core.NodeList} A linked list of all nodes of this type from all entities in the engine.
      */
 
     Engine.prototype.getNodeList = function(nodeClass) {
       var entity, family;
-      if (getClassName(nodeClass) in this.families) {
-        return this.families[getClassName(nodeClass)].nodeList;
+      if (Util.getClassName(nodeClass) in this.families) {
+        return this.families[Util.getClassName(nodeClass)].nodeList;
       }
       family = new this.familyClass(nodeClass, this);
-      this.families[getClassName(nodeClass)] = family;
+      this.families[Util.getClassName(nodeClass)] = family;
       entity = this.entityList.head;
       while (entity) {
         family.newEntity(entity);
@@ -1813,7 +2289,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * If a NodeList is no longer required, this method will stop the engine updating
      * the list and will release all references to the list within the framework
      * classes, enabling it to be garbage collected.
@@ -1821,18 +2297,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * <p>It is not essential to release a list, but releasing it will free
      * up memory and processor resources.</p>
      *
-     * @param nodeClass The type of the node class if the list to be released.
+     * @param {Object} nodeClass The type of the node class if the list to be released.
      */
 
     Engine.prototype.releaseNodeList = function(nodeClass) {
-      if (getClassName(nodeClass) in this.families) {
-        this.families[getClassName(nodeClass)].cleanUp();
-        delete this.families[getClassName(nodeClass)];
+      if (Util.getClassName(nodeClass) in this.families) {
+        this.families[Util.getClassName(nodeClass)].cleanUp();
+        delete this.families[Util.getClassName(nodeClass)];
       }
     };
 
 
-    /*
+    /**
      * Add a system to the engine, and set its priority for the order in which the
      * systems are updated by the engine update loop.
      *
@@ -1840,8 +2316,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * loop. Lower numbers for priority are updated first. i.e. a priority of 1 is
      * updated before a priority of 2.</p>
      *
-     * @param system The system to add to the engine.
-     * @param priority The priority for updating the systems during the engine loop. A
+     * @param {ash.core.System} system The system to add to the engine.
+     * @param {number} priority The priority for updating the systems during the engine loop. A
      * lower number means the system is updated sooner.
      */
 
@@ -1852,11 +2328,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Get the system instance of a particular type from within the engine.
      *
-     * @param type The type of system
-     * @return The instance of the system type that is in the engine, or
+     * @param {Object} type The type of system
+     * @return {ash.core.System} The instance of the system type that is in the engine, or
      * null if no systems of this type are in the engine.
      */
 
@@ -1865,10 +2341,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Remove a system from the engine.
      *
-     * @param system The system to remove from the engine.
+     * @param {ash.core.System} system The system to remove from the engine.
      */
 
     Engine.prototype.removeSystem = function(system) {
@@ -1877,7 +2353,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Remove all systems from the engine.
      */
 
@@ -1888,14 +2364,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Update the engine. This causes the engine update loop to run, calling update on all the
      * systems in the engine.
      *
      * <p>The package ash.tick contains classes that can be used to provide
      * a steady or variable tick that calls this update method.</p>
      *
-     * @time The duration, in seconds, of this update step.
+     * @time {number} The duration, in seconds, of this update step.
      */
 
     Engine.prototype.update = function(time) {
@@ -1916,1092 +2392,26 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
   /*
-   * The Engine class is the central point for creating and managing your game state. Add
-   * entities and systems to the engine, and fetch families of nodes from the engine.
+   * A Helper for Components & Nodes
    *
-   * This version is implemented as a Phaser Plugin. It uses the Phaser postRender cycle
-   * to provide tick for the ash engine update.
-   *
-   * Use this version if the phaser update cycle clashes with Ash updates
+   * Creates a common registry object
+   * Fix-up up Node templates
    */
 
-  if (typeof Phaser !== "undefined" && Phaser !== null) {
-    ash.ext.PhaserEngine = PhaserEngine = (function(superClass) {
-      extend(PhaserEngine, superClass);
+  'use strict';
 
-      PhaserEngine.prototype.entityNames = null;
 
-      PhaserEngine.prototype.entityList = null;
-
-      PhaserEngine.prototype.systemList = null;
-
-      PhaserEngine.prototype.families = null;
-
-      PhaserEngine.prototype.nodes = null;
-
-      PhaserEngine.prototype.components = null;
-
-
-      /*
-       * Phaser.Plugin members
-       */
-
-      PhaserEngine.prototype.game = null;
-
-      PhaserEngine.prototype.parent = null;
-
-      PhaserEngine.prototype.active = true;
-
-      PhaserEngine.prototype.visible = true;
-
-      PhaserEngine.prototype.hasPostRender = true;
-
-
-      /*
-       * Indicates if the engine is currently in its update loop.
-       */
-
-      PhaserEngine.prototype.updating = false;
-
-
-      /*
-       * Dispatched when the update loop ends. If you want to add and remove systems from the
-       * engine it is usually best not to do so during the update loop. To avoid this you can
-       * listen for this signal and make the change when the signal is dispatched.
-       */
-
-      PhaserEngine.prototype.updateComplete = null;
-
-
-      /*
-       * The class used to manage node lists. In most cases the default class is sufficient
-       * but it is exposed here so advanced developers can choose to create and use a
-       * different implementation.
-       *
-       * The class must implement the IFamily interface.
-       */
-
-      PhaserEngine.prototype.familyClass = ComponentMatchingFamily;
-
-
-      /*
-       * @param game      the current phaser game context
-       * @param parent    the current phaser state context
-       */
-
-      function PhaserEngine(game, parent) {
-        this.postRender = bind(this.postRender, this);
-        this.removeAllSystems = bind(this.removeAllSystems, this);
-        this.removeSystem = bind(this.removeSystem, this);
-        this.getSystem = bind(this.getSystem, this);
-        this.addSystem = bind(this.addSystem, this);
-        this.releaseNodeList = bind(this.releaseNodeList, this);
-        this.getNodeList = bind(this.getNodeList, this);
-        this.componentRemoved = bind(this.componentRemoved, this);
-        this.componentAdded = bind(this.componentAdded, this);
-        this.removeAllEntities = bind(this.removeAllEntities, this);
-        this.getEntityByName = bind(this.getEntityByName, this);
-        this.entityNameChanged = bind(this.entityNameChanged, this);
-        this.removeEntity = bind(this.removeEntity, this);
-        this.addEntity = bind(this.addEntity, this);
-        this.init = bind(this.init, this);
-        PhaserEngine.__super__.constructor.call(this, game, parent);
-        this.nodes = {};
-        this.components = {};
-        this.entityList = new EntityList();
-        this.entityNames = new Dictionary();
-        this.systemList = new SystemList();
-        this.families = new Dictionary();
-        this.updateComplete = new Signal0();
-      }
-
-      PhaserEngine.prototype.addNode = function(name, def) {
-        var property, ref, type;
-        if (def.components == null) {
-          def.components = {};
-          ref = def.prototype;
-          for (property in ref) {
-            if (!hasProp.call(ref, property)) continue;
-            type = ref[property];
-            def.components[property] = type;
-            def.prototype[property] = null;
-          }
-          def.prototype.entity = null;
-          def.prototype.previous = null;
-          def.prototype.next = null;
-        }
-        return this.nodes[name] = def;
-      };
-
-      PhaserEngine.prototype.init = function(nodes, components) {
-
-        /*
-         * register components
-         */
-        var klass, name, property, ref, results, type;
-        if (components != null) {
-          for (name in components) {
-            klass = components[name];
-            this.components[name] = klass;
-          }
-        }
-
-        /*
-         * register nodes
-         */
-        if (nodes != null) {
-          results = [];
-          for (name in nodes) {
-            klass = nodes[name];
-
-            /*
-             * convert template to an actual node class
-             */
-            if (klass.components == null) {
-              klass.components = {};
-              ref = klass.prototype;
-              for (property in ref) {
-                if (!hasProp.call(ref, property)) continue;
-                type = ref[property];
-                klass.components[property] = type;
-                klass.prototype[property] = null;
-              }
-              klass.prototype.entity = null;
-              klass.prototype.previous = null;
-              klass.prototype.next = null;
-            }
-            if (components != null) {
-              results.push(this.nodes[name] = klass);
-            } else {
-              results.push(void 0);
-            }
-          }
-          return results;
-        }
-      };
-
-      Object.defineProperties(PhaserEngine.prototype, {
-
-        /*
-         * Returns a vector containing all the entities in the engine.
-         */
-        entities: {
-          get: function() {
-            var entities, entity;
-            entities = [];
-            entity = this.entityList.head;
-            while (entity) {
-              this.entities.push(entity);
-              entity = entity.next;
-            }
-            return entities;
-          }
-
-          /*
-           * Returns a vector containing all the systems in the engine.
-           */
-        },
-        systems: {
-          get: function() {
-            var system, systems;
-            systems = [];
-            system = this.systemList.head;
-            while (system) {
-              systems.push(system);
-              system = system.next;
-            }
-            return systems;
-          }
-        }
-      });
-
-
-      /*
-       * Add an entity to the engine.
-       *
-       * @param entity The entity to add.
-       */
-
-      PhaserEngine.prototype.addEntity = function(entity) {
-        var each, family, ref;
-        if (this.entityNames[entity.name]) {
-          throw "The entity name " + entity.name + " is already in use by another entity.";
-        }
-        this.entityList.add(entity);
-        this.entityNames[entity.name] = entity;
-        entity.componentAdded.add(this.componentAdded);
-        entity.componentRemoved.add(this.componentRemoved);
-        entity.nameChanged.add(this.entityNameChanged);
-        ref = this.families;
-        for (each in ref) {
-          family = ref[each];
-          family.newEntity(entity);
-        }
-      };
-
-
-      /*
-       * Remove an entity from the engine.
-       *
-       * @param entity The entity to remove.
-       */
-
-      PhaserEngine.prototype.removeEntity = function(entity) {
-        var each, family, ref;
-        entity.componentAdded.remove(this.componentAdded);
-        entity.componentRemoved.remove(this.componentRemoved);
-        entity.nameChanged.remove(this.entityNameChanged);
-        ref = this.families;
-        for (each in ref) {
-          family = ref[each];
-          family.removeEntity(entity);
-        }
-        delete this.entityNames[entity.name];
-        this.entityList.remove(entity);
-      };
-
-      PhaserEngine.prototype.entityNameChanged = function(entity, oldName) {
-        if (this.entityNames[oldName] === entity) {
-          delete this.entityNames[oldName];
-          this.entityNames[entity.name] = entity;
-        }
-      };
-
-
-      /*
-       * Get an entity based n its name.
-       *
-       * @param name The name of the entity
-       * @return The entity, or null if no entity with that name exists on the engine
-       */
-
-      PhaserEngine.prototype.getEntityByName = function(name) {
-        return this.entityNames[name];
-      };
-
-
-      /*
-       * Remove all entities from the engine.
-       */
-
-      PhaserEngine.prototype.removeAllEntities = function() {
-        while (this.entityList.head !== null) {
-          this.removeEntity(this.entityList.head);
-        }
-      };
-
-
-      /*
-       @private
-       */
-
-      PhaserEngine.prototype.componentAdded = function(entity, componentClass) {
-        var each, family, ref;
-        ref = this.families;
-        for (each in ref) {
-          family = ref[each];
-          family.componentAddedToEntity(entity, componentClass);
-        }
-      };
-
-
-      /*
-       @private
-       */
-
-      PhaserEngine.prototype.componentRemoved = function(entity, componentClass) {
-        var each, family, ref;
-        ref = this.families;
-        for (each in ref) {
-          family = ref[each];
-          family.componentRemovedFromEntity(entity, componentClass);
-        }
-      };
-
-
-      /*
-       * Get a collection of nodes from the engine, based on the type of the node required.
-       *
-       * <p>The engine will create the appropriate NodeList if it doesn't already exist and
-       * will keep its contents up to date as entities are added to and removed from the
-       * engine.</p>
-       *
-       * <p>If a NodeList is no longer required, release it with the releaseNodeList method.</p>
-       *
-       * @param nodeClass The type of node required.
-       * @return A linked list of all nodes of this type from all entities in the engine.
-       */
-
-      PhaserEngine.prototype.getNodeList = function(nodeClass) {
-        var entity, family;
-        if (nodeClass.name in this.families) {
-          return this.families[nodeClass.name].nodeList;
-        }
-        family = new this.familyClass(nodeClass, this);
-        this.families[nodeClass.name] = family;
-        entity = this.entityList.head;
-        while (entity) {
-          family.newEntity(entity);
-          entity = entity.next;
-        }
-        return family.nodeList;
-      };
-
-
-      /*
-       * If a NodeList is no longer required, this method will stop the engine updating
-       * the list and will release all references to the list within the framework
-       * classes, enabling it to be garbage collected.
-       *
-       * <p>It is not essential to release a list, but releasing it will free
-       * up memory and processor resources.</p>
-       *
-       * @param nodeClass The type of the node class if the list to be released.
-       */
-
-      PhaserEngine.prototype.releaseNodeList = function(nodeClass) {
-        if (nodeClass.name in this.families) {
-          this.families[nodeClass.name].cleanUp();
-          delete this.families[nodeClass.name];
-        }
-      };
-
-
-      /*
-       * Add a system to the engine, and set its priority for the order in which the
-       * systems are updated by the engine update loop.
-       *
-       * <p>The priority dictates the order in which the systems are updated by the engine update
-       * loop. Lower numbers for priority are updated first. i.e. a priority of 1 is
-       * updated before a priority of 2.</p>
-       *
-       * @param system The system to add to the engine.
-       * @param priority The priority for updating the systems during the engine loop. A
-       * lower number means the system is updated sooner.
-       */
-
-      PhaserEngine.prototype.addSystem = function(system, priority) {
-        system.priority = priority;
-        system.addToEngine(this);
-        this.systemList.add(system);
-      };
-
-
-      /*
-       * Get the system instance of a particular type from within the engine.
-       *
-       * @param type The type of system
-       * @return The instance of the system type that is in the engine, or
-       * null if no systems of this type are in the engine.
-       */
-
-      PhaserEngine.prototype.getSystem = function(type) {
-        return systemList.get(type);
-      };
-
-
-      /*
-       * Remove a system from the engine.
-       *
-       * @param system The system to remove from the engine.
-       */
-
-      PhaserEngine.prototype.removeSystem = function(system) {
-        this.systemList.remove(system);
-        system.removeFromEngine(this);
-      };
-
-
-      /*
-       * Remove all systems from the engine.
-       */
-
-      PhaserEngine.prototype.removeAllSystems = function() {
-        while (this.systemList.head !== null) {
-          this.removeSystem(this.systemList.head);
-        }
-      };
-
-
-      /*
-       * postRender
-       *
-       * Phaser.Plugin interface
-       *
-       * Update the engine. This causes the engine update loop to run, calling update on all the
-       * systems in the engine.
-       *
-       * <p>The package ash.tick contains classes that can be used to provide
-       * a steady or variable tick that calls this update method.</p>
-       *
-       * @time The duration, in seconds, of this update step.
-       */
-
-      PhaserEngine.prototype.postRender = function() {
-        var system, time;
-        time = this.game.time.elapsed * 0.001;
-        this.updating = true;
-        system = this.systemList.head;
-        while (system) {
-          system.update(time);
-          system = system.next;
-        }
-        this.updating = false;
-        this.updateComplete.dispatch();
-      };
-
-      return PhaserEngine;
-
-    })(Phaser.Plugin);
-  }
-
-
-  /*
-    After reading http://www.paolodistefano.com/2015/01/18/ecs2/,
-    I tried making entity inherit from Sprite. Turns out this can't work.
-    Sprite already has a component collection named components.
-  
-    While we could re-implement ash so that there are no named collisions when merging into
-    Sprite, the whole super object approach is a bad idea, and why we are using ecs in the
-    first place ;)
-  
-    Sprite should be a component of an entity, just like everything else
+  /**
+   * @constructor
+   * @dict
    */
 
+  ash.ext.Dictionary = (function() {
+    function Dictionary() {}
 
-  /*
-   * An entity is composed from components. As such, it is essentially a collection object for components.
-   * Sometimes, the entities in a game will mirror the actual characters and objects in the game, but this
-   * is not necessary.
-   *
-   * <p>Components are simple value objects that contain data relevant to the entity. Entities
-   * with similar functionality will have instances of the same components. So we might have
-   * a position component</p>
-   *
-   * <p><code>class PositionComponent
-   * {
-   *   public var x:Float;
-   *   public var y:Float;
-   * }</code></p>
-   *
-   * <p>All entities that have a position in the game world, will have an instance of the
-   * position component. Systems operate on entities based on the components they have.</p>
-   */
+    return Dictionary;
 
-  if (typeof Phaser !== "undefined" && Phaser !== null) {
-    ash.ext.PhaserEntity = PhaserEntity = (function(superClass) {
-      var nameCount;
-
-      extend(PhaserEntity, superClass);
-
-      nameCount = 0;
-
-
-      /*
-       * Optional, give the entity a name. This can help with debugging and with serialising the entity.
-       */
-
-      PhaserEntity.prototype._name = '';
-
-
-      /*
-       * This signal is dispatched when a component is added to the entity.
-       */
-
-      PhaserEntity.prototype.componentAdded = null;
-
-
-      /*
-       * This signal is dispatched when a component is removed from the entity.
-       */
-
-      PhaserEntity.prototype.componentRemoved = null;
-
-
-      /*
-       * Dispatched when the name of the entity changes. Used internally by the engine to track entities based on their names.
-       */
-
-      PhaserEntity.prototype.nameChanged = null;
-
-      PhaserEntity.prototype.previous = null;
-
-      PhaserEntity.prototype.next = null;
-
-      PhaserEntity.prototype.components = null;
-
-      function PhaserEntity(game, key, name) {
-        if (name == null) {
-          name = '';
-        }
-        PhaserEntity.__super__.constructor.call(this, game, 0, 0, key);
-        Object.defineProperties(this, {
-
-          /*
-           * All entities have a name. If no name is set, a default name is used. Names are used to
-           * fetch specific entities from the engine, and can also help to identify an entity when debugging.
-           */
-          name: {
-            get: function() {
-              return this._name;
-            },
-            set: function(value) {
-              var previous;
-              if (this._name !== value) {
-                previous = this._name;
-                this._name = value;
-                return this.nameChanged.dispatch(this, previous);
-              }
-            }
-          }
-        });
-        this.componentAdded = new Signal2();
-        this.componentRemoved = new Signal2();
-        this.nameChanged = new Signal2();
-        this.components = new Dictionary();
-        if (name !== '') {
-          this._name = name;
-        } else {
-          this._name = "_entity" + (++nameCount);
-        }
-      }
-
-
-      /*
-       * Add a component to the entity.
-       *
-       * @param component The component object to add.
-       * @param componentClass The class of the component. This is only necessary if the component
-       * extends another component class and you want the framework to treat the component as of
-       * the base class type. If not set, the class type is determined directly from the component.
-       *
-       * @return A reference to the entity. This enables the chaining of calls to add, to make
-       * creating and configuring entities cleaner. e.g.
-       *
-       * <code>var entity:Entity = new Entity()
-       *     .add(new Position(100, 200)
-       *     .add(new Display(new PlayerClip());</code>
-       */
-
-      PhaserEntity.prototype.add = function(component, componentClass) {
-        if (componentClass == null) {
-          componentClass = component.constructor;
-        }
-        if (componentClass.className in this.components) {
-          this.remove(componentClass);
-        }
-        this.components[componentClass.className] = component;
-        this.componentAdded.dispatch(this, componentClass);
-        return this;
-      };
-
-
-      /*
-       * Remove a component from the entity.
-       *
-       * @param componentClass The class of the component to be removed.
-       * @return the component, or null if the component doesn't exist in the entity
-       */
-
-      PhaserEntity.prototype.remove = function(componentClass) {
-        var component, name;
-        name = componentClass.className != null ? componentClass.className : componentClass;
-        component = this.components[name];
-        if (component) {
-          delete this.components[name];
-          this.componentRemoved.dispatch(this, name);
-          return component;
-        }
-        return null;
-      };
-
-
-      /*
-       * Get a component from the entity.
-       *
-       * @param componentClass The class of the component requested.
-       * @return The component, or null if none was found.
-       */
-
-      PhaserEntity.prototype.get = function(componentClass) {
-        return this.components[componentClass.className];
-      };
-
-
-      /*
-       * Get all components from the entity.
-       *
-       * @return An array containing all the components that are on the entity.
-       */
-
-      PhaserEntity.prototype.getAll = function() {
-        var component, componentArray, i, len, ref;
-        componentArray = [];
-        ref = this.components;
-        for (i = 0, len = ref.length; i < len; i++) {
-          component = ref[i];
-          componentArray.push(component);
-        }
-        return componentArray;
-      };
-
-
-      /*
-       * Does the entity have a component of a particular type.
-       *
-       * @param componentClass The class of the component sought.
-       * @return true if the entity has a component of the type, false if not.
-       */
-
-      PhaserEntity.prototype.has = function(componentClass) {
-        return componentClass.className in this.components;
-      };
-
-      return PhaserEntity;
-
-    })(Phaser.Sprite);
-  }
-
-
-  /*
-   * The Engine class is the central point for creating and managing your game state. Add
-   * entities and systems to the engine, and fetch families of nodes from the engine.
-   *
-   * This version is implemented as a Phaser Plugin. It uses the Phaser update cycle
-   * to provide tick for the ash engine update.
-   *
-   * Use this version if Phaser drives the updates
-   */
-
-  if (typeof Phaser !== "undefined" && Phaser !== null) {
-    ash.ext.PhaserPlugin = PhaserPlugin = (function(superClass) {
-      extend(PhaserPlugin, superClass);
-
-      PhaserPlugin.prototype.entityNames = null;
-
-      PhaserPlugin.prototype.entityList = null;
-
-      PhaserPlugin.prototype.systemList = null;
-
-      PhaserPlugin.prototype.families = null;
-
-      PhaserPlugin.prototype.nodes = null;
-
-      PhaserPlugin.prototype.components = null;
-
-
-      /*
-       * Phaser.Plugin members
-       */
-
-      PhaserPlugin.prototype.game = null;
-
-      PhaserPlugin.prototype.parent = null;
-
-      PhaserPlugin.prototype.active = true;
-
-      PhaserPlugin.prototype.visible = true;
-
-      PhaserPlugin.prototype.hasPostRender = true;
-
-
-      /*
-       * Indicates if the engine is currently in its update loop.
-       */
-
-      PhaserPlugin.prototype.updating = false;
-
-
-      /*
-       * Dispatched when the update loop ends. If you want to add and remove systems from the
-       * engine it is usually best not to do so during the update loop. To avoid this you can
-       * listen for this signal and make the change when the signal is dispatched.
-       */
-
-      PhaserPlugin.prototype.updateComplete = null;
-
-
-      /*
-       * The class used to manage node lists. In most cases the default class is sufficient
-       * but it is exposed here so advanced developers can choose to create and use a
-       * different implementation.
-       *
-       * The class must implement the IFamily interface.
-       */
-
-      PhaserPlugin.prototype.familyClass = ComponentMatchingFamily;
-
-
-      /*
-       * @param game      the current phaser game context
-       * @param parent    the current phaser state context
-       */
-
-      function PhaserPlugin(game, parent) {
-        this.update = bind(this.update, this);
-        this.removeAllSystems = bind(this.removeAllSystems, this);
-        this.removeSystem = bind(this.removeSystem, this);
-        this.getSystem = bind(this.getSystem, this);
-        this.addSystem = bind(this.addSystem, this);
-        this.releaseNodeList = bind(this.releaseNodeList, this);
-        this.getNodeList = bind(this.getNodeList, this);
-        this.componentRemoved = bind(this.componentRemoved, this);
-        this.componentAdded = bind(this.componentAdded, this);
-        this.removeAllEntities = bind(this.removeAllEntities, this);
-        this.getEntityByName = bind(this.getEntityByName, this);
-        this.entityNameChanged = bind(this.entityNameChanged, this);
-        this.removeEntity = bind(this.removeEntity, this);
-        this.addEntity = bind(this.addEntity, this);
-        this.init = bind(this.init, this);
-        PhaserPlugin.__super__.constructor.call(this, game, parent);
-        this.nodes = {};
-        this.components = {};
-        this.entityList = new EntityList();
-        this.entityNames = new Dictionary();
-        this.systemList = new SystemList();
-        this.families = new Dictionary();
-        this.updateComplete = new Signal0();
-      }
-
-      PhaserPlugin.prototype.addNode = function(name, def) {
-        var property, ref, type;
-        if (def.components == null) {
-          def.components = {};
-          ref = def.prototype;
-          for (property in ref) {
-            if (!hasProp.call(ref, property)) continue;
-            type = ref[property];
-            def.components[property] = type;
-            def.prototype[property] = null;
-          }
-          def.prototype.entity = null;
-          def.prototype.previous = null;
-          def.prototype.next = null;
-        }
-        return this.nodes[name] = def;
-      };
-
-      PhaserPlugin.prototype.init = function(nodes, components) {
-
-        /*
-         * register components
-         */
-        var klass, name, property, ref, results, type;
-        if (components != null) {
-          for (name in components) {
-            klass = components[name];
-            this.components[name] = klass;
-          }
-        }
-
-        /*
-         * register nodes
-         */
-        if (nodes != null) {
-          results = [];
-          for (name in nodes) {
-            klass = nodes[name];
-
-            /*
-             * convert template to an actual node class
-             */
-            if (klass.components == null) {
-              klass.components = {};
-              ref = klass.prototype;
-              for (property in ref) {
-                if (!hasProp.call(ref, property)) continue;
-                type = ref[property];
-                klass.components[property] = type;
-                klass.prototype[property] = null;
-              }
-              klass.prototype.entity = null;
-              klass.prototype.previous = null;
-              klass.prototype.next = null;
-            }
-            if (components != null) {
-              results.push(this.nodes[name] = klass);
-            } else {
-              results.push(void 0);
-            }
-          }
-          return results;
-        }
-      };
-
-      Object.defineProperties(PhaserPlugin.prototype, {
-
-        /*
-         * Returns a vector containing all the entities in the engine.
-         */
-        entities: {
-          get: function() {
-            var entities, entity;
-            entities = [];
-            entity = this.entityList.head;
-            while (entity) {
-              this.entities.push(entity);
-              entity = entity.next;
-            }
-            return entities;
-          }
-
-          /*
-           * Returns a vector containing all the systems in the engine.
-           */
-        },
-        systems: {
-          get: function() {
-            var system, systems;
-            systems = [];
-            system = this.systemList.head;
-            while (system) {
-              systems.push(system);
-              system = system.next;
-            }
-            return systems;
-          }
-        }
-      });
-
-
-      /*
-       * Add an entity to the engine.
-       *
-       * @param entity The entity to add.
-       */
-
-      PhaserPlugin.prototype.addEntity = function(entity) {
-        var each, family, ref;
-        if (this.entityNames[entity.name]) {
-          throw "The entity name " + entity.name + " is already in use by another entity.";
-        }
-        this.entityList.add(entity);
-        this.entityNames[entity.name] = entity;
-        entity.componentAdded.add(this.componentAdded);
-        entity.componentRemoved.add(this.componentRemoved);
-        entity.nameChanged.add(this.entityNameChanged);
-        ref = this.families;
-        for (each in ref) {
-          family = ref[each];
-          family.newEntity(entity);
-        }
-      };
-
-
-      /*
-       * Remove an entity from the engine.
-       *
-       * @param entity The entity to remove.
-       */
-
-      PhaserPlugin.prototype.removeEntity = function(entity) {
-        var each, family, ref;
-        entity.componentAdded.remove(this.componentAdded);
-        entity.componentRemoved.remove(this.componentRemoved);
-        entity.nameChanged.remove(this.entityNameChanged);
-        ref = this.families;
-        for (each in ref) {
-          family = ref[each];
-          family.removeEntity(entity);
-        }
-        delete this.entityNames[entity.name];
-        this.entityList.remove(entity);
-      };
-
-      PhaserPlugin.prototype.entityNameChanged = function(entity, oldName) {
-        if (this.entityNames[oldName] === entity) {
-          delete this.entityNames[oldName];
-          this.entityNames[entity.name] = entity;
-        }
-      };
-
-
-      /*
-       * Get an entity based n its name.
-       *
-       * @param name The name of the entity
-       * @return The entity, or null if no entity with that name exists on the engine
-       */
-
-      PhaserPlugin.prototype.getEntityByName = function(name) {
-        return this.entityNames[name];
-      };
-
-
-      /*
-       * Remove all entities from the engine.
-       */
-
-      PhaserPlugin.prototype.removeAllEntities = function() {
-        while (this.entityList.head !== null) {
-          this.removeEntity(this.entityList.head);
-        }
-      };
-
-
-      /*
-       @private
-       */
-
-      PhaserPlugin.prototype.componentAdded = function(entity, componentClass) {
-        var each, family, ref;
-        ref = this.families;
-        for (each in ref) {
-          family = ref[each];
-          family.componentAddedToEntity(entity, componentClass);
-        }
-      };
-
-
-      /*
-       @private
-       */
-
-      PhaserPlugin.prototype.componentRemoved = function(entity, componentClass) {
-        var each, family, ref;
-        ref = this.families;
-        for (each in ref) {
-          family = ref[each];
-          family.componentRemovedFromEntity(entity, componentClass);
-        }
-      };
-
-
-      /*
-       * Get a collection of nodes from the engine, based on the type of the node required.
-       *
-       * <p>The engine will create the appropriate NodeList if it doesn't already exist and
-       * will keep its contents up to date as entities are added to and removed from the
-       * engine.</p>
-       *
-       * <p>If a NodeList is no longer required, release it with the releaseNodeList method.</p>
-       *
-       * @param nodeClass The type of node required.
-       * @return A linked list of all nodes of this type from all entities in the engine.
-       */
-
-      PhaserPlugin.prototype.getNodeList = function(nodeClass) {
-        var entity, family;
-        if (nodeClass.name in this.families) {
-          return this.families[nodeClass.name].nodeList;
-        }
-        family = new this.familyClass(nodeClass, this);
-        this.families[nodeClass.name] = family;
-        entity = this.entityList.head;
-        while (entity) {
-          family.newEntity(entity);
-          entity = entity.next;
-        }
-        return family.nodeList;
-      };
-
-
-      /*
-       * If a NodeList is no longer required, this method will stop the engine updating
-       * the list and will release all references to the list within the framework
-       * classes, enabling it to be garbage collected.
-       *
-       * <p>It is not essential to release a list, but releasing it will free
-       * up memory and processor resources.</p>
-       *
-       * @param nodeClass The type of the node class if the list to be released.
-       */
-
-      PhaserPlugin.prototype.releaseNodeList = function(nodeClass) {
-        if (nodeClass.name in this.families) {
-          this.families[nodeClass.name].cleanUp();
-          delete this.families[nodeClass.name];
-        }
-      };
-
-
-      /*
-       * Add a system to the engine, and set its priority for the order in which the
-       * systems are updated by the engine update loop.
-       *
-       * <p>The priority dictates the order in which the systems are updated by the engine update
-       * loop. Lower numbers for priority are updated first. i.e. a priority of 1 is
-       * updated before a priority of 2.</p>
-       *
-       * @param system The system to add to the engine.
-       * @param priority The priority for updating the systems during the engine loop. A
-       * lower number means the system is updated sooner.
-       */
-
-      PhaserPlugin.prototype.addSystem = function(system, priority) {
-        system.priority = priority;
-        system.addToEngine(this);
-        this.systemList.add(system);
-      };
-
-
-      /*
-       * Get the system instance of a particular type from within the engine.
-       *
-       * @param type The type of system
-       * @return The instance of the system type that is in the engine, or
-       * null if no systems of this type are in the engine.
-       */
-
-      PhaserPlugin.prototype.getSystem = function(type) {
-        return systemList.get(type);
-      };
-
-
-      /*
-       * Remove a system from the engine.
-       *
-       * @param system The system to remove from the engine.
-       */
-
-      PhaserPlugin.prototype.removeSystem = function(system) {
-        this.systemList.remove(system);
-        system.removeFromEngine(this);
-      };
-
-
-      /*
-       * Remove all systems from the engine.
-       */
-
-      PhaserPlugin.prototype.removeAllSystems = function() {
-        while (this.systemList.head !== null) {
-          this.removeSystem(this.systemList.head);
-        }
-      };
-
-
-      /*
-       * update
-       *
-       * Phaser.Plugin interface
-       *
-       * Update the engine. This causes the engine update loop to run, calling update on all the
-       * systems in the engine.
-       *
-       * <p>The package ash.tick contains classes that can be used to provide
-       * a steady or variable tick that calls this update method.</p>
-       *
-       * @time The duration, in seconds, of this update step.
-       */
-
-      PhaserPlugin.prototype.update = function() {
-        var system, time;
-        time = this.game.time.elapsed * 0.001;
-        this.updating = true;
-        system = this.systemList.head;
-        while (system) {
-          system.update(time);
-          system = system.next;
-        }
-        this.updating = false;
-        this.updateComplete.dispatch();
-      };
-
-      return PhaserPlugin;
-
-    })(Phaser.Plugin);
-  }
+  })();
 
 
   /*
@@ -3014,9 +2424,25 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.ext.Helper = (function() {
+
+    /**
+     * @type {Object}
+     */
     Helper.prototype.components = null;
 
+
+    /**
+     * @type {Object}
+     */
+
     Helper.prototype.nodes = null;
+
+
+    /**
+     * @constructor
+     * @param {Object} components
+     * @param {Object} nodes
+     */
 
     function Helper(components, nodes) {
       var klass, name, property, ref, type;
@@ -3068,6 +2494,35 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   })();
 
 
+  /**
+   * @constructor
+   */
+
+  ash.ext.Util = (function() {
+    function Util() {}
+
+
+    /**
+    	 * Get Class Name
+    	 *
+    	 * closure compiler changes the class name, or sets it to ''
+    	 * In that case, add a static className property to all
+    	 * Nodes and Components so they can be identified.
+    	 *
+    	 * @param {Function} klass
+    	 * @return {string}
+     */
+
+    Util.getClassName = function(klass) {
+      var ref;
+      return (ref = klass.className) != null ? ref : klass.name;
+    };
+
+    return Util;
+
+  })();
+
+
   /*
    * This component provider always returns the same instance of the component. The instance
    * is passed to the provider at initialisation.
@@ -3076,13 +2531,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.fsm.ComponentInstanceProvider = (function() {
+
+    /**
+     * @type {Object}
+     */
     ComponentInstanceProvider.prototype.instance = null;
 
 
-    /*
-     * Constructor
-     *
-     * @param instance The instance to return whenever a component is requested.
+    /**
+     * @constructor
+     * @param {Object} instance The instance to return whenever a component is requested.
      */
 
     function ComponentInstanceProvider(instance) {
@@ -3090,10 +2548,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Used to request a component from this provider
      *
-     * @return The instance
+     * @return {Object} The instance
      */
 
     ComponentInstanceProvider.prototype.getComponent = function() {
@@ -3101,11 +2559,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Used to compare this provider with others. Any provider that returns the same component
      * instance will be regarded as equivalent.
      *
-     * @return The instance
+     * @return {Object} The instance
      */
 
     Object.defineProperties(ComponentInstanceProvider.prototype, {
@@ -3123,26 +2581,35 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.fsm.ComponentSingletonProvider = (function() {
+
+    /**
+     * @type {Function}
+     */
     ComponentSingletonProvider.prototype.componentType = null;
+
+
+    /**
+     * @type {Object}
+     */
 
     ComponentSingletonProvider.prototype.instance = null;
 
 
-    /*
-     * Constructor
-     *
-     * @param type The type of the single instance
+    /**
+     * @constructor
+     * @param {Function} type The type of the single instance
      */
 
     function ComponentSingletonProvider(type) {
       this.componentType = type;
-
-      /*
-       * Used to request a component from this provider
-       *
-       * @return The instance
-       */
     }
+
+
+    /**
+      * Used to request a component from this provider
+      *
+      * @return {Object} The instance
+     */
 
     ComponentSingletonProvider.prototype.getComponent = function() {
       if (this.instance == null) {
@@ -3152,11 +2619,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Used to compare this provider with others. Any provider that returns the same component
      * instance will be regarded as equivalent.
      *
-     * @return The instance
+     * @return {Object} The instance
      */
 
     Object.defineProperties(ComponentSingletonProvider.prototype, {
@@ -3174,13 +2641,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.fsm.ComponentTypeProvider = (function() {
+
+    /**
+     * @type {Function}
+     */
     ComponentTypeProvider.prototype.componentType = null;
 
 
-    /*
-     * Constructor
-     *
-     * @param type The type of the single instance
+    /**
+     * @constructor
+     * @param {Function} type The type of the single instance
      */
 
     function ComponentTypeProvider(type) {
@@ -3188,10 +2658,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Used to request a component from this provider
      *
-     * @return The instance
+     * @return {Object} The instance
      */
 
     ComponentTypeProvider.prototype.getComponent = function() {
@@ -3199,11 +2669,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Used to compare this provider with others. Any provider that returns the same component
      * instance will be regarded as equivalent.
      *
-     * @return The instance
+     * @return {Object} The instance
      */
 
     Object.defineProperties(ComponentTypeProvider.prototype, {
@@ -3221,35 +2691,39 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.fsm.DynamicComponentProvider = (function() {
+
+    /**
+     * @type {Object}
+     */
     DynamicComponentProvider.prototype._closure = null;
 
 
-    /*
-     * Constructor
-     *
-     * @param closure The function that will return the component instance when called.
+    /**
+     * @constructor
+     * @param {Object} closure The function that will return the component instance when called.
      */
 
     function DynamicComponentProvider(closure) {
       this._closure = closure;
-
-      /*
-       * Used to request a component from this provider
-       *
-       * @return The instance
-       */
     }
+
+
+    /**
+      * Used to request a component from this provider
+      *
+      * @return {Object} The instance
+     */
 
     DynamicComponentProvider.prototype.getComponent = function() {
       return this._closure;
     };
 
 
-    /*
+    /**
      * Used to compare this provider with others. Any provider that returns the same component
      * instance will be regarded as equivalent.
      *
-     * @return The instance
+     * @return {Object} The instance
      */
 
     Object.defineProperties(DynamicComponentProvider.prototype, {
@@ -3273,15 +2747,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.fsm.DynamicSystemProvider = (function() {
+
+    /**
+     * @type {Function}
+     */
     DynamicSystemProvider.prototype.method = function() {};
+
+
+    /**
+     * @type {number}
+     */
 
     DynamicSystemProvider.prototype.systemPriority = 0;
 
 
-    /*
-     * Constructor
-     *
-     * @param method The method that returns the System instance;
+    /**
+     * @constructor
+     * @param {Function} method The method that returns the System instance;
      */
 
     function DynamicSystemProvider(method1) {
@@ -3293,7 +2775,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * Used to compare this provider with others. Any provider that returns the same component
      * instance will be regarded as equivalent.
      *
-     * @return The method used to call the System instances
+     * @return {Function} The method used to call the System instances
      */
 
     DynamicSystemProvider.prototype.getSystem = function() {
@@ -3304,6 +2786,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       /*
        * The priority at which the System should be added to the Engine
+       * @return {Function}
        */
       identifier: {
         get: function() {
@@ -3312,6 +2795,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
         /*
          * The priority at which the System should be added to the Engine
+         * @return {number}
          */
       },
       priority: {
@@ -3345,19 +2829,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   StateSystemMapping = ash.fsm.StateSystemMapping;
 
   ash.fsm.EngineState = (function() {
+
+    /**
+     * @type {Array<Object>}
+     */
     EngineState.prototype.providers = null;
+
+
+    /**
+     * @constructor
+     */
 
     function EngineState() {
       this.providers = [];
     }
 
 
-    /*
+    /**
      * Creates a mapping for the System type to a specific System instance. A
      * SystemInstanceProvider is used for the mapping.
      *
-     * @param system The System instance to use for the mapping
-     * @return This StateSystemMapping, so more modifications can be applied
+     * @param {ash.core.System} system The System instance to use for the mapping
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied
      */
 
     EngineState.prototype.addInstance = function(system) {
@@ -3365,15 +2858,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Creates a mapping for the System type to a single instance of the provided type.
      * The instance is not created until it is first requested. The type should be the same
      * as or extend the type for this mapping. A SystemSingletonProvider is used for
      * the mapping.
      *
-     * @param type The type of the single instance to be created. If omitted, the type of the
+     * @param {Function} type The type of the single instance to be created. If omitted, the type of the
      * mapping is used.
-     * @return This StateSystemMapping, so more modifications can be applied
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied
      */
 
     EngineState.prototype.addSingleton = function(type) {
@@ -3381,13 +2874,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Creates a mapping for the System type to a method call.
      * The method should return a System instance. A DynamicSystemProvider is used for
      * the mapping.
      *
-     * @param method The method to provide the System instance.
-     * @return This StateSystemMapping, so more modifications can be applied.
+     * @param {Function} method The method to provide the System instance.
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied.
      */
 
     EngineState.prototype.addMethod = function(method) {
@@ -3395,11 +2888,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Adds any SystemProvider.
      *
      * @param provider The component provider to use.
-     * @return This StateSystemMapping, so more modifications can be applied.
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied.
      */
 
     EngineState.prototype.addProvider = function(provider) {
@@ -3429,20 +2922,35 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   DynamicComponentProvider = ash.fsm.DynamicComponentProvider;
 
   ash.fsm.StateComponentMapping = (function() {
+
+    /**
+     * @type {Function}
+     */
     StateComponentMapping.prototype.componentType = null;
 
+
+    /**
+     * @type {ash.fsm.EntityState}
+     */
+
     StateComponentMapping.prototype.creatingState = null;
+
+
+    /**
+     * @type {Object}
+     */
 
     StateComponentMapping.prototype.provider = null;
 
 
-    /*
+    /**
      * Used internally, the constructor creates a component mapping. The constructor
      * creates a ComponentTypeProvider as the default mapping, which will be replaced
      * by more specific mappings if other methods are called.
      *
-     * @param creatingState The EntityState that the mapping will belong to
-     * @param type The component type for the mapping
+     * @constructor
+     * @param {ash.fsm.EntityState} creatingState The EntityState that the mapping will belong to
+     * @param {Function} type The component type for the mapping
      */
 
     function StateComponentMapping(creatingState1, type) {
@@ -3452,12 +2960,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Creates a mapping for the component type to a specific component instance. A
      * ComponentInstanceProvider is used for the mapping.
      *
-     * @param component The component instance to use for the mapping
-     * @return This ComponentMapping, so more modifications can be applied
+     * @param {Object} component The component instance to use for the mapping
+     * @return {ash.fsm.StateComponentMapping} This ComponentMapping, so more modifications can be applied
      */
 
     StateComponentMapping.prototype.withInstance = function(component) {
@@ -3466,13 +2974,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Creates a mapping for the component type to new instances of the provided type.
      * The type should be the same as or extend the type for this mapping. A ComponentTypeProvider
      * is used for the mapping.
      *
-     * @param type The type of components to be created by this mapping
-     * @return This ComponentMapping, so more modifications can be applied
+     * @param {Function} type The type of components to be created by this mapping
+     * @return {ash.fsm.StateComponentMapping} This ComponentMapping, so more modifications can be applied
      */
 
     StateComponentMapping.prototype.withType = function(type) {
@@ -3481,15 +2989,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Creates a mapping for the component type to a single instance of the provided type.
      * The instance is not created until it is first requested. The type should be the same
      * as or extend the type for this mapping. A ComponentSingletonProvider is used for
      * the mapping.
      *
-     * @param The type of the single instance to be created. If omitted, the type of the
+     * @param {Function} The type of the single instance to be created. If omitted, the type of the
      * mapping is used.
-     * @return This ComponentMapping, so more modifications can be applied
+     * @return {ash.fsm.StateComponentMapping} This ComponentMapping, so more modifications can be applied
      */
 
     StateComponentMapping.prototype.withSingleton = function(type) {
@@ -3501,12 +3009,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Creates a mapping for the component type to a method call. A
      * DynamicComponentProvider is used for the mapping.
      *
-     * @param method The method to return the component instance
-     * @return This ComponentMapping, so more modifications can be applied
+     * @param {Function} method The method to return the component instance
+     * @return {ash.fsm.StateComponentMapping} This ComponentMapping, so more modifications can be applied
      */
 
     StateComponentMapping.prototype.withMethod = function(method) {
@@ -3515,11 +3023,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /** 
      * Creates a mapping for the component type to any ComponentProvider.
      *
-     * @param provider The component provider to use.
-     * @return This ComponentMapping, so more modifications can be applied.
+     * @param {Object} provider The component provider to use.
+     * @return {ash.fsm.StateComponentMapping} This ComponentMapping, so more modifications can be applied.
      */
 
     StateComponentMapping.prototype.withProvider = function(provider) {
@@ -3528,17 +3036,22 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Maps through to the add method of the EntityState that this mapping belongs to
      * so that a fluent interface can be used when configuring entity states.
      *
-     * @param type The type of component to add a mapping to the state for
-     * @return The new ComponentMapping for that type
+     * @param {Function} type The type of component to add a mapping to the state for
+     * @return {ash.fsm.StateComponentMapping} The new ComponentMapping for that type
      */
 
     StateComponentMapping.prototype.add = function(type) {
       return this.creatingState.add(type);
     };
+
+
+    /**
+     * @param {Object} provider
+     */
 
     StateComponentMapping.prototype.setProvider = function(provider) {
       this.provider = provider;
@@ -3563,15 +3076,31 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   EngineState = ash.fsm.EngineState;
 
   ash.fsm.EngineStateMachine = (function() {
+
+    /**
+     * @type {ash.core.Engine}
+     */
     EngineStateMachine.prototype.engine = null;
 
+
+    /**
+     * @type {ash.ext.Dictionary}
+     */
+
     EngineStateMachine.prototype.states = null;
+
+
+    /**
+     * @type {ash.fsm.EngineState}
+     */
 
     EngineStateMachine.prototype.currentState = null;
 
 
-    /*
-     * Constructor. Creates an SystemStateMachine.
+    /**
+     * Creates an SystemStateMachine.
+     * @constructor 
+     * @param {ash.core.Engine} engine
      */
 
     function EngineStateMachine(engine1) {
@@ -3580,12 +3109,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Add a state to this state machine.
      *
-     * @param name The name of this state - used to identify it later in the changeState method call.
-     * @param state The state.
-     * @return This state machine, so methods can be chained.
+     * @param {string} name The name of this state - used to identify it later in the changeState method call.
+     * @param {ash.fsm.EngineState} state The state.
+     * @return {ash.fsm.EngineStateMachine} This state machine, so methods can be chained.
      */
 
     EngineStateMachine.prototype.addState = function(name, state) {
@@ -3594,11 +3123,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Create a new state in this state machine.
      *
-     * @param name The name of the new state - used to identify it later in the changeState method call.
-     * @return The new EntityState object that is the state. This will need to be configured with
+     * @param {string} name The name of the new state - used to identify it later in the changeState method call.
+     * @return {ash.fsm.EngineState} The new EntityState object that is the state. This will need to be configured with
      * the appropriate component providers.
      */
 
@@ -3610,11 +3139,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Change to a new state. The Systems from the old state will be removed and the Systems
      * for the new state will be added.
      *
-     * @param name The name of the state to change to.
+     * @param {string} name The name of the state to change to.
      */
 
     EngineStateMachine.prototype.changeState = function(name) {
@@ -3670,34 +3199,43 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   StateComponentMapping = ash.fsm.StateComponentMapping;
 
-  getClassName = ash.ext.getClassName;
+  Util = ash.ext.Util;
 
   ash.fsm.EntityState = (function() {
+
+    /**
+     * @type {ash.ext.Dictionary}
+     */
     EntityState.prototype.providers = null;
+
+
+    /**
+     * @constructor
+     */
 
     function EntityState() {
       this.providers = new Dictionary();
     }
 
 
-    /*
+    /**
      * Add a new ComponentMapping to this state. The mapping is a utility class that is used to
      * map a component type to the provider that provides the component.
      *
-     * @param type The type of component to be mapped
-     * @return The component mapping to use when setting the provider for the component
+     * @param {Function} type The type of component to be mapped
+     * @return {ash.fsm.StateComponentMapping} The component mapping to use when setting the provider for the component
      */
 
     EntityState.prototype.add = function(type) {
-      return new StateComponentMapping(this, getClassName(type));
+      return new StateComponentMapping(this, Util.getClassName(type));
     };
 
 
-    /*
+    /**
      * Get the ComponentProvider for a particular component type.
      *
-     * @param type The type of component to get the provider for
-     * @return The ComponentProvider
+     * @param {Function} type The type of component to get the provider for
+     * @return {Object} The ComponentProvider
      */
 
     EntityState.prototype.get = function(type) {
@@ -3705,11 +3243,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * To determine whether this state has a provider for a specific component type.
      *
-     * @param type The type of component to look for a provider for
-     * @return true if there is a provider for the given type, false otherwise
+     * @param {Function} type The type of component to look for a provider for
+     * @return {boolean} true if there is a provider for the given type, false otherwise
      */
 
     EntityState.prototype.has = function(type) {
@@ -3734,11 +3272,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   EntityState = ash.fsm.EntityState;
 
   ash.fsm.EntityStateMachine = (function() {
+
+    /**
+     * @type {ash.ext.Dictionary}
+     */
     EntityStateMachine.prototype.states = null;
 
 
-    /*
+    /**
     	 * The current state of the state machine.
+     * @type {ash.fsm.EntityState}
      */
 
     EntityStateMachine.prototype.currentState = null;
@@ -3746,13 +3289,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     /*
      * The entity whose state machine this is
+     * @type {ash.core.Entity}
      */
 
     EntityStateMachine.prototype.entity = null;
 
 
-    /*
-     * Constructor. Creates an EntityStateMachine.
+    /**
+     * Creates an EntityStateMachine.
+     * @constructor 
+     * @param {ash.core.Entity}
      */
 
     function EntityStateMachine(entity1) {
@@ -3761,12 +3307,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
     		 * Add a state to this state machine.
     		 *
-    		 * @param name The name of this state - used to identify it later in the changeState method call.
-    		 * @param state The state.
-    		 * @return This state machine, so methods can be chained.
+    		 * @param {string} name The name of this state - used to identify it later in the changeState method call.
+    		 * @param {ash.core.Entity} state The state.
+    		 * @return {ash.fsm.EntityStateMachine} This state machine, so methods can be chained.
      */
 
     EntityStateMachine.prototype.addState = function(name, state) {
@@ -3775,11 +3321,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Create a new state in this state machine.
      *
-     * @param name The name of the new state - used to identify it later in the changeState method call.
-     * @return The new EntityState object that is the state. This will need to be configured with
+     * @param {string} name The name of the new state - used to identify it later in the changeState method call.
+     * @return {ash.fsm.EntityState} The new EntityState object that is the state. This will need to be configured with
      * the appropriate component providers.
      */
 
@@ -3791,11 +3337,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Change to a new state. The components from the old state will be removed and the components
      * for the new state will be added.
      *
-     * @param name The name of the state to change to.
+     * @param {string} name The name of the state to change to.
      */
 
     EntityStateMachine.prototype.changeState = function(name) {
@@ -3842,18 +3388,28 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.fsm.StateSystemMapping = (function() {
+
+    /**
+     * @type {Object}
+     */
     StateSystemMapping.prototype.creatingState = null;
+
+
+    /**
+     * @type {Object}
+     */
 
     StateSystemMapping.prototype.provider = null;
 
 
-    /*
+    /**
      * Used internally, the constructor creates a component mapping. The constructor
      * creates a SystemSingletonProvider as the default mapping, which will be replaced
      * by more specific mappings if other methods are called.
      *
-     * @param creatingState The SystemState that the mapping will belong to
-     * @param type The System type for the mapping
+     * @constructor
+     * @param {Object} creatingState The SystemState that the mapping will belong to
+     * @param {Object} type The System type for the mapping
      */
 
     function StateSystemMapping(creatingState1, provider1) {
@@ -3862,11 +3418,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Applies the priority to the provider that the System will be.
      *
-     * @param priority The component provider to use.
-     * @return This StateSystemMapping, so more modifications can be applied.
+     * @param {number} priority The component provider to use.
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied.
      */
 
     StateSystemMapping.prototype.withPriority = function(priority) {
@@ -3875,12 +3431,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Creates a mapping for the System type to a specific System instance. A
      * SystemInstanceProvider is used for the mapping.
      *
-     * @param system The System instance to use for the mapping
-     * @return This StateSystemMapping, so more modifications can be applied
+     * @param {Object} system The System instance to use for the mapping
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied
      */
 
     StateSystemMapping.prototype.addInstance = function(system) {
@@ -3888,15 +3444,15 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Creates a mapping for the System type to a single instance of the provided type.
      * The instance is not created until it is first requested. The type should be the same
      * as or extend the type for this mapping. A SystemSingletonProvider is used for
      * the mapping.
      *
-     * @param type The type of the single instance to be created. If omitted, the type of the
+     * @param {Function} type The type of the single instance to be created. If omitted, the type of the
      * mapping is used.
-     * @return This StateSystemMapping, so more modifications can be applied
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied
      */
 
     StateSystemMapping.prototype.addSingleton = function(type) {
@@ -3904,13 +3460,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Creates a mapping for the System type to a method call.
      * The method should return a System instance. A DynamicSystemProvider is used for
      * the mapping.
      *
-     * @param method The method to provide the System instance.
-     * @return This StateSystemMapping, so more modifications can be applied.
+     * @param {Function} method The method to provide the System instance.
+     * @return {ash.fsm.StateSystemMapping}This StateSystemMapping, so more modifications can be applied.
      */
 
     StateSystemMapping.prototype.addMethod = function(method) {
@@ -3922,8 +3478,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      * Maps through to the addProvider method of the SystemState that this mapping belongs to
      * so that a fluent interface can be used when configuring entity states.
      *
-     * @param provider The component provider to use.
-     * @return This StateSystemMapping, so more modifications can be applied.
+     * @param {Object} provider The component provider to use.
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied.
      */
 
     StateSystemMapping.prototype.addProvider = function(provider) {
@@ -3947,15 +3503,24 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.fsm.SystemInstanceProvider = (function() {
+
+    /**
+     * @type {Object}
+     */
     SystemInstanceProvider.prototype.instance = null;
+
+
+    /**
+     * @type {number}
+     */
 
     SystemInstanceProvider.prototype.systemPriority = 0;
 
 
-    /*
-     * Constructor
+    /**
+     * @constructor
      *
-     * @param instance The instance to return whenever a System is requested.
+     * @param {Object} instance The instance to return whenever a System is requested.
      */
 
     function SystemInstanceProvider(instance) {
@@ -3963,10 +3528,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Used to request a component from this provider
      *
-     * @return The instance of the System
+     * @return {Object} The instance of the System
      */
 
     SystemInstanceProvider.prototype.getSystem = function() {
@@ -3975,11 +3540,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     Object.defineProperties(SystemInstanceProvider.prototype, {
 
-      /*
+      /**
        * Used to compare this provider with others. Any provider that returns the same component
        * instance will be regarded as equivalent.
        *
-       * @return The instance
+       * @type {Object} The instance
        */
       identifier: {
         get: function() {
@@ -3987,8 +3552,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         }
       },
 
-      /*
+      /**
        * The priority at which the System should be added to the Engine
+       * @type {number}
        */
       priority: {
         get: function() {
@@ -4013,17 +3579,31 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   'use strict';
 
   ash.fsm.SystemSingletonProvider = (function() {
+
+    /**
+     * @type {Object}
+     */
     SystemSingletonProvider.prototype.componentType = null;
 
+
+    /**
+     * @type {Object}
+     */
+
     SystemSingletonProvider.prototype.instance = null;
+
+
+    /**
+     * @type {number}
+     */
 
     SystemSingletonProvider.prototype.systemPriority = 0;
 
 
-    /*
-     * Constructor
+    /**
+     * @constructor
      *
-     * @param type The type of the single System instance
+     * @param {Function} type The type of the single System instance
      */
 
     function SystemSingletonProvider(type) {
@@ -4031,10 +3611,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     }
 
 
-    /*
+    /**
      * Used to request a System from this provider
      *
-     * @return The single instance
+     * @return {Object} The single instance
      */
 
     SystemSingletonProvider.prototype.getSystem = function() {
@@ -4046,11 +3626,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     Object.defineProperties(SystemSingletonProvider.prototype, {
 
-      /*
+      /**
       		 * Used to compare this provider with others. Any provider that returns the same single
       		 * instance will be regarded as equivalent.
       		 *
-      		 * @return The single instance
+      		 * @type {Object} The single instance
        */
       identifier: {
         get: function() {
@@ -4058,8 +3638,9 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         }
       },
 
-      /*
+      /**
        * The priority at which the System should be added to the Engine
+       * @type {Object}
        */
       priority: {
         get: function() {
@@ -4087,23 +3668,57 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   ash.tick.FrameTickProvider = (function(superClass) {
     extend(FrameTickProvider, superClass);
 
+
+    /**
+     * @type {Object}
+     */
+
     FrameTickProvider.prototype.displayObject = null;
+
+
+    /**
+     * @type {number}
+     */
 
     FrameTickProvider.prototype.previousTime = 0;
 
+
+    /**
+     * @type {number}
+     */
+
     FrameTickProvider.prototype.maximumFrameTime = 0;
 
+
+    /**
+     * @type {boolean}
+     */
+
     FrameTickProvider.prototype.isPlaying = false;
+
+
+    /**
+     * @type {Object}
+     */
 
     FrameTickProvider.prototype.request = null;
 
 
-    /*
+    /**
      * Applies a time adjustement factor to the tick, so you can slow down or speed up the entire engine.
      * The update tick time is multiplied by this value, so a value of 1 will run the engine at the normal rate.
+     * @type {number}
      */
 
     FrameTickProvider.prototype.timeAdjustment = 1;
+
+
+    /**
+     * @extends {ash.signals.Signal1}
+     * @constructor
+     * @param {Object} displayObject
+     * @param {number} maximumFrameTime
+     */
 
     function FrameTickProvider(displayObject, maximumFrameTime) {
       this.displayObject = displayObject;
@@ -4111,6 +3726,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.dispatchTick = bind(this.dispatchTick, this);
       FrameTickProvider.__super__.constructor.apply(this, arguments);
     }
+
+
+    /**
+     * Is Playing?
+     * @return {boolean}
+     */
 
     Object.defineProperties(FrameTickProvider.prototype, {
       playing: {
@@ -4120,15 +3741,31 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
     });
 
+
+    /**
+     * Start
+     */
+
     FrameTickProvider.prototype.start = function() {
       this.request = requestAnimationFrame(this.dispatchTick);
       this.isPlaying = true;
     };
 
+
+    /**
+     * Stop
+     */
+
     FrameTickProvider.prototype.stop = function() {
       cancelRequestAnimationFrame(this.request);
       this.isPlaying = false;
     };
+
+
+    /**
+     * dispatchTick
+     @param {number} timestamp
+     */
 
     FrameTickProvider.prototype.dispatchTick = function(timestamp) {
       var frameTime, temp;
@@ -4181,12 +3818,27 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
   Dictionary = ash.ext.Dictionary;
 
+
+  /**
+   * constructor
+   */
+
   ash.tools.ComponentPool = (function() {
+
+    /**
+     * @type {ash.core.Dictionary}
+     */
     var getPool, pools;
 
     function ComponentPool() {}
 
     pools = new Dictionary();
+
+
+    /**
+     * @param {Function} componentClass
+     * @return {ash.core.Dictionary}
+     */
 
     getPool = function(componentClass) {
       var ref;
@@ -4198,11 +3850,11 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Get an object from the pool.
      *
-     * @param componentClass The type of component wanted.
-     * @return The component.
+     * @param {Function} componentClass The type of component wanted.
+     * @return {Object} The component.
      */
 
     ComponentPool.get = function(componentClass) {
@@ -4216,10 +3868,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Return an object to the pool for reuse.
      *
-     * @param component The component to return to the pool.
+     * @param {Object} component The component to return to the pool.
      */
 
     ComponentPool.dispose = function(component) {
@@ -4232,7 +3884,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     };
 
 
-    /*
+    /**
      * Dispose of all pooled resources, freeing them for garbage collection.
      */
 
@@ -4272,15 +3924,50 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
   ash.tools.ListIteratingSystem = (function(superClass) {
     extend(ListIteratingSystem, superClass);
 
+
+    /**
+     * @type {ash.core.NodeList}
+     */
+
     ListIteratingSystem.prototype.nodeList = null;
+
+
+    /**
+     * @type {Function}
+     */
 
     ListIteratingSystem.prototype.nodeClass = null;
 
+
+    /**
+     * @type {Function}
+     */
+
     ListIteratingSystem.prototype.nodeUpdateFunction = null;
+
+
+    /**
+     * @type {Function}
+     */
 
     ListIteratingSystem.prototype.nodeAddedFunction = null;
 
+
+    /**
+     * @type {Function}
+     */
+
     ListIteratingSystem.prototype.nodeRemovedFunction = null;
+
+
+    /**
+     * @extends {ash.core.System}
+     * @constructor
+     * @param {Function} nodeClass
+     * @param {Function} nodeUpdateFunction
+     * @param {Function} nodeAddedFunction
+     * @param {Function} nodeRemovedFunction
+     */
 
     function ListIteratingSystem(nodeClass, nodeUpdateFunction, nodeAddedFunction, nodeRemovedFunction) {
       if (nodeAddedFunction == null) {
@@ -4294,6 +3981,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.nodeAddedFunction = nodeAddedFunction;
       this.nodeRemovedFunction = nodeRemovedFunction;
     }
+
+
+    /**
+     * System is added to engine
+     * @param {ash.core.Engine}
+     */
 
     ListIteratingSystem.prototype.addToEngine = function(engine) {
       var node;
@@ -4311,6 +4004,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
     };
 
+
+    /**
+     * System is removed from engine
+     * @param {ash.core.Engine}
+     */
+
     ListIteratingSystem.prototype.removeFromEngine = function(engine) {
       if (this.nodeAddedFunction !== null) {
         this.nodeList.nodeAdded.remove(this.nodeAddedFunction);
@@ -4320,6 +4019,12 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       }
       this.nodeList = null;
     };
+
+
+    /**
+     * frame update
+     * @param {number} time ms since last update
+     */
 
     ListIteratingSystem.prototype.update = function(time) {
       var node;
@@ -4333,29 +4038,5 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     return ListIteratingSystem;
 
   })(ash.core.System);
-
-
-  /*
-   *
-   * export ash
-   *
-   */
-
-  (function(root, factory) {
-    'use strict';
-
-    /*
-     * Export ash - umd header
-     */
-    if ('function' === typeof define && define.amd) {
-      define(factory);
-    } else if ('object' === typeof exports) {
-      module.exports = factory();
-    } else {
-      root['ash'] = factory();
-    }
-  })(this, (function() {
-    return ash;
-  }));
 
 }).call(this);

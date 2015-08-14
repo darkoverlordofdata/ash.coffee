@@ -7,7 +7,7 @@ goog.require('ash.core.EntityList');
 goog.require('ash.ext.Dictionary');
 goog.require('ash.core.SystemList');
 goog.require('ash.signals.Signal0');
-goog.require('ash.ext.getClassName');
+goog.require('ash.ext.Util');
 
 
 /**
@@ -220,11 +220,11 @@ ash.core.Engine.prototype.componentRemoved = function(entity, componentClass) {
  */
 ash.core.Engine.prototype.getNodeList = function(nodeClass) {
   var entity, family;
-  if (getClassName(nodeClass) in this.families) {
-    return this.families[getClassName(nodeClass)].nodeList;
+  if (Util.getClassName(nodeClass) in this.families) {
+    return this.families[Util.getClassName(nodeClass)].nodeList;
   }
   family = new this.familyClass(nodeClass, this);
-  this.families[getClassName(nodeClass)] = family;
+  this.families[Util.getClassName(nodeClass)] = family;
   entity = this.entityList.head;
   while (entity) {
     family.newEntity(entity);
@@ -244,9 +244,9 @@ ash.core.Engine.prototype.getNodeList = function(nodeClass) {
  * @param {Object} nodeClass The type of the node class if the list to be released.
  */
 ash.core.Engine.prototype.releaseNodeList = function(nodeClass) {
-  if (getClassName(nodeClass) in this.families) {
-    this.families[getClassName(nodeClass)].cleanUp();
-    delete this.families[getClassName(nodeClass)];
+  if (Util.getClassName(nodeClass) in this.families) {
+    this.families[Util.getClassName(nodeClass)].cleanUp();
+    delete this.families[Util.getClassName(nodeClass)];
   }
 };
 

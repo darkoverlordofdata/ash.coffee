@@ -47,35 +47,22 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * @const
 ###
 ash =
-
-  signals: {}
-
   core: {}
-
-  ext:
-    Dictionary: class Dictionary
-      ###
-       * @constructor
-       * @dict
-      ###
-
-    ###
-     * Get Class Name
-     *
-     * closure compiler changes the class name, or sets it to ''
-     * In that case, add a static className property to all
-     * Nodes and Components so they can be identified.
-     *
-     * @param {function} klass
-     * @return {string}
-    ###
-    getClassName:(klass) ->
-      return klass.className ? klass.name
-
-
+  ext: {}
   fsm: {}
-
+  signals: {}
   tick: {}
-
   tools: {}
 
+do (root=@, factory=(-> ash)) ->
+  'use strict'
+  ###
+   * Export ash - umd header
+  ###
+  if 'function' is typeof define and define.amd
+    define factory
+  else if 'object' is typeof exports
+    module.exports = factory()
+  else
+    root['ash'] = factory()
+  return

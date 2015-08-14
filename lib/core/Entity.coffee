@@ -20,7 +20,7 @@
 
 Signal2 = ash.signals.Signal2
 Dictionary = ash.ext.Dictionary
-getClassName = ash.ext.getClassName
+Util = ash.ext.Util
 
 class ash.core.Entity
 
@@ -107,10 +107,10 @@ class ash.core.Entity
     if (not componentClass?)
       componentClass = component.constructor
 
-    if getClassName(componentClass) of @components
+    if Util.getClassName(componentClass) of @components
       @remove(componentClass)
 
-    @components[getClassName(componentClass)] = component
+    @components[Util.getClassName(componentClass)] = component
     @componentAdded.dispatch(this, componentClass)
     return this
 
@@ -122,8 +122,8 @@ class ash.core.Entity
    * @return {Object} the component, or null if the component doesn't exist in the entity
   ###
   remove: (componentClass) ->
-    name = if getClassName(componentClass)? then getClassName(componentClass) else componentClass
-#    name = if 'string' is typeof componentClass then componentClass else getClassName(componentClass)
+    name = if Util.getClassName(componentClass)? then Util.getClassName(componentClass) else componentClass
+#    name = if 'string' is typeof componentClass then componentClass else Util.getClassName(componentClass)
     component = @components[name]
     if (component)
       delete @components[name]
@@ -139,7 +139,7 @@ class ash.core.Entity
    * @return {Object} The component, or null if none was found.
   ###
   get: (componentClass) ->
-    return @components[getClassName(componentClass)]
+    return @components[Util.getClassName(componentClass)]
 
   ###*
    * Get all components from the entity.
@@ -160,5 +160,5 @@ class ash.core.Entity
    * @return {boolean} true if the entity has a component of the type, false if not.
   ###
   has: (componentClass) ->
-    return getClassName(componentClass) of @components
+    return Util.getClassName(componentClass) of @components
     

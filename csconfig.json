@@ -18,10 +18,9 @@
         "lib/core/Family.coffee",
         "lib/core/ComponentMatchingFamily.coffee",
         "lib/core/Engine.coffee",
-        "lib/ext/phaser_engine.coffee",
-        "lib/ext/phaser_entity.coffee",
-        "lib/ext/phaser_plugin.coffee",
+        "lib/ext/Dictionary.coffee",
         "lib/ext/Helper.coffee",
+        "lib/ext/Util.coffee",
         "lib/fsm/ComponentInstanceProvider.coffee",
         "lib/fsm/ComponentSingletonProvider.coffee",
         "lib/fsm/ComponentTypeProvider.coffee",
@@ -37,8 +36,7 @@
         "lib/fsm/SystemSingletonProvider.coffee",
         "lib/tick/FrameTickProvider.coffee",
         "lib/tools/ComponentPool.coffee",
-        "lib/tools/ListIteratingSystem.coffee",
-        "lib/export.coffee"
+        "lib/tools/ListIteratingSystem.coffee"
     ]
 	
 }

@@ -7,7 +7,7 @@ EntityList = ash.core.EntityList
 Dictionary = ash.ext.Dictionary
 SystemList = ash.core.SystemList
 Signal0 = ash.signals.Signal0
-getClassName = ash.ext.getClassName
+Util = ash.ext.Util
 
 class ash.core.Engine
 
@@ -190,11 +190,11 @@ class ash.core.Engine
    * @return {ash.core.NodeList} A linked list of all nodes of this type from all entities in the engine.
   ###
   getNodeList: (nodeClass) ->
-    if (getClassName(nodeClass) of @families)
-      return @families[getClassName(nodeClass)].nodeList
+    if (Util.getClassName(nodeClass) of @families)
+      return @families[Util.getClassName(nodeClass)].nodeList
 
     family = new @familyClass(nodeClass, this)
-    @families[getClassName(nodeClass)] = family
+    @families[Util.getClassName(nodeClass)] = family
     entity = @entityList.head
     while entity
       family.newEntity(entity)
@@ -213,9 +213,9 @@ class ash.core.Engine
    * @param {Object} nodeClass The type of the node class if the list to be released.
   ###
   releaseNodeList: (nodeClass) ->
-    if (getClassName(nodeClass) of @families)
-      @families[getClassName(nodeClass)].cleanUp()
-      delete @families[getClassName(nodeClass)]
+    if (Util.getClassName(nodeClass) of @families)
+      @families[Util.getClassName(nodeClass)].cleanUp()
+      delete @families[Util.getClassName(nodeClass)]
     return # Void
 
   ###*

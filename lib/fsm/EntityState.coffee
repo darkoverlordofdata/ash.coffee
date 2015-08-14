@@ -6,7 +6,7 @@
 
 Dictionary = ash.ext.Dictionary
 StateComponentMapping = ash.fsm.StateComponentMapping
-getClassName = ash.ext.getClassName
+Util = ash.ext.Util
 
 
 class ash.fsm.EntityState
@@ -30,7 +30,7 @@ class ash.fsm.EntityState
    * @return {ash.fsm.StateComponentMapping} The component mapping to use when setting the provider for the component
   ###
   add: (type) ->
-    return new StateComponentMapping(this, getClassName(type))
+    return new StateComponentMapping(this, Util.getClassName(type))
 
   ###*
    * Get the ComponentProvider for a particular component type.

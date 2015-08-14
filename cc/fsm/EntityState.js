@@ -5,7 +5,7 @@ goog.provide('ash.fsm.EntityState');
  */
 goog.require('ash.ext.Dictionary');
 goog.require('ash.fsm.StateComponentMapping');
-goog.require('ash.ext.getClassName');
+goog.require('ash.ext.Util');
 
 
 /**
@@ -28,7 +28,7 @@ ash.fsm.EntityState.prototype.providers = null;
  * @return {ash.fsm.StateComponentMapping} The component mapping to use when setting the provider for the component
  */
 ash.fsm.EntityState.prototype.add = function(type) {
-  return new ash.fsm.StateComponentMapping(this, getClassName(type));
+  return new ash.fsm.StateComponentMapping(this, Util.getClassName(type));
 };
 
 /**

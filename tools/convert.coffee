@@ -59,14 +59,16 @@ dependencies = (ns, src) ->
  * Compile coffeescript and process each output
  *
 ###
-exec "coffee -o ./cc/js --no-header -cb ./lib", (err, out) ->
+exec "coffee -o ./cc --no-header -cb ./lib", (err, out) ->
 	throw err if err
+	deps = []
 	for file in config.files
 		
 		if file.indexOf('_') is -1
 			ns = file.replace(/^web\/src\//, '').replace(/\.js$/,'').replace(/\//g,'.')
 			unless /\.prolog$/.test(ns)
-				src = fs.readFileSync(file.replace('web/src/ash', './cc/js'), 'utf8')
+				deps.push(ns)
+				src = fs.readFileSync(file.replace('web/src/ash', './cc'), 'utf8')
 				src = src.replace(/'use strict';/, '')
 				src = c2c.fix(src, addGenerateByHeader: false)	
 				src = dependencies(ns, src)
@@ -74,6 +76,10 @@ exec "coffee -o ./cc/js --no-header -cb ./lib", (err, out) ->
 				goog.provide('#{ns}');
 				#{src}
 				"""
-				fs.writeFileSync(file.replace('web/src/ash', './cc/js'), src)
+				fs.writeFileSync(file.replace('web/src/ash', './cc'), src)
 	
 
+	out = ["goog.provide('ash');"]
+	for dep in deps
+		out.push("goog.require('#{dep}');")
+	fs.writeFileSync('cc/ash.js', out.join('\n'))

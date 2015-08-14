@@ -10,7 +10,7 @@ goog.require('ash.core.EntityList');
 goog.require('ash.ext.Dictionary');
 goog.require('ash.core.NodeList');
 goog.require('ash.core.NodePool');
-goog.require('ash.ext.getClassName');
+goog.require('ash.ext.Util');
 
 
 /**
@@ -74,7 +74,7 @@ ash.core.ComponentMatchingFamily.prototype.init = function() {
   _ref = this.nodeClass.components;
   for (name in _ref) {
     type = _ref[name];
-    this.components[getClassName(type)] = type;
+    this.components[Util.getClassName(type)] = type;
   }
 };
 
@@ -122,7 +122,7 @@ ash.core.ComponentMatchingFamily.prototype.componentAddedToEntity = function(ent
  */
 ash.core.ComponentMatchingFamily.prototype.componentRemovedFromEntity = function(entity, componentClass) {
   var name;
-  name = getClassName(componentClass) != null ? getClassName(componentClass) : componentClass;
+  name = Util.getClassName(componentClass) != null ? Util.getClassName(componentClass) : componentClass;
   if (name in this.components) {
     this.removeIfMatch(entity);
   }

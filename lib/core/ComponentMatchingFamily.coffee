@@ -11,7 +11,7 @@ EntityList = ash.core.EntityList
 Dictionary = ash.ext.Dictionary
 NodeList = ash.core.NodeList
 NodePool = ash.core.NodePool
-getClassName = ash.ext.getClassName
+Util = ash.ext.Util
 
 class ash.core.ComponentMatchingFamily #extends Family
 
@@ -70,7 +70,7 @@ class ash.core.ComponentMatchingFamily #extends Family
     @nodePool = new NodePool(@nodeClass, @nodeClass.components)
 
     for name, type of @nodeClass.components
-      @components[getClassName(type)] = type
+      @components[Util.getClassName(type)] = type
     return # Void
 
   ###
@@ -111,7 +111,7 @@ class ash.core.ComponentMatchingFamily #extends Family
    * @param {Object} componentClass that was removed
   ###
   componentRemovedFromEntity: (entity, componentClass) ->
-    name = if getClassName(componentClass)? then getClassName(componentClass) else componentClass
+    name = if Util.getClassName(componentClass)? then Util.getClassName(componentClass) else componentClass
 #    name = if 'string' is typeof componentClass then componentClass else componentClass.className
     if name of @components
       @removeIfMatch(entity)

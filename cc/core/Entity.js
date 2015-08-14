@@ -19,7 +19,7 @@ goog.provide('ash.core.Entity');
  */
 goog.require('ash.signals.Signal2');
 goog.require('ash.ext.Dictionary');
-goog.require('ash.ext.getClassName');
+goog.require('ash.ext.Util');
 
 
 /**
@@ -117,10 +117,10 @@ ash.core.Entity.prototype.add = function(component, componentClass) {
   if (componentClass == null) {
     componentClass = component.constructor;
   }
-  if (getClassName(componentClass) in this.components) {
+  if (Util.getClassName(componentClass) in this.components) {
     this.remove(componentClass);
   }
-  this.components[getClassName(componentClass)] = component;
+  this.components[Util.getClassName(componentClass)] = component;
   this.componentAdded.dispatch(this, componentClass);
   return this;
 };
@@ -133,7 +133,7 @@ ash.core.Entity.prototype.add = function(component, componentClass) {
  */
 ash.core.Entity.prototype.remove = function(componentClass) {
   var component, name;
-  name = getClassName(componentClass) != null ? getClassName(componentClass) : componentClass;
+  name = Util.getClassName(componentClass) != null ? Util.getClassName(componentClass) : componentClass;
   component = this.components[name];
   if (component) {
     delete this.components[name];
@@ -150,7 +150,7 @@ ash.core.Entity.prototype.remove = function(componentClass) {
  * @return {Object} The component, or null if none was found.
  */
 ash.core.Entity.prototype.get = function(componentClass) {
-  return this.components[getClassName(componentClass)];
+  return this.components[Util.getClassName(componentClass)];
 };
 
 /**
@@ -176,5 +176,5 @@ ash.core.Entity.prototype.getAll = function() {
  * @return {boolean} true if the entity has a component of the type, false if not.
  */
 ash.core.Entity.prototype.has = function(componentClass) {
-  return getClassName(componentClass) in this.components;
+  return Util.getClassName(componentClass) in this.components;
 };

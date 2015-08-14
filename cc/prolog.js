@@ -46,40 +46,30 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * ash namespace
  * @const
  */
-var Dictionary, ash;
+var ash;
 
 ash = {
-  signals: {},
   core: {},
-  ext: {
-    Dictionary: Dictionary = (function() {
-
-      /*
-       * @constructor
-       * @dict
-       */
-      function Dictionary() {}
-
-      return Dictionary;
-
-    })(),
-
-    /*
-     * Get Class Name
-     *
-     * closure compiler changes the class name, or sets it to ''
-     * In that case, add a static className property to all
-     * Nodes and Components so they can be identified.
-     *
-     * @param {function} klass
-     * @return {string}
-     */
-    getClassName: function(klass) {
-      var _ref;
-      return (_ref = klass.className) != null ? _ref : klass.name;
-    }
-  },
+  ext: {},
   fsm: {},
+  signals: {},
   tick: {},
   tools: {}
 };
+
+(function(root, factory) {
+  'use strict';
+
+  /*
+   * Export ash - umd header
+   */
+  if ('function' === typeof define && define.amd) {
+    define(factory);
+  } else if ('object' === typeof exports) {
+    module.exports = factory();
+  } else {
+    root['ash'] = factory();
+  }
+})(this, (function() {
+  return ash;
+}));

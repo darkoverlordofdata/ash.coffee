@@ -18,10 +18,9 @@
         "web/src/ash/core/Family.js",
         "web/src/ash/core/ComponentMatchingFamily.js",
         "web/src/ash/core/Engine.js",
-        "web/src/ash/ext/phaser_engine.js",
-        "web/src/ash/ext/phaser_entity.js",
-        "web/src/ash/ext/phaser_plugin.js",
+        "web/src/ash/ext/Dictionary.js",
         "web/src/ash/ext/Helper.js",
+        "web/src/ash/ext/Util.js",
         "web/src/ash/fsm/ComponentInstanceProvider.js",
         "web/src/ash/fsm/ComponentSingletonProvider.js",
         "web/src/ash/fsm/ComponentTypeProvider.js",
@@ -37,8 +36,7 @@
         "web/src/ash/fsm/SystemSingletonProvider.js",
         "web/src/ash/tick/FrameTickProvider.js",
         "web/src/ash/tools/ComponentPool.js",
-        "web/src/ash/tools/ListIteratingSystem.js",
-        "web/src/ash/export.js"
+        "web/src/ash/tools/ListIteratingSystem.js"
     ]
 	
 }
