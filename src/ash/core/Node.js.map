@@ -1,10 +1,10 @@
 {
   "version": 3,
   "file": "Node.js",
-  "sourceRoot": "../../../..",
+  "sourceRoot": "../../../../..",
   "sources": [
     "lib/core/Node.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;EAEM,GAAG,CAAC,IAAI,CAAC;;;mBAEb,MAAA,GAAQ;;mBACR,QAAA,GAAU;;mBACV,IAAA,GAAM;;;;;AANR"
+  "mappings": ";AAAC,YAAA,CAAA;AAED;AAAA;;GAFC;AAAA,GAKQ,CAAC,IAAI,CAAC;oBAEb;;AAAA;AAAA;;KAAA;;AAAA,iBAGA,MAAA,GAAQ,IAHR,CAAA;;AAKA;AAAA;;KALA;;AAAA,iBAQA,QAAA,GAAU,IARV,CAAA;;AAUA;AAAA;;KAVA;;AAAA,iBAaA,IAAA,GAAM,IAbN,CAAA;;cAAA;;IAPD,CAAA"
 }

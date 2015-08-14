@@ -1,10 +1,10 @@
 {
   "version": 3,
   "file": "ListenerNode.js",
-  "sourceRoot": "../../../..",
+  "sourceRoot": "../../../../..",
   "sources": [
     "lib/signals/ListenerNode.coffee"
   ],
   "names": [],
-  "mappings": ";;AAAA;;;;AAAA;EAGA;EAEM,GAAG,CAAC,OAAO,CAAC;;;2BAEhB,QAAA,GAAU;;2BACV,IAAA,GAAM;;2BACN,QAAA,GAAU;;2BACV,IAAA,GAAM;;;;;AAVR"
+  "mappings": ";AAAA;AAAA;;GAAA;AAAA,YAAA,CAAA;AAKA;AAAA;;GALA;AAAA,GAQS,CAAC,OAAO,CAAC;4BAEhB;;AAAA;AAAA;;KAAA;;AAAA,yBAGA,QAAA,GAAU,IAHV,CAAA;;AAKA;AAAA;;KALA;;AAAA,yBAQA,IAAA,GAAM,IARN,CAAA;;AAUA;AAAA;;KAVA;;AAAA,yBAaA,QAAA,GAAU,IAbV,CAAA;;AAeA;AAAA;;KAfA;;AAAA,yBAkBA,IAAA,GAAM,KAlBN,CAAA;;sBAAA;;IAVF,CAAA"
 }
