@@ -21,33 +21,44 @@ Signal1 = ash.signals.Signal1
 
 class ash.core.NodeList
 
-  ###
+  ###*
    * The first item in the node list, or null if the list contains no nodes.
+   * @type {ash.core.Node}
   ###
   head: null
-  ###
+  
+  ###*
    * The last item in the node list, or null if the list contains no nodes.
+   * @type {ash.core.Node}
   ###
   tail: null
 
-  ###
+  ###*
    * A signal that is dispatched whenever a node is added to the node list.
    *
    * <p>The signal will pass a single parameter to the listeners - the node that was added.</p>
+   * @type {ash.signals.Signal1}
   ###
   nodeAdded: null
 
-  ###
+  ###*
    * A signal that is dispatched whenever a node is removed from the node list.
    *
    * <p>The signal will pass a single parameter to the listeners - the node that was removed.</p>
+   * @type {ash.signals.Signal1}
   ###
   nodeRemoved: null
 
+  ###*
+   * @constructor
+  ###
   constructor: ->
     @nodeAdded = new Signal1()
     @nodeRemoved = new Signal1()
 
+  ###*
+   * @param {ash.core.Node} node to add
+  ###
   add: (node) ->
     if (not @head)
       @head = @tail = node
@@ -60,6 +71,9 @@ class ash.core.NodeList
     @nodeAdded.dispatch(node)
     return # Void
 
+  ###*
+   * @param {ash.core.Node} node to remove
+  ###
   remove: (node) ->
     if (@head is node)
       @head = @head.next
@@ -73,6 +87,9 @@ class ash.core.NodeList
     @nodeRemoved.dispatch(node)
     return # Void
 
+  ###*
+   * remove all nodes
+  ###
   removeAll: () ->
     while (@head)
       node = @head
@@ -84,14 +101,17 @@ class ash.core.NodeList
     @tail = null
     return # Void
 
-  ###
+  ###*
    * true if the list is empty, false otherwise.
+   * @type {boolean}
   ###
   Object.defineProperties NodeList::,
     empty: get: -> @head is null
 
-  ###
+  ###*
    * Swaps the positions of two nodes in the list. Useful when sorting a list.
+   *
+   * @private
   ###
   swap: (node1, node2) ->
 
@@ -134,7 +154,7 @@ class ash.core.NodeList
     return # Void
 
 
-  ###
+  ###*
    * Performs an insertion sort on the node list. In general, insertion sort is very efficient with short lists
    * and with lists that are mostly sorted, but is inefficient with large lists that are randomly ordered.
    *
@@ -147,6 +167,9 @@ class ash.core.NodeList
    * and the original order will be retained.</p>
    *
    * <p>This insertion sort implementation runs in place so no objects are created during the sort.</p>
+   *
+   * @private
+   * @param {Function} sort function
   ###
   insertionSort: (sortFunction) ->
     if (@head is @tail)
@@ -207,6 +230,9 @@ class ash.core.NodeList
    * than zero the second node should be before the first. If it is zero the order of the nodes doesn't matter.</p>
    *
    * <p>This merge sort implementation creates and uses a single Vector during the sort operation.</p>
+   *
+   * @private
+   * @param {Function} sort function
   ###
   mergeSort: (sortFunction) ->
     if (@head is @tail)
@@ -235,6 +261,13 @@ class ash.core.NodeList
       @tail = @tail.next
     return # Void
 
+  ###
+   *
+   * @private
+   * @param {ash.core.Node} head1
+   * @param {ash.core.Node} head2
+   * @param {Function} sort function
+  ###
   merge: (head1, head2, sortFunction) ->
 
     if (sortFunction(head1, head2) <= 0)

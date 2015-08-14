@@ -4,11 +4,26 @@
 ###
 'use strict'
 
+###*
+ * @constructor
+###
 class ash.core.EntityList
 
+  ###*
+   * @type {ash.core.Entity}
+  ###
   head: null  # Entity
+  
+  ###*
+   * @type {ash.core.Entity}
+  ###
   tail: null  # Entity
 
+  ###*
+   * Add an entity to the list
+   *
+   * @param {ash.core.Entity}
+  ###
   add: (entity) ->
     if (not @head)
       @head = @tail = entity
@@ -20,6 +35,11 @@ class ash.core.EntityList
       @tail = entity
     return # Void
 
+  ###*
+   * Remove an entity from the list
+   *
+   * @param {ash.core.Entity}
+  ###
   remove: (entity) ->
     if (@head is entity)
       @head = @head.next
@@ -32,6 +52,9 @@ class ash.core.EntityList
     # N.B. Don't set entity.next and entity.previous to null because that will break the list iteration if entity is the current entity in the iteration.
     return # Void
 
+  ###*
+   * Remove all entities
+  ###
   removeAll: () ->
     while (@head)
       entity = @head

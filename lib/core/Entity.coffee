@@ -27,20 +27,31 @@ class ash.core.Entity
   @nameCount = {}
   nameCount = 0
 
-  ###
+  ###*
    * Optional, give the entity a name. This can help with debugging and with serialising the entity.
+   *
+   * @type {string}
   ###
   _name: ''
-  ###
+  
+  ###*
    * This signal is dispatched when a component is added to the entity.
+   * 
+   * @type {ash.signals.Signal2}
   ###
   componentAdded: null
-  ###
+  
+  ###*
    * This signal is dispatched when a component is removed from the entity.
+   * 
+   * @type {ash.signals.Signal2}
   ###
   componentRemoved: null
-  ###
+  
+  ###*
    * Dispatched when the name of the entity changes. Used internally by the engine to track entities based on their names.
+   * 
+   * @type {ash.signals.Signal2}
   ###
   nameChanged: null
 
@@ -48,6 +59,10 @@ class ash.core.Entity
   next: null
   components: null
 
+  ###*
+   * @constructor
+   * @param {string} name Entity name
+  ###
   constructor: (name = '' ) ->
     Object.defineProperties @,
       ###
@@ -73,15 +88,15 @@ class ash.core.Entity
     else
       @_name = "_entity" + (++nameCount)
 
-  ###
+  ###*
    * Add a component to the entity.
    *
-   * @param component The component object to add.
-   * @param componentClass The class of the component. This is only necessary if the component
+   * @param {Object} component The component object to add.
+   * @param {Object} componentClass The class of the component. This is only necessary if the component
    * extends another component class and you want the framework to treat the component as of
    * the base class type. If not set, the class type is determined directly from the component.
    *
-   * @return A reference to the entity. This enables the chaining of calls to add, to make
+   * @return {ash.core.Entity} A reference to the entity. This enables the chaining of calls to add, to make
    * creating and configuring entities cleaner. e.g.
    *
    * <code>var entity:Entity = new Entity()
@@ -100,11 +115,11 @@ class ash.core.Entity
     return this
 
 
-  ###
+  ###*
    * Remove a component from the entity.
    *
-   * @param componentClass The class of the component to be removed.
-   * @return the component, or null if the component doesn't exist in the entity
+   * @param {Object} componentClass The class of the component to be removed.
+   * @return {Object} the component, or null if the component doesn't exist in the entity
   ###
   remove: (componentClass) ->
     name = if getClassName(componentClass)? then getClassName(componentClass) else componentClass
@@ -117,19 +132,19 @@ class ash.core.Entity
 
     return null
 
-  ###
+  ###*
    * Get a component from the entity.
    *
-   * @param componentClass The class of the component requested.
-   * @return The component, or null if none was found.
+   * @param {Object} componentClass The class of the component requested.
+   * @return {Object} The component, or null if none was found.
   ###
   get: (componentClass) ->
     return @components[getClassName(componentClass)]
 
-  ###
+  ###*
    * Get all components from the entity.
    *
-   * @return An array containing all the components that are on the entity.
+   * @return {Array<Object>} An array containing all the components that are on the entity.
   ###
   getAll: () ->
     componentArray = []
@@ -138,11 +153,11 @@ class ash.core.Entity
     return componentArray
 
 
-  ###
+  ###*
    * Does the entity have a component of a particular type.
    *
-   * @param componentClass The class of the component sought.
-   * @return true if the entity has a component of the type, false if not.
+   * @param {Object} componentClass The class of the component sought.
+   * @return {boolean} true if the entity has a component of the type, false if not.
   ###
   has: (componentClass) ->
     return getClassName(componentClass) of @components

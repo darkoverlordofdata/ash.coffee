@@ -25,18 +25,28 @@
 
 Dictionary = ash.ext.Dictionary
 
+###*
+ * constructor
+###
 class ash.tools.ComponentPool
 
+  ###*
+   * @type {ash.core.Dictionary}
+  ###
   pools = new Dictionary()
 
+  ###*
+   * @param {Function} componentClass
+   * @return {ash.core.Dictionary}
+  ###
   getPool = (componentClass) ->
     if (componentClass.className in pools) then pools[componentClass.className] else pools[componentClass.className] = []
 
-  ###
+  ###*
    * Get an object from the pool.
    *
-   * @param componentClass The type of component wanted.
-   * @return The component.
+   * @param {Function} componentClass The type of component wanted.
+   * @return {Object} The component.
   ###
   @get: (componentClass) ->
 
@@ -46,10 +56,10 @@ class ash.tools.ComponentPool
     else
       return new componentClass()
 
-  ###
+  ###*
    * Return an object to the pool for reuse.
    *
-   * @param component The component to return to the pool.
+   * @param {Object} component The component to return to the pool.
   ###
   @dispose: (component) ->
     if (component)
@@ -58,7 +68,7 @@ class ash.tools.ComponentPool
       pool.push(component)
     return # Void
 
-  ###
+  ###*
    * Dispose of all pooled resources, freeing them for garbage collection.
   ###
   @empty: () ->

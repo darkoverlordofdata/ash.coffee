@@ -67,7 +67,7 @@ task 'make:build', 'stuff the build script', (options) ->
     cp -f web/main.js build/web/main.js  
     """.split('\n').join(' && ')
 
-  files = require('./csconfig.json').files.join(" ")
+  files = require('./csconfig.json').files.join(" LF ")
   c1 = "cat #{files} | coffee -cs > build/ash.js"
   c2 = "cat #{files} | coffee -cs | java -jar tools/compiler.jar --compilation_level WHITESPACE_ONLY --js_output_file build/ash.min.js"
   

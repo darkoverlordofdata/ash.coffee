@@ -10,18 +10,39 @@
 
 class ash.core.NodePool
 
-  tail          : null  # Node
-  nodeClass     : null  # Class
-  cacheTail     : null  # Node
-  components    : null  # Dictionary
+  ###*
+   * @type {ash.core.Node}
   ###
+  tail: null
+  
+  ###*
+   * @type {Function}
+  ###
+  nodeClass: null
+  
+  ###*
+   * @type {ash.core.Node}
+  ###
+  cacheTail: null
+  
+  ###*
+   * @type {ash.ext.Dictionary}
+  ###
+  components: null
+  
+  ###*
    * Creates a pool for the given node class.
+   * 
+   * @constructor
+   * @param {Function} nodeClass
+   * @param {ash.core.Dictionary} 
   ###
   constructor: (@nodeClass, @components) ->
 
 
-  ###
+  ###*
    * Fetches a node from the pool.
+   * @return {ash.core.Node}
   ###
   get: ->
     if (@tail)
@@ -33,8 +54,9 @@ class ash.core.NodePool
       node = new @nodeClass()
       return node
 
-  ###
-   * Adds a node to the pool.
+  ###*
+   * dispose of a node
+   * @param {ash.core.Node} 
   ###
   dispose: (node) ->
     for componentName of @components
@@ -45,15 +67,16 @@ class ash.core.NodePool
     @tail = node
     return # Void
 
-  ###
+  ###*
    * Adds a node to the cache
+   * @param {ash.core.Node} 
   ###
   cache: (node) ->
     node.previous = @cacheTail
     @cacheTail = node
     return # Void
 
-  ###
+  ###*
    * Releases all nodes from the cache into the pool
   ###
   releaseCache: () ->

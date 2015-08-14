@@ -15,26 +15,52 @@ getClassName = ash.ext.getClassName
 
 class ash.core.ComponentMatchingFamily #extends Family
 
-  nodes         : null  # NodeList
-  entities      : null  # Dictionary
-  nodeClass     : null  # Class
-  components    : null  # Dictionary
-  nodePool      : null  # NodePool
-  engine        : null  # Engine
+  ###*
+   * @type {ash.core.NodeList}
+  ### 
+  nodes: null
+  
+  ###*
+   * @type {ash.ext.Dictionary}
+  ### 
+  entities: null
+  
+  ###*
+   * @type {Function}
+  ### 
+  nodeClass: null  # Class
+  ###*
+   * @type {ash.ext.Dictionary}
+  ### 
+  components: null
+  
+  ###*
+   * @type {ash.core.NodePool}
+  ### 
+  nodePool: null
+  
+  ###*
+   * @type {ash.core.Engine}
+  ### 
+  engine: null
 
-  ###
+  ###*
    * The constructor. Creates a ComponentMatchingFamily to provide a NodeList for the
    * given node class.
    *
-   * @param nodeClass The type of node to create and manage a NodeList for.
-   * @param engine The engine that this family is managing teh NodeList for.
+   * @constructor
+   * @implements {ash.core.Family}
+   *
+   * @param {Object} nodeClass The type of node to create and manage a NodeList for.
+   * @param {ash.core.Engine} engine The engine that this family is managing teh NodeList for.
   ###
   constructor:(@nodeClass, @engine) ->
     @init()
 
-  ###
+  ###*
    * Initialises the class. Creates the nodelist and other tools. Analyses the node to determine
    * what component types the node requires.
+   * @private
   ###
   init: ->
     @nodes = new NodeList()
@@ -55,26 +81,34 @@ class ash.core.ComponentMatchingFamily #extends Family
   Object.defineProperties ComponentMatchingFamily::,
     nodeList: get: -> @nodes
 
-  ###
+  ###*
    * Called by the engine when an entity has been added to it. We check if the entity should be in
    * this family's NodeList and add it if appropriate.
+   *
+   * @param {ash.core.Entity} entity that was added
   ###
   newEntity: (entity) ->
     @addIfMatch(entity)
     return # Void
 
-  ###
+  ###*
    * Called by the engine when a component has been added to an entity. We check if the entity is not in
    * this family's NodeList and should be, and add it if appropriate.
+   *
+   * @param {ash.core.Entity} entity with component that was added
+   * @param {Object} componentClass that was added
   ###
   componentAddedToEntity: (entity, componentClass) ->
     @addIfMatch(entity)
     return # Void
 
-  ###
+  ###*
    * Called by the engine when a component has been removed from an entity. We check if the removed component
    * is required by this family's NodeList and if so, we check if the entity is in this this NodeList and
    * remove it if so.
+   *
+   * @param {ash.core.Entity} entity with component that was removed
+   * @param {Object} componentClass that was removed
   ###
   componentRemovedFromEntity: (entity, componentClass) ->
     name = if getClassName(componentClass)? then getClassName(componentClass) else componentClass
@@ -83,17 +117,21 @@ class ash.core.ComponentMatchingFamily #extends Family
       @removeIfMatch(entity)
     return # Void
 
-  ###
+  ###*
    * Called by the engine when an entity has been rmoved from it. We check if the entity is in
    * this family's NodeList and remove it if so.
+   *
+   * @param {ash.core.Entity} entity to remove
   ###
   removeEntity: (entity) ->
     @removeIfMatch(entity)
     return # Void
 
-  ###
+  ###*
    * If the entity is not in this family's NodeList, tests the components of the entity to see
    * if it should be in this NodeList and adds it if so.
+   *
+   * @param {ash.core.Entity} entity to check
   ###
   addIfMatch:(entity) ->
 
@@ -113,8 +151,10 @@ class ash.core.ComponentMatchingFamily #extends Family
     return # Void
 
 
-  ###
+  ###*
    * Removes the entity if it is in this family's NodeList.
+   *
+   * @param {ash.core.Entity} entity to check
   ###
   removeIfMatch: (entity) ->
 
@@ -130,7 +170,7 @@ class ash.core.ComponentMatchingFamily #extends Family
 
     return # Void
 
-  ###
+  ###*
    * Releases the nodes that were added to the node pool during this engine update, so they can
    * be reused.
   ###
@@ -139,7 +179,7 @@ class ash.core.ComponentMatchingFamily #extends Family
     @nodePool.releaseCache()
     return # Void
 
-  ###
+  ###*
    * Removes all nodes from the NodeList.
   ###
   cleanUp: () ->

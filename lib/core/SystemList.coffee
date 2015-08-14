@@ -3,11 +3,25 @@
 ###
 'use strict'
 
+###
+ * @constructor
+###
 class ash.core.SystemList
 
-  head: null  # System
-  tail: null  # System
+  ###*
+   * @type {ash.core.System}
+  ###
+  head: null
+  
+  ###*
+   * @type {ash.core.System}
+  ###
+  tail: null
 
+  ###*
+   * Add system
+   * @param {ash.core.System}
+  ###
   add: (system) ->
     if (not @head)
       @head = @tail = system
@@ -36,6 +50,10 @@ class ash.core.SystemList
         node.next = system
     return # Void
 
+  ###*
+   * remove system
+   * @param {ash.core.System}
+  ###
   remove: (system) ->
     if (@head is system)
       @head = @head.next
@@ -49,6 +67,9 @@ class ash.core.SystemList
     # N.B. Don't set system.next and system.previous to null because that will break the list iteration if system is the current system in the iteration.
     return # Void
 
+  ###*
+   * Remove all systems
+  ###
   removeAll: () ->
     while (@head)
       system = @head
@@ -58,6 +79,11 @@ class ash.core.SystemList
     @tail = null
     return # Void
 
+  ###*
+   * Get system for class
+   * @param {Function}
+   * @return {ash.core.System}
+  ###
   get: (type) ->
     system = @head
     while system

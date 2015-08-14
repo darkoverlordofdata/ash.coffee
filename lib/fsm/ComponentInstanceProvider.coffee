@@ -6,28 +6,30 @@
 
 class ash.fsm.ComponentInstanceProvider
 
+  ###*
+   * @type {Object}
+  ###
   instance: null
 
-  ###
-   * Constructor
-   *
-   * @param instance The instance to return whenever a component is requested.
+  ###*
+   * @constructor
+   * @param {Object} instance The instance to return whenever a component is requested.
   ###
   constructor: (@instance) ->
 
-  ###
+  ###*
    * Used to request a component from this provider
    *
-   * @return The instance
+   * @return {Object} The instance
   ###
   getComponent: () ->
     return @instance
 
-  ###
+  ###*
    * Used to compare this provider with others. Any provider that returns the same component
    * instance will be regarded as equivalent.
    *
-   * @return The instance
+   * @return {Object} The instance
   ###
   Object.defineProperties ComponentInstanceProvider::,
     identifier: get: -> return @instance

@@ -6,11 +6,25 @@
 
 ListenerNode = ash.signals.ListenerNode
 
+###*
+ * @constructor
+###
 class ash.signals.ListenerNodePool
 
+  ###*
+   * @type {ash.signals.ListenerNodePool}
+  ###
   tail: null
+  
+  ###*
+   * @type {ash.signals.ListenerNodePool}
+  ###
   cacheTail: null
 
+  ###*
+   * Get listener node
+   * @return {ash.signals.ListenerNode}
+  ###
   get: () ->
     if (@tail isnt null)
       node = @tail
@@ -20,6 +34,10 @@ class ash.signals.ListenerNodePool
     else
       return new ListenerNode();
 
+  ###*
+   * Dispose of listener node
+   * @param {ash.signals.ListenerNode}
+  ###
   dispose: (node) ->
     node.listener = null
     node.once = false
@@ -28,12 +46,19 @@ class ash.signals.ListenerNodePool
     @tail = node
     return # Void
 
+  ###*
+   * Cache listener node
+   * @param {ash.signals.ListenerNode}
+  ###
   cache: (node) ->
     node.listener = null
     node.previous = @cacheTail
     @cacheTail = node
     return # Void
 
+  ###*
+   * Release cache
+  ###
   releaseCache: () ->
     while (@cacheTail isnt null)
       node = @cacheTail

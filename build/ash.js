@@ -364,13 +364,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         }
         node = node.next;
       }
-      this.endDispatch();
-      return 'use strict';
+      return this.endDispatch();
     };
 
     return Signal0;
 
   })(ash.signals.SignalBase);
+
+  'use strict';
 
   ash.signals.Signal1 = (function(superClass) {
     extend(Signal1, superClass);
@@ -390,13 +391,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         }
         node = node.next;
       }
-      this.endDispatch();
-      return 'use strict';
+      return this.endDispatch();
     };
 
     return Signal1;
 
   })(ash.signals.SignalBase);
+
+  'use strict';
 
   ash.signals.Signal2 = (function(superClass) {
     extend(Signal2, superClass);
@@ -416,13 +418,14 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         }
         node = node.next;
       }
-      this.endDispatch();
-      return 'use strict';
+      return this.endDispatch();
     };
 
     return Signal2;
 
   })(ash.signals.SignalBase);
+
+  'use strict';
 
   ash.signals.Signal3 = (function(superClass) {
     extend(Signal3, superClass);
@@ -443,30 +446,31 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         node = node.next;
       }
       return this.endDispatch();
-
-      /*
-       * An entity is composed from components. As such, it is essentially a collection object for components.
-       * Sometimes, the entities in a game will mirror the actual characters and objects in the game, but this
-       * is not necessary.
-       *
-       * <p>Components are simple value objects that contain data relevant to the entity. Entities
-       * with similar functionality will have instances of the same components. So we might have
-       * a position component</p>
-       *
-       * <p><code>class PositionComponent
-       * {
-       *   public var x:Float;
-       *   public var y:Float;
-       * }</code></p>
-       *
-       * <p>All entities that have a position in the game world, will have an instance of the
-       * position component. Systems operate on entities based on the components they have.</p>
-       */
     };
 
     return Signal3;
 
   })(ash.signals.SignalBase);
+
+
+  /*
+   * An entity is composed from components. As such, it is essentially a collection object for components.
+   * Sometimes, the entities in a game will mirror the actual characters and objects in the game, but this
+   * is not necessary.
+   *
+   * <p>Components are simple value objects that contain data relevant to the entity. Entities
+   * with similar functionality will have instances of the same components. So we might have
+   * a position component</p>
+   *
+   * <p><code>class PositionComponent
+   * {
+   *   public var x:Float;
+   *   public var y:Float;
+   * }</code></p>
+   *
+   * <p>All entities that have a position in the game world, will have an instance of the
+   * position component. Systems operate on entities based on the components they have.</p>
+   */
 
   'use strict';
 
@@ -644,16 +648,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     Entity.prototype.has = function(componentClass) {
       return getClassName(componentClass) in this.components;
-
-      /*
-       * An internal class for a linked list of entities. Used inside the framework for
-       * managing the entities.
-       */
     };
 
     return Entity;
 
   })();
+
+
+  /*
+   * An internal class for a linked list of entities. Used inside the framework for
+   * managing the entities.
+   */
 
   'use strict';
 
@@ -2550,22 +2555,23 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
       PhaserEntity.prototype.has = function(componentClass) {
         return componentClass.className in this.components;
-
-        /*
-         * The Engine class is the central point for creating and managing your game state. Add
-         * entities and systems to the engine, and fetch families of nodes from the engine.
-         *
-         * This version is implemented as a Phaser Plugin. It uses the Phaser update cycle
-         * to provide tick for the ash engine update.
-         *
-         * Use this version if Phaser drives the updates
-         */
       };
 
       return PhaserEntity;
 
     })(Phaser.Sprite);
   }
+
+
+  /*
+   * The Engine class is the central point for creating and managing your game state. Add
+   * entities and systems to the engine, and fetch families of nodes from the engine.
+   *
+   * This version is implemented as a Phaser Plugin. It uses the Phaser update cycle
+   * to provide tick for the ash engine update.
+   *
+   * Use this version if Phaser drives the updates
+   */
 
   if (typeof Phaser !== "undefined" && Phaser !== null) {
     ash.ext.PhaserPlugin = PhaserPlugin = (function(superClass) {
@@ -3055,16 +3061,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
           }
         }
       }
-
-      /*
-       * This component provider always returns the same instance of the component. The instance
-       * is passed to the provider at initialisation.
-       */
     }
 
     return Helper;
 
   })();
+
+
+  /*
+   * This component provider always returns the same instance of the component. The instance
+   * is passed to the provider at initialisation.
+   */
 
   'use strict';
 
@@ -3400,15 +3407,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       mapping = new StateSystemMapping(this, provider);
       this.providers.push(provider);
       return mapping;
-
-      /*
-       * Used by the EntityState class to create the mappings of components to providers via a fluent interface.
-       */
     };
 
     return EngineState;
 
   })();
+
+
+  /*
+   * Used by the EntityState class to create the mappings of components to providers via a fluent interface.
+   */
 
   'use strict';
 
@@ -3644,16 +3652,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         this.engine.addSystem(provider.getSystem(), provider.priority);
       }
       return this.currentState = newState;
-
-      /*
-       * Represents a state for an EntityStateMachine. The state contains any number of ComponentProviders which
-       * are used to add components to the entity when this state is entered.
-       */
     };
 
     return EngineStateMachine;
 
   })();
+
+
+  /*
+   * Represents a state for an EntityStateMachine. The state contains any number of ComponentProviders which
+   * are used to add components to the entity when this state is entered.
+   */
 
   'use strict';
 
@@ -3705,17 +3714,18 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     EntityState.prototype.has = function(type) {
       return this.providers[type] !== null;
-
-      /*
-       * This is a state machine for an entity. The state machine manages a set of states,
-       * each of which has a set of component providers. When the state machine changes the state, it removes
-       * components associated with the previous state and adds components associated with the new state.
-       */
     };
 
     return EntityState;
 
   })();
+
+
+  /*
+   * This is a state machine for an entity. The state machine manages a set of states,
+   * each of which has a set of component providers. When the state machine changes the state, it removes
+   * components associated with the previous state and adds components associated with the new state.
+   */
 
   'use strict';
 
@@ -3818,15 +3828,16 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
         this.entity.add(toAdd[type].getComponent());
       }
       return this.currentState = newState;
-
-      /*
-       * Used by the SystemState class to create the mappings of Systems to providers via a fluent interface.
-       */
     };
 
     return EntityStateMachine;
 
   })();
+
+
+  /*
+   * Used by the SystemState class to create the mappings of Systems to providers via a fluent interface.
+   */
 
   'use strict';
 
@@ -4227,33 +4238,34 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     ComponentPool.empty = function() {
       return pools = new Dictionary();
-
-      /*
-       * A useful class for systems which simply iterate over a set of nodes, performing the same action on each node. This
-       * class removes the need for a lot of boilerplate code in such systems. Extend this class and pass the node type and
-       * a node update method into the constructor. The node update method will be called once per node on the update cycle
-       * with the node instance and the frame time as parameters. e.g.
-       *
-       * <code>package;
-       * class MySystem extends ListIteratingSystem<MyNode>
-       * {
-       *     public function new()
-       *     {
-       *         super(MyNode, updateNode);
-       *     }
-       *
-       *     private function updateNode(node:MyNode, time:Float):Void
-       *     {
-       *         // process the node here
-       *     }
-       * }
-       * </code>
-       */
     };
 
     return ComponentPool;
 
   })();
+
+
+  /*
+   * A useful class for systems which simply iterate over a set of nodes, performing the same action on each node. This
+   * class removes the need for a lot of boilerplate code in such systems. Extend this class and pass the node type and
+   * a node update method into the constructor. The node update method will be called once per node on the update cycle
+   * with the node instance and the frame time as parameters. e.g.
+   *
+   * <code>package;
+   * class MySystem extends ListIteratingSystem<MyNode>
+   * {
+   *     public function new()
+   *     {
+   *         super(MyNode, updateNode);
+   *     }
+   *
+   *     private function updateNode(node:MyNode, time:Float):Void
+   *     {
+   *         // process the node here
+   *     }
+   * }
+   * </code>
+   */
 
   'use strict';
 

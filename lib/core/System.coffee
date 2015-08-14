@@ -12,19 +12,27 @@
 ###
 'use strict'
 
+###
+ * @constructor
+###
 class ash.core.System
 
-  ###
+  ###*
     * Used internally to manage the list of systems within the engine. The previous system in the list.
+    * @type {ash.core.System}
   ###
   previous: null
-  ###
+  
+  ###*
    * Used internally to manage the list of systems within the engine. The next system in the list.
+   * @type {ash.core.System}
   ###
   next: null
+  
   ###
    * Used internally to hold the priority of this system within the system list. This is
    * used to order the systems so they are updated in the correct order.
+   * @type {number}
   ###
   priority: 0
 
@@ -32,7 +40,7 @@ class ash.core.System
    * Called just after the system is added to the engine, before any calls to the update method.
    * Override this method to add your own functionality.
    *
-   * @param engine The engine the system was added to.
+   * @param {ash.core.Engine} engine The engine the system was added to.
   ###
   addToEngine: (engine) ->
     return # Void
@@ -41,7 +49,7 @@ class ash.core.System
    * Called just after the system is removed from the engine, after all calls to the update method.
    * Override this method to add your own functionality.
    *
-   * @param engine The engine the system was removed from.
+   * @param {ash.core.Engine} engine The engine the system was removed from.
   ###
   removeFromEngine: (engine) ->
     return # Void
@@ -55,7 +63,7 @@ class ash.core.System
    * systems in the engine and you don't want to do it while they're updating) add a listener to
    * the engine's updateComplete signal to be notified when the update loop completes.</p>
    *
-   * @param time The duration, in seconds, of the frame.
+   * @param {number} time The duration, in seconds, of the frame.
   ###
   update: (time) =>
     return # Void

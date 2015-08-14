@@ -1,7 +1,14 @@
 'use strict'
 
+###*
+ * @extends {ash.signals.SignalBase}
+ * @constructor
+###
 class ash.signals.Signal0 extends ash.signals.SignalBase
 
+  ###*
+   * dispatch the event
+  ###
   dispatch: () ->
     @startDispatch()
     node = @head

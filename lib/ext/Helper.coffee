@@ -8,9 +8,21 @@
 
 class ash.ext.Helper
 
-  components      : null
-  nodes           : null
+  ###*
+   * @type {Object}
+  ###
+  components: null
+  
+  ###*
+   * @type {Object}
+  ###
+  nodes: null
 
+  ###*
+   * @constructor
+   * @param {Object} components
+   * @param {Object} nodes
+  ###
   constructor: (components, nodes) ->
 
     @components = {}

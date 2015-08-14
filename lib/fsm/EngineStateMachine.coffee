@@ -10,32 +10,45 @@ EngineState = ash.fsm.EngineState
 
 class ash.fsm.EngineStateMachine
 
+  ###*
+   * @type {ash.core.Engine}
+  ###
   engine: null
+  
+  ###*
+   * @type {ash.ext.Dictionary}
+  ###
   states: null
+  
+  ###*
+   * @type {ash.fsm.EngineState}
+  ###
   currentState: null
 
-  ###
-   * Constructor. Creates an SystemStateMachine.
+  ###*
+   * Creates an SystemStateMachine.
+   * @constructor 
+   * @param {ash.core.Engine} engine
   ###
   constructor: (@engine) ->
     @states = new Dictionary()
 
-  ###
+  ###*
    * Add a state to this state machine.
    *
-   * @param name The name of this state - used to identify it later in the changeState method call.
-   * @param state The state.
-   * @return This state machine, so methods can be chained.
+   * @param {string} name The name of this state - used to identify it later in the changeState method call.
+   * @param {ash.fsm.EngineState} state The state.
+   * @return {ash.fsm.EngineStateMachine} This state machine, so methods can be chained.
   ###
   addState: (name, state) ->
     @states[name] = state
     return this
 
-  ###
+  ###*
    * Create a new state in this state machine.
    *
-   * @param name The name of the new state - used to identify it later in the changeState method call.
-   * @return The new EntityState object that is the state. This will need to be configured with
+   * @param {string} name The name of the new state - used to identify it later in the changeState method call.
+   * @return {ash.fsm.EngineState} The new EntityState object that is the state. This will need to be configured with
    * the appropriate component providers.
   ###
   createState: (name) ->
@@ -43,11 +56,11 @@ class ash.fsm.EngineStateMachine
     @states[name] = state
     return this
 
-  ###
+  ###*
    * Change to a new state. The Systems from the old state will be removed and the Systems
    * for the new state will be added.
    *
-   * @param name The name of the state to change to.
+   * @param {string} name The name of the state to change to.
   ###
   changeState: (name) ->
     newState = @states[name]

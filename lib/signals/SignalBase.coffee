@@ -4,28 +4,68 @@ ListenerNodePool = ash.signals.ListenerNodePool
 
 class ash.signals.SignalBase
 
+  ###*
+   * @type {ash.signals.ListenerNode}
+  ###
   head: null
+  
+  ###*
+   * @type {ash.signals.ListenerNode}
+  ###
   tail: null
 
+  ###*
+   * @type {number}
+  ###
   numListeners: 0
 
+  ###*
+   * @type {Array<Object>}
+  ###
   keys: null
+  
+  ###*
+   * @type {ash.signals.ListenerNode}
+  ###
   nodes: null
+  
+  ###*
+   * @type {ash.signals.ListenerNodePool}
+  ###
   listenerNodePool: null
+  
+  ###*
+   * @type {ash.signals.ListenerNode}
+  ###
   toAddHead: null
+  
+  ###*
+   * @type {ash.signals.ListenerNode}
+  ###
   toAddTail: null
+  
+  ###*
+   * @type {boolean}
+  ###
   dispatching: false
 
+  ###*
+   * @constructor
+  ###
   constructor: ->
     @nodes = []
     @keys = []
     @listenerNodePool = new ListenerNodePool()
     @numListeners = 0
 
+  ###*
+  ###
   startDispatch: () ->
     @dispatching = true
     return # Void
 
+  ###*
+  ###
   endDispatch: () ->
     @dispatching = false
     if (@toAddHead)
@@ -46,6 +86,9 @@ class ash.signals.SignalBase
     return # Void
 
 
+  ###*
+   * @param {Object} listener
+  ###
   getNode: (listener) ->
 
     node = @head
@@ -64,6 +107,9 @@ class ash.signals.SignalBase
     return node
 
 
+  ###*
+   * @param {Object} listener
+  ###
   add: (listener) ->
     if (@keys.indexOf(listener) isnt -1)
       return
@@ -75,6 +121,9 @@ class ash.signals.SignalBase
     @addNode(node)
     return # Void
 
+  ###*
+   * @param {Object} listener
+  ###
   addOnce: (listener) ->
     if (@keys.indexOf(listener) isnt -1)
       return
@@ -87,6 +136,9 @@ class ash.signals.SignalBase
     @addNode(node)
     return # Void
 
+  ###*
+   * @param {ash.signals.ListenerNode} node
+  ###
   addNode: (node) ->
 
     if (@dispatching)
@@ -108,6 +160,9 @@ class ash.signals.SignalBase
     @numListeners++
     return # Void
 
+  ###*
+   * @param {Object} listener
+  ###
   remove: (listener) ->
     index = @keys.indexOf(listener)
     node = @nodes[index]
@@ -136,6 +191,8 @@ class ash.signals.SignalBase
       @numListeners--
     return # Void
 
+  ###*
+  ###
   removeAll: () ->
     while (@head)
       node = @head

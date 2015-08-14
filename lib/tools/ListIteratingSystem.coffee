@@ -23,18 +23,49 @@
 
 class ash.tools.ListIteratingSystem extends ash.core.System
 
+  ###*
+   * @type {ash.core.NodeList}
+  ###
   nodeList: null
+  
+  ###*
+   * @type {Function}
+  ###
   nodeClass: null
+  
+  ###*
+   * @type {Function}
+  ###
   nodeUpdateFunction: null
+  
+  ###*
+   * @type {Function}
+  ###
   nodeAddedFunction: null
+  
+  ###*
+   * @type {Function}
+  ###
   nodeRemovedFunction: null
 
+  ###*
+   * @extends {ash.core.System}
+   * @constructor
+   * @param {Function} nodeClass
+   * @param {Function} nodeUpdateFunction
+   * @param {Function} nodeAddedFunction
+   * @param {Function} nodeRemovedFunction
+  ###
   constructor: (nodeClass, nodeUpdateFunction, nodeAddedFunction=null, nodeRemovedFunction=null) ->
     @nodeClass = nodeClass
     @nodeUpdateFunction = nodeUpdateFunction
     @nodeAddedFunction = nodeAddedFunction
     @nodeRemovedFunction = nodeRemovedFunction
 
+  ###*
+   * System is added to engine
+   * @param {ash.core.Engine}
+  ###
   addToEngine: (engine) ->
     @nodeList = engine.getNodeList(@nodeClass)
     if (@nodeAddedFunction isnt null)
@@ -48,6 +79,10 @@ class ash.tools.ListIteratingSystem extends ash.core.System
       @nodeList.nodeRemoved.add(@nodeRemovedFunction)
     return # Void
 
+  ###*
+   * System is removed from engine
+   * @param {ash.core.Engine}
+  ###
   removeFromEngine: (engine) ->
     if (@nodeAddedFunction isnt null)
       @nodeList.nodeAdded.remove(@nodeAddedFunction)
@@ -56,6 +91,10 @@ class ash.tools.ListIteratingSystem extends ash.core.System
     @nodeList = null
     return # Void
 
+  ###*
+   * frame update
+   * @param {number} time ms since last update
+  ###
   update: (time) ->
     node = this.nodeList.head
     while node

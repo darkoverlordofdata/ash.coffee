@@ -3,9 +3,27 @@
 ###
 'use strict'
 
+###*
+ * @constructor
+###
 class ash.signals.ListenerNode
 
+  ###*
+   * @param {ash.signals.ListenerNode}
+  ###
   previous: null
+  
+  ###*
+   * @param {ash.signals.ListenerNode}
+  ###
   next: null
+  
+  ###*
+   * @param {ash.signals.SignalBase}
+  ###
   listener: null
+  
+  ###*
+   * @param {boolean}
+  ###
   once: false

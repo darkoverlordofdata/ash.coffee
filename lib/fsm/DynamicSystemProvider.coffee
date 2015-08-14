@@ -6,13 +6,19 @@
 
 class ash.fsm.DynamicSystemProvider
 
+  ###*
+   * @type {Function}
+  ###
   method: ->
+    
+  ###*
+   * @type {number}
+  ###
   systemPriority: 0
 
-  ###
-   * Constructor
-   *
-   * @param method The method that returns the System instance;
+  ###*
+   * @constructor
+   * @param {Function} method The method that returns the System instance;
   ###
   constructor: (@method) ->
 
@@ -20,7 +26,7 @@ class ash.fsm.DynamicSystemProvider
    * Used to compare this provider with others. Any provider that returns the same component
    * instance will be regarded as equivalent.
    *
-   * @return The method used to call the System instances
+   * @return {Function} The method used to call the System instances
   ###
   getSystem: () ->
     return @method()
@@ -28,10 +34,12 @@ class ash.fsm.DynamicSystemProvider
   Object.defineProperties DynamicSystemProvider::,
     ###
      * The priority at which the System should be added to the Engine
+     * @return {Function}
     ###
     identifier: get: -> @method
     ###
      * The priority at which the System should be added to the Engine
+     * @return {number}
     ###
     priority:
       get: -> @systemPriority

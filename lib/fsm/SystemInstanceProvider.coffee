@@ -6,35 +6,43 @@
 
 class ash.fsm.SystemInstanceProvider
 
+  ###*
+   * @type {Object}
+  ###
   instance: null
+  
+  ###*
+   * @type {number}
+  ###
   systemPriority: 0
 
-  ###
-   * Constructor
+  ###*
+   * @constructor
    *
-   * @param instance The instance to return whenever a System is requested.
+   * @param {Object} instance The instance to return whenever a System is requested.
   ###
   constructor: (@instance) ->
 
-  ###
+  ###*
    * Used to request a component from this provider
    *
-   * @return The instance of the System
+   * @return {Object} The instance of the System
   ###
   getSystem: () ->
     return @instance
 
   Object.defineProperties SystemInstanceProvider::,
-    ###
+    ###*
      * Used to compare this provider with others. Any provider that returns the same component
      * instance will be regarded as equivalent.
      *
-     * @return The instance
+     * @type {Object} The instance
     ###
     identifier:
       get: -> return @instance
-    ###
+    ###*
      * The priority at which the System should be added to the Engine
+     * @type {number}
     ###
     priority:
       get: -> @systemPriority
