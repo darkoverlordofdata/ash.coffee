@@ -29,6 +29,5 @@ class ash.fsm.DynamicComponentProvider
    *
    * @return {Object} The instance
   ###
-  Object.defineProperties DynamicComponentProvider::,
-    identifier: get: -> return @_closure
+  getIdentifier: -> return @_closure
 

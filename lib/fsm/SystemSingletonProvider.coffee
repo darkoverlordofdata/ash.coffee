@@ -19,7 +19,7 @@ class ash.fsm.SystemSingletonProvider
   ###*
    * @type {number}
   ###
-  systemPriority: 0
+  priority: 0
 
   ###*
    * @constructor
@@ -39,20 +39,22 @@ class ash.fsm.SystemSingletonProvider
       @instance = new @componentType()
     @instance
 
-  Object.defineProperties SystemSingletonProvider::,
-    ###*
-		 * Used to compare this provider with others. Any provider that returns the same single
-		 * instance will be regarded as equivalent.
-		 *
-		 * @type {Object} The single instance
-    ###
-    identifier:
-      get: -> return @getSystem()
-    ###*
-     * The priority at which the System should be added to the Engine
-     * @type {Object} 
-    ###
-    priority:
-      get: -> @systemPriority
-      set: (value) -> @systemPriority = value
+  ###*
+   * Used to compare this provider with others. Any provider that returns the same single
+   * instance will be regarded as equivalent.
+   *
+   * @type {Object} The single instance
+  ###
+  getIdentifier: -> return @getSystem()
+#  Object.defineProperties SystemSingletonProvider::,
+#    identifier:
+#      get: -> return @getSystem()
+
+#    ###*
+#     * The priority at which the System should be added to the Engine
+#     * @type {Object}
+#    ###
+#    priority:
+#      get: -> @systemPriority
+#      set: (value) -> @systemPriority = value
 

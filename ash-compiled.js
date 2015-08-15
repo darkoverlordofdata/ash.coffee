@@ -1,486 +1,683 @@
-var COMPILED = !0, goog = goog || {};
+var COMPILED = false;
+var goog = goog || {};
 goog.global = this;
-goog.isDef = function(a) {
-  return void 0 !== a;
+goog.global.CLOSURE_UNCOMPILED_DEFINES;
+goog.global.CLOSURE_DEFINES;
+goog.isDef = function(val) {
+  return val !== void 0;
 };
-goog.exportPath_ = function(a, b, c) {
-  a = a.split(".");
-  c = c || goog.global;
-  a[0] in c || !c.execScript || c.execScript("var " + a[0]);
-  for (var d;a.length && (d = a.shift());) {
-    !a.length && goog.isDef(b) ? c[d] = b : c = c[d] ? c[d] : c[d] = {};
+goog.exportPath_ = function(name, opt_object, opt_objectToExportTo) {
+  var parts = name.split(".");
+  var cur = opt_objectToExportTo || goog.global;
+  if (!(parts[0] in cur) && cur.execScript) {
+    cur.execScript("var " + parts[0]);
   }
-};
-goog.define = function(a, b) {
-  var c = b;
-  COMPILED || (goog.global.CLOSURE_UNCOMPILED_DEFINES && Object.prototype.hasOwnProperty.call(goog.global.CLOSURE_UNCOMPILED_DEFINES, a) ? c = goog.global.CLOSURE_UNCOMPILED_DEFINES[a] : goog.global.CLOSURE_DEFINES && Object.prototype.hasOwnProperty.call(goog.global.CLOSURE_DEFINES, a) && (c = goog.global.CLOSURE_DEFINES[a]));
-  goog.exportPath_(a, c);
-};
-goog.DEBUG = !0;
-goog.LOCALE = "en";
-goog.TRUSTED_SITE = !0;
-goog.STRICT_MODE_COMPATIBLE = !1;
-goog.DISALLOW_TEST_ONLY_CODE = COMPILED && !goog.DEBUG;
-goog.ENABLE_CHROME_APP_SAFE_SCRIPT_LOADING = !1;
-goog.provide = function(a) {
-  if (!COMPILED && goog.isProvided_(a)) {
-    throw Error('Namespace "' + a + '" already declared.');
-  }
-  goog.constructNamespace_(a);
-};
-goog.constructNamespace_ = function(a, b) {
-  if (!COMPILED) {
-    delete goog.implicitNamespaces_[a];
-    for (var c = a;(c = c.substring(0, c.lastIndexOf("."))) && !goog.getObjectByName(c);) {
-      goog.implicitNamespaces_[c] = !0;
+  for (var part;parts.length && (part = parts.shift());) {
+    if (!parts.length && goog.isDef(opt_object)) {
+      cur[part] = opt_object;
+    } else {
+      if (cur[part]) {
+        cur = cur[part];
+      } else {
+        cur = cur[part] = {};
+      }
     }
   }
-  goog.exportPath_(a, b);
+};
+goog.define = function(name, defaultValue) {
+  var value = defaultValue;
+  if (!COMPILED) {
+    if (goog.global.CLOSURE_UNCOMPILED_DEFINES && Object.prototype.hasOwnProperty.call(goog.global.CLOSURE_UNCOMPILED_DEFINES, name)) {
+      value = goog.global.CLOSURE_UNCOMPILED_DEFINES[name];
+    } else {
+      if (goog.global.CLOSURE_DEFINES && Object.prototype.hasOwnProperty.call(goog.global.CLOSURE_DEFINES, name)) {
+        value = goog.global.CLOSURE_DEFINES[name];
+      }
+    }
+  }
+  goog.exportPath_(name, value);
+};
+goog.define("goog.DEBUG", true);
+goog.define("goog.LOCALE", "en");
+goog.define("goog.TRUSTED_SITE", true);
+goog.define("goog.STRICT_MODE_COMPATIBLE", false);
+goog.define("goog.DISALLOW_TEST_ONLY_CODE", COMPILED && !goog.DEBUG);
+goog.define("goog.ENABLE_CHROME_APP_SAFE_SCRIPT_LOADING", false);
+goog.provide = function(name) {
+  if (!COMPILED) {
+    if (goog.isProvided_(name)) {
+      throw Error('Namespace "' + name + '" already declared.');
+    }
+  }
+  goog.constructNamespace_(name);
+};
+goog.constructNamespace_ = function(name, opt_obj) {
+  if (!COMPILED) {
+    delete goog.implicitNamespaces_[name];
+    var namespace = name;
+    while (namespace = namespace.substring(0, namespace.lastIndexOf("."))) {
+      if (goog.getObjectByName(namespace)) {
+        break;
+      }
+      goog.implicitNamespaces_[namespace] = true;
+    }
+  }
+  goog.exportPath_(name, opt_obj);
 };
 goog.VALID_MODULE_RE_ = /^[a-zA-Z_$][a-zA-Z0-9._$]*$/;
-goog.module = function(a) {
-  if (!goog.isString(a) || !a || -1 == a.search(goog.VALID_MODULE_RE_)) {
+goog.module = function(name) {
+  if (!goog.isString(name) || !name || name.search(goog.VALID_MODULE_RE_) == -1) {
     throw Error("Invalid module identifier");
   }
   if (!goog.isInModuleLoader_()) {
-    throw Error("Module " + a + " has been loaded incorrectly.");
+    throw Error("Module " + name + " has been loaded incorrectly.");
   }
   if (goog.moduleLoaderState_.moduleName) {
     throw Error("goog.module may only be called once per module.");
   }
-  goog.moduleLoaderState_.moduleName = a;
+  goog.moduleLoaderState_.moduleName = name;
   if (!COMPILED) {
-    if (goog.isProvided_(a)) {
-      throw Error('Namespace "' + a + '" already declared.');
+    if (goog.isProvided_(name)) {
+      throw Error('Namespace "' + name + '" already declared.');
     }
-    delete goog.implicitNamespaces_[a];
+    delete goog.implicitNamespaces_[name];
   }
 };
-goog.module.get = function(a) {
-  return goog.module.getInternal_(a);
+goog.module.get = function(name) {
+  return goog.module.getInternal_(name);
 };
-goog.module.getInternal_ = function(a) {
+goog.module.getInternal_ = function(name) {
   if (!COMPILED) {
-    return goog.isProvided_(a) ? a in goog.loadedModules_ ? goog.loadedModules_[a] : goog.getObjectByName(a) : null;
-  }
-};
-goog.moduleLoaderState_ = null;
-goog.isInModuleLoader_ = function() {
-  return null != goog.moduleLoaderState_;
-};
-goog.module.declareLegacyNamespace = function() {
-  if (!COMPILED && !goog.isInModuleLoader_()) {
-    throw Error("goog.module.declareLegacyNamespace must be called from within a goog.module");
-  }
-  if (!COMPILED && !goog.moduleLoaderState_.moduleName) {
-    throw Error("goog.module must be called prior to goog.module.declareLegacyNamespace.");
-  }
-  goog.moduleLoaderState_.declareLegacyNamespace = !0;
-};
-goog.setTestOnly = function(a) {
-  if (goog.DISALLOW_TEST_ONLY_CODE) {
-    throw a = a || "", Error("Importing test-only code into non-debug environment" + (a ? ": " + a : "."));
-  }
-};
-goog.forwardDeclare = function(a) {
-};
-COMPILED || (goog.isProvided_ = function(a) {
-  return a in goog.loadedModules_ || !goog.implicitNamespaces_[a] && goog.isDefAndNotNull(goog.getObjectByName(a));
-}, goog.implicitNamespaces_ = {"goog.module":!0});
-goog.getObjectByName = function(a, b) {
-  for (var c = a.split("."), d = b || goog.global, e;e = c.shift();) {
-    if (goog.isDefAndNotNull(d[e])) {
-      d = d[e];
+    if (goog.isProvided_(name)) {
+      return name in goog.loadedModules_ ? goog.loadedModules_[name] : goog.getObjectByName(name);
     } else {
       return null;
     }
   }
-  return d;
 };
-goog.globalize = function(a, b) {
-  var c = b || goog.global, d;
-  for (d in a) {
-    c[d] = a[d];
+goog.moduleLoaderState_ = null;
+goog.isInModuleLoader_ = function() {
+  return goog.moduleLoaderState_ != null;
+};
+goog.module.declareLegacyNamespace = function() {
+  if (!COMPILED && !goog.isInModuleLoader_()) {
+    throw new Error("goog.module.declareLegacyNamespace must be called from " + "within a goog.module");
+  }
+  if (!COMPILED && !goog.moduleLoaderState_.moduleName) {
+    throw Error("goog.module must be called prior to " + "goog.module.declareLegacyNamespace.");
+  }
+  goog.moduleLoaderState_.declareLegacyNamespace = true;
+};
+goog.setTestOnly = function(opt_message) {
+  if (goog.DISALLOW_TEST_ONLY_CODE) {
+    opt_message = opt_message || "";
+    throw Error("Importing test-only code into non-debug environment" + (opt_message ? ": " + opt_message : "."));
   }
 };
-goog.addDependency = function(a, b, c, d) {
+goog.forwardDeclare = function(name) {
+};
+goog.forwardDeclare("Document");
+goog.forwardDeclare("XMLHttpRequest");
+if (!COMPILED) {
+  goog.isProvided_ = function(name) {
+    return name in goog.loadedModules_ || !goog.implicitNamespaces_[name] && goog.isDefAndNotNull(goog.getObjectByName(name));
+  };
+  goog.implicitNamespaces_ = {"goog.module":true};
+}
+goog.getObjectByName = function(name, opt_obj) {
+  var parts = name.split(".");
+  var cur = opt_obj || goog.global;
+  for (var part;part = parts.shift();) {
+    if (goog.isDefAndNotNull(cur[part])) {
+      cur = cur[part];
+    } else {
+      return null;
+    }
+  }
+  return cur;
+};
+goog.globalize = function(obj, opt_global) {
+  var global = opt_global || goog.global;
+  for (var x in obj) {
+    global[x] = obj[x];
+  }
+};
+goog.addDependency = function(relPath, provides, requires, opt_isModule) {
   if (goog.DEPENDENCIES_ENABLED) {
-    var e;
-    a = a.replace(/\\/g, "/");
-    for (var f = goog.dependencies_, g = 0;e = b[g];g++) {
-      f.nameToPath[e] = a, f.pathIsModule[a] = !!d;
+    var provide, require;
+    var path = relPath.replace(/\\/g, "/");
+    var deps = goog.dependencies_;
+    for (var i = 0;provide = provides[i];i++) {
+      deps.nameToPath[provide] = path;
+      deps.pathIsModule[path] = !!opt_isModule;
     }
-    for (d = 0;b = c[d];d++) {
-      a in f.requires || (f.requires[a] = {}), f.requires[a][b] = !0;
+    for (var j = 0;require = requires[j];j++) {
+      if (!(path in deps.requires)) {
+        deps.requires[path] = {};
+      }
+      deps.requires[path][require] = true;
     }
   }
 };
-goog.ENABLE_DEBUG_LOADER = !0;
-goog.logToConsole_ = function(a) {
-  goog.global.console && goog.global.console.error(a);
+goog.define("goog.ENABLE_DEBUG_LOADER", true);
+goog.logToConsole_ = function(msg) {
+  if (goog.global.console) {
+    goog.global.console["error"](msg);
+  }
 };
-goog.require = function(a) {
+goog.require = function(name) {
   if (!COMPILED) {
-    goog.ENABLE_DEBUG_LOADER && goog.IS_OLD_IE_ && goog.maybeProcessDeferredDep_(a);
-    if (goog.isProvided_(a)) {
-      return goog.isInModuleLoader_() ? goog.module.getInternal_(a) : null;
+    if (goog.ENABLE_DEBUG_LOADER && goog.IS_OLD_IE_) {
+      goog.maybeProcessDeferredDep_(name);
     }
-    if (goog.ENABLE_DEBUG_LOADER) {
-      var b = goog.getPathFromDeps_(a);
-      if (b) {
-        return goog.included_[b] = !0, goog.writeScripts_(), null;
+    if (goog.isProvided_(name)) {
+      if (goog.isInModuleLoader_()) {
+        return goog.module.getInternal_(name);
+      } else {
+        return null;
       }
     }
-    a = "goog.require could not find: " + a;
-    goog.logToConsole_(a);
-    throw Error(a);
+    if (goog.ENABLE_DEBUG_LOADER) {
+      var path = goog.getPathFromDeps_(name);
+      if (path) {
+        goog.included_[path] = true;
+        goog.writeScripts_();
+        return null;
+      }
+    }
+    var errorMessage = "goog.require could not find: " + name;
+    goog.logToConsole_(errorMessage);
+    throw Error(errorMessage);
   }
 };
 goog.basePath = "";
+goog.global.CLOSURE_BASE_PATH;
+goog.global.CLOSURE_NO_DEPS;
+goog.global.CLOSURE_IMPORT_SCRIPT;
 goog.nullFunction = function() {
 };
 goog.abstractMethod = function() {
   throw Error("unimplemented abstract method");
 };
-goog.addSingletonGetter = function(a) {
-  a.getInstance = function() {
-    if (a.instance_) {
-      return a.instance_;
+goog.addSingletonGetter = function(ctor) {
+  ctor.getInstance = function() {
+    if (ctor.instance_) {
+      return ctor.instance_;
     }
-    goog.DEBUG && (goog.instantiatedSingletons_[goog.instantiatedSingletons_.length] = a);
-    return a.instance_ = new a;
+    if (goog.DEBUG) {
+      goog.instantiatedSingletons_[goog.instantiatedSingletons_.length] = ctor;
+    }
+    return ctor.instance_ = new ctor;
   };
 };
 goog.instantiatedSingletons_ = [];
-goog.LOAD_MODULE_USING_EVAL = !0;
-goog.SEAL_MODULE_EXPORTS = goog.DEBUG;
+goog.define("goog.LOAD_MODULE_USING_EVAL", true);
+goog.define("goog.SEAL_MODULE_EXPORTS", goog.DEBUG);
 goog.loadedModules_ = {};
 goog.DEPENDENCIES_ENABLED = !COMPILED && goog.ENABLE_DEBUG_LOADER;
-goog.DEPENDENCIES_ENABLED && (goog.included_ = {}, goog.dependencies_ = {pathIsModule:{}, nameToPath:{}, requires:{}, visited:{}, written:{}, deferred:{}}, goog.inHtmlDocument_ = function() {
-  var a = goog.global.document;
-  return "undefined" != typeof a && "write" in a;
-}, goog.findBasePath_ = function() {
-  if (goog.isDef(goog.global.CLOSURE_BASE_PATH)) {
-    goog.basePath = goog.global.CLOSURE_BASE_PATH;
-  } else {
-    if (goog.inHtmlDocument_()) {
-      for (var a = goog.global.document.getElementsByTagName("SCRIPT"), b = a.length - 1;0 <= b;--b) {
-        var c = a[b].src, d = c.lastIndexOf("?"), d = -1 == d ? c.length : d;
-        if ("base.js" == c.substr(d - 7, 7)) {
-          goog.basePath = c.substr(0, d - 7);
-          break;
+if (goog.DEPENDENCIES_ENABLED) {
+  goog.included_ = {};
+  goog.dependencies_ = {pathIsModule:{}, nameToPath:{}, requires:{}, visited:{}, written:{}, deferred:{}};
+  goog.inHtmlDocument_ = function() {
+    var doc = goog.global.document;
+    return typeof doc != "undefined" && "write" in doc;
+  };
+  goog.findBasePath_ = function() {
+    if (goog.isDef(goog.global.CLOSURE_BASE_PATH)) {
+      goog.basePath = goog.global.CLOSURE_BASE_PATH;
+      return;
+    } else {
+      if (!goog.inHtmlDocument_()) {
+        return;
+      }
+    }
+    var doc = goog.global.document;
+    var scripts = doc.getElementsByTagName("SCRIPT");
+    for (var i = scripts.length - 1;i >= 0;--i) {
+      var script = (scripts[i]);
+      var src = script.src;
+      var qmark = src.lastIndexOf("?");
+      var l = qmark == -1 ? src.length : qmark;
+      if (src.substr(l - 7, 7) == "base.js") {
+        goog.basePath = src.substr(0, l - 7);
+        return;
+      }
+    }
+  };
+  goog.importScript_ = function(src, opt_sourceText) {
+    var importScript = goog.global.CLOSURE_IMPORT_SCRIPT || goog.writeScriptTag_;
+    if (importScript(src, opt_sourceText)) {
+      goog.dependencies_.written[src] = true;
+    }
+  };
+  goog.IS_OLD_IE_ = !!(!goog.global.atob && goog.global.document && goog.global.document.all);
+  goog.importModule_ = function(src) {
+    var bootstrap = 'goog.retrieveAndExecModule_("' + src + '");';
+    if (goog.importScript_("", bootstrap)) {
+      goog.dependencies_.written[src] = true;
+    }
+  };
+  goog.queuedModules_ = [];
+  goog.wrapModule_ = function(srcUrl, scriptText) {
+    if (!goog.LOAD_MODULE_USING_EVAL || !goog.isDef(goog.global.JSON)) {
+      return "" + "goog.loadModule(function(exports) {" + '"use strict";' + scriptText + "\n" + ";return exports" + "});" + "\n//# sourceURL=" + srcUrl + "\n";
+    } else {
+      return "" + "goog.loadModule(" + goog.global.JSON.stringify(scriptText + "\n//# sourceURL=" + srcUrl + "\n") + ");";
+    }
+  };
+  goog.loadQueuedModules_ = function() {
+    var count = goog.queuedModules_.length;
+    if (count > 0) {
+      var queue = goog.queuedModules_;
+      goog.queuedModules_ = [];
+      for (var i = 0;i < count;i++) {
+        var path = queue[i];
+        goog.maybeProcessDeferredPath_(path);
+      }
+    }
+  };
+  goog.maybeProcessDeferredDep_ = function(name) {
+    if (goog.isDeferredModule_(name) && goog.allDepsAreAvailable_(name)) {
+      var path = goog.getPathFromDeps_(name);
+      goog.maybeProcessDeferredPath_(goog.basePath + path);
+    }
+  };
+  goog.isDeferredModule_ = function(name) {
+    var path = goog.getPathFromDeps_(name);
+    if (path && goog.dependencies_.pathIsModule[path]) {
+      var abspath = goog.basePath + path;
+      return abspath in goog.dependencies_.deferred;
+    }
+    return false;
+  };
+  goog.allDepsAreAvailable_ = function(name) {
+    var path = goog.getPathFromDeps_(name);
+    if (path && path in goog.dependencies_.requires) {
+      for (var requireName in goog.dependencies_.requires[path]) {
+        if (!goog.isProvided_(requireName) && !goog.isDeferredModule_(requireName)) {
+          return false;
         }
       }
     }
-  }
-}, goog.importScript_ = function(a, b) {
-  (goog.global.CLOSURE_IMPORT_SCRIPT || goog.writeScriptTag_)(a, b) && (goog.dependencies_.written[a] = !0);
-}, goog.IS_OLD_IE_ = !(goog.global.atob || !goog.global.document || !goog.global.document.all), goog.importModule_ = function(a) {
-  goog.importScript_("", 'goog.retrieveAndExecModule_("' + a + '");') && (goog.dependencies_.written[a] = !0);
-}, goog.queuedModules_ = [], goog.wrapModule_ = function(a, b) {
-  return goog.LOAD_MODULE_USING_EVAL && goog.isDef(goog.global.JSON) ? "goog.loadModule(" + goog.global.JSON.stringify(b + "\n//# sourceURL=" + a + "\n") + ");" : 'goog.loadModule(function(exports) {"use strict";' + b + "\n;return exports});\n//# sourceURL=" + a + "\n";
-}, goog.loadQueuedModules_ = function() {
-  var a = goog.queuedModules_.length;
-  if (0 < a) {
-    var b = goog.queuedModules_;
-    goog.queuedModules_ = [];
-    for (var c = 0;c < a;c++) {
-      goog.maybeProcessDeferredPath_(b[c]);
+    return true;
+  };
+  goog.maybeProcessDeferredPath_ = function(abspath) {
+    if (abspath in goog.dependencies_.deferred) {
+      var src = goog.dependencies_.deferred[abspath];
+      delete goog.dependencies_.deferred[abspath];
+      goog.globalEval(src);
     }
-  }
-}, goog.maybeProcessDeferredDep_ = function(a) {
-  goog.isDeferredModule_(a) && goog.allDepsAreAvailable_(a) && (a = goog.getPathFromDeps_(a), goog.maybeProcessDeferredPath_(goog.basePath + a));
-}, goog.isDeferredModule_ = function(a) {
-  return (a = goog.getPathFromDeps_(a)) && goog.dependencies_.pathIsModule[a] ? goog.basePath + a in goog.dependencies_.deferred : !1;
-}, goog.allDepsAreAvailable_ = function(a) {
-  if ((a = goog.getPathFromDeps_(a)) && a in goog.dependencies_.requires) {
-    for (var b in goog.dependencies_.requires[a]) {
-      if (!goog.isProvided_(b) && !goog.isDeferredModule_(b)) {
-        return !1;
-      }
-    }
-  }
-  return !0;
-}, goog.maybeProcessDeferredPath_ = function(a) {
-  if (a in goog.dependencies_.deferred) {
-    var b = goog.dependencies_.deferred[a];
-    delete goog.dependencies_.deferred[a];
-    goog.globalEval(b);
-  }
-}, goog.loadModule = function(a) {
-  var b = goog.moduleLoaderState_;
-  try {
-    goog.moduleLoaderState_ = {moduleName:void 0};
-    var c;
-    if (goog.isFunction(a)) {
-      c = a.call(goog.global, {});
-    } else {
-      if (goog.isString(a)) {
-        c = goog.loadModuleFromSource_.call(goog.global, a);
+  };
+  goog.loadModule = function(moduleDef) {
+    var previousState = goog.moduleLoaderState_;
+    try {
+      goog.moduleLoaderState_ = {moduleName:undefined};
+      var exports;
+      if (goog.isFunction(moduleDef)) {
+        exports = moduleDef.call(goog.global, {});
       } else {
-        throw Error("Invalid module definition");
+        if (goog.isString(moduleDef)) {
+          exports = goog.loadModuleFromSource_.call(goog.global, moduleDef);
+        } else {
+          throw Error("Invalid module definition");
+        }
       }
-    }
-    var d = goog.moduleLoaderState_.moduleName;
-    if (!goog.isString(d) || !d) {
-      throw Error('Invalid module name "' + d + '"');
-    }
-    goog.moduleLoaderState_.declareLegacyNamespace ? goog.constructNamespace_(d, c) : goog.SEAL_MODULE_EXPORTS && Object.seal && Object.seal(c);
-    goog.loadedModules_[d] = c;
-  } finally {
-    goog.moduleLoaderState_ = b;
-  }
-}, goog.loadModuleFromSource_ = function(a) {
-  eval(a);
-  return {};
-}, goog.writeScriptSrcNode_ = function(a) {
-  goog.global.document.write('<script type="text/javascript" src="' + a + '">\x3c/script>');
-}, goog.appendScriptSrcNode_ = function(a) {
-  var b = goog.global.document, c = b.createElement("script");
-  c.type = "text/javascript";
-  c.src = a;
-  c.defer = !1;
-  c.async = !1;
-  b.head.appendChild(c);
-}, goog.writeScriptTag_ = function(a, b) {
-  if (goog.inHtmlDocument_()) {
-    var c = goog.global.document;
-    if (!goog.ENABLE_CHROME_APP_SAFE_SCRIPT_LOADING && "complete" == c.readyState) {
-      if (/\bdeps.js$/.test(a)) {
-        return !1;
+      var moduleName = goog.moduleLoaderState_.moduleName;
+      if (!goog.isString(moduleName) || !moduleName) {
+        throw Error('Invalid module name "' + moduleName + '"');
       }
-      throw Error('Cannot write "' + a + '" after document load');
+      if (goog.moduleLoaderState_.declareLegacyNamespace) {
+        goog.constructNamespace_(moduleName, exports);
+      } else {
+        if (goog.SEAL_MODULE_EXPORTS && Object.seal) {
+          Object.seal(exports);
+        }
+      }
+      goog.loadedModules_[moduleName] = exports;
+    } finally {
+      goog.moduleLoaderState_ = previousState;
     }
-    var d = goog.IS_OLD_IE_;
-    void 0 === b ? d ? (d = " onreadystatechange='goog.onScriptLoad_(this, " + ++goog.lastNonModuleScriptIndex_ + ")' ", c.write('<script type="text/javascript" src="' + a + '"' + d + ">\x3c/script>")) : goog.ENABLE_CHROME_APP_SAFE_SCRIPT_LOADING ? goog.appendScriptSrcNode_(a) : goog.writeScriptSrcNode_(a) : c.write('<script type="text/javascript">' + b + "\x3c/script>");
-    return !0;
-  }
-  return !1;
-}, goog.lastNonModuleScriptIndex_ = 0, goog.onScriptLoad_ = function(a, b) {
-  "complete" == a.readyState && goog.lastNonModuleScriptIndex_ == b && goog.loadQueuedModules_();
-  return !0;
-}, goog.writeScripts_ = function() {
-  function a(e) {
-    if (!(e in d.written)) {
-      if (!(e in d.visited) && (d.visited[e] = !0, e in d.requires)) {
-        for (var f in d.requires[e]) {
-          if (!goog.isProvided_(f)) {
-            if (f in d.nameToPath) {
-              a(d.nameToPath[f]);
+  };
+  goog.loadModuleFromSource_ = function() {
+    var exports = {};
+    eval(arguments[0]);
+    return exports;
+  };
+  goog.writeScriptSrcNode_ = function(src) {
+    goog.global.document.write('<script type="text/javascript" src="' + src + '"></' + "script>");
+  };
+  goog.appendScriptSrcNode_ = function(src) {
+    var doc = goog.global.document;
+    var scriptEl = doc.createElement("script");
+    scriptEl.type = "text/javascript";
+    scriptEl.src = src;
+    scriptEl.defer = false;
+    scriptEl.async = false;
+    doc.head.appendChild(scriptEl);
+  };
+  goog.writeScriptTag_ = function(src, opt_sourceText) {
+    if (goog.inHtmlDocument_()) {
+      var doc = goog.global.document;
+      if (!goog.ENABLE_CHROME_APP_SAFE_SCRIPT_LOADING && doc.readyState == "complete") {
+        var isDeps = /\bdeps.js$/.test(src);
+        if (isDeps) {
+          return false;
+        } else {
+          throw Error('Cannot write "' + src + '" after document load');
+        }
+      }
+      var isOldIE = goog.IS_OLD_IE_;
+      if (opt_sourceText === undefined) {
+        if (!isOldIE) {
+          if (goog.ENABLE_CHROME_APP_SAFE_SCRIPT_LOADING) {
+            goog.appendScriptSrcNode_(src);
+          } else {
+            goog.writeScriptSrcNode_(src);
+          }
+        } else {
+          var state = " onreadystatechange='goog.onScriptLoad_(this, " + ++goog.lastNonModuleScriptIndex_ + ")' ";
+          doc.write('<script type="text/javascript" src="' + src + '"' + state + "></" + "script>");
+        }
+      } else {
+        doc.write('<script type="text/javascript">' + opt_sourceText + "</" + "script>");
+      }
+      return true;
+    } else {
+      return false;
+    }
+  };
+  goog.lastNonModuleScriptIndex_ = 0;
+  goog.onScriptLoad_ = function(script, scriptIndex) {
+    if (script.readyState == "complete" && goog.lastNonModuleScriptIndex_ == scriptIndex) {
+      goog.loadQueuedModules_();
+    }
+    return true;
+  };
+  goog.writeScripts_ = function() {
+    var scripts = [];
+    var seenScript = {};
+    var deps = goog.dependencies_;
+    function visitNode(path) {
+      if (path in deps.written) {
+        return;
+      }
+      if (path in deps.visited) {
+        if (!(path in seenScript)) {
+          seenScript[path] = true;
+          scripts.push(path);
+        }
+        return;
+      }
+      deps.visited[path] = true;
+      if (path in deps.requires) {
+        for (var requireName in deps.requires[path]) {
+          if (!goog.isProvided_(requireName)) {
+            if (requireName in deps.nameToPath) {
+              visitNode(deps.nameToPath[requireName]);
             } else {
-              throw Error("Undefined nameToPath for " + f);
+              throw Error("Undefined nameToPath for " + requireName);
             }
           }
         }
       }
-      e in c || (c[e] = !0, b.push(e));
+      if (!(path in seenScript)) {
+        seenScript[path] = true;
+        scripts.push(path);
+      }
     }
-  }
-  var b = [], c = {}, d = goog.dependencies_, e;
-  for (e in goog.included_) {
-    d.written[e] || a(e);
-  }
-  for (var f = 0;f < b.length;f++) {
-    e = b[f], goog.dependencies_.written[e] = !0;
-  }
-  var g = goog.moduleLoaderState_;
-  goog.moduleLoaderState_ = null;
-  for (f = 0;f < b.length;f++) {
-    if (e = b[f]) {
-      d.pathIsModule[e] ? goog.importModule_(goog.basePath + e) : goog.importScript_(goog.basePath + e);
+    for (var path in goog.included_) {
+      if (!deps.written[path]) {
+        visitNode(path);
+      }
+    }
+    for (var i = 0;i < scripts.length;i++) {
+      var path = scripts[i];
+      goog.dependencies_.written[path] = true;
+    }
+    var moduleState = goog.moduleLoaderState_;
+    goog.moduleLoaderState_ = null;
+    var loadingModule = false;
+    for (var i = 0;i < scripts.length;i++) {
+      var path = scripts[i];
+      if (path) {
+        if (!deps.pathIsModule[path]) {
+          goog.importScript_(goog.basePath + path);
+        } else {
+          loadingModule = true;
+          goog.importModule_(goog.basePath + path);
+        }
+      } else {
+        goog.moduleLoaderState_ = moduleState;
+        throw Error("Undefined script input");
+      }
+    }
+    goog.moduleLoaderState_ = moduleState;
+  };
+  goog.getPathFromDeps_ = function(rule) {
+    if (rule in goog.dependencies_.nameToPath) {
+      return goog.dependencies_.nameToPath[rule];
     } else {
-      throw goog.moduleLoaderState_ = g, Error("Undefined script input");
+      return null;
+    }
+  };
+  goog.findBasePath_();
+  if (!goog.global.CLOSURE_NO_DEPS) {
+    goog.importScript_(goog.basePath + "deps.js");
+  }
+}
+goog.normalizePath_ = function(path) {
+  var components = path.split("/");
+  var i = 0;
+  while (i < components.length) {
+    if (components[i] == ".") {
+      components.splice(i, 1);
+    } else {
+      if (i && components[i] == ".." && components[i - 1] && components[i - 1] != "..") {
+        components.splice(--i, 2);
+      } else {
+        i++;
+      }
     }
   }
-  goog.moduleLoaderState_ = g;
-}, goog.getPathFromDeps_ = function(a) {
-  return a in goog.dependencies_.nameToPath ? goog.dependencies_.nameToPath[a] : null;
-}, goog.findBasePath_(), goog.global.CLOSURE_NO_DEPS || goog.importScript_(goog.basePath + "deps.js"));
-goog.normalizePath_ = function(a) {
-  a = a.split("/");
-  for (var b = 0;b < a.length;) {
-    "." == a[b] ? a.splice(b, 1) : b && ".." == a[b] && a[b - 1] && ".." != a[b - 1] ? a.splice(--b, 2) : b++;
-  }
-  return a.join("/");
+  return components.join("/");
 };
-goog.loadFileSync_ = function(a) {
+goog.loadFileSync_ = function(src) {
   if (goog.global.CLOSURE_LOAD_FILE_SYNC) {
-    return goog.global.CLOSURE_LOAD_FILE_SYNC(a);
+    return goog.global.CLOSURE_LOAD_FILE_SYNC(src);
+  } else {
+    var xhr = new goog.global["XMLHttpRequest"];
+    xhr.open("get", src, false);
+    xhr.send();
+    return xhr.responseText;
   }
-  var b = new goog.global.XMLHttpRequest;
-  b.open("get", a, !1);
-  b.send();
-  return b.responseText;
 };
-goog.retrieveAndExecModule_ = function(a) {
+goog.retrieveAndExecModule_ = function(src) {
   if (!COMPILED) {
-    var b = a;
-    a = goog.normalizePath_(a);
-    var c = goog.global.CLOSURE_IMPORT_SCRIPT || goog.writeScriptTag_, d = goog.loadFileSync_(a);
-    if (null != d) {
-      d = goog.wrapModule_(a, d), goog.IS_OLD_IE_ ? (goog.dependencies_.deferred[b] = d, goog.queuedModules_.push(b)) : c(a, d);
+    var originalPath = src;
+    src = goog.normalizePath_(src);
+    var importScript = goog.global.CLOSURE_IMPORT_SCRIPT || goog.writeScriptTag_;
+    var scriptText = goog.loadFileSync_(src);
+    if (scriptText != null) {
+      var execModuleScript = goog.wrapModule_(src, scriptText);
+      var isOldIE = goog.IS_OLD_IE_;
+      if (isOldIE) {
+        goog.dependencies_.deferred[originalPath] = execModuleScript;
+        goog.queuedModules_.push(originalPath);
+      } else {
+        importScript(src, execModuleScript);
+      }
     } else {
-      throw Error("load of " + a + "failed");
+      throw new Error("load of " + src + "failed");
     }
   }
 };
-goog.typeOf = function(a) {
-  var b = typeof a;
-  if ("object" == b) {
-    if (a) {
-      if (a instanceof Array) {
+goog.typeOf = function(value) {
+  var s = typeof value;
+  if (s == "object") {
+    if (value) {
+      if (value instanceof Array) {
         return "array";
+      } else {
+        if (value instanceof Object) {
+          return s;
+        }
       }
-      if (a instanceof Object) {
-        return b;
-      }
-      var c = Object.prototype.toString.call(a);
-      if ("[object Window]" == c) {
+      var className = Object.prototype.toString.call((value));
+      if (className == "[object Window]") {
         return "object";
       }
-      if ("[object Array]" == c || "number" == typeof a.length && "undefined" != typeof a.splice && "undefined" != typeof a.propertyIsEnumerable && !a.propertyIsEnumerable("splice")) {
+      if (className == "[object Array]" || typeof value.length == "number" && typeof value.splice != "undefined" && typeof value.propertyIsEnumerable != "undefined" && !value.propertyIsEnumerable("splice")) {
         return "array";
       }
-      if ("[object Function]" == c || "undefined" != typeof a.call && "undefined" != typeof a.propertyIsEnumerable && !a.propertyIsEnumerable("call")) {
+      if (className == "[object Function]" || typeof value.call != "undefined" && typeof value.propertyIsEnumerable != "undefined" && !value.propertyIsEnumerable("call")) {
         return "function";
       }
     } else {
       return "null";
     }
   } else {
-    if ("function" == b && "undefined" == typeof a.call) {
+    if (s == "function" && typeof value.call == "undefined") {
       return "object";
     }
   }
-  return b;
+  return s;
 };
-goog.isNull = function(a) {
-  return null === a;
+goog.isNull = function(val) {
+  return val === null;
 };
-goog.isDefAndNotNull = function(a) {
-  return null != a;
+goog.isDefAndNotNull = function(val) {
+  return val != null;
 };
-goog.isArray = function(a) {
-  return "array" == goog.typeOf(a);
+goog.isArray = function(val) {
+  return goog.typeOf(val) == "array";
 };
-goog.isArrayLike = function(a) {
-  var b = goog.typeOf(a);
-  return "array" == b || "object" == b && "number" == typeof a.length;
+goog.isArrayLike = function(val) {
+  var type = goog.typeOf(val);
+  return type == "array" || type == "object" && typeof val.length == "number";
 };
-goog.isDateLike = function(a) {
-  return goog.isObject(a) && "function" == typeof a.getFullYear;
+goog.isDateLike = function(val) {
+  return goog.isObject(val) && typeof val.getFullYear == "function";
 };
-goog.isString = function(a) {
-  return "string" == typeof a;
+goog.isString = function(val) {
+  return typeof val == "string";
 };
-goog.isBoolean = function(a) {
-  return "boolean" == typeof a;
+goog.isBoolean = function(val) {
+  return typeof val == "boolean";
 };
-goog.isNumber = function(a) {
-  return "number" == typeof a;
+goog.isNumber = function(val) {
+  return typeof val == "number";
 };
-goog.isFunction = function(a) {
-  return "function" == goog.typeOf(a);
+goog.isFunction = function(val) {
+  return goog.typeOf(val) == "function";
 };
-goog.isObject = function(a) {
-  var b = typeof a;
-  return "object" == b && null != a || "function" == b;
+goog.isObject = function(val) {
+  var type = typeof val;
+  return type == "object" && val != null || type == "function";
 };
-goog.getUid = function(a) {
-  return a[goog.UID_PROPERTY_] || (a[goog.UID_PROPERTY_] = ++goog.uidCounter_);
+goog.getUid = function(obj) {
+  return obj[goog.UID_PROPERTY_] || (obj[goog.UID_PROPERTY_] = ++goog.uidCounter_);
 };
-goog.hasUid = function(a) {
-  return !!a[goog.UID_PROPERTY_];
+goog.hasUid = function(obj) {
+  return !!obj[goog.UID_PROPERTY_];
 };
-goog.removeUid = function(a) {
-  "removeAttribute" in a && a.removeAttribute(goog.UID_PROPERTY_);
+goog.removeUid = function(obj) {
+  if ("removeAttribute" in obj) {
+    obj.removeAttribute(goog.UID_PROPERTY_);
+  }
   try {
-    delete a[goog.UID_PROPERTY_];
-  } catch (b) {
+    delete obj[goog.UID_PROPERTY_];
+  } catch (ex) {
   }
 };
-goog.UID_PROPERTY_ = "closure_uid_" + (1E9 * Math.random() >>> 0);
+goog.UID_PROPERTY_ = "closure_uid_" + (Math.random() * 1E9 >>> 0);
 goog.uidCounter_ = 0;
 goog.getHashCode = goog.getUid;
 goog.removeHashCode = goog.removeUid;
-goog.cloneObject = function(a) {
-  var b = goog.typeOf(a);
-  if ("object" == b || "array" == b) {
-    if (a.clone) {
-      return a.clone();
+goog.cloneObject = function(obj) {
+  var type = goog.typeOf(obj);
+  if (type == "object" || type == "array") {
+    if (obj.clone) {
+      return obj.clone();
     }
-    var b = "array" == b ? [] : {}, c;
-    for (c in a) {
-      b[c] = goog.cloneObject(a[c]);
+    var clone = type == "array" ? [] : {};
+    for (var key in obj) {
+      clone[key] = goog.cloneObject(obj[key]);
     }
-    return b;
+    return clone;
   }
-  return a;
+  return obj;
 };
-goog.bindNative_ = function(a, b, c) {
-  return a.call.apply(a.bind, arguments);
+goog.bindNative_ = function(fn, selfObj, var_args) {
+  return (fn.call.apply(fn.bind, arguments));
 };
-goog.bindJs_ = function(a, b, c) {
-  if (!a) {
-    throw Error();
+goog.bindJs_ = function(fn, selfObj, var_args) {
+  if (!fn) {
+    throw new Error;
   }
-  if (2 < arguments.length) {
-    var d = Array.prototype.slice.call(arguments, 2);
+  if (arguments.length > 2) {
+    var boundArgs = Array.prototype.slice.call(arguments, 2);
     return function() {
-      var c = Array.prototype.slice.call(arguments);
-      Array.prototype.unshift.apply(c, d);
-      return a.apply(b, c);
+      var newArgs = Array.prototype.slice.call(arguments);
+      Array.prototype.unshift.apply(newArgs, boundArgs);
+      return fn.apply(selfObj, newArgs);
+    };
+  } else {
+    return function() {
+      return fn.apply(selfObj, arguments);
     };
   }
-  return function() {
-    return a.apply(b, arguments);
-  };
 };
-goog.bind = function(a, b, c) {
-  Function.prototype.bind && -1 != Function.prototype.bind.toString().indexOf("native code") ? goog.bind = goog.bindNative_ : goog.bind = goog.bindJs_;
+goog.bind = function(fn, selfObj, var_args) {
+  if (Function.prototype.bind && Function.prototype.bind.toString().indexOf("native code") != -1) {
+    goog.bind = goog.bindNative_;
+  } else {
+    goog.bind = goog.bindJs_;
+  }
   return goog.bind.apply(null, arguments);
 };
-goog.partial = function(a, b) {
-  var c = Array.prototype.slice.call(arguments, 1);
+goog.partial = function(fn, var_args) {
+  var args = Array.prototype.slice.call(arguments, 1);
   return function() {
-    var b = c.slice();
-    b.push.apply(b, arguments);
-    return a.apply(this, b);
+    var newArgs = args.slice();
+    newArgs.push.apply(newArgs, arguments);
+    return fn.apply(this, newArgs);
   };
 };
-goog.mixin = function(a, b) {
-  for (var c in b) {
-    a[c] = b[c];
+goog.mixin = function(target, source) {
+  for (var x in source) {
+    target[x] = source[x];
   }
 };
 goog.now = goog.TRUSTED_SITE && Date.now || function() {
   return +new Date;
 };
-goog.globalEval = function(a) {
+goog.globalEval = function(script) {
   if (goog.global.execScript) {
-    goog.global.execScript(a, "JavaScript");
+    goog.global.execScript(script, "JavaScript");
   } else {
     if (goog.global.eval) {
-      if (null == goog.evalWorksForGlobals_) {
-        if (goog.global.eval("var _evalTest_ = 1;"), "undefined" != typeof goog.global._evalTest_) {
+      if (goog.evalWorksForGlobals_ == null) {
+        goog.global.eval("var _evalTest_ = 1;");
+        if (typeof goog.global["_evalTest_"] != "undefined") {
           try {
-            delete goog.global._evalTest_;
-          } catch (b) {
+            delete goog.global["_evalTest_"];
+          } catch (ignore) {
           }
-          goog.evalWorksForGlobals_ = !0;
+          goog.evalWorksForGlobals_ = true;
         } else {
-          goog.evalWorksForGlobals_ = !1;
+          goog.evalWorksForGlobals_ = false;
         }
       }
       if (goog.evalWorksForGlobals_) {
-        goog.global.eval(a);
+        goog.global.eval(script);
       } else {
-        var c = goog.global.document, d = c.createElement("SCRIPT");
-        d.type = "text/javascript";
-        d.defer = !1;
-        d.appendChild(c.createTextNode(a));
-        c.body.appendChild(d);
-        c.body.removeChild(d);
+        var doc = goog.global.document;
+        var scriptElt = doc.createElement("SCRIPT");
+        scriptElt.type = "text/javascript";
+        scriptElt.defer = false;
+        scriptElt.appendChild(doc.createTextNode(script));
+        doc.body.appendChild(scriptElt);
+        doc.body.removeChild(scriptElt);
       }
     } else {
       throw Error("goog.globalEval not available");
@@ -488,150 +685,188 @@ goog.globalEval = function(a) {
   }
 };
 goog.evalWorksForGlobals_ = null;
-goog.getCssName = function(a, b) {
-  var c = function(a) {
-    return goog.cssNameMapping_[a] || a;
-  }, d = function(a) {
-    a = a.split("-");
-    for (var b = [], d = 0;d < a.length;d++) {
-      b.push(c(a[d]));
-    }
-    return b.join("-");
-  }, d = goog.cssNameMapping_ ? "BY_WHOLE" == goog.cssNameMappingStyle_ ? c : d : function(a) {
-    return a;
+goog.cssNameMapping_;
+goog.cssNameMappingStyle_;
+goog.getCssName = function(className, opt_modifier) {
+  var getMapping = function(cssName) {
+    return goog.cssNameMapping_[cssName] || cssName;
   };
-  return b ? a + "-" + d(b) : d(a);
+  var renameByParts = function(cssName) {
+    var parts = cssName.split("-");
+    var mapped = [];
+    for (var i = 0;i < parts.length;i++) {
+      mapped.push(getMapping(parts[i]));
+    }
+    return mapped.join("-");
+  };
+  var rename;
+  if (goog.cssNameMapping_) {
+    rename = goog.cssNameMappingStyle_ == "BY_WHOLE" ? getMapping : renameByParts;
+  } else {
+    rename = function(a) {
+      return a;
+    };
+  }
+  if (opt_modifier) {
+    return className + "-" + rename(opt_modifier);
+  } else {
+    return rename(className);
+  }
 };
-goog.setCssNameMapping = function(a, b) {
-  goog.cssNameMapping_ = a;
-  goog.cssNameMappingStyle_ = b;
+goog.setCssNameMapping = function(mapping, opt_style) {
+  goog.cssNameMapping_ = mapping;
+  goog.cssNameMappingStyle_ = opt_style;
 };
-!COMPILED && goog.global.CLOSURE_CSS_NAME_MAPPING && (goog.cssNameMapping_ = goog.global.CLOSURE_CSS_NAME_MAPPING);
-goog.getMsg = function(a, b) {
-  b && (a = a.replace(/\{\$([^}]+)}/g, function(a, d) {
-    return d in b ? b[d] : a;
-  }));
-  return a;
+goog.global.CLOSURE_CSS_NAME_MAPPING;
+if (!COMPILED && goog.global.CLOSURE_CSS_NAME_MAPPING) {
+  goog.cssNameMapping_ = goog.global.CLOSURE_CSS_NAME_MAPPING;
+}
+goog.getMsg = function(str, opt_values) {
+  if (opt_values) {
+    str = str.replace(/\{\$([^}]+)}/g, function(match, key) {
+      return key in opt_values ? opt_values[key] : match;
+    });
+  }
+  return str;
 };
 goog.getMsgWithFallback = function(a, b) {
   return a;
 };
-goog.exportSymbol = function(a, b, c) {
-  goog.exportPath_(a, b, c);
+goog.exportSymbol = function(publicPath, object, opt_objectToExportTo) {
+  goog.exportPath_(publicPath, object, opt_objectToExportTo);
 };
-goog.exportProperty = function(a, b, c) {
-  a[b] = c;
+goog.exportProperty = function(object, publicName, symbol) {
+  object[publicName] = symbol;
 };
-goog.inherits = function(a, b) {
-  function c() {
+goog.inherits = function(childCtor, parentCtor) {
+  function tempCtor() {
   }
-  c.prototype = b.prototype;
-  a.superClass_ = b.prototype;
-  a.prototype = new c;
-  a.prototype.constructor = a;
-  a.base = function(a, c, f) {
-    for (var g = Array(arguments.length - 2), h = 2;h < arguments.length;h++) {
-      g[h - 2] = arguments[h];
+  tempCtor.prototype = parentCtor.prototype;
+  childCtor.superClass_ = parentCtor.prototype;
+  childCtor.prototype = new tempCtor;
+  childCtor.prototype.constructor = childCtor;
+  childCtor.base = function(me, methodName, var_args) {
+    var args = new Array(arguments.length - 2);
+    for (var i = 2;i < arguments.length;i++) {
+      args[i - 2] = arguments[i];
     }
-    return b.prototype[c].apply(a, g);
+    return parentCtor.prototype[methodName].apply(me, args);
   };
 };
-goog.base = function(a, b, c) {
-  var d = arguments.callee.caller;
-  if (goog.STRICT_MODE_COMPATIBLE || goog.DEBUG && !d) {
-    throw Error("arguments.caller not defined.  goog.base() cannot be used with strict mode code. See http://www.ecma-international.org/ecma-262/5.1/#sec-C");
+goog.base = function(me, opt_methodName, var_args) {
+  var caller = arguments.callee.caller;
+  if (goog.STRICT_MODE_COMPATIBLE || goog.DEBUG && !caller) {
+    throw Error("arguments.caller not defined.  goog.base() cannot be used " + "with strict mode code. See " + "http://www.ecma-international.org/ecma-262/5.1/#sec-C");
   }
-  if (d.superClass_) {
-    for (var e = Array(arguments.length - 1), f = 1;f < arguments.length;f++) {
-      e[f - 1] = arguments[f];
+  if (caller.superClass_) {
+    var ctorArgs = new Array(arguments.length - 1);
+    for (var i = 1;i < arguments.length;i++) {
+      ctorArgs[i - 1] = arguments[i];
     }
-    return d.superClass_.constructor.apply(a, e);
+    return caller.superClass_.constructor.apply(me, ctorArgs);
   }
-  e = Array(arguments.length - 2);
-  for (f = 2;f < arguments.length;f++) {
-    e[f - 2] = arguments[f];
+  var args = new Array(arguments.length - 2);
+  for (var i = 2;i < arguments.length;i++) {
+    args[i - 2] = arguments[i];
   }
-  for (var f = !1, g = a.constructor;g;g = g.superClass_ && g.superClass_.constructor) {
-    if (g.prototype[b] === d) {
-      f = !0;
+  var foundCaller = false;
+  for (var ctor = me.constructor;ctor;ctor = ctor.superClass_ && ctor.superClass_.constructor) {
+    if (ctor.prototype[opt_methodName] === caller) {
+      foundCaller = true;
     } else {
-      if (f) {
-        return g.prototype[b].apply(a, e);
+      if (foundCaller) {
+        return ctor.prototype[opt_methodName].apply(me, args);
       }
     }
   }
-  if (a[b] === d) {
-    return a.constructor.prototype[b].apply(a, e);
+  if (me[opt_methodName] === caller) {
+    return me.constructor.prototype[opt_methodName].apply(me, args);
+  } else {
+    throw Error("goog.base called from a method of one name " + "to a method of a different name");
   }
-  throw Error("goog.base called from a method of one name to a method of a different name");
 };
-goog.scope = function(a) {
-  a.call(goog.global);
+goog.scope = function(fn) {
+  fn.call(goog.global);
 };
-COMPILED || (goog.global.COMPILED = COMPILED);
-goog.defineClass = function(a, b) {
-  var c = b.constructor, d = b.statics;
-  c && c != Object.prototype.constructor || (c = function() {
-    throw Error("cannot instantiate an interface (no constructor defined).");
-  });
-  c = goog.defineClass.createSealingConstructor_(c, a);
-  a && goog.inherits(c, a);
-  delete b.constructor;
-  delete b.statics;
-  goog.defineClass.applyProperties_(c.prototype, b);
-  null != d && (d instanceof Function ? d(c) : goog.defineClass.applyProperties_(c, d));
-  return c;
-};
-goog.defineClass.SEAL_CLASS_INSTANCES = goog.DEBUG;
-goog.defineClass.createSealingConstructor_ = function(a, b) {
-  if (goog.defineClass.SEAL_CLASS_INSTANCES && Object.seal instanceof Function) {
-    if (b && b.prototype && b.prototype[goog.UNSEALABLE_CONSTRUCTOR_PROPERTY_]) {
-      return a;
-    }
-    var c = function() {
-      var b = a.apply(this, arguments) || this;
-      b[goog.UID_PROPERTY_] = b[goog.UID_PROPERTY_];
-      this.constructor === c && Object.seal(b);
-      return b;
+if (!COMPILED) {
+  goog.global["COMPILED"] = COMPILED;
+}
+goog.defineClass = function(superClass, def) {
+  var constructor = def.constructor;
+  var statics = def.statics;
+  if (!constructor || constructor == Object.prototype.constructor) {
+    constructor = function() {
+      throw Error("cannot instantiate an interface (no constructor defined).");
     };
-    return c;
   }
-  return a;
+  var cls = goog.defineClass.createSealingConstructor_(constructor, superClass);
+  if (superClass) {
+    goog.inherits(cls, superClass);
+  }
+  delete def.constructor;
+  delete def.statics;
+  goog.defineClass.applyProperties_(cls.prototype, def);
+  if (statics != null) {
+    if (statics instanceof Function) {
+      statics(cls);
+    } else {
+      goog.defineClass.applyProperties_(cls, statics);
+    }
+  }
+  return cls;
 };
-goog.defineClass.OBJECT_PROTOTYPE_FIELDS_ = "constructor hasOwnProperty isPrototypeOf propertyIsEnumerable toLocaleString toString valueOf".split(" ");
-goog.defineClass.applyProperties_ = function(a, b) {
-  for (var c in b) {
-    Object.prototype.hasOwnProperty.call(b, c) && (a[c] = b[c]);
+goog.defineClass.ClassDescriptor;
+goog.define("goog.defineClass.SEAL_CLASS_INSTANCES", goog.DEBUG);
+goog.defineClass.createSealingConstructor_ = function(ctr, superClass) {
+  if (goog.defineClass.SEAL_CLASS_INSTANCES && Object.seal instanceof Function) {
+    if (superClass && superClass.prototype && superClass.prototype[goog.UNSEALABLE_CONSTRUCTOR_PROPERTY_]) {
+      return ctr;
+    }
+    var wrappedCtr = function() {
+      var instance = ctr.apply(this, arguments) || this;
+      instance[goog.UID_PROPERTY_] = instance[goog.UID_PROPERTY_];
+      if (this.constructor === wrappedCtr) {
+        Object.seal(instance);
+      }
+      return instance;
+    };
+    return wrappedCtr;
   }
-  for (var d = 0;d < goog.defineClass.OBJECT_PROTOTYPE_FIELDS_.length;d++) {
-    c = goog.defineClass.OBJECT_PROTOTYPE_FIELDS_[d], Object.prototype.hasOwnProperty.call(b, c) && (a[c] = b[c]);
+  return ctr;
+};
+goog.defineClass.OBJECT_PROTOTYPE_FIELDS_ = ["constructor", "hasOwnProperty", "isPrototypeOf", "propertyIsEnumerable", "toLocaleString", "toString", "valueOf"];
+goog.defineClass.applyProperties_ = function(target, source) {
+  var key;
+  for (key in source) {
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      target[key] = source[key];
+    }
+  }
+  for (var i = 0;i < goog.defineClass.OBJECT_PROTOTYPE_FIELDS_.length;i++) {
+    key = goog.defineClass.OBJECT_PROTOTYPE_FIELDS_[i];
+    if (Object.prototype.hasOwnProperty.call(source, key)) {
+      target[key] = source[key];
+    }
   }
 };
-goog.tagUnsealableClass = function(a) {
-  !COMPILED && goog.defineClass.SEAL_CLASS_INSTANCES && (a.prototype[goog.UNSEALABLE_CONSTRUCTOR_PROPERTY_] = !0);
+goog.tagUnsealableClass = function(ctr) {
+  if (!COMPILED && goog.defineClass.SEAL_CLASS_INSTANCES) {
+    ctr.prototype[goog.UNSEALABLE_CONSTRUCTOR_PROPERTY_] = true;
+  }
 };
 goog.UNSEALABLE_CONSTRUCTOR_PROPERTY_ = "goog_defineClass_legacy_unsealable";
-var ash = {fsm:{}};
-ash.fsm.ComponentSingletonProvider = function(a) {
-  this.componentType = a;
-};
-ash.fsm.ComponentSingletonProvider.prototype.componentType = null;
-ash.fsm.ComponentSingletonProvider.prototype.instance = null;
-ash.fsm.ComponentSingletonProvider.prototype.getComponent = function() {
-  null == this.instance && (this.instance = new this.componentType);
-  return this.instance;
-};
-Object.defineProperties(ash.fsm.ComponentSingletonProvider.prototype, {identifier:{get:function() {
-  return this.getComponent();
-}}});
-ash.tools = {};
-ash.tools.ListIteratingSystem = function(a, b, c, d) {
-  null == c && (c = null);
-  null == d && (d = null);
-  this.nodeClass = a;
-  this.nodeUpdateFunction = b;
-  this.nodeAddedFunction = c;
-  this.nodeRemovedFunction = d;
+goog.provide("ash.tools.ListIteratingSystem");
+ash.tools.ListIteratingSystem = function(nodeClass, nodeUpdateFunction, nodeAddedFunction, nodeRemovedFunction) {
+  if (nodeAddedFunction == null) {
+    nodeAddedFunction = null;
+  }
+  if (nodeRemovedFunction == null) {
+    nodeRemovedFunction = null;
+  }
+  this.nodeClass = nodeClass;
+  this.nodeUpdateFunction = nodeUpdateFunction;
+  this.nodeAddedFunction = nodeAddedFunction;
+  this.nodeRemovedFunction = nodeRemovedFunction;
 };
 goog.inherits(ash.tools.ListIteratingSystem, ash.core.System);
 ash.tools.ListIteratingSystem.prototype.nodeList = null;
@@ -639,65 +874,1250 @@ ash.tools.ListIteratingSystem.prototype.nodeClass = null;
 ash.tools.ListIteratingSystem.prototype.nodeUpdateFunction = null;
 ash.tools.ListIteratingSystem.prototype.nodeAddedFunction = null;
 ash.tools.ListIteratingSystem.prototype.nodeRemovedFunction = null;
-ash.tools.ListIteratingSystem.prototype.addToEngine = function(a) {
-  this.nodeList = a.getNodeList(this.nodeClass);
-  if (null !== this.nodeAddedFunction) {
-    for (a = this.nodeList.head;a;) {
-      this.nodeAddedFunction(a), a = a.next;
+ash.tools.ListIteratingSystem.prototype.addToEngine = function(engine) {
+  var node;
+  this.nodeList = engine.getNodeList(this.nodeClass);
+  if (this.nodeAddedFunction !== null) {
+    node = this.nodeList.head;
+    while (node) {
+      this.nodeAddedFunction(node);
+      node = node.next;
     }
     this.nodeList.nodeAdded.add(this.nodeAddedFunction);
   }
-  null !== this.nodeRemovedFunction && this.nodeList.nodeRemoved.add(this.nodeRemovedFunction);
-};
-ash.tools.ListIteratingSystem.prototype.removeFromEngine = function(a) {
-  null !== this.nodeAddedFunction && this.nodeList.nodeAdded.remove(this.nodeAddedFunction);
-  null !== this.nodeRemovedFunction && this.nodeList.nodeRemoved.remove(this.nodeRemovedFunction);
-  this.nodeList = null;
-};
-ash.tools.ListIteratingSystem.prototype.update = function(a) {
-  var b;
-  for (b = this.nodeList.head;b;) {
-    this.nodeUpdateFunction(b, a), b = b.next;
+  if (this.nodeRemovedFunction !== null) {
+    this.nodeList.nodeRemoved.add(this.nodeRemovedFunction);
   }
 };
-ash.ext = {};
+ash.tools.ListIteratingSystem.prototype.removeFromEngine = function(engine) {
+  if (this.nodeAddedFunction !== null) {
+    this.nodeList.nodeAdded.remove(this.nodeAddedFunction);
+  }
+  if (this.nodeRemovedFunction !== null) {
+    this.nodeList.nodeRemoved.remove(this.nodeRemovedFunction);
+  }
+  this.nodeList = null;
+};
+ash.tools.ListIteratingSystem.prototype.update = function(time) {
+  var node;
+  node = this.nodeList.head;
+  while (node) {
+    this.nodeUpdateFunction(node, time);
+    node = node.next;
+  }
+};
+goog.provide("asteroids.ui.Point");
+asteroids.ui.Point = function(_at_x, _at_y) {
+  this.x = _at_x != null ? _at_x : 0;
+  this.y = _at_y != null ? _at_y : 0;
+};
+asteroids.ui.Point.prototype.x = 0;
+asteroids.ui.Point.prototype.y = 0;
+asteroids.ui.Point.distance = function(point1, point2) {
+  var dx, dy;
+  dx = point1.x - point2.x;
+  dy = point1.y - point2.y;
+  return Math.sqrt(dx * dx + dy * dy);
+};
+asteroids.ui.Point.prototype.distanceSquaredTo = function(targetPoint) {
+  var dx, dy;
+  dx = this.x - targetPoint.x;
+  dy = this.y - targetPoint.y;
+  return dx * dx + dy * dy;
+};
+asteroids.ui.Point.prototype.distanceTo = function(targetPoint) {
+  var dx, dy;
+  dx = this.x - targetPoint.x;
+  dy = this.y - targetPoint.y;
+  return Math.sqrt(dx * dx + dy * dy);
+};
+goog.provide("asteroids.components.Position");
+goog.require("asteroids.ui.Point");
+asteroids.components.Position = function(x, y, _at_rotation) {
+  this.rotation = _at_rotation;
+  this.position = new asteroids.ui.Point(x, y);
+};
+asteroids.components.Position.prototype.position = null;
+asteroids.components.Position.prototype.rotation = 0;
+goog.provide("ash.core.Node");
+ash.core.Node = function() {
+};
+ash.core.Node.prototype.entity = null;
+ash.core.Node.prototype.previous = null;
+ash.core.Node.prototype.next = null;
+goog.provide("asteroids.components.Motion");
+goog.require("asteroids.ui.Point");
+asteroids.components.Motion = function(velocityX, velocityY, _at_angularVelocity, _at_damping) {
+  this.angularVelocity = _at_angularVelocity;
+  this.damping = _at_damping;
+  this.velocity = new asteroids.ui.Point(velocityX, velocityY);
+};
+asteroids.components.Motion.prototype.velocity = null;
+asteroids.components.Motion.prototype.angularVelocity = 0;
+asteroids.components.Motion.prototype.damping = 0;
+goog.provide("asteroids.nodes.MovementNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Motion");
+asteroids.nodes.MovementNode = function() {
+  return asteroids.nodes.MovementNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.MovementNode, ash.core.Node);
+asteroids.nodes.MovementNode.components = {position:asteroids.components.Position, motion:asteroids.components.Motion};
+asteroids.nodes.MovementNode.prototype.position = null;
+asteroids.nodes.MovementNode.prototype.motion = null;
+goog.provide("asteroids.systems.MovementSystem");
+goog.require("ash.tools.ListIteratingSystem");
+goog.require("asteroids.nodes.MovementNode");
+asteroids.systems.MovementSystem = function(_at_config) {
+  this.config = _at_config;
+  this.updateNode = goog.bind(this.updateNode, this);
+  asteroids.systems.MovementSystem.superClass_.constructor.call(this, MovementNode, this.updateNode);
+};
+goog.inherits(asteroids.systems.MovementSystem, ash.tools.ListIteratingSystem);
+asteroids.systems.MovementSystem.prototype.config = null;
+asteroids.systems.MovementSystem.prototype.updateNode = function(node, time) {
+  var motion, position, xDamp, yDamp;
+  position = node.position;
+  motion = node.motion;
+  position.position.x += motion.velocity.x * time;
+  position.position.y += motion.velocity.y * time;
+  if (position.position.x < 0) {
+    position.position.x += this.config.width;
+  }
+  if (position.position.x > this.config.width) {
+    position.position.x -= this.config.width;
+  }
+  if (position.position.y < 0) {
+    position.position.y += this.config.height;
+  }
+  if (position.position.y > this.config.height) {
+    position.position.y -= this.config.height;
+  }
+  position.rotation += motion.angularVelocity * time;
+  if (motion.damping > 0) {
+    xDamp = Math.abs(Math.cos(position.rotation) * motion.damping * time);
+    yDamp = Math.abs(Math.sin(position.rotation) * motion.damping * time);
+    if (motion.velocity.x > xDamp) {
+      motion.velocity.x -= xDamp;
+    } else {
+      if (motion.velocity.x < -xDamp) {
+        motion.velocity.x += xDamp;
+      } else {
+        motion.velocity.x = 0;
+      }
+    }
+    if (motion.velocity.y > yDamp) {
+      motion.velocity.y -= yDamp;
+    } else {
+      if (motion.velocity.y < -yDamp) {
+        motion.velocity.y += yDamp;
+      } else {
+        motion.velocity.y = 0;
+      }
+    }
+  }
+};
+goog.provide("asteroids.components.Collision");
+asteroids.components.Collision = function(_at_radius) {
+  this.radius = _at_radius;
+};
+asteroids.components.Collision.prototype.radius = 0;
+goog.provide("asteroids.components.Audio");
+asteroids.components.Audio = function() {
+  this.toPlay = [];
+};
+asteroids.components.Audio.prototype.toPlay = null;
+asteroids.components.Audio.prototype.play = function(sound) {
+  return this.toPlay.push(sound);
+};
+goog.provide("asteroids.components.Asteroid");
+asteroids.components.Asteroid = function(_at_fsm) {
+  this.fsm = _at_fsm;
+};
+asteroids.components.Asteroid.prototype.fsm = null;
+goog.provide("asteroids.nodes.AsteroidCollisionNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Asteroid");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Collision");
+goog.require("asteroids.components.Audio");
+asteroids.nodes.AsteroidCollisionNode = function() {
+  return asteroids.nodes.AsteroidCollisionNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.AsteroidCollisionNode, ash.core.Node);
+asteroids.nodes.AsteroidCollisionNode.components = {asteroid:asteroids.components.Asteroid, position:asteroids.components.Position, collision:asteroids.components.Collision, audio:asteroids.components.Audio};
+asteroids.nodes.AsteroidCollisionNode.prototype.asteroid = null;
+asteroids.nodes.AsteroidCollisionNode.prototype.position = null;
+asteroids.nodes.AsteroidCollisionNode.prototype.collision = null;
+asteroids.nodes.AsteroidCollisionNode.prototype.audio = null;
+goog.provide("asteroids.graphics.HudView");
+asteroids.graphics.HudView = function(_at_graphic) {
+  this.graphic = _at_graphic;
+  this.setScore = goog.bind(this.setScore, this);
+  this.setLives = goog.bind(this.setLives, this);
+  this.draw = goog.bind(this.draw, this);
+  this.drawScore = this.createScore;
+  this.drawLives = this.createLives;
+};
+asteroids.graphics.HudView.prototype.x = 0;
+asteroids.graphics.HudView.prototype.y = 0;
+asteroids.graphics.HudView.prototype.width = 4;
+asteroids.graphics.HudView.prototype.height = 4;
+asteroids.graphics.HudView.prototype.rotation = 0;
+asteroids.graphics.HudView.prototype.graphic = null;
+asteroids.graphics.HudView.prototype.score = 0;
+asteroids.graphics.HudView.prototype.lives = 3;
+asteroids.graphics.HudView.prototype.drawScore = null;
+asteroids.graphics.HudView.prototype.drawLives = null;
+asteroids.graphics.HudView.prototype.draw = function() {
+  this.drawScore();
+  this.drawLives();
+};
+asteroids.graphics.HudView.prototype.setLives = function(lives) {
+  return this.lives = lives;
+};
+asteroids.graphics.HudView.prototype.setScore = function(score) {
+  return this.score = score;
+};
+asteroids.graphics.HudView.prototype.createLives = function() {
+  var l, s, x, y;
+  this.graphic.save();
+  this.graphic.beginPath();
+  this.graphic.font = "bold 18px Helvetica";
+  this.graphic.fillStyle = "#FFFFFF";
+  this.graphic.textAlign = "center";
+  s = "LIVES: " + this.lives;
+  l = this.graphic.measureText(s);
+  x = l.width;
+  y = 20;
+  this.graphic.fillText(s, x, y);
+  this.graphic.fill();
+  this.graphic.restore();
+};
+asteroids.graphics.HudView.prototype.createScore = function() {
+  var l, s, x, y;
+  this.graphic.save();
+  this.graphic.beginPath();
+  this.graphic.font = "bold 18px Helvetica";
+  this.graphic.fillStyle = "#FFFFFF";
+  this.graphic.textAlign = "center";
+  s = "SCORE: " + this.score;
+  l = this.graphic.measureText(s);
+  x = window.window.innerWidth * window.devicePixelRatio - l.width;
+  y = 20;
+  this.graphic.fillText(s, x, y);
+  this.graphic.fill();
+  this.graphic.restore();
+};
+goog.provide("asteroids.nodes.AudioNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Audio");
+asteroids.nodes.AudioNode = function() {
+  return asteroids.nodes.AudioNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.AudioNode, ash.core.Node);
+asteroids.nodes.AudioNode.components = {audio:asteroids.components.Audio};
+asteroids.nodes.AudioNode.prototype.audio = null;
+goog.provide("asteroids.systems.AudioSystem");
+goog.require("ash.tools.ListIteratingSystem");
+goog.require("asteroids.nodes.AudioNode");
+asteroids.systems.AudioSystem = function() {
+  this.updateNode = goog.bind(this.updateNode, this);
+  asteroids.systems.AudioSystem.superClass_.constructor.call(this, AudioNode, this.updateNode);
+};
+goog.inherits(asteroids.systems.AudioSystem, ash.tools.ListIteratingSystem);
+asteroids.systems.AudioSystem.prototype.updateNode = function(node, time) {
+  var each, sound, type, _ref;
+  _ref = node.audio.toPlay;
+  for (each in _ref) {
+    type = _ref[each];
+    sound = new type;
+    sound.play(0, 1);
+  }
+  node.audio.toPlay.length = 0;
+};
+goog.provide("asteroids.components.DeathThroes");
+asteroids.components.DeathThroes = function(duration) {
+  this.countdown = duration;
+};
+asteroids.components.DeathThroes.prototype.countdown = 0;
+goog.provide("asteroids.nodes.DeathThroesNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.DeathThroes");
+asteroids.nodes.DeathThroesNode = function() {
+  return asteroids.nodes.DeathThroesNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.DeathThroesNode, ash.core.Node);
+asteroids.nodes.DeathThroesNode.components = {death:asteroids.components.DeathThroes};
+asteroids.nodes.DeathThroesNode.prototype.death = null;
+goog.provide("asteroids.graphics.SpaceshipView");
+asteroids.graphics.SpaceshipView = function(_at_graphic) {
+  this.graphic = _at_graphic;
+};
+asteroids.graphics.SpaceshipView.prototype.x = 0;
+asteroids.graphics.SpaceshipView.prototype.y = 0;
+asteroids.graphics.SpaceshipView.prototype.width = 20;
+asteroids.graphics.SpaceshipView.prototype.height = 20;
+asteroids.graphics.SpaceshipView.prototype.rotation = 0;
+asteroids.graphics.SpaceshipView.prototype.graphic = null;
+asteroids.graphics.SpaceshipView.prototype.draw = function() {
+  var graphic;
+  graphic = this.graphic;
+  graphic.save();
+  graphic.beginPath();
+  graphic.translate(this.x, this.y);
+  graphic.rotate(this.rotation);
+  graphic.fillStyle = "#FFFFFF";
+  graphic.moveTo(10, 0);
+  graphic.lineTo(-7, 7);
+  graphic.lineTo(-4, 0);
+  graphic.lineTo(-7, -7);
+  graphic.lineTo(10, 0);
+  graphic.fill();
+  graphic.restore();
+};
+goog.provide("asteroids.components.GameState");
+asteroids.components.GameState = function() {
+};
+asteroids.components.GameState.prototype.lives = 3;
+asteroids.components.GameState.prototype.level = 0;
+asteroids.components.GameState.prototype.hits = 0;
+asteroids.components.GameState.prototype.playing = false;
+asteroids.components.GameState.prototype.setForStart = function() {
+  this.lives = 3;
+  this.level = 0;
+  this.hits = 0;
+  this.playing = true;
+};
+goog.provide("asteroids.nodes.GameNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.GameState");
+asteroids.nodes.GameNode = function() {
+  return asteroids.nodes.GameNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.GameNode, ash.core.Node);
+asteroids.nodes.GameNode.components = {state:asteroids.components.GameState};
+asteroids.nodes.GameNode.prototype.state = null;
+goog.provide("asteroids.components.WaitForStart");
+asteroids.components.WaitForStart = function(_at_waitForStart) {
+  this.waitForStart = _at_waitForStart;
+  this.setStartGame = goog.bind(this.setStartGame, this);
+  this.waitForStart.click.add(this.setStartGame);
+};
+asteroids.components.WaitForStart.prototype.waitForStart = null;
+asteroids.components.WaitForStart.prototype.startGame = false;
+asteroids.components.WaitForStart.prototype.setStartGame = function() {
+  this.startGame = true;
+};
+goog.provide("asteroids.components.Bullet");
+asteroids.components.Bullet = function(_at_lifeRemaining) {
+  this.lifeRemaining = _at_lifeRemaining;
+};
+asteroids.components.Bullet.prototype.lifeRemaining = 0;
+goog.provide("asteroids.nodes.BulletCollisionNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Bullet");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Collision");
+asteroids.nodes.BulletCollisionNode = function() {
+  return asteroids.nodes.BulletCollisionNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.BulletCollisionNode, ash.core.Node);
+asteroids.nodes.BulletCollisionNode.components = {bullet:asteroids.components.Bullet, position:asteroids.components.Position, collision:asteroids.components.Collision};
+asteroids.nodes.BulletCollisionNode.prototype.bullet = null;
+asteroids.nodes.BulletCollisionNode.prototype.position = null;
+asteroids.nodes.BulletCollisionNode.prototype.collision = null;
+goog.provide("asteroids.components.Gun");
+goog.require("asteroids.ui.Point");
+asteroids.components.Gun = function(offsetX, offsetY, _at_minimumShotInterval, _at_bulletLifetime) {
+  this.minimumShotInterval = _at_minimumShotInterval;
+  this.bulletLifetime = _at_bulletLifetime;
+  this.shooting = false;
+  this.offsetFromParent = null;
+  this.timeSinceLastShot = 0;
+  this.offsetFromParent = new asteroids.ui.Point(offsetX, offsetY);
+};
+asteroids.components.Gun.prototype.shooting = false;
+asteroids.components.Gun.prototype.offsetFromParent = null;
+asteroids.components.Gun.prototype.timeSinceLastShot = 0;
+asteroids.components.Gun.prototype.offsetFromParent = null;
+goog.provide("asteroids.components.MotionControls");
+asteroids.components.MotionControls = function(_at_left, _at_right, _at_accelerate, _at_accelerationRate, _at_rotationRate) {
+  this.left = _at_left;
+  this.right = _at_right;
+  this.accelerate = _at_accelerate;
+  this.accelerationRate = _at_accelerationRate;
+  this.rotationRate = _at_rotationRate;
+};
+asteroids.components.MotionControls.prototype.left = 0;
+asteroids.components.MotionControls.prototype.right = 0;
+asteroids.components.MotionControls.prototype.accelerate = 0;
+asteroids.components.MotionControls.prototype.accelerationRate = 0;
+asteroids.components.MotionControls.prototype.rotationRate = 0;
+goog.provide("ash.core.System");
+ash.core.System = function() {
+  this.update = goog.bind(this.update, this);
+};
+ash.core.System.prototype.previous = null;
+ash.core.System.prototype.next = null;
+ash.core.System.prototype.priority = 0;
+ash.core.System.prototype.addToEngine = function(engine) {
+};
+ash.core.System.prototype.removeFromEngine = function(engine) {
+};
+ash.core.System.prototype.update = function(time) {
+};
+goog.provide("asteroids.graphics.AsteroidDeathView");
+goog.require("asteroids.ui.Point");
+asteroids.graphics.AsteroidDeathView = function(_at_graphic, _at_radius) {
+  this.graphic = _at_graphic;
+  this.radius = _at_radius;
+  this.dots = [];
+};
+var numDots;
+numDots = 8;
+asteroids.graphics.AsteroidDeathView.prototype.dots = null;
+asteroids.graphics.AsteroidDeathView.prototype.x = 0;
+asteroids.graphics.AsteroidDeathView.prototype.y = 0;
+asteroids.graphics.AsteroidDeathView.prototype.width = 0;
+asteroids.graphics.AsteroidDeathView.prototype.height = 0;
+asteroids.graphics.AsteroidDeathView.prototype.rotation = 0;
+asteroids.graphics.AsteroidDeathView.prototype.graphic = null;
+asteroids.graphics.AsteroidDeathView.prototype.radius = 0;
+asteroids.graphics.AsteroidDeathView.prototype.points = null;
+asteroids.graphics.AsteroidDeathView.prototype.count = 0;
+asteroids.graphics.AsteroidDeathView.prototype.first = true;
+asteroids.graphics.AsteroidDeathView.prototype.animate = function(time) {
+  var dot, i, _i, _j, _len, _ref;
+  if (this.first) {
+    this.first = false;
+    for (i = _i = 0;0 <= numDots ? _i < numDots : _i > numDots;i = 0 <= numDots ? ++_i : --_i) {
+      dot = new Dot(this.graphic, this.radius);
+      this.dots.push(dot);
+    }
+  }
+  _ref = this.dots;
+  for (_j = 0, _len = _ref.length;_j < _len;_j++) {
+    dot = _ref[_j];
+    dot.x += dot.velocity.x * time;
+    dot.y += dot.velocity.y * time;
+  }
+  return this.draw();
+};
+asteroids.graphics.AsteroidDeathView.prototype.draw = function() {
+  var dot, _i, _len, _ref, _results;
+  _ref = this.dots;
+  _results = [];
+  for (_i = 0, _len = _ref.length;_i < _len;_i++) {
+    dot = _ref[_i];
+    _results.push(dot.draw(this.x, this.y));
+  }
+  return _results;
+};
+var Dot = function(_at_graphic, maxDistance) {
+  var angle, distance, speed;
+  this.graphic = _at_graphic;
+  angle = Math.random() * 2 * Math.PI;
+  distance = Math.random() * maxDistance;
+  this.x = Math.cos(angle) * distance;
+  this.y = Math.sin(angle) * distance;
+  speed = Math.random() * 10 + 10;
+  this.velocity = new asteroids.ui.Point(Math.cos(angle) * speed, Math.sin(angle) * speed);
+};
+Dot.prototype.velocity = null;
+Dot.prototype.graphic = null;
+Dot.prototype.x1 = 0;
+Dot.prototype.y1 = 0;
+Dot.prototype.x = 0;
+Dot.prototype.y = 0;
+Dot.prototype.draw = function(x, y) {
+  var graphic;
+  graphic = this.graphic;
+  graphic.save();
+  graphic.beginPath();
+  graphic.translate(x, y);
+  graphic.rotate(this.rotation);
+  graphic.fillStyle = "#FFFFFF";
+  graphic.arc(this.x, this.y, 2, 0, Math.PI * 2, false);
+  graphic.fill();
+  graphic.restore();
+};
+goog.provide("asteroids.graphics.BulletView");
+asteroids.graphics.BulletView = function(_at_graphic) {
+  this.graphic = _at_graphic;
+};
+asteroids.graphics.BulletView.prototype.x = 0;
+asteroids.graphics.BulletView.prototype.y = 0;
+asteroids.graphics.BulletView.prototype.width = 4;
+asteroids.graphics.BulletView.prototype.height = 4;
+asteroids.graphics.BulletView.prototype.rotation = 0;
+asteroids.graphics.BulletView.prototype.graphic = null;
+asteroids.graphics.BulletView.prototype.draw = function() {
+  var graphic;
+  graphic = this.graphic;
+  graphic.save();
+  graphic.beginPath();
+  graphic.rotate(this.rotation);
+  graphic.fillStyle = "#FFFFFF";
+  graphic.arc(this.x, this.y, 2, 0, Math.PI * 2, false);
+  graphic.fill();
+  graphic.restore();
+};
+goog.provide("asteroids.components.Spaceship");
+asteroids.components.Spaceship = function(_at_fsm) {
+  this.fsm = _at_fsm;
+};
+asteroids.components.Spaceship.prototype.fsm = null;
+goog.provide("asteroids.components.GunControls");
+asteroids.components.GunControls = function(_at_trigger) {
+  this.trigger = _at_trigger;
+};
+asteroids.components.GunControls.prototype.trigger = 0;
+goog.provide("asteroids.graphics.SpaceshipDeathView");
+goog.require("asteroids.ui.Point");
+asteroids.graphics.SpaceshipDeathView = function(_at_graphic) {
+  this.graphic = _at_graphic;
+};
+asteroids.graphics.SpaceshipDeathView.prototype.x = 0;
+asteroids.graphics.SpaceshipDeathView.prototype.y = 0;
+asteroids.graphics.SpaceshipDeathView.prototype.width = 20;
+asteroids.graphics.SpaceshipDeathView.prototype.height = 20;
+asteroids.graphics.SpaceshipDeathView.prototype.rotation = 0;
+asteroids.graphics.SpaceshipDeathView.prototype.graphic = null;
+asteroids.graphics.SpaceshipDeathView.prototype.vel1 = null;
+asteroids.graphics.SpaceshipDeathView.prototype.vel2 = null;
+asteroids.graphics.SpaceshipDeathView.prototype.rot1 = null;
+asteroids.graphics.SpaceshipDeathView.prototype.rot2 = null;
+asteroids.graphics.SpaceshipDeathView.prototype.x1 = 0;
+asteroids.graphics.SpaceshipDeathView.prototype.y2 = 0;
+asteroids.graphics.SpaceshipDeathView.prototype.y1 = 0;
+asteroids.graphics.SpaceshipDeathView.prototype.y2 = 0;
+asteroids.graphics.SpaceshipDeathView.prototype.first = true;
+asteroids.graphics.SpaceshipDeathView.prototype.animate = function(time) {
+  if (this.first) {
+    this.first = false;
+    this.vel1 = new asteroids.ui.Point(Math.random() * 10 - 5, Math.random() * 10 + 10);
+    this.vel2 = new asteroids.ui.Point(Math.random() * 10 - 5, -(Math.random() * 10 + 10));
+    this.rot1 = Math.random() * 300 - 150;
+    this.rot2 = Math.random() * 300 - 150;
+    this.x1 = this.x2 = this.x;
+    this.y1 = this.y2 = this.y;
+    this.r1 = this.r2 = this.rotation;
+  }
+  this.x1 += this.vel1.x * time;
+  this.y1 += this.vel1.y * time;
+  this.r1 += this.rot1 * time;
+  this.x2 += this.vel2.x * time;
+  this.y2 += this.vel2.y * time;
+  this.r2 += this.rot2 * time;
+  return this.draw();
+};
+asteroids.graphics.SpaceshipDeathView.prototype.draw = function() {
+  var graphic;
+  graphic = this.graphic;
+  graphic.save();
+  graphic.beginPath();
+  graphic.translate(this.x + this.x1, this.y + this.y1);
+  graphic.rotate(this.r1);
+  graphic.fillStyle = "#FFFFFF";
+  graphic.moveTo(10, 0);
+  graphic.lineTo(-7, 7);
+  graphic.lineTo(-4, 0);
+  graphic.lineTo(10, 0);
+  graphic.fill();
+  graphic.restore();
+  graphic.save();
+  graphic.beginPath();
+  graphic.translate(this.x + this.x2, this.y + this.y2);
+  graphic.rotate(this.r2);
+  graphic.fillStyle = "#FFFFFF";
+  graphic.moveTo(10, 0);
+  graphic.lineTo(-7, 7);
+  graphic.lineTo(-4, 0);
+  graphic.lineTo(10, 0);
+  graphic.fill();
+  graphic.restore();
+};
+goog.provide("asteroids.components.Display");
+asteroids.components.Display = function(_at_graphic) {
+  this.graphic = _at_graphic;
+};
+asteroids.components.Display.prototype.graphic = 0;
+goog.provide("asteroids.nodes.SpaceshipCollisionNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Spaceship");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Collision");
+goog.require("asteroids.components.Audio");
+asteroids.nodes.SpaceshipCollisionNode = function() {
+  return asteroids.nodes.SpaceshipCollisionNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.SpaceshipCollisionNode, ash.core.Node);
+asteroids.nodes.SpaceshipCollisionNode.components = {spaceship:asteroids.components.Spaceship, position:asteroids.components.Position, collision:asteroids.components.Collision, audio:asteroids.components.Audio};
+asteroids.nodes.SpaceshipCollisionNode.prototype.spaceship = 0;
+asteroids.nodes.SpaceshipCollisionNode.prototype.position = 0;
+asteroids.nodes.SpaceshipCollisionNode.prototype.collision = null;
+asteroids.nodes.SpaceshipCollisionNode.prototype.audio = null;
+goog.provide("asteroids.graphics.AsteroidView");
+asteroids.graphics.AsteroidView = function(_at_graphic, _at_radius) {
+  var angle, length, posX, posY;
+  this.graphic = _at_graphic;
+  this.radius = _at_radius;
+  this.width = this.radius;
+  this.height = this.radius;
+  this.points = [];
+  angle = 0;
+  while (angle < Math.PI * 2) {
+    length = (.75 + Math.random() * .25) * this.radius;
+    posX = Math.cos(angle) * length;
+    posY = Math.sin(angle) * length;
+    this.points.push({x:posX, y:posY});
+    angle += Math.random() * .5;
+  }
+};
+asteroids.graphics.AsteroidView.prototype.x = 0;
+asteroids.graphics.AsteroidView.prototype.y = 0;
+asteroids.graphics.AsteroidView.prototype.width = 0;
+asteroids.graphics.AsteroidView.prototype.height = 0;
+asteroids.graphics.AsteroidView.prototype.rotation = 0;
+asteroids.graphics.AsteroidView.prototype.graphic = null;
+asteroids.graphics.AsteroidView.prototype.radius = 0;
+asteroids.graphics.AsteroidView.prototype.points = null;
+asteroids.graphics.AsteroidView.prototype.count = 0;
+asteroids.graphics.AsteroidView.prototype.draw = function() {
+  var graphic, i;
+  graphic = this.graphic;
+  graphic.save();
+  graphic.beginPath();
+  graphic.translate(this.x, this.y);
+  graphic.rotate(this.rotation);
+  graphic.fillStyle = "#FFFFFF";
+  graphic.moveTo(this.radius, 0);
+  i = 0;
+  while (i < this.points.length) {
+    graphic.lineTo(this.points[i].x, this.points[i].y);
+    ++i;
+  }
+  graphic.lineTo(this.radius, 0);
+  graphic.fill();
+  graphic.restore();
+};
+goog.provide("asteroids.components.Animation");
+asteroids.components.Animation = function(_at_animation) {
+  this.animation = _at_animation;
+};
+asteroids.components.Animation.prototype.animation = null;
+goog.provide("asteroids.components.Hud");
+asteroids.components.Hud = function(_at_view) {
+  this.view = _at_view;
+};
+asteroids.components.Hud.prototype.view = null;
+goog.provide("asteroids.systems.CollisionSystem");
+goog.require("ash.core.System");
+goog.require("asteroids.nodes.SpaceshipCollisionNode");
+goog.require("asteroids.nodes.AsteroidCollisionNode");
+goog.require("asteroids.nodes.BulletCollisionNode");
+goog.require("asteroids.nodes.GameNode");
+goog.require("asteroids.components.Animation");
+goog.require("asteroids.components.Asteroid");
+goog.require("asteroids.components.Audio");
+goog.require("asteroids.components.Bullet");
+goog.require("asteroids.components.Collision");
+goog.require("asteroids.components.DeathThroes");
+goog.require("asteroids.components.Display");
+goog.require("asteroids.components.GameState");
+goog.require("asteroids.components.Gun");
+goog.require("asteroids.components.GunControls");
+goog.require("asteroids.components.Hud");
+goog.require("asteroids.components.Motion");
+goog.require("asteroids.components.MotionControls");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Spaceship");
+goog.require("asteroids.components.WaitForStart");
+goog.require("asteroids.graphics.AsteroidDeathView");
+goog.require("asteroids.graphics.AsteroidView");
+goog.require("asteroids.graphics.BulletView");
+goog.require("asteroids.graphics.HudView");
+goog.require("asteroids.graphics.SpaceshipDeathView");
+goog.require("asteroids.graphics.SpaceshipView");
+asteroids.systems.CollisionSystem = function(_at_creator) {
+  this.creator = _at_creator;
+  this.update = goog.bind(this.update, this);
+};
+goog.inherits(asteroids.systems.CollisionSystem, ash.core.System);
+asteroids.systems.CollisionSystem.prototype.creator = null;
+asteroids.systems.CollisionSystem.prototype.games = null;
+asteroids.systems.CollisionSystem.prototype.spaceships = null;
+asteroids.systems.CollisionSystem.prototype.asteroids = null;
+asteroids.systems.CollisionSystem.prototype.bullets = null;
+asteroids.systems.CollisionSystem.prototype.addToEngine = function(engine) {
+  this.games = engine.getNodeList(GameNode);
+  this.spaceships = engine.getNodeList(SpaceshipCollisionNode);
+  this.asteroids = engine.getNodeList(AsteroidCollisionNode);
+  this.bullets = engine.getNodeList(BulletCollisionNode);
+};
+asteroids.systems.CollisionSystem.prototype.removeFromEngine = function(engine) {
+  this.games = null;
+  this.spaceships = null;
+  this.asteroids = null;
+  this.bullets = null;
+};
+asteroids.systems.CollisionSystem.prototype.update = function(time) {
+  var asteroid, bullet, spaceship;
+  bullet = this.bullets.head;
+  while (bullet) {
+    asteroid = this.asteroids.head;
+    while (asteroid) {
+      if (asteroid.position.position.distanceTo(bullet.position.position) <= asteroid.collision.radius) {
+        this.creator.destroyEntity(bullet.entity);
+        if (asteroid.collision.radius > 10) {
+          this.creator.createAsteroid(asteroid.collision.radius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5);
+          this.creator.createAsteroid(asteroid.collision.radius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5);
+        }
+        asteroid.asteroid.fsm.changeState("destroyed");
+        if (this.games.head) {
+          this.games.head.state.hits++;
+        }
+        break;
+      }
+      asteroid = asteroid.next;
+    }
+    bullet = bullet.next;
+  }
+  spaceship = this.spaceships.head;
+  while (spaceship) {
+    asteroid = this.asteroids.head;
+    while (asteroid) {
+      if (asteroid.position.position.distanceTo(spaceship.position.position) <= asteroid.collision.radius + spaceship.collision.radius) {
+        spaceship.spaceship.fsm.changeState("destroyed");
+        if (this.games.head) {
+          this.games.head.state.lives++;
+        }
+        break;
+      }
+      asteroid = asteroid.next;
+    }
+    spaceship = spaceship.next;
+  }
+};
+goog.provide("asteroids.nodes.HudNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.GameState");
+goog.require("asteroids.components.Hud");
+asteroids.nodes.HudNode = function() {
+  return asteroids.nodes.HudNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.HudNode, ash.core.Node);
+asteroids.nodes.HudNode.components = {state:asteroids.components.GameState, hud:asteroids.components.Hud};
+asteroids.nodes.HudNode.prototype.state = null;
+asteroids.nodes.HudNode.prototype.hud = null;
+goog.provide("asteroids.systems.HudSystem");
+goog.require("ash.tools.ListIteratingSystem");
+goog.require("asteroids.nodes.HudNode");
+asteroids.systems.HudSystem = function() {
+  this.updateNode = goog.bind(this.updateNode, this);
+  asteroids.systems.HudSystem.superClass_.constructor.call(this, HudNode, this.updateNode);
+};
+goog.inherits(asteroids.systems.HudSystem, ash.tools.ListIteratingSystem);
+asteroids.systems.HudSystem.prototype.updateNode = function(node, time) {
+  node.hud.view.setLives(node.state.lives);
+  node.hud.view.setScore(node.state.hits);
+};
+goog.provide("ash.signals.Signal0");
+ash.signals.Signal0 = function() {
+  return ash.signals.Signal0.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(ash.signals.Signal0, ash.signals.SignalBase);
+ash.signals.Signal0.prototype.dispatch = function() {
+  var node;
+  this.startDispatch();
+  node = this.head;
+  while (node !== null) {
+    node.listener();
+    if (node.once) {
+      this.remove(node.listener);
+    }
+    node = node.next;
+  }
+  return this.endDispatch();
+};
+goog.provide("asteroids.graphics.WaitForStartView");
+goog.require("ash.signals.Signal0");
+asteroids.graphics.WaitForStartView = function(_at_graphic) {
+  this.graphic = _at_graphic;
+  this.click = new ash.signals.Signal0;
+  this.gameOver = this.createGameOver;
+  this.instructions = this.createInstructions;
+  this.clickToStart = this.createClickToStart;
+  this.graphic.canvas.addEventListener("click", function(_this) {
+    return function(event) {
+      return _this.click.dispatch();
+    };
+  }(this));
+};
+asteroids.graphics.WaitForStartView.prototype.x = 0;
+asteroids.graphics.WaitForStartView.prototype.y = 0;
+asteroids.graphics.WaitForStartView.prototype.width = 4;
+asteroids.graphics.WaitForStartView.prototype.height = 4;
+asteroids.graphics.WaitForStartView.prototype.rotation = 0;
+asteroids.graphics.WaitForStartView.prototype.graphic = null;
+asteroids.graphics.WaitForStartView.prototype.gameOver = null;
+asteroids.graphics.WaitForStartView.prototype.clickToStart = null;
+asteroids.graphics.WaitForStartView.prototype.instructions = null;
+asteroids.graphics.WaitForStartView.prototype.click = null;
+asteroids.graphics.WaitForStartView.prototype.createGameOver = function() {
+  var l, s, x, y;
+  this.graphic.save();
+  this.graphic.beginPath();
+  this.graphic.font = "bold 32px Helvetica";
+  this.graphic.fillStyle = "#FFFFFF";
+  s = "ASTEROIDS";
+  l = this.graphic.measureText(s);
+  x = Math.floor((window.innerWidth * window.devicePixelRatio - l.width) / 2);
+  y = 175;
+  this.graphic.fillText(s, x, y);
+  this.graphic.fill();
+  this.graphic.restore();
+};
+asteroids.graphics.WaitForStartView.prototype.createClickToStart = function() {
+  var l, s, x, y;
+  this.graphic.save();
+  this.graphic.beginPath();
+  this.graphic.font = "bold 18px Helvetica";
+  this.graphic.fillStyle = "#FFFFFF";
+  s = "CLICK TO START";
+  l = this.graphic.measureText(s);
+  x = Math.floor((window.innerWidth * window.devicePixelRatio - l.width) / 2);
+  y = 225;
+  this.graphic.fillText(s, x, y);
+  this.graphic.fill();
+  this.graphic.restore();
+};
+asteroids.graphics.WaitForStartView.prototype.createInstructions = function() {
+  var l, s, x, y;
+  this.graphic.save();
+  this.graphic.beginPath();
+  this.graphic.font = "bold 14px Helvetica";
+  this.graphic.fillStyle = "#FFFFFF";
+  s = "CTRL-Z to Fire  ~  Arrow Keys to Move";
+  l = this.graphic.measureText(s);
+  x = 10;
+  y = window.innerHeight * window.devicePixelRatio - 20;
+  this.graphic.fillText(s, x, y);
+  this.graphic.fill();
+  this.graphic.restore();
+};
+asteroids.graphics.WaitForStartView.prototype.draw = function() {
+  this.gameOver();
+  this.clickToStart();
+  this.instructions();
+};
+goog.provide("asteroids.nodes.GunControlNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Audio");
+goog.require("asteroids.components.GunControls");
+goog.require("asteroids.components.Gun");
+goog.require("asteroids.components.Position");
+asteroids.nodes.GunControlNode = function() {
+  return asteroids.nodes.GunControlNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.GunControlNode, ash.core.Node);
+asteroids.nodes.GunControlNode.components = {audio:asteroids.components.Audio, control:asteroids.components.GunControls, gun:asteroids.components.Gun, position:asteroids.components.Position};
+asteroids.nodes.GunControlNode.prototype.control = null;
+asteroids.nodes.GunControlNode.prototype.gun = null;
+asteroids.nodes.GunControlNode.prototype.position = null;
+asteroids.nodes.GunControlNode.prototype.audio = null;
+goog.provide("asteroids.systems.GunControlSystem");
+goog.require("ash.tools.ListIteratingSystem");
+goog.require("asteroids.nodes.GunControlNode");
+asteroids.systems.GunControlSystem = function(_at_keyPoll, _at_creator) {
+  this.keyPoll = _at_keyPoll;
+  this.creator = _at_creator;
+  this.updateNode = goog.bind(this.updateNode, this);
+  asteroids.systems.GunControlSystem.superClass_.constructor.call(this, GunControlNode, this.updateNode);
+};
+goog.inherits(asteroids.systems.GunControlSystem, ash.tools.ListIteratingSystem);
+asteroids.systems.GunControlSystem.prototype.keyPoll = null;
+asteroids.systems.GunControlSystem.prototype.creator = null;
+asteroids.systems.GunControlSystem.prototype.updateNode = function(node, time) {
+  var control, gun, position;
+  control = node.control;
+  position = node.position;
+  gun = node.gun;
+  gun.shooting = this.keyPoll.isDown(control.trigger);
+  gun.timeSinceLastShot += time;
+  if (gun.shooting && gun.timeSinceLastShot >= gun.minimumShotInterval) {
+    this.creator.createUserBullet(gun, position);
+    gun.timeSinceLastShot = 0;
+  }
+};
+goog.provide("asteroids.nodes.RenderNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Display");
+asteroids.nodes.RenderNode = function() {
+  return asteroids.nodes.RenderNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.RenderNode, ash.core.Node);
+asteroids.nodes.RenderNode.components = {position:asteroids.components.Position, display:asteroids.components.Display};
+asteroids.nodes.RenderNode.prototype.position = null;
+asteroids.nodes.RenderNode.prototype.display = null;
+goog.provide("asteroids.systems.RenderSystem");
+goog.require("ash.core.System");
+goog.require("asteroids.nodes.RenderNode");
+asteroids.systems.RenderSystem = function(_at_graphic) {
+  this.graphic = _at_graphic;
+  this.update = goog.bind(this.update, this);
+};
+goog.inherits(asteroids.systems.RenderSystem, ash.core.System);
+asteroids.systems.RenderSystem.prototype.graphic = null;
+asteroids.systems.RenderSystem.prototype.nodes = null;
+asteroids.systems.RenderSystem.prototype.addToEngine = function(engine) {
+  var node;
+  this.nodes = engine.getNodeList(RenderNode);
+  node = this.nodes.head;
+  while (node) {
+    this.addToDisplay(node);
+    node = node.next;
+  }
+};
+asteroids.systems.RenderSystem.prototype.addToDisplay = function(node) {
+};
+asteroids.systems.RenderSystem.prototype.removeFromDisplay = function(node) {
+};
+asteroids.systems.RenderSystem.prototype.removeFromEngine = function(engine) {
+  this.nodes = null;
+};
+asteroids.systems.RenderSystem.prototype.update = function(time) {
+  var display, graphic, node, position;
+  this.graphic.save();
+  this.graphic.translate(0, 0);
+  this.graphic.rotate(0);
+  this.graphic.clearRect(0, 0, this.graphic.canvas.width, this.graphic.canvas.height);
+  node = this.nodes.head;
+  while (node) {
+    display = node.display;
+    graphic = display.graphic;
+    position = node.position;
+    graphic.x = position.position.x;
+    graphic.y = position.position.y;
+    graphic.rotation = position.rotation;
+    graphic.draw();
+    node = node.next;
+  }
+  this.graphic.restore();
+};
+goog.provide("asteroids.nodes.BulletAgeNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Bullet");
+asteroids.nodes.BulletAgeNode = function() {
+  return asteroids.nodes.BulletAgeNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.BulletAgeNode, ash.core.Node);
+asteroids.nodes.BulletAgeNode.components = {bullet:asteroids.components.Bullet};
+asteroids.nodes.BulletAgeNode.prototype.bullet = null;
+goog.provide("asteroids.systems.DeathThroesSystem");
+goog.require("ash.tools.ListIteratingSystem");
+goog.require("asteroids.nodes.DeathThroesNode");
+asteroids.systems.DeathThroesSystem = function(_at_creator) {
+  this.creator = _at_creator;
+  this.updateNode = goog.bind(this.updateNode, this);
+  asteroids.systems.DeathThroesSystem.superClass_.constructor.call(this, DeathThroesNode, this.updateNode);
+};
+goog.inherits(asteroids.systems.DeathThroesSystem, ash.tools.ListIteratingSystem);
+asteroids.systems.DeathThroesSystem.prototype.creator = null;
+asteroids.systems.DeathThroesSystem.prototype.updateNode = function(node, time) {
+  node.death.countdown -= time;
+  if (node.death.countdown <= 0) {
+    this.creator.destroyEntity(node.entity);
+  }
+};
+goog.provide("asteroids.nodes.SpaceshipNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Spaceship");
+goog.require("asteroids.components.Position");
+asteroids.nodes.SpaceshipNode = function() {
+  return asteroids.nodes.SpaceshipNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.SpaceshipNode, ash.core.Node);
+asteroids.nodes.SpaceshipNode.components = {spaceship:asteroids.components.Spaceship, position:asteroids.components.Position};
+asteroids.nodes.SpaceshipNode.prototype.spaceship = 0;
+asteroids.nodes.SpaceshipNode.prototype.position = 0;
+goog.provide("asteroids.systems.GameManager");
+goog.require("ash.core.System");
+goog.require("asteroids.nodes.GameNode");
+goog.require("asteroids.nodes.SpaceshipNode");
+goog.require("asteroids.nodes.AsteroidCollisionNode");
+goog.require("asteroids.nodes.BulletCollisionNode");
+goog.require("asteroids.ui.Point");
+asteroids.systems.GameManager = function(_at_creator, _at_config) {
+  this.creator = _at_creator;
+  this.config = _at_config;
+  this.update = goog.bind(this.update, this);
+};
+goog.inherits(asteroids.systems.GameManager, ash.core.System);
+asteroids.systems.GameManager.prototype.config = null;
+asteroids.systems.GameManager.prototype.creator = null;
+asteroids.systems.GameManager.prototype.gameNodes = null;
+asteroids.systems.GameManager.prototype.spaceships = null;
+asteroids.systems.GameManager.prototype.asteroids = null;
+asteroids.systems.GameManager.prototype.bullets = null;
+asteroids.systems.GameManager.prototype.addToEngine = function(engine) {
+  this.gameNodes = engine.getNodeList(GameNode);
+  this.spaceships = engine.getNodeList(SpaceshipNode);
+  this.asteroids = engine.getNodeList(AsteroidCollisionNode);
+  this.bullets = engine.getNodeList(BulletCollisionNode);
+};
+asteroids.systems.GameManager.prototype.update = function(time) {
+  var asteroid, asteroidCount, clearToAddSpaceship, i, newSpaceshipPosition, node, position, spaceship;
+  node = this.gameNodes.head;
+  if (node && node.state.playing) {
+    if (this.spaceships.empty) {
+      if (node.state.lives > 0) {
+        newSpaceshipPosition = new asteroids.nodes.BulletCollisionNode(this.config.width * .5, this.config.height * .5);
+        clearToAddSpaceship = true;
+        asteroid = this.asteroids.head;
+        while (asteroid) {
+          if (Point.distance(asteroid.position.position, newSpaceshipPosition) <= asteroid.collision.radius + 50) {
+            clearToAddSpaceship = false;
+            break;
+          }
+          asteroid = asteroid.next;
+        }
+        if (clearToAddSpaceship) {
+          this.creator.createSpaceship();
+        }
+      } else {
+        node.state.playing = false;
+        this.creator.createWaitForClick();
+      }
+    }
+    if (this.asteroids.empty && this.bullets.empty && !this.spaceships.empty) {
+      spaceship = this.spaceships.head;
+      node.state.level++;
+      asteroidCount = 2 + node.state.level;
+      i = 0;
+      while (i < asteroidCount) {
+        while (true) {
+          position = new asteroids.nodes.BulletCollisionNode(Math.random() * this.config.width, Math.random() * this.config.height);
+          if (!(Point.distance(position, spaceship.position.position) <= 80)) {
+            break;
+          }
+        }
+        this.creator.createAsteroid(30, position.x, position.y);
+        ++i;
+      }
+    }
+  }
+};
+asteroids.systems.GameManager.prototype.removeFromEngine = function(engine) {
+  this.gameNodes = null;
+  this.spaceships = null;
+  this.asteroids = null;
+  this.bullets = null;
+};
+goog.provide("asteroids.nodes.WaitForStartNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.WaitForStart");
+asteroids.nodes.WaitForStartNode = function() {
+  return asteroids.nodes.WaitForStartNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.WaitForStartNode, ash.core.Node);
+asteroids.nodes.WaitForStartNode.components = {wait:asteroids.components.WaitForStart};
+asteroids.nodes.WaitForStartNode.prototype.wait = null;
+goog.provide("asteroids.systems.WaitForStartSystem");
+goog.require("ash.core.System");
+goog.require("asteroids.nodes.WaitForStartNode");
+goog.require("asteroids.nodes.AsteroidCollisionNode");
+goog.require("asteroids.nodes.GameNode");
+asteroids.systems.WaitForStartSystem = function(_at_creator) {
+  this.creator = _at_creator;
+  this.update = goog.bind(this.update, this);
+};
+goog.inherits(asteroids.systems.WaitForStartSystem, ash.core.System);
+asteroids.systems.WaitForStartSystem.prototype.engine = null;
+asteroids.systems.WaitForStartSystem.prototype.creator = null;
+asteroids.systems.WaitForStartSystem.prototype.gameNodes = null;
+asteroids.systems.WaitForStartSystem.prototype.waitNodes = null;
+asteroids.systems.WaitForStartSystem.prototype.asteroids = null;
+asteroids.systems.WaitForStartSystem.prototype.addToEngine = function(engine) {
+  this.engine = engine;
+  this.waitNodes = engine.getNodeList(WaitForStartNode);
+  this.gameNodes = engine.getNodeList(GameNode);
+  this.asteroids = engine.getNodeList(AsteroidCollisionNode);
+};
+asteroids.systems.WaitForStartSystem.prototype.removeFromEngine = function(engine) {
+  this.waitNodes = null;
+  this.gameNodes = null;
+};
+asteroids.systems.WaitForStartSystem.prototype.update = function(time) {
+  var asteroid, game, node;
+  node = this.waitNodes.head;
+  game = this.gameNodes.head;
+  if (node && node.wait.startGame && game) {
+    asteroid = this.asteroids.head;
+    while (asteroid) {
+      this.creator.destroyEntity(asteroid.entity);
+      asteroid = asteroid.next;
+    }
+    game.state.setForStart();
+    node.wait.startGame = false;
+    this.engine.removeEntity(node.entity);
+  }
+};
+goog.provide("asteroids.GameConfig");
+asteroids.GameConfig = function() {
+};
+asteroids.GameConfig.prototype.width = 0;
+asteroids.GameConfig.prototype.height = 0;
+goog.provide("asteroids.systems.SystemPriorities");
+asteroids.systems.SystemPriorities = function() {
+};
+asteroids.systems.SystemPriorities.preUpdate = 1;
+asteroids.systems.SystemPriorities.update = 2;
+asteroids.systems.SystemPriorities.move = 3;
+asteroids.systems.SystemPriorities.resolveCollisions = 4;
+asteroids.systems.SystemPriorities.stateMachines = 5;
+asteroids.systems.SystemPriorities.animate = 6;
+asteroids.systems.SystemPriorities.render = 7;
+goog.provide("asteroids.systems.BulletAgeSystem");
+goog.require("ash.tools.ListIteratingSystem");
+goog.require("asteroids.nodes.BulletAgeNode");
+asteroids.systems.BulletAgeSystem = function(_at_creator) {
+  this.creator = _at_creator;
+  this.updateNode = goog.bind(this.updateNode, this);
+  asteroids.systems.BulletAgeSystem.superClass_.constructor.call(this, BulletAgeNode, this.updateNode);
+};
+goog.inherits(asteroids.systems.BulletAgeSystem, ash.tools.ListIteratingSystem);
+asteroids.systems.BulletAgeSystem.prototype.creator = null;
+asteroids.systems.BulletAgeSystem.prototype.updateNode = function(node, time) {
+  var bullet;
+  bullet = node.bullet;
+  bullet.lifeRemaining -= time;
+  if (bullet.lifeRemaining <= 0) {
+    this.creator.destroyEntity(node.entity);
+  }
+};
+goog.provide("asteroids.nodes.AnimationNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.Animation");
+asteroids.nodes.AnimationNode = function() {
+  return asteroids.nodes.AnimationNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.AnimationNode, ash.core.Node);
+asteroids.nodes.AnimationNode.components = {animation:asteroids.components.Animation};
+asteroids.nodes.AnimationNode.prototype.animation = null;
+goog.provide("asteroids.systems.AnimationSystem");
+goog.require("ash.tools.ListIteratingSystem");
+goog.require("asteroids.nodes.AnimationNode");
+asteroids.systems.AnimationSystem = function() {
+  this.updateNode = goog.bind(this.updateNode, this);
+  asteroids.systems.AnimationSystem.superClass_.constructor.call(this, AnimationNode, this.updateNode);
+};
+goog.inherits(asteroids.systems.AnimationSystem, ash.tools.ListIteratingSystem);
+asteroids.systems.AnimationSystem.prototype.updateNode = function(node, time) {
+  node.animation.animation.animate(time);
+};
+goog.provide("asteroids.nodes.MotionControlNode");
+goog.require("ash.core.Node");
+goog.require("asteroids.components.MotionControls");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Motion");
+asteroids.nodes.MotionControlNode = function() {
+  return asteroids.nodes.MotionControlNode.superClass_.constructor.apply(this, arguments);
+};
+goog.inherits(asteroids.nodes.MotionControlNode, ash.core.Node);
+asteroids.nodes.MotionControlNode.components = {control:asteroids.components.MotionControls, position:asteroids.components.Position, motion:asteroids.components.Motion};
+asteroids.nodes.MotionControlNode.prototype.control = null;
+asteroids.nodes.MotionControlNode.prototype.position = null;
+asteroids.nodes.MotionControlNode.prototype.motion = null;
+goog.provide("asteroids.systems.MotionControlSystem");
+goog.require("ash.tools.ListIteratingSystem");
+goog.require("asteroids.nodes.MotionControlNode");
+asteroids.systems.MotionControlSystem = function(_at_keyPoll) {
+  this.keyPoll = _at_keyPoll;
+  this.updateNode = goog.bind(this.updateNode, this);
+  asteroids.systems.MotionControlSystem.superClass_.constructor.call(this, MotionControlNode, this.updateNode);
+};
+goog.inherits(asteroids.systems.MotionControlSystem, ash.tools.ListIteratingSystem);
+asteroids.systems.MotionControlSystem.prototype.keyPoll = null;
+asteroids.systems.MotionControlSystem.prototype.updateNode = function(node, time) {
+  var control, left, motion, position, right;
+  control = node.control;
+  position = node.position;
+  motion = node.motion;
+  left = this.keyPoll.isDown(control.left);
+  right = this.keyPoll.isDown(control.right);
+  if (left) {
+    position.rotation -= control.rotationRate * time;
+  }
+  if (right) {
+    position.rotation += control.rotationRate * time;
+  }
+  if (this.keyPoll.isDown(control.accelerate)) {
+    motion.velocity.x += Math.cos(position.rotation) * control.accelerationRate * time;
+    motion.velocity.y += Math.sin(position.rotation) * control.accelerationRate * time;
+  }
+};
+goog.provide("ash.ext.Dictionary");
 ash.ext.Dictionary = function() {
 };
-ash.signals = {};
+goog.provide("ash.signals.Signal2");
 ash.signals.Signal2 = function() {
   return ash.signals.Signal2.superClass_.constructor.apply(this, arguments);
 };
 goog.inherits(ash.signals.Signal2, ash.signals.SignalBase);
-ash.signals.Signal2.prototype.dispatch = function(a, b) {
-  var c;
+ash.signals.Signal2.prototype.dispatch = function($1, $2) {
+  var node;
   this.startDispatch();
-  for (c = this.head;c;) {
-    c.listener(a, b), c.once && this.remove(c.listener), c = c.next;
+  node = this.head;
+  while (node) {
+    node.listener($1, $2);
+    if (node.once) {
+      this.remove(node.listener);
+    }
+    node = node.next;
   }
   return this.endDispatch();
 };
+goog.provide("ash.ext.Util");
 ash.ext.Util = function() {
 };
-ash.ext.Util.getClassName = function(a) {
-  var b;
-  return null != (b = a.className) ? b : a.name;
+ash.ext.Util.getClassName = function(klass) {
+  var _ref;
+  return (_ref = klass.className) != null ? _ref : klass.name;
 };
-ash.core = {};
-ash.core.Entity = function(a) {
-  null == a && (a = "");
+goog.provide("ash.core.Entity");
+goog.require("ash.signals.Signal2");
+goog.require("ash.ext.Dictionary");
+goog.require("ash.ext.Util");
+ash.core.Entity = function(name) {
+  if (name == null) {
+    name = "";
+  }
   Object.defineProperties(this, {name:{get:function() {
     return this._name;
-  }, set:function(a) {
-    var c;
-    if (this._name !== a) {
-      return c = this._name, this._name = a, this.nameChanged.dispatch(this, c);
+  }, set:function(value) {
+    var previous;
+    if (this._name !== value) {
+      previous = this._name;
+      this._name = value;
+      return this.nameChanged.dispatch(this, previous);
     }
   }}});
   this.componentAdded = new ash.ext.Dictionary;
   this.componentRemoved = new ash.ext.Dictionary;
   this.nameChanged = new ash.ext.Dictionary;
   this.components = new ash.signals.Signal2;
-  "" !== a ? (null == ash.core.Entity.nameCount[a] && (ash.core.Entity.nameCount[a] = 0), this._name = a + ++ash.core.Entity.nameCount[a]) : this._name = "_entity" + ++nameCount;
+  if (name !== "") {
+    if (ash.core.Entity.nameCount[name] == null) {
+      ash.core.Entity.nameCount[name] = 0;
+    }
+    this._name = name + ++ash.core.Entity.nameCount[name];
+  } else {
+    this._name = "_entity" + ++nameCount;
+  }
 };
 var nameCount;
 ash.core.Entity.nameCount = {};
@@ -709,1055 +2129,47 @@ ash.core.Entity.prototype.nameChanged = null;
 ash.core.Entity.prototype.previous = null;
 ash.core.Entity.prototype.next = null;
 ash.core.Entity.prototype.components = null;
-ash.core.Entity.prototype.add = function(a, b) {
-  null == b && (b = a.constructor);
-  Util.getClassName(b) in this.components && this.remove(b);
-  this.components[Util.getClassName(b)] = a;
-  this.componentAdded.dispatch(this, b);
+ash.core.Entity.prototype.add = function(component, componentClass) {
+  if (componentClass == null) {
+    componentClass = component.constructor;
+  }
+  if (Util.getClassName(componentClass) in this.components) {
+    this.remove(componentClass);
+  }
+  this.components[Util.getClassName(componentClass)] = component;
+  this.componentAdded.dispatch(this, componentClass);
   return this;
 };
-ash.core.Entity.prototype.remove = function(a) {
-  var b;
-  b = null != Util.getClassName(a) ? Util.getClassName(a) : a;
-  return (a = this.components[b]) ? (delete this.components[b], this.componentRemoved.dispatch(this, b), a) : null;
+ash.core.Entity.prototype.remove = function(componentClass) {
+  var component, name;
+  name = Util.getClassName(componentClass) != null ? Util.getClassName(componentClass) : componentClass;
+  component = this.components[name];
+  if (component) {
+    delete this.components[name];
+    this.componentRemoved.dispatch(this, name);
+    return component;
+  }
+  return null;
 };
-ash.core.Entity.prototype.get = function(a) {
-  return this.components[Util.getClassName(a)];
+ash.core.Entity.prototype.get = function(componentClass) {
+  return this.components[Util.getClassName(componentClass)];
 };
 ash.core.Entity.prototype.getAll = function() {
-  var a, b, c, d, e;
-  b = [];
-  e = this.components;
-  c = 0;
-  for (d = e.length;c < d;c++) {
-    a = e[c], b.push(a);
+  var component, componentArray, _i, _len, _ref;
+  componentArray = [];
+  _ref = this.components;
+  for (_i = 0, _len = _ref.length;_i < _len;_i++) {
+    component = _ref[_i];
+    componentArray.push(component);
   }
-  return b;
+  return componentArray;
 };
-ash.core.Entity.prototype.has = function(a) {
-  return Util.getClassName(a) in this.components;
+ash.core.Entity.prototype.has = function(componentClass) {
+  return Util.getClassName(componentClass) in this.components;
 };
-ash.fsm.SystemSingletonProvider = function(a) {
-  this.componentType = a;
-};
-ash.fsm.SystemSingletonProvider.prototype.componentType = null;
-ash.fsm.SystemSingletonProvider.prototype.instance = null;
-ash.fsm.SystemSingletonProvider.prototype.systemPriority = 0;
-ash.fsm.SystemSingletonProvider.prototype.getSystem = function() {
-  this.instance || (this.instance = new this.componentType);
-  return this.instance;
-};
-Object.defineProperties(ash.fsm.SystemSingletonProvider.prototype, {identifier:{get:function() {
-  return this.getSystem();
-}}, priority:{get:function() {
-  return this.systemPriority;
-}, set:function(a) {
-  return this.systemPriority = a;
-}}});
-ash.fsm.SystemInstanceProvider = function(a) {
-  this.instance = a;
-};
-ash.fsm.SystemInstanceProvider.prototype.instance = null;
-ash.fsm.SystemInstanceProvider.prototype.systemPriority = 0;
-ash.fsm.SystemInstanceProvider.prototype.getSystem = function() {
-  return this.instance;
-};
-Object.defineProperties(ash.fsm.SystemInstanceProvider.prototype, {identifier:{get:function() {
-  return this.instance;
-}}, priority:{get:function() {
-  return this.systemPriority;
-}, set:function(a) {
-  return this.systemPriority = a;
-}}});
-ash.fsm.StateSystemMapping = function(a, b) {
-  this.creatingState = a;
-  this.provider = b;
-};
-ash.fsm.StateSystemMapping.prototype.creatingState = null;
-ash.fsm.StateSystemMapping.prototype.provider = null;
-ash.fsm.StateSystemMapping.prototype.withPriority = function(a) {
-  this.provider.priority = a;
-  return this;
-};
-ash.fsm.StateSystemMapping.prototype.addInstance = function(a) {
-  return creatingState.addInstance(a);
-};
-ash.fsm.StateSystemMapping.prototype.addSingleton = function(a) {
-  return creatingState.addSingleton(a);
-};
-ash.fsm.StateSystemMapping.prototype.addMethod = function(a) {
-  return creatingState.addMethod(a);
-};
-ash.fsm.StateSystemMapping.prototype.addProvider = function(a) {
-  return creatingState.addProvider(a);
-};
-ash.fsm.DynamicSystemProvider = function(a) {
-  this.method = a;
-};
-ash.fsm.DynamicSystemProvider.prototype.method = function() {
-};
-ash.fsm.DynamicSystemProvider.prototype.systemPriority = 0;
-ash.fsm.DynamicSystemProvider.prototype.getSystem = function() {
-  return this.method();
-};
-Object.defineProperties(ash.fsm.DynamicSystemProvider.prototype, {identifier:{get:function() {
-  return this.method;
-}}, priority:{get:function() {
-  return this.systemPriority;
-}, set:function(a) {
-  return this.systemPriority = a;
-}}});
-ash.fsm.EngineState = function() {
-  this.providers = [];
-};
-ash.fsm.EngineState.prototype.providers = null;
-ash.fsm.EngineState.prototype.addInstance = function(a) {
-  return this.addProvider(new ash.fsm.DynamicSystemProvider(a));
-};
-ash.fsm.EngineState.prototype.addSingleton = function(a) {
-  return this.addProvider(new ash.fsm.StateSystemMapping(a));
-};
-ash.fsm.EngineState.prototype.addMethod = function(a) {
-  return this.addProvider(new ash.fsm.SystemInstanceProvider(a));
-};
-ash.fsm.EngineState.prototype.addProvider = function(a) {
-  var b;
-  b = new ash.fsm.SystemSingletonProvider(this, a);
-  this.providers.push(a);
-  return b;
-};
-goog.dom = {};
-goog.dom.NodeType = {ELEMENT:1, ATTRIBUTE:2, TEXT:3, CDATA_SECTION:4, ENTITY_REFERENCE:5, ENTITY:6, PROCESSING_INSTRUCTION:7, COMMENT:8, DOCUMENT:9, DOCUMENT_TYPE:10, DOCUMENT_FRAGMENT:11, NOTATION:12};
-goog.debug = {};
-goog.debug.Error = function(a) {
-  if (Error.captureStackTrace) {
-    Error.captureStackTrace(this, goog.debug.Error);
-  } else {
-    var b = Error().stack;
-    b && (this.stack = b);
-  }
-  a && (this.message = String(a));
-  this.reportErrorToServer = !0;
-};
-goog.inherits(goog.debug.Error, Error);
-goog.debug.Error.prototype.name = "CustomError";
-goog.string = {};
-goog.string.DETECT_DOUBLE_ESCAPING = !1;
-goog.string.FORCE_NON_DOM_HTML_UNESCAPING = !1;
-goog.string.Unicode = {NBSP:"\u00a0"};
-goog.string.startsWith = function(a, b) {
-  return 0 == a.lastIndexOf(b, 0);
-};
-goog.string.endsWith = function(a, b) {
-  var c = a.length - b.length;
-  return 0 <= c && a.indexOf(b, c) == c;
-};
-goog.string.caseInsensitiveStartsWith = function(a, b) {
-  return 0 == goog.string.caseInsensitiveCompare(b, a.substr(0, b.length));
-};
-goog.string.caseInsensitiveEndsWith = function(a, b) {
-  return 0 == goog.string.caseInsensitiveCompare(b, a.substr(a.length - b.length, b.length));
-};
-goog.string.caseInsensitiveEquals = function(a, b) {
-  return a.toLowerCase() == b.toLowerCase();
-};
-goog.string.subs = function(a, b) {
-  for (var c = a.split("%s"), d = "", e = Array.prototype.slice.call(arguments, 1);e.length && 1 < c.length;) {
-    d += c.shift() + e.shift();
-  }
-  return d + c.join("%s");
-};
-goog.string.collapseWhitespace = function(a) {
-  return a.replace(/[\s\xa0]+/g, " ").replace(/^\s+|\s+$/g, "");
-};
-goog.string.isEmptyOrWhitespace = function(a) {
-  return /^[\s\xa0]*$/.test(a);
-};
-goog.string.isEmptyString = function(a) {
-  return 0 == a.length;
-};
-goog.string.isEmpty = goog.string.isEmptyOrWhitespace;
-goog.string.isEmptyOrWhitespaceSafe = function(a) {
-  return goog.string.isEmptyOrWhitespace(goog.string.makeSafe(a));
-};
-goog.string.isEmptySafe = goog.string.isEmptyOrWhitespaceSafe;
-goog.string.isBreakingWhitespace = function(a) {
-  return !/[^\t\n\r ]/.test(a);
-};
-goog.string.isAlpha = function(a) {
-  return !/[^a-zA-Z]/.test(a);
-};
-goog.string.isNumeric = function(a) {
-  return !/[^0-9]/.test(a);
-};
-goog.string.isAlphaNumeric = function(a) {
-  return !/[^a-zA-Z0-9]/.test(a);
-};
-goog.string.isSpace = function(a) {
-  return " " == a;
-};
-goog.string.isUnicodeChar = function(a) {
-  return 1 == a.length && " " <= a && "~" >= a || "\u0080" <= a && "\ufffd" >= a;
-};
-goog.string.stripNewlines = function(a) {
-  return a.replace(/(\r\n|\r|\n)+/g, " ");
-};
-goog.string.canonicalizeNewlines = function(a) {
-  return a.replace(/(\r\n|\r|\n)/g, "\n");
-};
-goog.string.normalizeWhitespace = function(a) {
-  return a.replace(/\xa0|\s/g, " ");
-};
-goog.string.normalizeSpaces = function(a) {
-  return a.replace(/\xa0|[ \t]+/g, " ");
-};
-goog.string.collapseBreakingSpaces = function(a) {
-  return a.replace(/[\t\r\n ]+/g, " ").replace(/^[\t\r\n ]+|[\t\r\n ]+$/g, "");
-};
-goog.string.trim = goog.TRUSTED_SITE && String.prototype.trim ? function(a) {
-  return a.trim();
-} : function(a) {
-  return a.replace(/^[\s\xa0]+|[\s\xa0]+$/g, "");
-};
-goog.string.trimLeft = function(a) {
-  return a.replace(/^[\s\xa0]+/, "");
-};
-goog.string.trimRight = function(a) {
-  return a.replace(/[\s\xa0]+$/, "");
-};
-goog.string.caseInsensitiveCompare = function(a, b) {
-  var c = String(a).toLowerCase(), d = String(b).toLowerCase();
-  return c < d ? -1 : c == d ? 0 : 1;
-};
-goog.string.numerateCompareRegExp_ = /(\.\d+)|(\d+)|(\D+)/g;
-goog.string.numerateCompare = function(a, b) {
-  if (a == b) {
-    return 0;
-  }
-  if (!a) {
-    return -1;
-  }
-  if (!b) {
-    return 1;
-  }
-  for (var c = a.toLowerCase().match(goog.string.numerateCompareRegExp_), d = b.toLowerCase().match(goog.string.numerateCompareRegExp_), e = Math.min(c.length, d.length), f = 0;f < e;f++) {
-    var g = c[f], h = d[f];
-    if (g != h) {
-      return c = parseInt(g, 10), !isNaN(c) && (d = parseInt(h, 10), !isNaN(d) && c - d) ? c - d : g < h ? -1 : 1;
-    }
-  }
-  return c.length != d.length ? c.length - d.length : a < b ? -1 : 1;
-};
-goog.string.urlEncode = function(a) {
-  return encodeURIComponent(String(a));
-};
-goog.string.urlDecode = function(a) {
-  return decodeURIComponent(a.replace(/\+/g, " "));
-};
-goog.string.newLineToBr = function(a, b) {
-  return a.replace(/(\r\n|\r|\n)/g, b ? "<br />" : "<br>");
-};
-goog.string.htmlEscape = function(a, b) {
-  if (b) {
-    a = a.replace(goog.string.AMP_RE_, "&amp;").replace(goog.string.LT_RE_, "&lt;").replace(goog.string.GT_RE_, "&gt;").replace(goog.string.QUOT_RE_, "&quot;").replace(goog.string.SINGLE_QUOTE_RE_, "&#39;").replace(goog.string.NULL_RE_, "&#0;"), goog.string.DETECT_DOUBLE_ESCAPING && (a = a.replace(goog.string.E_RE_, "&#101;"));
-  } else {
-    if (!goog.string.ALL_RE_.test(a)) {
-      return a;
-    }
-    -1 != a.indexOf("&") && (a = a.replace(goog.string.AMP_RE_, "&amp;"));
-    -1 != a.indexOf("<") && (a = a.replace(goog.string.LT_RE_, "&lt;"));
-    -1 != a.indexOf(">") && (a = a.replace(goog.string.GT_RE_, "&gt;"));
-    -1 != a.indexOf('"') && (a = a.replace(goog.string.QUOT_RE_, "&quot;"));
-    -1 != a.indexOf("'") && (a = a.replace(goog.string.SINGLE_QUOTE_RE_, "&#39;"));
-    -1 != a.indexOf("\x00") && (a = a.replace(goog.string.NULL_RE_, "&#0;"));
-    goog.string.DETECT_DOUBLE_ESCAPING && -1 != a.indexOf("e") && (a = a.replace(goog.string.E_RE_, "&#101;"));
-  }
-  return a;
-};
-goog.string.AMP_RE_ = /&/g;
-goog.string.LT_RE_ = /</g;
-goog.string.GT_RE_ = />/g;
-goog.string.QUOT_RE_ = /"/g;
-goog.string.SINGLE_QUOTE_RE_ = /'/g;
-goog.string.NULL_RE_ = /\x00/g;
-goog.string.E_RE_ = /e/g;
-goog.string.ALL_RE_ = goog.string.DETECT_DOUBLE_ESCAPING ? /[\x00&<>"'e]/ : /[\x00&<>"']/;
-goog.string.unescapeEntities = function(a) {
-  return goog.string.contains(a, "&") ? !goog.string.FORCE_NON_DOM_HTML_UNESCAPING && "document" in goog.global ? goog.string.unescapeEntitiesUsingDom_(a) : goog.string.unescapePureXmlEntities_(a) : a;
-};
-goog.string.unescapeEntitiesWithDocument = function(a, b) {
-  return goog.string.contains(a, "&") ? goog.string.unescapeEntitiesUsingDom_(a, b) : a;
-};
-goog.string.unescapeEntitiesUsingDom_ = function(a, b) {
-  var c = {"&amp;":"&", "&lt;":"<", "&gt;":">", "&quot;":'"'}, d;
-  d = b ? b.createElement("div") : goog.global.document.createElement("div");
-  return a.replace(goog.string.HTML_ENTITY_PATTERN_, function(a, b) {
-    var g = c[a];
-    if (g) {
-      return g;
-    }
-    if ("#" == b.charAt(0)) {
-      var h = Number("0" + b.substr(1));
-      isNaN(h) || (g = String.fromCharCode(h));
-    }
-    g || (d.innerHTML = a + " ", g = d.firstChild.nodeValue.slice(0, -1));
-    return c[a] = g;
-  });
-};
-goog.string.unescapePureXmlEntities_ = function(a) {
-  return a.replace(/&([^;]+);/g, function(a, c) {
-    switch(c) {
-      case "amp":
-        return "&";
-      case "lt":
-        return "<";
-      case "gt":
-        return ">";
-      case "quot":
-        return '"';
-      default:
-        if ("#" == c.charAt(0)) {
-          var d = Number("0" + c.substr(1));
-          if (!isNaN(d)) {
-            return String.fromCharCode(d);
-          }
-        }
-        return a;
-    }
-  });
-};
-goog.string.HTML_ENTITY_PATTERN_ = /&([^;\s<&]+);?/g;
-goog.string.whitespaceEscape = function(a, b) {
-  return goog.string.newLineToBr(a.replace(/  /g, " &#160;"), b);
-};
-goog.string.preserveSpaces = function(a) {
-  return a.replace(/(^|[\n ]) /g, "$1" + goog.string.Unicode.NBSP);
-};
-goog.string.stripQuotes = function(a, b) {
-  for (var c = b.length, d = 0;d < c;d++) {
-    var e = 1 == c ? b : b.charAt(d);
-    if (a.charAt(0) == e && a.charAt(a.length - 1) == e) {
-      return a.substring(1, a.length - 1);
-    }
-  }
-  return a;
-};
-goog.string.truncate = function(a, b, c) {
-  c && (a = goog.string.unescapeEntities(a));
-  a.length > b && (a = a.substring(0, b - 3) + "...");
-  c && (a = goog.string.htmlEscape(a));
-  return a;
-};
-goog.string.truncateMiddle = function(a, b, c, d) {
-  c && (a = goog.string.unescapeEntities(a));
-  if (d && a.length > b) {
-    d > b && (d = b);
-    var e = a.length - d;
-    a = a.substring(0, b - d) + "..." + a.substring(e);
-  } else {
-    a.length > b && (d = Math.floor(b / 2), e = a.length - d, a = a.substring(0, d + b % 2) + "..." + a.substring(e));
-  }
-  c && (a = goog.string.htmlEscape(a));
-  return a;
-};
-goog.string.specialEscapeChars_ = {"\x00":"\\0", "\b":"\\b", "\f":"\\f", "\n":"\\n", "\r":"\\r", "\t":"\\t", "\x0B":"\\x0B", '"':'\\"', "\\":"\\\\"};
-goog.string.jsEscapeCache_ = {"'":"\\'"};
-goog.string.quote = function(a) {
-  a = String(a);
-  if (a.quote) {
-    return a.quote();
-  }
-  for (var b = ['"'], c = 0;c < a.length;c++) {
-    var d = a.charAt(c), e = d.charCodeAt(0);
-    b[c + 1] = goog.string.specialEscapeChars_[d] || (31 < e && 127 > e ? d : goog.string.escapeChar(d));
-  }
-  b.push('"');
-  return b.join("");
-};
-goog.string.escapeString = function(a) {
-  for (var b = [], c = 0;c < a.length;c++) {
-    b[c] = goog.string.escapeChar(a.charAt(c));
-  }
-  return b.join("");
-};
-goog.string.escapeChar = function(a) {
-  if (a in goog.string.jsEscapeCache_) {
-    return goog.string.jsEscapeCache_[a];
-  }
-  if (a in goog.string.specialEscapeChars_) {
-    return goog.string.jsEscapeCache_[a] = goog.string.specialEscapeChars_[a];
-  }
-  var b = a, c = a.charCodeAt(0);
-  if (31 < c && 127 > c) {
-    b = a;
-  } else {
-    if (256 > c) {
-      if (b = "\\x", 16 > c || 256 < c) {
-        b += "0";
-      }
-    } else {
-      b = "\\u", 4096 > c && (b += "0");
-    }
-    b += c.toString(16).toUpperCase();
-  }
-  return goog.string.jsEscapeCache_[a] = b;
-};
-goog.string.contains = function(a, b) {
-  return -1 != a.indexOf(b);
-};
-goog.string.caseInsensitiveContains = function(a, b) {
-  return goog.string.contains(a.toLowerCase(), b.toLowerCase());
-};
-goog.string.countOf = function(a, b) {
-  return a && b ? a.split(b).length - 1 : 0;
-};
-goog.string.removeAt = function(a, b, c) {
-  var d = a;
-  0 <= b && b < a.length && 0 < c && (d = a.substr(0, b) + a.substr(b + c, a.length - b - c));
-  return d;
-};
-goog.string.remove = function(a, b) {
-  var c = new RegExp(goog.string.regExpEscape(b), "");
-  return a.replace(c, "");
-};
-goog.string.removeAll = function(a, b) {
-  var c = new RegExp(goog.string.regExpEscape(b), "g");
-  return a.replace(c, "");
-};
-goog.string.regExpEscape = function(a) {
-  return String(a).replace(/([-()\[\]{}+?*.$\^|,:#<!\\])/g, "\\$1").replace(/\x08/g, "\\x08");
-};
-goog.string.repeat = function(a, b) {
-  return Array(b + 1).join(a);
-};
-goog.string.padNumber = function(a, b, c) {
-  a = goog.isDef(c) ? a.toFixed(c) : String(a);
-  c = a.indexOf(".");
-  -1 == c && (c = a.length);
-  return goog.string.repeat("0", Math.max(0, b - c)) + a;
-};
-goog.string.makeSafe = function(a) {
-  return null == a ? "" : String(a);
-};
-goog.string.buildString = function(a) {
-  return Array.prototype.join.call(arguments, "");
-};
-goog.string.getRandomString = function() {
-  return Math.floor(2147483648 * Math.random()).toString(36) + Math.abs(Math.floor(2147483648 * Math.random()) ^ goog.now()).toString(36);
-};
-goog.string.compareVersions = function(a, b) {
-  for (var c = 0, d = goog.string.trim(String(a)).split("."), e = goog.string.trim(String(b)).split("."), f = Math.max(d.length, e.length), g = 0;0 == c && g < f;g++) {
-    var h = d[g] || "", k = e[g] || "", l = /(\d*)(\D*)/g, p = /(\d*)(\D*)/g;
-    do {
-      var m = l.exec(h) || ["", "", ""], n = p.exec(k) || ["", "", ""];
-      if (0 == m[0].length && 0 == n[0].length) {
-        break;
-      }
-      var c = 0 == m[1].length ? 0 : parseInt(m[1], 10), q = 0 == n[1].length ? 0 : parseInt(n[1], 10), c = goog.string.compareElements_(c, q) || goog.string.compareElements_(0 == m[2].length, 0 == n[2].length) || goog.string.compareElements_(m[2], n[2]);
-    } while (0 == c);
-  }
-  return c;
-};
-goog.string.compareElements_ = function(a, b) {
-  return a < b ? -1 : a > b ? 1 : 0;
-};
-goog.string.HASHCODE_MAX_ = 4294967296;
-goog.string.hashCode = function(a) {
-  for (var b = 0, c = 0;c < a.length;++c) {
-    b = 31 * b + a.charCodeAt(c), b %= goog.string.HASHCODE_MAX_;
-  }
-  return b;
-};
-goog.string.uniqueStringCounter_ = 2147483648 * Math.random() | 0;
-goog.string.createUniqueString = function() {
-  return "goog_" + goog.string.uniqueStringCounter_++;
-};
-goog.string.toNumber = function(a) {
-  var b = Number(a);
-  return 0 == b && goog.string.isEmptyOrWhitespace(a) ? NaN : b;
-};
-goog.string.isLowerCamelCase = function(a) {
-  return /^[a-z]+([A-Z][a-z]*)*$/.test(a);
-};
-goog.string.isUpperCamelCase = function(a) {
-  return /^([A-Z][a-z]*)+$/.test(a);
-};
-goog.string.toCamelCase = function(a) {
-  return String(a).replace(/\-([a-z])/g, function(a, c) {
-    return c.toUpperCase();
-  });
-};
-goog.string.toSelectorCase = function(a) {
-  return String(a).replace(/([A-Z])/g, "-$1").toLowerCase();
-};
-goog.string.toTitleCase = function(a, b) {
-  var c = goog.isString(b) ? goog.string.regExpEscape(b) : "\\s";
-  return a.replace(new RegExp("(^" + (c ? "|[" + c + "]+" : "") + ")([a-z])", "g"), function(a, b, c) {
-    return b + c.toUpperCase();
-  });
-};
-goog.string.capitalize = function(a) {
-  return String(a.charAt(0)).toUpperCase() + String(a.substr(1)).toLowerCase();
-};
-goog.string.parseInt = function(a) {
-  isFinite(a) && (a = String(a));
-  return goog.isString(a) ? /^\s*-?0x/i.test(a) ? parseInt(a, 16) : parseInt(a, 10) : NaN;
-};
-goog.string.splitLimit = function(a, b, c) {
-  a = a.split(b);
-  for (var d = [];0 < c && a.length;) {
-    d.push(a.shift()), c--;
-  }
-  a.length && d.push(a.join(b));
-  return d;
-};
-goog.string.editDistance = function(a, b) {
-  var c = [], d = [];
-  if (a == b) {
-    return 0;
-  }
-  if (!a.length || !b.length) {
-    return Math.max(a.length, b.length);
-  }
-  for (var e = 0;e < b.length + 1;e++) {
-    c[e] = e;
-  }
-  for (e = 0;e < a.length;e++) {
-    d[0] = e + 1;
-    for (var f = 0;f < b.length;f++) {
-      d[f + 1] = Math.min(d[f] + 1, c[f + 1] + 1, c[f] + (a[e] != b[f]));
-    }
-    for (f = 0;f < c.length;f++) {
-      c[f] = d[f];
-    }
-  }
-  return d[b.length];
-};
-goog.asserts = {};
-goog.asserts.ENABLE_ASSERTS = goog.DEBUG;
-goog.asserts.AssertionError = function(a, b) {
-  b.unshift(a);
-  goog.debug.Error.call(this, goog.string.subs.apply(null, b));
-  b.shift();
-  this.messagePattern = a;
-};
-goog.inherits(goog.asserts.AssertionError, goog.debug.Error);
-goog.asserts.AssertionError.prototype.name = "AssertionError";
-goog.asserts.DEFAULT_ERROR_HANDLER = function(a) {
-  throw a;
-};
-goog.asserts.errorHandler_ = goog.asserts.DEFAULT_ERROR_HANDLER;
-goog.asserts.doAssertFailure_ = function(a, b, c, d) {
-  var e = "Assertion failed";
-  if (c) {
-    var e = e + (": " + c), f = d
-  } else {
-    a && (e += ": " + a, f = b);
-  }
-  a = new goog.asserts.AssertionError("" + e, f || []);
-  goog.asserts.errorHandler_(a);
-};
-goog.asserts.setErrorHandler = function(a) {
-  goog.asserts.ENABLE_ASSERTS && (goog.asserts.errorHandler_ = a);
-};
-goog.asserts.assert = function(a, b, c) {
-  goog.asserts.ENABLE_ASSERTS && !a && goog.asserts.doAssertFailure_("", null, b, Array.prototype.slice.call(arguments, 2));
-  return a;
-};
-goog.asserts.fail = function(a, b) {
-  goog.asserts.ENABLE_ASSERTS && goog.asserts.errorHandler_(new goog.asserts.AssertionError("Failure" + (a ? ": " + a : ""), Array.prototype.slice.call(arguments, 1)));
-};
-goog.asserts.assertNumber = function(a, b, c) {
-  goog.asserts.ENABLE_ASSERTS && !goog.isNumber(a) && goog.asserts.doAssertFailure_("Expected number but got %s: %s.", [goog.typeOf(a), a], b, Array.prototype.slice.call(arguments, 2));
-  return a;
-};
-goog.asserts.assertString = function(a, b, c) {
-  goog.asserts.ENABLE_ASSERTS && !goog.isString(a) && goog.asserts.doAssertFailure_("Expected string but got %s: %s.", [goog.typeOf(a), a], b, Array.prototype.slice.call(arguments, 2));
-  return a;
-};
-goog.asserts.assertFunction = function(a, b, c) {
-  goog.asserts.ENABLE_ASSERTS && !goog.isFunction(a) && goog.asserts.doAssertFailure_("Expected function but got %s: %s.", [goog.typeOf(a), a], b, Array.prototype.slice.call(arguments, 2));
-  return a;
-};
-goog.asserts.assertObject = function(a, b, c) {
-  goog.asserts.ENABLE_ASSERTS && !goog.isObject(a) && goog.asserts.doAssertFailure_("Expected object but got %s: %s.", [goog.typeOf(a), a], b, Array.prototype.slice.call(arguments, 2));
-  return a;
-};
-goog.asserts.assertArray = function(a, b, c) {
-  goog.asserts.ENABLE_ASSERTS && !goog.isArray(a) && goog.asserts.doAssertFailure_("Expected array but got %s: %s.", [goog.typeOf(a), a], b, Array.prototype.slice.call(arguments, 2));
-  return a;
-};
-goog.asserts.assertBoolean = function(a, b, c) {
-  goog.asserts.ENABLE_ASSERTS && !goog.isBoolean(a) && goog.asserts.doAssertFailure_("Expected boolean but got %s: %s.", [goog.typeOf(a), a], b, Array.prototype.slice.call(arguments, 2));
-  return a;
-};
-goog.asserts.assertElement = function(a, b, c) {
-  !goog.asserts.ENABLE_ASSERTS || goog.isObject(a) && a.nodeType == goog.dom.NodeType.ELEMENT || goog.asserts.doAssertFailure_("Expected Element but got %s: %s.", [goog.typeOf(a), a], b, Array.prototype.slice.call(arguments, 2));
-  return a;
-};
-goog.asserts.assertInstanceof = function(a, b, c, d) {
-  !goog.asserts.ENABLE_ASSERTS || a instanceof b || goog.asserts.doAssertFailure_("Expected instanceof %s but got %s.", [goog.asserts.getType_(b), goog.asserts.getType_(a)], c, Array.prototype.slice.call(arguments, 3));
-  return a;
-};
-goog.asserts.assertObjectPrototypeIsIntact = function() {
-  for (var a in Object.prototype) {
-    goog.asserts.fail(a + " should not be enumerable in Object.prototype.");
-  }
-};
-goog.asserts.getType_ = function(a) {
-  return a instanceof Function ? a.displayName || a.name || "unknown type name" : a instanceof Object ? a.constructor.displayName || a.constructor.name || Object.prototype.toString.call(a) : null === a ? "null" : typeof a;
-};
-goog.array = {};
-goog.NATIVE_ARRAY_PROTOTYPES = goog.TRUSTED_SITE;
-goog.array.ASSUME_NATIVE_FUNCTIONS = !1;
-goog.array.peek = function(a) {
-  return a[a.length - 1];
-};
-goog.array.last = goog.array.peek;
-goog.array.ARRAY_PROTOTYPE_ = Array.prototype;
-goog.array.indexOf = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.indexOf) ? function(a, b, c) {
-  goog.asserts.assert(null != a.length);
-  return goog.array.ARRAY_PROTOTYPE_.indexOf.call(a, b, c);
-} : function(a, b, c) {
-  c = null == c ? 0 : 0 > c ? Math.max(0, a.length + c) : c;
-  if (goog.isString(a)) {
-    return goog.isString(b) && 1 == b.length ? a.indexOf(b, c) : -1;
-  }
-  for (;c < a.length;c++) {
-    if (c in a && a[c] === b) {
-      return c;
-    }
-  }
-  return -1;
-};
-goog.array.lastIndexOf = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.lastIndexOf) ? function(a, b, c) {
-  goog.asserts.assert(null != a.length);
-  return goog.array.ARRAY_PROTOTYPE_.lastIndexOf.call(a, b, null == c ? a.length - 1 : c);
-} : function(a, b, c) {
-  c = null == c ? a.length - 1 : c;
-  0 > c && (c = Math.max(0, a.length + c));
-  if (goog.isString(a)) {
-    return goog.isString(b) && 1 == b.length ? a.lastIndexOf(b, c) : -1;
-  }
-  for (;0 <= c;c--) {
-    if (c in a && a[c] === b) {
-      return c;
-    }
-  }
-  return -1;
-};
-goog.array.forEach = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.forEach) ? function(a, b, c) {
-  goog.asserts.assert(null != a.length);
-  goog.array.ARRAY_PROTOTYPE_.forEach.call(a, b, c);
-} : function(a, b, c) {
-  for (var d = a.length, e = goog.isString(a) ? a.split("") : a, f = 0;f < d;f++) {
-    f in e && b.call(c, e[f], f, a);
-  }
-};
-goog.array.forEachRight = function(a, b, c) {
-  for (var d = a.length, e = goog.isString(a) ? a.split("") : a, d = d - 1;0 <= d;--d) {
-    d in e && b.call(c, e[d], d, a);
-  }
-};
-goog.array.filter = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.filter) ? function(a, b, c) {
-  goog.asserts.assert(null != a.length);
-  return goog.array.ARRAY_PROTOTYPE_.filter.call(a, b, c);
-} : function(a, b, c) {
-  for (var d = a.length, e = [], f = 0, g = goog.isString(a) ? a.split("") : a, h = 0;h < d;h++) {
-    if (h in g) {
-      var k = g[h];
-      b.call(c, k, h, a) && (e[f++] = k);
-    }
-  }
-  return e;
-};
-goog.array.map = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.map) ? function(a, b, c) {
-  goog.asserts.assert(null != a.length);
-  return goog.array.ARRAY_PROTOTYPE_.map.call(a, b, c);
-} : function(a, b, c) {
-  for (var d = a.length, e = Array(d), f = goog.isString(a) ? a.split("") : a, g = 0;g < d;g++) {
-    g in f && (e[g] = b.call(c, f[g], g, a));
-  }
-  return e;
-};
-goog.array.reduce = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.reduce) ? function(a, b, c, d) {
-  goog.asserts.assert(null != a.length);
-  d && (b = goog.bind(b, d));
-  return goog.array.ARRAY_PROTOTYPE_.reduce.call(a, b, c);
-} : function(a, b, c, d) {
-  var e = c;
-  goog.array.forEach(a, function(c, g) {
-    e = b.call(d, e, c, g, a);
-  });
-  return e;
-};
-goog.array.reduceRight = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.reduceRight) ? function(a, b, c, d) {
-  goog.asserts.assert(null != a.length);
-  d && (b = goog.bind(b, d));
-  return goog.array.ARRAY_PROTOTYPE_.reduceRight.call(a, b, c);
-} : function(a, b, c, d) {
-  var e = c;
-  goog.array.forEachRight(a, function(c, g) {
-    e = b.call(d, e, c, g, a);
-  });
-  return e;
-};
-goog.array.some = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.some) ? function(a, b, c) {
-  goog.asserts.assert(null != a.length);
-  return goog.array.ARRAY_PROTOTYPE_.some.call(a, b, c);
-} : function(a, b, c) {
-  for (var d = a.length, e = goog.isString(a) ? a.split("") : a, f = 0;f < d;f++) {
-    if (f in e && b.call(c, e[f], f, a)) {
-      return !0;
-    }
-  }
-  return !1;
-};
-goog.array.every = goog.NATIVE_ARRAY_PROTOTYPES && (goog.array.ASSUME_NATIVE_FUNCTIONS || goog.array.ARRAY_PROTOTYPE_.every) ? function(a, b, c) {
-  goog.asserts.assert(null != a.length);
-  return goog.array.ARRAY_PROTOTYPE_.every.call(a, b, c);
-} : function(a, b, c) {
-  for (var d = a.length, e = goog.isString(a) ? a.split("") : a, f = 0;f < d;f++) {
-    if (f in e && !b.call(c, e[f], f, a)) {
-      return !1;
-    }
-  }
-  return !0;
-};
-goog.array.count = function(a, b, c) {
-  var d = 0;
-  goog.array.forEach(a, function(a, f, g) {
-    b.call(c, a, f, g) && ++d;
-  }, c);
-  return d;
-};
-goog.array.find = function(a, b, c) {
-  b = goog.array.findIndex(a, b, c);
-  return 0 > b ? null : goog.isString(a) ? a.charAt(b) : a[b];
-};
-goog.array.findIndex = function(a, b, c) {
-  for (var d = a.length, e = goog.isString(a) ? a.split("") : a, f = 0;f < d;f++) {
-    if (f in e && b.call(c, e[f], f, a)) {
-      return f;
-    }
-  }
-  return -1;
-};
-goog.array.findRight = function(a, b, c) {
-  b = goog.array.findIndexRight(a, b, c);
-  return 0 > b ? null : goog.isString(a) ? a.charAt(b) : a[b];
-};
-goog.array.findIndexRight = function(a, b, c) {
-  for (var d = a.length, e = goog.isString(a) ? a.split("") : a, d = d - 1;0 <= d;d--) {
-    if (d in e && b.call(c, e[d], d, a)) {
-      return d;
-    }
-  }
-  return -1;
-};
-goog.array.contains = function(a, b) {
-  return 0 <= goog.array.indexOf(a, b);
-};
-goog.array.isEmpty = function(a) {
-  return 0 == a.length;
-};
-goog.array.clear = function(a) {
-  if (!goog.isArray(a)) {
-    for (var b = a.length - 1;0 <= b;b--) {
-      delete a[b];
-    }
-  }
-  a.length = 0;
-};
-goog.array.insert = function(a, b) {
-  goog.array.contains(a, b) || a.push(b);
-};
-goog.array.insertAt = function(a, b, c) {
-  goog.array.splice(a, c, 0, b);
-};
-goog.array.insertArrayAt = function(a, b, c) {
-  goog.partial(goog.array.splice, a, c, 0).apply(null, b);
-};
-goog.array.insertBefore = function(a, b, c) {
-  var d;
-  2 == arguments.length || 0 > (d = goog.array.indexOf(a, c)) ? a.push(b) : goog.array.insertAt(a, b, d);
-};
-goog.array.remove = function(a, b) {
-  var c = goog.array.indexOf(a, b), d;
-  (d = 0 <= c) && goog.array.removeAt(a, c);
-  return d;
-};
-goog.array.removeAt = function(a, b) {
-  goog.asserts.assert(null != a.length);
-  return 1 == goog.array.ARRAY_PROTOTYPE_.splice.call(a, b, 1).length;
-};
-goog.array.removeIf = function(a, b, c) {
-  b = goog.array.findIndex(a, b, c);
-  return 0 <= b ? (goog.array.removeAt(a, b), !0) : !1;
-};
-goog.array.removeAllIf = function(a, b, c) {
-  var d = 0;
-  goog.array.forEachRight(a, function(e, f) {
-    b.call(c, e, f, a) && goog.array.removeAt(a, f) && d++;
-  });
-  return d;
-};
-goog.array.concat = function(a) {
-  return goog.array.ARRAY_PROTOTYPE_.concat.apply(goog.array.ARRAY_PROTOTYPE_, arguments);
-};
-goog.array.join = function(a) {
-  return goog.array.ARRAY_PROTOTYPE_.concat.apply(goog.array.ARRAY_PROTOTYPE_, arguments);
-};
-goog.array.toArray = function(a) {
-  var b = a.length;
-  if (0 < b) {
-    for (var c = Array(b), d = 0;d < b;d++) {
-      c[d] = a[d];
-    }
-    return c;
-  }
-  return [];
-};
-goog.array.clone = goog.array.toArray;
-goog.array.extend = function(a, b) {
-  for (var c = 1;c < arguments.length;c++) {
-    var d = arguments[c];
-    if (goog.isArrayLike(d)) {
-      var e = a.length || 0, f = d.length || 0;
-      a.length = e + f;
-      for (var g = 0;g < f;g++) {
-        a[e + g] = d[g];
-      }
-    } else {
-      a.push(d);
-    }
-  }
-};
-goog.array.splice = function(a, b, c, d) {
-  goog.asserts.assert(null != a.length);
-  return goog.array.ARRAY_PROTOTYPE_.splice.apply(a, goog.array.slice(arguments, 1));
-};
-goog.array.slice = function(a, b, c) {
-  goog.asserts.assert(null != a.length);
-  return 2 >= arguments.length ? goog.array.ARRAY_PROTOTYPE_.slice.call(a, b) : goog.array.ARRAY_PROTOTYPE_.slice.call(a, b, c);
-};
-goog.array.removeDuplicates = function(a, b, c) {
-  b = b || a;
-  var d = function(a) {
-    return goog.isObject(a) ? "o" + goog.getUid(a) : (typeof a).charAt(0) + a;
-  };
-  c = c || d;
-  for (var d = {}, e = 0, f = 0;f < a.length;) {
-    var g = a[f++], h = c(g);
-    Object.prototype.hasOwnProperty.call(d, h) || (d[h] = !0, b[e++] = g);
-  }
-  b.length = e;
-};
-goog.array.binarySearch = function(a, b, c) {
-  return goog.array.binarySearch_(a, c || goog.array.defaultCompare, !1, b);
-};
-goog.array.binarySelect = function(a, b, c) {
-  return goog.array.binarySearch_(a, b, !0, void 0, c);
-};
-goog.array.binarySearch_ = function(a, b, c, d, e) {
-  for (var f = 0, g = a.length, h;f < g;) {
-    var k = f + g >> 1, l;
-    l = c ? b.call(e, a[k], k, a) : b(d, a[k]);
-    0 < l ? f = k + 1 : (g = k, h = !l);
-  }
-  return h ? f : ~f;
-};
-goog.array.sort = function(a, b) {
-  a.sort(b || goog.array.defaultCompare);
-};
-goog.array.stableSort = function(a, b) {
-  for (var c = 0;c < a.length;c++) {
-    a[c] = {index:c, value:a[c]};
-  }
-  var d = b || goog.array.defaultCompare;
-  goog.array.sort(a, function(a, b) {
-    return d(a.value, b.value) || a.index - b.index;
-  });
-  for (c = 0;c < a.length;c++) {
-    a[c] = a[c].value;
-  }
-};
-goog.array.sortByKey = function(a, b, c) {
-  var d = c || goog.array.defaultCompare;
-  goog.array.sort(a, function(a, c) {
-    return d(b(a), b(c));
-  });
-};
-goog.array.sortObjectsByKey = function(a, b, c) {
-  goog.array.sortByKey(a, function(a) {
-    return a[b];
-  }, c);
-};
-goog.array.isSorted = function(a, b, c) {
-  b = b || goog.array.defaultCompare;
-  for (var d = 1;d < a.length;d++) {
-    var e = b(a[d - 1], a[d]);
-    if (0 < e || 0 == e && c) {
-      return !1;
-    }
-  }
-  return !0;
-};
-goog.array.equals = function(a, b, c) {
-  if (!goog.isArrayLike(a) || !goog.isArrayLike(b) || a.length != b.length) {
-    return !1;
-  }
-  var d = a.length;
-  c = c || goog.array.defaultCompareEquality;
-  for (var e = 0;e < d;e++) {
-    if (!c(a[e], b[e])) {
-      return !1;
-    }
-  }
-  return !0;
-};
-goog.array.compare3 = function(a, b, c) {
-  c = c || goog.array.defaultCompare;
-  for (var d = Math.min(a.length, b.length), e = 0;e < d;e++) {
-    var f = c(a[e], b[e]);
-    if (0 != f) {
-      return f;
-    }
-  }
-  return goog.array.defaultCompare(a.length, b.length);
-};
-goog.array.defaultCompare = function(a, b) {
-  return a > b ? 1 : a < b ? -1 : 0;
-};
-goog.array.inverseDefaultCompare = function(a, b) {
-  return -goog.array.defaultCompare(a, b);
-};
-goog.array.defaultCompareEquality = function(a, b) {
-  return a === b;
-};
-goog.array.binaryInsert = function(a, b, c) {
-  c = goog.array.binarySearch(a, b, c);
-  return 0 > c ? (goog.array.insertAt(a, b, -(c + 1)), !0) : !1;
-};
-goog.array.binaryRemove = function(a, b, c) {
-  b = goog.array.binarySearch(a, b, c);
-  return 0 <= b ? goog.array.removeAt(a, b) : !1;
-};
-goog.array.bucket = function(a, b, c) {
-  for (var d = {}, e = 0;e < a.length;e++) {
-    var f = a[e], g = b.call(c, f, e, a);
-    goog.isDef(g) && (d[g] || (d[g] = [])).push(f);
-  }
-  return d;
-};
-goog.array.toObject = function(a, b, c) {
-  var d = {};
-  goog.array.forEach(a, function(e, f) {
-    d[b.call(c, e, f, a)] = e;
-  });
-  return d;
-};
-goog.array.range = function(a, b, c) {
-  var d = [], e = 0, f = a;
-  c = c || 1;
-  void 0 !== b && (e = a, f = b);
-  if (0 > c * (f - e)) {
-    return [];
-  }
-  if (0 < c) {
-    for (a = e;a < f;a += c) {
-      d.push(a);
-    }
-  } else {
-    for (a = e;a > f;a += c) {
-      d.push(a);
-    }
-  }
-  return d;
-};
-goog.array.repeat = function(a, b) {
-  for (var c = [], d = 0;d < b;d++) {
-    c[d] = a;
-  }
-  return c;
-};
-goog.array.flatten = function(a) {
-  for (var b = [], c = 0;c < arguments.length;c++) {
-    var d = arguments[c];
-    if (goog.isArray(d)) {
-      for (var e = 0;e < d.length;e += 8192) {
-        for (var f = goog.array.slice(d, e, e + 8192), f = goog.array.flatten.apply(null, f), g = 0;g < f.length;g++) {
-          b.push(f[g]);
-        }
-      }
-    } else {
-      b.push(d);
-    }
-  }
-  return b;
-};
-goog.array.rotate = function(a, b) {
-  goog.asserts.assert(null != a.length);
-  a.length && (b %= a.length, 0 < b ? goog.array.ARRAY_PROTOTYPE_.unshift.apply(a, a.splice(-b, b)) : 0 > b && goog.array.ARRAY_PROTOTYPE_.push.apply(a, a.splice(0, -b)));
-  return a;
-};
-goog.array.moveItem = function(a, b, c) {
-  goog.asserts.assert(0 <= b && b < a.length);
-  goog.asserts.assert(0 <= c && c < a.length);
-  b = goog.array.ARRAY_PROTOTYPE_.splice.call(a, b, 1);
-  goog.array.ARRAY_PROTOTYPE_.splice.call(a, c, 0, b[0]);
-};
-goog.array.zip = function(a) {
-  if (!arguments.length) {
-    return [];
-  }
-  for (var b = [], c = 0;;c++) {
-    for (var d = [], e = 0;e < arguments.length;e++) {
-      var f = arguments[e];
-      if (c >= f.length) {
-        return b;
-      }
-      d.push(f[c]);
-    }
-    b.push(d);
-  }
-};
-goog.array.shuffle = function(a, b) {
-  for (var c = b || Math.random, d = a.length - 1;0 < d;d--) {
-    var e = Math.floor(c() * (d + 1)), f = a[d];
-    a[d] = a[e];
-    a[e] = f;
-  }
-};
-goog.array.copyByIndex = function(a, b) {
-  var c = [];
-  goog.array.forEach(b, function(b) {
-    c.push(a[b]);
-  });
-  return c;
-};
-ash.tools.ComponentPool = function() {
-};
-var getPool, pools;
-pools = new ash.ext.Dictionary;
-getPool = function(a) {
-  var b;
-  return (b = a.className, 0 <= goog.array.indexOf(pools, b)) ? pools[a.className] : pools[a.className] = [];
-};
-ash.tools.ComponentPool.get = function(a) {
-  var b;
-  b = getPool(a);
-  return 0 < b.length ? b.pop() : new a;
-};
-ash.tools.ComponentPool.dispose = function(a) {
-  var b;
-  a && (b = a.constructor, b = getPool(b), b.push(a));
-};
-ash.tools.ComponentPool.empty = function() {
-  return pools = new ash.ext.Dictionary;
-};
-ash.fsm.ComponentInstanceProvider = function(a) {
-  this.instance = a;
+goog.provide("ash.fsm.ComponentInstanceProvider");
+ash.fsm.ComponentInstanceProvider = function(_at_instance) {
+  this.instance = _at_instance;
 };
 ash.fsm.ComponentInstanceProvider.prototype.instance = null;
 ash.fsm.ComponentInstanceProvider.prototype.getComponent = function() {
@@ -1766,8 +2178,24 @@ ash.fsm.ComponentInstanceProvider.prototype.getComponent = function() {
 Object.defineProperties(ash.fsm.ComponentInstanceProvider.prototype, {identifier:{get:function() {
   return this.instance;
 }}});
-ash.fsm.ComponentTypeProvider = function(a) {
-  this.componentType = a;
+goog.provide("ash.fsm.ComponentSingletonProvider");
+ash.fsm.ComponentSingletonProvider = function(type) {
+  this.componentType = type;
+};
+ash.fsm.ComponentSingletonProvider.prototype.componentType = null;
+ash.fsm.ComponentSingletonProvider.prototype.instance = null;
+ash.fsm.ComponentSingletonProvider.prototype.getComponent = function() {
+  if (this.instance == null) {
+    this.instance = new this.componentType;
+  }
+  return this.instance;
+};
+Object.defineProperties(ash.fsm.ComponentSingletonProvider.prototype, {identifier:{get:function() {
+  return this.getComponent();
+}}});
+goog.provide("ash.fsm.ComponentTypeProvider");
+ash.fsm.ComponentTypeProvider = function(type) {
+  this.componentType = type;
 };
 ash.fsm.ComponentTypeProvider.prototype.componentType = null;
 ash.fsm.ComponentTypeProvider.prototype.getComponent = function() {
@@ -1776,8 +2204,9 @@ ash.fsm.ComponentTypeProvider.prototype.getComponent = function() {
 Object.defineProperties(ash.fsm.ComponentTypeProvider.prototype, {identifier:{get:function() {
   return this.componentType;
 }}});
-ash.fsm.DynamicComponentProvider = function(a) {
-  this._closure = a;
+goog.provide("ash.fsm.DynamicComponentProvider");
+ash.fsm.DynamicComponentProvider = function(closure) {
+  this._closure = closure;
 };
 ash.fsm.DynamicComponentProvider.prototype._closure = null;
 ash.fsm.DynamicComponentProvider.prototype.getComponent = function() {
@@ -1786,733 +2215,377 @@ ash.fsm.DynamicComponentProvider.prototype.getComponent = function() {
 Object.defineProperties(ash.fsm.DynamicComponentProvider.prototype, {identifier:{get:function() {
   return this._closure;
 }}});
-ash.fsm.StateComponentMapping = function(a, b) {
-  this.creatingState = a;
-  this.componentType = b;
-  this.withType(b);
+goog.provide("ash.fsm.StateComponentMapping");
+goog.require("ash.fsm.ComponentInstanceProvider");
+goog.require("ash.fsm.ComponentTypeProvider");
+goog.require("ash.fsm.ComponentSingletonProvider");
+goog.require("ash.fsm.DynamicComponentProvider");
+ash.fsm.StateComponentMapping = function(_at_creatingState, type) {
+  this.creatingState = _at_creatingState;
+  this.componentType = type;
+  this.withType(type);
 };
 ash.fsm.StateComponentMapping.prototype.componentType = null;
 ash.fsm.StateComponentMapping.prototype.creatingState = null;
 ash.fsm.StateComponentMapping.prototype.provider = null;
-ash.fsm.StateComponentMapping.prototype.withInstance = function(a) {
-  this.setProvider(new ash.fsm.ComponentInstanceProvider(a));
+ash.fsm.StateComponentMapping.prototype.withInstance = function(component) {
+  this.setProvider(new ash.fsm.ComponentInstanceProvider(component));
   return this;
 };
-ash.fsm.StateComponentMapping.prototype.withType = function(a) {
-  this.setProvider(new ash.fsm.ComponentSingletonProvider(a));
+ash.fsm.StateComponentMapping.prototype.withType = function(type) {
+  this.setProvider(new ash.fsm.ComponentSingletonProvider(type));
   return this;
 };
-ash.fsm.StateComponentMapping.prototype.withSingleton = function(a) {
-  null == a && (a = this.componentType);
-  this.setProvider(new ash.fsm.ComponentTypeProvider(a));
+ash.fsm.StateComponentMapping.prototype.withSingleton = function(type) {
+  if (type == null) {
+    type = this.componentType;
+  }
+  this.setProvider(new ash.fsm.ComponentTypeProvider(type));
   return this;
 };
-ash.fsm.StateComponentMapping.prototype.withMethod = function(a) {
-  this.setProvider(new ash.fsm.DynamicComponentProvider(a));
+ash.fsm.StateComponentMapping.prototype.withMethod = function(method) {
+  this.setProvider(new ash.fsm.DynamicComponentProvider(method));
   return this;
 };
-ash.fsm.StateComponentMapping.prototype.withProvider = function(a) {
-  this.setProvider(a);
+ash.fsm.StateComponentMapping.prototype.withProvider = function(provider) {
+  this.setProvider(provider);
   return this;
 };
-ash.fsm.StateComponentMapping.prototype.add = function(a) {
-  return this.creatingState.add(a);
-};
-ash.fsm.StateComponentMapping.prototype.setProvider = function(a) {
-  this.provider = a;
-  return this.creatingState.providers[this.componentType] = a;
-};
-ash.core.SystemList = function() {
-};
-ash.core.SystemList.prototype.head = null;
-ash.core.SystemList.prototype.tail = null;
-ash.core.SystemList.prototype.add = function(a) {
-  var b;
-  if (this.head) {
-    for (b = this.tail;b && !(b.priority <= a.priority);) {
-      b = b.previous;
-    }
-    b === this.tail ? (this.tail.next = a, a.previous = this.tail, a.next = null, this.tail = a) : b ? (a.next = b.next, a.previous = b, b.next.previous = a, b.next = a) : (a.next = this.head, a.previous = null, this.head = this.head.previous = a);
-  } else {
-    this.head = this.tail = a, a.next = a.previous = null;
-  }
-};
-ash.core.SystemList.prototype.remove = function(a) {
-  this.head === a && (this.head = this.head.next);
-  this.tail === a && (this.tail = this.tail.previous);
-  a.previous && (a.previous.next = a.next);
-  a.next && (a.next.previous = a.previous);
-};
-ash.core.SystemList.prototype.removeAll = function() {
-  for (var a;this.head;) {
-    a = this.head, this.head = this.head.next, a.previous = null, a.next = null;
-  }
-  this.tail = null;
-};
-ash.core.SystemList.prototype.get = function(a) {
-  var b;
-  for (b = this.head;b;) {
-    if (b.constructor === a) {
-      return b;
-    }
-    b = b.next;
-  }
-  return null;
-};
-ash.signals.Signal0 = function() {
-  return ash.signals.Signal0.superClass_.constructor.apply(this, arguments);
-};
-goog.inherits(ash.signals.Signal0, ash.signals.SignalBase);
-ash.signals.Signal0.prototype.dispatch = function() {
-  var a;
-  this.startDispatch();
-  for (a = this.head;null !== a;) {
-    a.listener(), a.once && this.remove(a.listener), a = a.next;
-  }
-  return this.endDispatch();
-};
-ash.core.EntityList = function() {
-};
-ash.core.EntityList.prototype.head = null;
-ash.core.EntityList.prototype.tail = null;
-ash.core.EntityList.prototype.add = function(a) {
-  this.head ? (this.tail.next = a, a.previous = this.tail, a.next = null, this.tail = a) : (this.head = this.tail = a, a.next = a.previous = null);
-};
-ash.core.EntityList.prototype.remove = function(a) {
-  this.head === a && (this.head = this.head.next);
-  this.tail === a && (this.tail = this.tail.previous);
-  a.previous && (a.previous.next = a.next);
-  a.next && (a.next.previous = a.previous);
-};
-ash.core.EntityList.prototype.removeAll = function() {
-  for (var a;this.head;) {
-    a = this.head, this.head = this.head.next, a.previous = null, a.next = null;
-  }
-  this.tail = null;
-};
-ash.core.Engine = function() {
-  this.update = goog.bind(this.update, this);
-  this.componentRemoved = goog.bind(this.componentRemoved, this);
-  this.componentAdded = goog.bind(this.componentAdded, this);
-  this.entityNameChanged = goog.bind(this.entityNameChanged, this);
-  this.entityList = new ash.ext.Dictionary;
-  this.entityNames = new ash.core.EntityList;
-  this.systemList = new ash.signals.Signal0;
-  this.families = new ash.core.EntityList;
-  this.updateComplete = new ash.core.SystemList;
-};
-ash.core.Engine.prototype.entityNames = null;
-ash.core.Engine.prototype.entityList = null;
-ash.core.Engine.prototype.systemList = null;
-ash.core.Engine.prototype.families = null;
-ash.core.Engine.prototype.updating = !1;
-ash.core.Engine.prototype.updateComplete = null;
-ash.core.Engine.prototype.familyClass = ash.core.ComponentMatchingFamily;
-Object.defineProperties(ash.core.Engine.prototype, {entities:{get:function() {
-  var a;
-  for (a = this.entityList.head;a;) {
-    this.entities.push(a), a = a.next;
-  }
-  return [];
-}}, systems:{get:function() {
-  var a, b;
-  b = [];
-  for (a = this.systemList.head;a;) {
-    b.push(a), a = a.next;
-  }
-  return b;
-}}});
-ash.core.Engine.prototype.addEntity = function(a) {
-  var b, c, d;
-  if (this.entityNames[a.name]) {
-    throw "The entity name " + a.name + " is already in use by another entity.";
-  }
-  this.entityList.add(a);
-  this.entityNames[a.name] = a;
-  a.componentAdded.add(this.componentAdded);
-  a.componentRemoved.add(this.componentRemoved);
-  a.nameChanged.add(this.entityNameChanged);
-  d = this.families;
-  for (b in d) {
-    c = d[b], c.newEntity(a);
-  }
-};
-ash.core.Engine.prototype.removeEntity = function(a) {
-  var b, c, d;
-  a.componentAdded.remove(this.componentAdded);
-  a.componentRemoved.remove(this.componentRemoved);
-  a.nameChanged.remove(this.entityNameChanged);
-  d = this.families;
-  for (b in d) {
-    c = d[b], c.removeEntity(a);
-  }
-  delete this.entityNames[a.name];
-  this.entityList.remove(a);
-};
-ash.core.Engine.prototype.entityNameChanged = function(a, b) {
-  this.entityNames[b] === a && (delete this.entityNames[b], this.entityNames[a.name] = a);
-};
-ash.core.Engine.prototype.getEntityByName = function(a) {
-  return this.entityNames[a];
-};
-ash.core.Engine.prototype.removeAllEntities = function() {
-  for (;null !== this.entityList.head;) {
-    this.removeEntity(this.entityList.head);
-  }
-};
-ash.core.Engine.prototype.componentAdded = function(a, b) {
-  var c, d, e;
-  e = this.families;
-  for (c in e) {
-    d = e[c], d.componentAddedToEntity(a, b);
-  }
-};
-ash.core.Engine.prototype.componentRemoved = function(a, b) {
-  var c, d, e;
-  e = this.families;
-  for (c in e) {
-    d = e[c], d.componentRemovedFromEntity(a, b);
-  }
-};
-ash.core.Engine.prototype.getNodeList = function(a) {
-  var b;
-  if (Util.getClassName(a) in this.families) {
-    return this.families[Util.getClassName(a)].nodeList;
-  }
-  b = new this.familyClass(a, this);
-  this.families[Util.getClassName(a)] = b;
-  for (a = this.entityList.head;a;) {
-    b.newEntity(a), a = a.next;
-  }
-  return b.nodeList;
-};
-ash.core.Engine.prototype.releaseNodeList = function(a) {
-  Util.getClassName(a) in this.families && (this.families[Util.getClassName(a)].cleanUp(), delete this.families[Util.getClassName(a)]);
-};
-ash.core.Engine.prototype.addSystem = function(a, b) {
-  a.priority = b;
-  a.addToEngine(this);
-  this.systemList.add(a);
-};
-ash.core.Engine.prototype.getSystem = function(a) {
-  return systemList.get(a);
-};
-ash.core.Engine.prototype.removeSystem = function(a) {
-  this.systemList.remove(a);
-  a.removeFromEngine(this);
-};
-ash.core.Engine.prototype.removeAllSystems = function() {
-  for (;null !== this.systemList.head;) {
-    this.removeSystem(this.systemList.head);
-  }
-};
-ash.core.Engine.prototype.update = function(a) {
-  var b;
-  this.updating = !0;
-  for (b = this.systemList.head;b;) {
-    b.update(a), b = b.next;
-  }
-  this.updating = !1;
-  this.updateComplete.dispatch();
-};
-ash.ext.Helper = function(a, b) {
-  var c, d, e, f, g;
-  this.components = {};
-  this.nodes = {};
-  if (null != a) {
-    for (d in a) {
-      c = a[d], this.components[d] = c;
-    }
-  }
-  if (null != b) {
-    for (d in b) {
-      c = b[d];
-      if (null == c.components) {
-        c.components = {};
-        g = c.prototype;
-        for (e in g) {
-          __hasProp.call(g, e) && (f = g[e], c.components[e] = f, c.prototype[e] = null);
-        }
-        c.prototype.entity = null;
-        c.prototype.previous = null;
-        c.prototype.next = null;
-      }
-      null != a && (this.nodes[d] = c);
-    }
-  }
-};
-ash.ext.Helper.prototype.components = null;
-ash.ext.Helper.prototype.nodes = null;
-ash.core.NodePool = function(a, b) {
-  this.nodeClass = a;
-  this.components = b;
-};
-ash.core.NodePool.prototype.tail = null;
-ash.core.NodePool.prototype.nodeClass = null;
-ash.core.NodePool.prototype.cacheTail = null;
-ash.core.NodePool.prototype.components = null;
-ash.core.NodePool.prototype.get = function() {
-  var a;
-  this.tail ? (a = this.tail, this.tail = this.tail.previous, a.previous = null) : a = new this.nodeClass;
-  return a;
-};
-ash.core.NodePool.prototype.dispose = function(a) {
-  for (var b in this.components) {
-    a[b] = null;
-  }
-  a.entity = null;
-  a.next = null;
-  a.previous = this.tail;
-  this.tail = a;
-};
-ash.core.NodePool.prototype.cache = function(a) {
-  a.previous = this.cacheTail;
-  this.cacheTail = a;
-};
-ash.core.NodePool.prototype.releaseCache = function() {
-  for (var a;this.cacheTail;) {
-    a = this.cacheTail, this.cacheTail = a.previous, this.dispose(a);
-  }
-};
-ash.signals.Signal1 = function() {
-  return ash.signals.Signal1.superClass_.constructor.apply(this, arguments);
-};
-goog.inherits(ash.signals.Signal1, ash.signals.SignalBase);
-ash.signals.Signal1.prototype.dispatch = function(a) {
-  var b;
-  this.startDispatch();
-  for (b = this.head;null !== b;) {
-    b.listener(a), b.once && this.remove(b.listener), b = b.next;
-  }
-  return this.endDispatch();
-};
-ash.core.NodeList = function() {
-  this.nodeAdded = new ash.signals.Signal1;
-  this.nodeRemoved = new ash.signals.Signal1;
-};
-ash.core.NodeList.prototype.head = null;
-ash.core.NodeList.prototype.tail = null;
-ash.core.NodeList.prototype.nodeAdded = null;
-ash.core.NodeList.prototype.nodeRemoved = null;
-ash.core.NodeList.prototype.add = function(a) {
-  this.head ? (this.tail.next = a, a.previous = this.tail, a.next = null, this.tail = a) : (this.head = this.tail = a, a.next = a.previous = null);
-  this.nodeAdded.dispatch(a);
-};
-ash.core.NodeList.prototype.remove = function(a) {
-  this.head === a && (this.head = this.head.next);
-  this.tail === a && (this.tail = this.tail.previous);
-  a.previous && (a.previous.next = a.next);
-  a.next && (a.next.previous = a.previous);
-  this.nodeRemoved.dispatch(a);
-};
-ash.core.NodeList.prototype.removeAll = function() {
-  for (var a;this.head;) {
-    a = this.head, this.head = this.head.next, a.previous = null, a.next = null, this.nodeRemoved.dispatch(a);
-  }
-  this.tail = null;
-};
-Object.defineProperties(ash.core.NodeList.prototype, {empty:{get:function() {
-  return null === this.head;
-}}});
-ash.core.NodeList.prototype.swap = function(a, b) {
-  var c;
-  a.previous === b ? (a.previous = b.previous, b.previous = a, b.next = a.next, a.next = b) : b.previous === a ? (b.previous = a.previous, a.previous = b, a.next = b.next, b.next = a) : (c = a.previous, a.previous = b.previous, b.previous = c, c = a.next, a.next = b.next, b.next = c);
-  this.head === a ? this.head = b : this.head === b && (this.head = a);
-  this.tail === a ? this.tail = b : this.tail === b && (this.tail = a);
-  null !== a.previous && (a.previous.next = a);
-  null !== b.previous && (b.previous.next = b);
-  null !== a.next && (a.next.previous = a);
-  null !== b.next && (b.next.previous = b);
-};
-ash.core.NodeList.prototype.insertionSort = function(a) {
-  var b, c, d;
-  if (this.head !== this.tail) {
-    for (b = d = this.head.next;null !== b;) {
-      d = b.next;
-      for (c = b.previous;null !== c;) {
-        if (0 <= a(b, c)) {
-          b !== c.next && (this.tail === b && (this.tail = b.previous), b.previous.next = b.next, null !== b.next && (b.next.previous = b.previous), b.next = c.next, b.previous = c, b.next.previous = b, c.next = b);
-          break;
-        }
-        c = c.previous;
-      }
-      null === c && (this.tail === b && (this.tail = b.previous), b.previous.next = b.next, null !== b.next && (b.next.previous = b.previous), b.next = this.head, this.head.previous = b, b.previous = null, this.head = b);
-      b = d;
-    }
-  }
-};
-ash.core.NodeList.prototype.mergeSort = function(a) {
-  var b, c, d, e;
-  if (this.head !== this.tail) {
-    c = [];
-    for (e = this.head;null !== e;) {
-      for (b = e;null !== b.next && 0 >= a(b, b.next);) {
-        b = b.next;
-      }
-      d = b.next;
-      e.previous = b.next = null;
-      c.push(e);
-      e = d;
-    }
-    for (;1 < c.length;) {
-      c.push(this.merge(c.shift(), c.shift(), a));
-    }
-    for (this.tail = this.head = c[0];null !== this.tail.next;) {
-      this.tail = this.tail.next;
-    }
-  }
-};
-ash.core.NodeList.prototype.merge = function(a, b, c) {
-  var d, e;
-  0 >= c(a, b) ? (d = e = a, a = a.next) : (d = e = b, b = b.next);
-  for (;null !== a && null !== b;) {
-    0 >= c(a, b) ? (e.next = a, a.previous = e, e = a, a = a.next) : (e.next = b, b.previous = e, e = b, b = b.next);
-  }
-  null !== a ? (e.next = a, a.previous = e) : (e.next = b, b.previous = e);
-  return d;
-};
-ash.core.ComponentMatchingFamily = function(a, b) {
-  this.nodeClass = a;
-  this.engine = b;
-  this.releaseNodePoolCache = goog.bind(this.releaseNodePoolCache, this);
-  this.init();
-};
-ash.core.ComponentMatchingFamily.prototype.nodes = null;
-ash.core.ComponentMatchingFamily.prototype.entities = null;
-ash.core.ComponentMatchingFamily.prototype.nodeClass = null;
-ash.core.ComponentMatchingFamily.prototype.components = null;
-ash.core.ComponentMatchingFamily.prototype.nodePool = null;
-ash.core.ComponentMatchingFamily.prototype.engine = null;
-ash.core.ComponentMatchingFamily.prototype.init = function() {
-  var a, b, c;
-  this.nodes = new ash.core.NodeList;
-  this.entities = new ash.core.EntityList;
-  this.components = new ash.core.EntityList;
-  this.nodePool = new ash.core.NodePool(this.nodeClass, this.nodeClass.components);
-  c = this.nodeClass.components;
-  for (a in c) {
-    b = c[a], this.components[Util.getClassName(b)] = b;
-  }
-};
-Object.defineProperties(ash.core.ComponentMatchingFamily.prototype, {nodeList:{get:function() {
-  return this.nodes;
-}}});
-ash.core.ComponentMatchingFamily.prototype.newEntity = function(a) {
-  this.addIfMatch(a);
-};
-ash.core.ComponentMatchingFamily.prototype.componentAddedToEntity = function(a, b) {
-  this.addIfMatch(a);
-};
-ash.core.ComponentMatchingFamily.prototype.componentRemovedFromEntity = function(a, b) {
-  (null != Util.getClassName(b) ? Util.getClassName(b) : b) in this.components && this.removeIfMatch(a);
-};
-ash.core.ComponentMatchingFamily.prototype.removeEntity = function(a) {
-  this.removeIfMatch(a);
-};
-ash.core.ComponentMatchingFamily.prototype.addIfMatch = function(a) {
-  var b, c, d, e;
-  if (null == this.entities[a.name]) {
-    d = this.nodeClass.components;
-    for (c in d) {
-      if (b = d[c], !a.has(b)) {
-        return;
-      }
-    }
-    d = this.nodePool.get();
-    d.entity = a;
-    e = this.nodeClass.components;
-    for (c in e) {
-      b = e[c], d[c] = a.get(b);
-    }
-    this.entities[a.name] = d;
-    this.nodes.add(d);
-  }
-};
-ash.core.ComponentMatchingFamily.prototype.removeIfMatch = function(a) {
-  var b;
-  a.name in this.entities && (b = this.entities[a.name], delete this.entities[a.name], this.nodes.remove(b), this.engine.updating ? (this.nodePool.cache(b), this.engine.updateComplete.add(this.releaseNodePoolCache)) : this.nodePool.dispose(b));
-};
-ash.core.ComponentMatchingFamily.prototype.releaseNodePoolCache = function() {
-  this.engine.updateComplete.remove(this.releaseNodePoolCache);
-  this.nodePool.releaseCache();
-};
-ash.core.ComponentMatchingFamily.prototype.cleanUp = function() {
-  var a;
-  for (a = this.nodes.head;a;) {
-    this.entities.remove(a.entity), a = a.next;
-  }
-  this.nodes.removeAll();
-};
-ash.core.System = function() {
-  this.update = goog.bind(this.update, this);
-};
-ash.core.System.prototype.previous = null;
-ash.core.System.prototype.next = null;
-ash.core.System.prototype.priority = 0;
-ash.core.System.prototype.addToEngine = function(a) {
-};
-ash.core.System.prototype.removeFromEngine = function(a) {
-};
-ash.core.System.prototype.update = function(a) {
-};
-ash.signals.Signal3 = function() {
-  return ash.signals.Signal3.superClass_.constructor.apply(this, arguments);
-};
-goog.inherits(ash.signals.Signal3, ash.signals.SignalBase);
-ash.signals.Signal3.prototype.dispatch = function(a, b, c) {
-  var d;
-  this.startDispatch();
-  for (d = this.head;null !== d;) {
-    d.listener(a, b, c), d.once && this.remove(d.listener), d = d.next;
-  }
-  return this.endDispatch();
-};
-ash.signals.ListenerNode = function() {
-};
-ash.signals.ListenerNode.prototype.previous = null;
-ash.signals.ListenerNode.prototype.next = null;
-ash.signals.ListenerNode.prototype.listener = null;
-ash.signals.ListenerNode.prototype.once = !1;
-ash.signals.ListenerNodePool = function() {
-};
-ash.signals.ListenerNodePool.prototype.tail = null;
-ash.signals.ListenerNodePool.prototype.cacheTail = null;
-ash.signals.ListenerNodePool.prototype.get = function() {
-  var a;
-  return null !== this.tail ? (a = this.tail, this.tail = this.tail.previous, a.previous = null, a) : new ash.signals.ListenerNode;
-};
-ash.signals.ListenerNodePool.prototype.dispose = function(a) {
-  a.listener = null;
-  a.once = !1;
-  a.next = null;
-  a.previous = this.tail;
-  this.tail = a;
-};
-ash.signals.ListenerNodePool.prototype.cache = function(a) {
-  a.listener = null;
-  a.previous = this.cacheTail;
-  this.cacheTail = a;
-};
-ash.signals.ListenerNodePool.prototype.releaseCache = function() {
-  for (var a;null !== this.cacheTail;) {
-    a = this.cacheTail, this.cacheTail = a.previous, a.next = null, a.previous = this.tail, this.tail = a;
-  }
-};
-ash.signals.SignalBase = function() {
-  this.nodes = [];
-  this.keys = [];
-  this.listenerNodePool = new ash.signals.ListenerNodePool;
-  this.numListeners = 0;
-};
-ash.signals.SignalBase.prototype.head = null;
-ash.signals.SignalBase.prototype.tail = null;
-ash.signals.SignalBase.prototype.numListeners = 0;
-ash.signals.SignalBase.prototype.keys = null;
-ash.signals.SignalBase.prototype.nodes = null;
-ash.signals.SignalBase.prototype.listenerNodePool = null;
-ash.signals.SignalBase.prototype.toAddHead = null;
-ash.signals.SignalBase.prototype.toAddTail = null;
-ash.signals.SignalBase.prototype.dispatching = !1;
-ash.signals.SignalBase.prototype.startDispatch = function() {
-  this.dispatching = !0;
-};
-ash.signals.SignalBase.prototype.endDispatch = function() {
-  this.dispatching = !1;
-  this.toAddHead && (this.head ? (this.tail.next = this.toAddHead, this.toAddHead.previous = this.tail) : this.head = this.toAddHead, this.tail = this.toAddTail, this.toAddTail = this.toAddHead = null);
-  this.listenerNodePool.releaseCache();
-};
-ash.signals.SignalBase.prototype.getNode = function(a) {
-  var b;
-  for (b = this.head;null !== b && b.listener !== a;) {
-    b = b.next;
-  }
-  if (null === b) {
-    for (b = this.toAddHead;null !== b && b.listener !== a;) {
-      b = b.next;
-    }
-  }
-  return b;
-};
-ash.signals.SignalBase.prototype.add = function(a) {
-  var b;
-  -1 === this.keys.indexOf(a) && (b = this.listenerNodePool.get(), b.listener = a, this.nodes.push(b), this.keys.push(a), this.addNode(b));
-};
-ash.signals.SignalBase.prototype.addOnce = function(a) {
-  var b;
-  -1 === this.keys.indexOf(a) && (b = this.listenerNodePool.get(), b.listener = a, b.once = !0, this.nodes.push(b), this.keys.push(a), this.addNode(b));
-};
-ash.signals.SignalBase.prototype.addNode = function(a) {
-  this.dispatching ? null === this.toAddHead ? this.toAddHead = this.toAddTail = a : (this.toAddTail.next = a, a.previous = this.toAddTail, this.toAddTail = a) : null === this.head ? this.head = this.tail = a : (this.tail.next = a, a.previous = this.tail, this.tail = a);
-  this.numListeners++;
-};
-ash.signals.SignalBase.prototype.remove = function(a) {
-  var b;
-  a = this.keys.indexOf(a);
-  if (b = this.nodes[a]) {
-    this.head === b && (this.head = this.head.next), this.tail === b && (this.tail = this.tail.previous), this.toAddHead === b && (this.toAddHead = this.toAddHead.next), this.toAddTail === b && (this.toAddTail = this.toAddTail.previous), b.previous && (b.previous.next = b.next), b.next && (b.next.previous = b.previous), this.nodes.splice(a, 1), this.keys.splice(a, 1), this.dispatching ? this.listenerNodePool.cache(b) : this.listenerNodePool.dispose(b), this.numListeners--;
-  }
-};
-ash.signals.SignalBase.prototype.removeAll = function() {
-  for (var a, b;this.head;) {
-    b = this.head, this.head = this.head.next, a = this.keys.indexOf(b.listener), this.nodes.splice(a, 1), this.listenerNodePool.dispose(b);
-  }
-  this.nodes = [];
-  this.keys = [];
-  this.toAddTail = this.toAddHead = this.tail = null;
-  this.numListeners = 0;
-};
-ash.fsm.EngineStateMachine = function(a) {
-  this.engine = a;
-  this.states = new ash.ext.Dictionary;
-};
-ash.fsm.EngineStateMachine.prototype.engine = null;
-ash.fsm.EngineStateMachine.prototype.states = null;
-ash.fsm.EngineStateMachine.prototype.currentState = null;
-ash.fsm.EngineStateMachine.prototype.addState = function(a, b) {
-  this.states[a] = b;
-  return this;
-};
-ash.fsm.EngineStateMachine.prototype.createState = function(a) {
-  var b;
-  b = new ash.fsm.EngineState;
-  this.states[a] = b;
-  return this;
-};
-ash.fsm.EngineStateMachine.prototype.changeState = function(a) {
-  var b, c, d, e, f, g;
-  c = this.states[a];
-  if (null == c) {
-    throw Error("Engine state " + a + " doesn't exist");
-  }
-  if (c !== this.currentState) {
-    f = new ash.ext.Dictionary;
-    d = c.providers;
-    for (b in d) {
-      e = d[b], a = e.identifier, f[a] = e;
-    }
-    if (currentState) {
-      for (b in g = this.currentState.providers, g) {
-        e = g[b], a = e.identifier, (d = f[a]) ? delete f[a] : this.engine.removeSystem(e.getSystem());
-      }
-    }
-    for (b in f) {
-      e = f[b], this.engine.addSystem(e.getSystem(), e.priority);
-    }
-    return this.currentState = c;
-  }
-};
-ash.core.Node = function() {
-};
-ash.core.Node.prototype.entity = null;
-ash.core.Node.prototype.previous = null;
-ash.core.Node.prototype.next = null;
+ash.fsm.StateComponentMapping.prototype.add = function(type) {
+  return this.creatingState.add(type);
+};
+ash.fsm.StateComponentMapping.prototype.setProvider = function(provider) {
+  this.provider = provider;
+  return this.creatingState.providers[this.componentType] = provider;
+};
+goog.provide("ash.fsm.EntityState");
+goog.require("ash.ext.Dictionary");
+goog.require("ash.fsm.StateComponentMapping");
+goog.require("ash.ext.Util");
 ash.fsm.EntityState = function() {
   this.providers = new ash.ext.Dictionary;
 };
 ash.fsm.EntityState.prototype.providers = null;
-ash.fsm.EntityState.prototype.add = function(a) {
-  return new ash.fsm.StateComponentMapping(this, Util.getClassName(a));
+ash.fsm.EntityState.prototype.add = function(type) {
+  return new ash.fsm.StateComponentMapping(this, Util.getClassName(type));
 };
-ash.fsm.EntityState.prototype.get = function(a) {
-  return this.providers[a];
+ash.fsm.EntityState.prototype.get = function(type) {
+  return this.providers[type];
 };
-ash.fsm.EntityState.prototype.has = function(a) {
-  return null !== this.providers[a];
+ash.fsm.EntityState.prototype.has = function(type) {
+  return this.providers[type] !== null;
 };
-ash.fsm.EntityStateMachine = function(a) {
-  this.entity = a;
+goog.provide("ash.fsm.EntityStateMachine");
+goog.require("ash.ext.Dictionary");
+goog.require("ash.fsm.EntityState");
+ash.fsm.EntityStateMachine = function(_at_entity) {
+  this.entity = _at_entity;
   this.states = new ash.ext.Dictionary;
 };
 ash.fsm.EntityStateMachine.prototype.states = null;
 ash.fsm.EntityStateMachine.prototype.currentState = null;
 ash.fsm.EntityStateMachine.prototype.entity = null;
-ash.fsm.EntityStateMachine.prototype.addState = function(a, b) {
-  this.states[a] = b;
+ash.fsm.EntityStateMachine.prototype.addState = function(name, state) {
+  this.states[name] = state;
   return this;
 };
-ash.fsm.EntityStateMachine.prototype.createState = function(a) {
-  var b;
-  b = new ash.fsm.EntityState;
-  return this.states[a] = b;
+ash.fsm.EntityStateMachine.prototype.createState = function(name) {
+  var state;
+  state = new ash.fsm.EntityState;
+  this.states[name] = state;
+  return state;
 };
-ash.fsm.EntityStateMachine.prototype.changeState = function(a) {
-  var b, c, d;
-  b = this.states[a];
-  if (!b) {
-    throw Error("Entity state " + a + " doesn't exist");
+ash.fsm.EntityStateMachine.prototype.changeState = function(name) {
+  var newState, other, toAdd, type;
+  newState = this.states[name];
+  if (!newState) {
+    throw new Error("Entity state " + name + " doesn't exist");
   }
-  if (b !== this.currentState) {
-    if (this.currentState) {
-      c = new ash.ext.Dictionary;
-      for (d in b.providers) {
-        c[d] = b.providers[d];
-      }
-      for (d in this.currentState.providers) {
-        (a = c[d]) && a.identifier === this.currentState.providers[d].identifier ? delete c[d] : this.entity.remove(d);
-      }
-    } else {
-      c = b.providers;
+  if (newState === this.currentState) {
+    newState = null;
+    return;
+  }
+  if (this.currentState) {
+    toAdd = new ash.ext.Dictionary;
+    for (type in newState.providers) {
+      toAdd[type] = newState.providers[type];
     }
-    for (d in c) {
-      this.entity.add(c[d].getComponent());
+    for (type in this.currentState.providers) {
+      other = toAdd[type];
+      if (other && other.identifier === this.currentState.providers[type].identifier) {
+        delete toAdd[type];
+      } else {
+        this.entity.remove(type);
+      }
     }
-    return this.currentState = b;
+  } else {
+    toAdd = newState.providers;
+  }
+  for (type in toAdd) {
+    this.entity.add(toAdd[type].getComponent());
+  }
+  return this.currentState = newState;
+};
+goog.provide("asteroids.EntityCreator");
+goog.require("asteroids.graphics.WaitForStartView");
+goog.require("ash.core.Entity");
+goog.require("ash.fsm.EntityStateMachine");
+goog.require("asteroids.components.Animation");
+goog.require("asteroids.components.Asteroid");
+goog.require("asteroids.components.Audio");
+goog.require("asteroids.components.Bullet");
+goog.require("asteroids.components.Collision");
+goog.require("asteroids.components.DeathThroes");
+goog.require("asteroids.components.Display");
+goog.require("asteroids.components.GameState");
+goog.require("asteroids.components.Gun");
+goog.require("asteroids.components.GunControls");
+goog.require("asteroids.components.Hud");
+goog.require("asteroids.components.Motion");
+goog.require("asteroids.components.MotionControls");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Spaceship");
+goog.require("asteroids.components.WaitForStart");
+goog.require("asteroids.graphics.AsteroidDeathView");
+goog.require("asteroids.graphics.AsteroidView");
+goog.require("asteroids.graphics.BulletView");
+goog.require("asteroids.graphics.HudView");
+goog.require("asteroids.graphics.SpaceshipDeathView");
+goog.require("asteroids.graphics.SpaceshipView");
+asteroids.EntityCreator = function(_at_engine, _at_graphic, _at_world) {
+  this.engine = _at_engine;
+  this.graphic = _at_graphic;
+  this.world = _at_world;
+};
+var KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_Z;
+KEY_LEFT = 37;
+KEY_UP = 38;
+KEY_RIGHT = 39;
+KEY_Z = 90;
+asteroids.EntityCreator.prototype.engine = null;
+asteroids.EntityCreator.prototype.waitEntity = null;
+asteroids.EntityCreator.prototype.graphic = null;
+asteroids.EntityCreator.prototype.destroyEntity = function(entity) {
+  this.engine.removeEntity(entity);
+};
+asteroids.EntityCreator.prototype.createGame = function() {
+  var gameEntity, hud;
+  hud = new asteroids.components.Position(this.graphic);
+  gameEntity = (new asteroids.components.GameState("game")).add(new asteroids.components.GunControls).add(new asteroids.components.MotionControls(hud)).add(new asteroids.components.Display(hud)).add(new asteroids.graphics.AsteroidDeathView(0, 0, 0, 0));
+  this.engine.addEntity(gameEntity);
+  return gameEntity;
+};
+asteroids.EntityCreator.prototype.createWaitForClick = function() {
+  var waitView;
+  if (!this.waitEntity) {
+    waitView = new asteroids.graphics.SpaceshipView(this.graphic);
+    this.waitEntity = (new asteroids.components.GameState("wait")).add(new asteroids.graphics.SpaceshipDeathView(waitView)).add(new asteroids.components.Display(waitView)).add(new asteroids.graphics.AsteroidDeathView(0, 0, 0, 0));
+  }
+  this.waitEntity.get(WaitForStart).startGame = false;
+  this.engine.addEntity(this.waitEntity);
+  return this.waitEntity;
+};
+asteroids.EntityCreator.prototype.createAsteroid = function(radius, x, y) {
+  var asteroid, deathView, fsm;
+  asteroid = new asteroids.components.GameState;
+  fsm = new asteroids.components.Gun(asteroid);
+  fsm.createState("alive").add(Motion).withInstance(new asteroids.components.Spaceship((Math.random() - .5) * 4 * (50 - radius), (Math.random() - .5) * 4 * (50 - radius), Math.random() * 2 - 1, 0)).add(Collision).withInstance(new asteroids.components.Collision(radius)).add(Display).withInstance(new asteroids.components.Display(new asteroids.components.Animation(this.graphic, radius)));
+  deathView = new ash.fsm.EntityStateMachine(this.graphic, radius);
+  fsm.createState("destroyed").add(DeathThroes).withInstance(new asteroids.components.DeathThroes(3)).add(Display).withInstance(new asteroids.components.Display(deathView)).add(Animation).withInstance(new asteroids.graphics.WaitForStartView(deathView));
+  asteroid.add(new ash.core.Entity(fsm)).add(new asteroids.graphics.AsteroidDeathView(x, y, 0)).add(new asteroids.components.Asteroid);
+  fsm.changeState("alive");
+  this.engine.addEntity(asteroid);
+  return asteroid;
+};
+asteroids.EntityCreator.prototype.createSpaceship = function() {
+  var deathView, fsm, spaceship;
+  spaceship = new asteroids.components.GameState;
+  fsm = new asteroids.components.Gun(spaceship);
+  fsm.createState("playing").add(Motion).withInstance(new asteroids.components.Spaceship(0, 0, 0, 15)).add(MotionControls).withInstance(new asteroids.components.WaitForStart(KEY_LEFT, KEY_RIGHT, KEY_UP, 100, 3)).add(Gun).withInstance(new asteroids.components.Hud(8, 0, .3, 2)).add(GunControls).withInstance(new asteroids.components.Motion(KEY_Z)).add(Collision).withInstance(new asteroids.components.Collision(9)).add(Display).withInstance(new asteroids.components.Display(new asteroids.graphics.HudView(this.graphic)));
+  deathView = new asteroids.graphics.BulletView(this.graphic);
+  fsm.createState("destroyed").add(DeathThroes).withInstance(new asteroids.components.DeathThroes(5)).add(Display).withInstance(new asteroids.components.Display(deathView)).add(Animation).withInstance(new asteroids.graphics.WaitForStartView(deathView));
+  spaceship.add(new asteroids.graphics.AsteroidView(fsm)).add(new asteroids.graphics.AsteroidDeathView(300, 225, 0)).add(new asteroids.components.Asteroid);
+  fsm.changeState("playing");
+  this.engine.addEntity(spaceship);
+  return spaceship;
+};
+asteroids.EntityCreator.prototype.createUserBullet = function(gun, parentPosition) {
+  var bullet, cos, sin, x, y;
+  cos = Math.cos(parentPosition.rotation);
+  sin = Math.sin(parentPosition.rotation);
+  x = cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x;
+  y = sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y;
+  bullet = (new asteroids.components.GameState).add(new asteroids.components.Audio(gun.bulletLifetime)).add(new asteroids.graphics.AsteroidDeathView(x, y, 0)).add(new asteroids.components.Collision(0)).add(new asteroids.components.Spaceship(cos * 150, sin * 150, 0, 0)).add(new asteroids.components.Display(new asteroids.components.Bullet(this.graphic)));
+  this.engine.addEntity(bullet);
+  return bullet;
+};
+goog.provide("asteroids.input.KeyPoll");
+asteroids.input.KeyPoll = function(_at_displayObj) {
+  this.displayObj = _at_displayObj;
+  this.isUp = goog.bind(this.isUp, this);
+  this.isDown = goog.bind(this.isDown, this);
+  this.keyUpListener = goog.bind(this.keyUpListener, this);
+  this.keyDownListener = goog.bind(this.keyDownListener, this);
+  this.states = {};
+  this.displayObj.addEventListener("keydown", this.keyDownListener);
+  this.displayObj.addEventListener("keyup", this.keyUpListener);
+};
+asteroids.input.KeyPoll.prototype.keyDownListener = function(event) {
+  this.states[event.keyCode] = true;
+};
+asteroids.input.KeyPoll.prototype.keyUpListener = function(event) {
+  if (this.states[event.keyCode]) {
+    this.states[event.keyCode] = false;
   }
 };
-ash.core.Family = function() {
-  Object.defineProperties(this, {nodeList:{get:function() {
-    return this.nodes;
-  }}});
+asteroids.input.KeyPoll.prototype.isDown = function(keyCode) {
+  return this.states[keyCode];
 };
-ash.core.Family.prototype.nodes = null;
-ash.core.Family.prototype.newEntity = function(a) {
-  throw Error("Method must be overriden");
+asteroids.input.KeyPoll.prototype.isUp = function(keyCode) {
+  return !this.states[keyCode];
 };
-ash.core.Family.prototype.removeEntity = function(a) {
-  throw Error("Method must be overriden");
+goog.provide("asteroids.Asteroids");
+goog.require("asteroids.systems.AnimationSystem");
+goog.require("asteroids.systems.AudioSystem");
+goog.require("asteroids.systems.BulletAgeSystem");
+goog.require("asteroids.systems.CollisionSystem");
+goog.require("asteroids.systems.DeathThroesSystem");
+goog.require("asteroids.systems.GameManager");
+goog.require("asteroids.systems.GunControlSystem");
+goog.require("asteroids.systems.HudSystem");
+goog.require("asteroids.systems.MotionControlSystem");
+goog.require("asteroids.systems.MovementSystem");
+goog.require("asteroids.systems.RenderSystem");
+goog.require("asteroids.systems.SystemPriorities");
+goog.require("asteroids.systems.WaitForStartSystem");
+goog.require("asteroids.components.GameState");
+goog.require("asteroids.EntityCreator");
+goog.require("asteroids.GameConfig");
+goog.require("asteroids.input.KeyPoll");
+asteroids.Asteroids = function(_at_container, width, height) {
+  this.container = _at_container;
+  this.prepare(width, height);
 };
-ash.core.Family.prototype.componentAddedToEntity = function(a, b) {
-  throw Error("Method must be overriden");
+asteroids.Asteroids.prototype.container = null;
+asteroids.Asteroids.prototype.engine = null;
+asteroids.Asteroids.prototype.tickProvider = null;
+asteroids.Asteroids.prototype.creator = null;
+asteroids.Asteroids.prototype.keyPoll = null;
+asteroids.Asteroids.prototype.config = null;
+asteroids.Asteroids.prototype.prepare = function(width, height) {
+  this.engine = new ash.core.Engine;
+  this.creator = new asteroids.systems.GameManager(this.engine, this.container, this.world);
+  this.keyPoll = new asteroids.systems.SystemPriorities(window);
+  this.config = new asteroids.systems.GunControlSystem;
+  this.config.height = height;
+  this.config.width = width;
+  this.engine.addSystem(new asteroids.input.KeyPoll(this.creator), SystemPriorities.preUpdate);
+  this.engine.addSystem(new asteroids.systems.HudSystem(this.creator, this.config), SystemPriorities.preUpdate);
+  this.engine.addSystem(new asteroids.systems.WaitForStartSystem(this.keyPoll), SystemPriorities.update);
+  this.engine.addSystem(new asteroids.systems.MovementSystem(this.keyPoll, this.creator), SystemPriorities.update);
+  this.engine.addSystem(new asteroids.systems.BulletAgeSystem(this.creator), SystemPriorities.update);
+  this.engine.addSystem(new asteroids.systems.DeathThroesSystem(this.creator), SystemPriorities.update);
+  this.engine.addSystem(new asteroids.components.GameState(this.config), SystemPriorities.move);
+  this.engine.addSystem(new asteroids.systems.CollisionSystem(this.creator), SystemPriorities.resolveCollisions);
+  this.engine.addSystem(new asteroids.systems.AnimationSystem, SystemPriorities.animate);
+  this.engine.addSystem(new asteroids.systems.RenderSystem, SystemPriorities.animate);
+  this.engine.addSystem(new asteroids.EntityCreator(this.container), SystemPriorities.render);
+  this.engine.addSystem(new asteroids.systems.AudioSystem, SystemPriorities.render);
+  this.creator.createWaitForClick();
+  this.creator.createGame();
 };
-ash.core.Family.prototype.componentRemovedFromEntity = function(a, b) {
-  throw Error("Method must be overriden");
+asteroids.Asteroids.prototype.start = function() {
+  var stats, x, y;
+  if (navigator.isCocoonJS) {
+    stats = null;
+  } else {
+    x = Math.floor(this.config.width / 2) - 40;
+    y = 0;
+    stats = new Stats;
+    stats.setMode(0);
+    stats.domElement.style.position = "absolute";
+    stats.domElement.style.left = x + "px";
+    stats.domElement.style.top = y + "px";
+    document.body.appendChild(stats.domElement);
+  }
+  this.tickProvider = new ash.tick.FrameTickProvider(stats);
+  this.tickProvider.add(this.engine.update);
+  this.tickProvider.start();
 };
-ash.core.Family.prototype.cleanUp = function() {
-  throw Error("Method must be overriden");
+goog.provide("asteroids.Main");
+asteroids.Main = function() {
+  var canvas;
+  canvas = this.canvas();
+  (new asteroids.Asteroids(canvas.getContext("2d"), canvas.width, canvas.height)).start();
+  return;
 };
-ash.tick = {};
-ash.tick.FrameTickProvider = function(a, b) {
-  this.displayObject = a;
-  this.maximumFrameTime = b;
-  this.dispatchTick = goog.bind(this.dispatchTick, this);
-  ash.tick.FrameTickProvider.superClass_.constructor.apply(this, arguments);
+asteroids.Main.prototype.canvas = function() {
+  var canvas;
+  canvas = document.createElement(navigator.isCocoonJS ? "screencanvas" : "canvas");
+  canvas.width = window.innerWidth * window.devicePixelRatio;
+  canvas.height = window.innerHeight * window.devicePixelRatio;
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.backgroundColor = "#000000";
+  document.body.appendChild(canvas);
+  return canvas;
 };
-goog.inherits(ash.tick.FrameTickProvider, ash.signals.Signal1);
-ash.tick.FrameTickProvider.prototype.displayObject = null;
-ash.tick.FrameTickProvider.prototype.previousTime = 0;
-ash.tick.FrameTickProvider.prototype.maximumFrameTime = 0;
-ash.tick.FrameTickProvider.prototype.isPlaying = !1;
-ash.tick.FrameTickProvider.prototype.request = null;
-ash.tick.FrameTickProvider.prototype.timeAdjustment = 1;
-Object.defineProperties(ash.tick.FrameTickProvider.prototype, {playing:{get:function() {
-  return this.isPlaying;
-}}});
-ash.tick.FrameTickProvider.prototype.start = function() {
-  this.request = requestAnimationFrame(this.dispatchTick);
-  this.isPlaying = !0;
-};
-ash.tick.FrameTickProvider.prototype.stop = function() {
-  cancelRequestAnimationFrame(this.request);
-  this.isPlaying = !1;
-};
-ash.tick.FrameTickProvider.prototype.dispatchTick = function(a) {
-  var b;
-  null == a && (a = Date.now());
-  this.displayObject && this.displayObject.begin();
-  b = this.previousTime || a;
-  this.previousTime = a;
-  this.dispatch(.001 * (a - b));
-  requestAnimationFrame(this.dispatchTick);
-  this.displayObject && this.displayObject.end();
-};
+goog.provide("asteroids");
+goog.require("asteroids.input.KeyPoll");
+goog.require("asteroids.ui.Point");
+goog.require("asteroids.graphics.AsteroidView");
+goog.require("asteroids.graphics.AsteroidDeathView");
+goog.require("asteroids.graphics.BulletView");
+goog.require("asteroids.graphics.HudView");
+goog.require("asteroids.graphics.SpaceshipDeathView");
+goog.require("asteroids.graphics.SpaceshipView");
+goog.require("asteroids.graphics.WaitForStartView");
+goog.require("asteroids.components.Animation");
+goog.require("asteroids.components.Asteroid");
+goog.require("asteroids.components.Audio");
+goog.require("asteroids.components.Bullet");
+goog.require("asteroids.components.Collision");
+goog.require("asteroids.components.DeathThroes");
+goog.require("asteroids.components.Display");
+goog.require("asteroids.components.GameState");
+goog.require("asteroids.components.Gun");
+goog.require("asteroids.components.GunControls");
+goog.require("asteroids.components.Hud");
+goog.require("asteroids.components.Motion");
+goog.require("asteroids.components.MotionControls");
+goog.require("asteroids.components.Position");
+goog.require("asteroids.components.Spaceship");
+goog.require("asteroids.components.WaitForStart");
+goog.require("asteroids.nodes.AnimationNode");
+goog.require("asteroids.nodes.AsteroidCollisionNode");
+goog.require("asteroids.nodes.AudioNode");
+goog.require("asteroids.nodes.BulletAgeNode");
+goog.require("asteroids.nodes.BulletCollisionNode");
+goog.require("asteroids.nodes.DeathThroesNode");
+goog.require("asteroids.nodes.GameNode");
+goog.require("asteroids.nodes.GunControlNode");
+goog.require("asteroids.nodes.HudNode");
+goog.require("asteroids.nodes.MotionControlNode");
+goog.require("asteroids.nodes.MovementNode");
+goog.require("asteroids.nodes.RenderNode");
+goog.require("asteroids.nodes.SpaceshipCollisionNode");
+goog.require("asteroids.nodes.SpaceshipNode");
+goog.require("asteroids.nodes.WaitForStartNode");
+goog.require("asteroids.systems.AnimationSystem");
+goog.require("asteroids.systems.AudioSystem");
+goog.require("asteroids.systems.BulletAgeSystem");
+goog.require("asteroids.systems.CollisionSystem");
+goog.require("asteroids.systems.DeathThroesSystem");
+goog.require("asteroids.systems.GameManager");
+goog.require("asteroids.systems.GunControlSystem");
+goog.require("asteroids.systems.HudSystem");
+goog.require("asteroids.systems.MotionControlSystem");
+goog.require("asteroids.systems.MovementSystem");
+goog.require("asteroids.systems.RenderSystem");
+goog.require("asteroids.systems.SystemPriorities");
+goog.require("asteroids.systems.WaitForStartSystem");
+goog.require("asteroids.EntityCreator");
+goog.require("asteroids.GameConfig");
+goog.require("asteroids.Asteroids");
+goog.require("asteroids.Main");
 

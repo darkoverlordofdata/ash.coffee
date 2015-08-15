@@ -73,13 +73,13 @@ class ash.fsm.EngineStateMachine
 
     toAdd = new Dictionary()
     for each, provider of newState.providers
-      id = provider.identifier
+      id = provider.getIdentifier()
       toAdd[id] = provider
 
     if (currentState)
 
       for each, provider of @currentState.providers
-        id = provider.identifier
+        id = provider.getIdentifier()
         other = toAdd[id]
 
         if (other)

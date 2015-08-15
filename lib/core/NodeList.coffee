@@ -105,8 +105,7 @@ class ash.core.NodeList
    * true if the list is empty, false otherwise.
    * @type {boolean}
   ###
-  Object.defineProperties NodeList::,
-    empty: get: -> @head is null
+  isEmpty: -> @head is null
 
   ###*
    * Swaps the positions of two nodes in the list. Useful when sorting a list.

@@ -31,6 +31,5 @@ class ash.fsm.ComponentInstanceProvider
    *
    * @return {Object} The instance
   ###
-  Object.defineProperties ComponentInstanceProvider::,
-    identifier: get: -> return @instance
+  getIdentifier: -> return @instance
 

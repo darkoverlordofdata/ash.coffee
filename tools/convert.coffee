@@ -9,6 +9,49 @@ config = require('../jsconfig.json')
 exec = require('child_process').exec
 
 ###
+ * Convert a file name to a valid namespace 
+###
+getNamespace = (file) ->
+	ns = file.replace(/^web\/src\//, '').replace(/\.js$/,'').replace(/\//g,'.')
+	path = ns.split('.')
+	# convert the filename from snake to camel
+	name = path.pop().split('_')
+	for section, index in name
+		name[index] = section.charAt(0).toUpperCase() + section.substr(1)
+	path.push(name.join(''))
+	ns = path.join('.')
+	return ns
+	
+###
+ * Look for specific externals:
+ * 1 - superclass
+ * 2 - if superclass is node, get components 
+ * 
+ * todo: fix this by explitly importing all dependencies
+###	
+externals = (ns, src) ->
+	requires = []
+
+	# is there a superclass?
+	rx = new RegExp("goog.inherits\\(#{ns},\\s*(.*)\\);")
+	src.replace(rx, ($0, $1) -> requires.push($1))
+	if requires.length and requires[0] is 'ash.core.Node'
+		# check node for components list
+		src.replace(/\.components\s*=\s*\{([\s\S]*)\};/, ($0, $1) -> 
+			lines = $1.split('\n')
+			lines.pop()
+			lines.shift()
+			for line in lines
+				line.replace(/.*\:\s*([\w.]*),?/, ($0, $1) -> requires.push($1))
+			
+		)
+		
+	for ext, index in requires
+		requires[index] = "goog.require('#{ext}');"
+		
+	return requires.join('\n')
+	
+###
  * Analyze the dependencies
  * Generate the goog.require statements
  * Expand imported class names
@@ -25,61 +68,91 @@ dependencies = (ns, src) ->
 			
 			vars = []
 			names = []
-			deps = []
+			deps = {}
 			skip = []
 			for name, index in line[4...-1].split(/\s*,\s*/)
 				ivar = lineno+1+index
-				dep = src[ivar].replace(/\w+\s*=\s*(.*);/, ($0, $1) -> $1)
-				names.push(name)
-				vars.push("goog.require('#{dep}');")
-				deps.push(dep)
+				src[ivar].replace(/(\w+)\s*=\s*(.*);/, ($0, $1, $2) -> 
+					names.push($1)
+					vars.push("goog.require('#{$2}');")
+					deps[$1] = $2
+				)
+				
 				
 			for dep, index in vars
 				src[lineno+index] = dep
 				skip.push(lineno+index)
 			src[lineno+vars.length] = "";
 			skip.push(lineno+vars.length)
-	
-			
+			break			
 	
 	if found
-		console.log ns
 		for line, lineno in src
 			if skip.indexOf(lineno) is -1
-				for name, index in names
+				for name in names
+				
 					rx = new RegExp("new #{name}\\b", 'g')
-					line = line.replace(rx, 'new ' +deps[index])
-					# line = line.replace("new #{name}", "new #{deps[index]}")
+					line = line.replace(rx, 'new ' +deps[name])
+					
+					rx = new RegExp(", #{name},", 'g')
+					line = line.replace(rx, ", #{deps[name]},")
+					
+					rx = new RegExp("\\(#{name}\\)", 'g')
+					line = line.replace(rx, "(#{deps[name]})")
+					
+					rx = new RegExp("\\b#{name}\\.", 'g')
+					line = line.replace(rx, "#{deps[name]}.")
+					
 					if line isnt src[lineno]
 						src[lineno] = line
 	
 	return src.join('\n')
 				
+
 ###
- * Compile coffeescript and process each output
+ * Convert coffeescript outputs to goog
  *
+ * @param {string} name of app
+ * @param {string} root folder 
 ###
-exec "coffee -o ./cc --no-header -cb ./lib", (err, out) ->
-	throw err if err
-	deps = []
-	for file in config.files
+convert = (name, root=name, section=name, next) ->
 		
-		if file.indexOf('_') is -1
-			ns = file.replace(/^web\/src\//, '').replace(/\.js$/,'').replace(/\//g,'.')
-			unless /\.prolog$/.test(ns)
+	exec "coffee -o ./cc/#{root} --no-header -cb ./#{root}", (err, out) ->
+		throw err if err
+		deps = []
+		for file in config[section]
+			
+			unless file.indexOf('prolog.js') isnt -1
+				ns = getNamespace(file)
+				alt = ns.replace('example', 'asteroids')
 				deps.push(ns)
-				src = fs.readFileSync(file.replace('web/src/ash', './cc'), 'utf8')
+				src = fs.readFileSync(file.replace("web/src/#{name}", "./cc/#{root}"), 'utf8')
 				src = src.replace(/'use strict';/, '')
 				src = c2c.fix(src, addGenerateByHeader: false)	
 				src = dependencies(ns, src)
+				ext = externals(alt, src)
+				
 				src = """
-				goog.provide('#{ns}');
+				goog.provide('#{alt}');
+				#{ext}
 				#{src}
 				"""
-				fs.writeFileSync(file.replace('web/src/ash', './cc'), src)
+				# src = src.replace(/goog.require\('null'\);/g, '')
+				fs.writeFileSync(file.replace("web/src/#{name}", "./cc/#{root}"), src)
 	
+	
+		#
+		# write new prolog
+		#
+		alt = name.replace('example', 'asteroids')
+		out = ["goog.provide('#{alt}');"]
+		for dep in deps
+			unless dep is 'example.Index'
+				alt = dep.replace('example', 'asteroids')
+				out.push("goog.require('#{alt}');")
+		out.push("new asteroids.Main();") unless next?
+		fs.writeFileSync("cc/#{root}/index.js", out.join('\n'))
+		next?()
 
-	out = ["goog.provide('ash');"]
-	for dep in deps
-		out.push("goog.require('#{dep}');")
-	fs.writeFileSync('cc/ash.js', out.join('\n'))
+convert 'ash', 'lib', 'files', -> convert 'example'
+	

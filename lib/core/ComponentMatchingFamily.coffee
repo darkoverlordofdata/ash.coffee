@@ -16,6 +16,9 @@ Util = ash.ext.Util
 class ash.core.ComponentMatchingFamily #extends Family
 
   ###*
+   * The nodelist managed by this family. This is a reference that remains valid always
+   * since it is retained and reused by Systems that use the list. i.e. we never recreate the list,
+   * we always modify it in place.
    * @type {ash.core.NodeList}
   ### 
   nodes: null
@@ -66,20 +69,11 @@ class ash.core.ComponentMatchingFamily #extends Family
     @nodes = new NodeList()
     @entities = new Dictionary()
     @components = new Dictionary()
-#    @nodePool = new NodePool(@nodeClass, @components)
     @nodePool = new NodePool(@nodeClass, @nodeClass.components)
 
     for name, type of @nodeClass.components
       @components[Util.getClassName(type)] = type
     return # Void
-
-  ###
-   * The nodelist managed by this family. This is a reference that remains valid always
-   * since it is retained and reused by Systems that use the list. i.e. we never recreate the list,
-   * we always modify it in place.
-  ###
-  Object.defineProperties ComponentMatchingFamily::,
-    nodeList: get: -> @nodes
 
   ###*
    * Called by the engine when an entity has been added to it. We check if the entity should be in
@@ -112,7 +106,6 @@ class ash.core.ComponentMatchingFamily #extends Family
   ###
   componentRemovedFromEntity: (entity, componentClass) ->
     name = if Util.getClassName(componentClass)? then Util.getClassName(componentClass) else componentClass
-#    name = if 'string' is typeof componentClass then componentClass else componentClass.className
     if name of @components
       @removeIfMatch(entity)
     return # Void

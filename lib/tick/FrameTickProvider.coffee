@@ -49,13 +49,6 @@ class ash.tick.FrameTickProvider extends ash.signals.Signal1
     super
 
   ###*
-   * Is Playing?
-   * @return {boolean}
-  ###
-  Object.defineProperties FrameTickProvider::,
-    playing: get: -> @isPlaying
-
-  ###*
    * Start
   ###
   start: ->

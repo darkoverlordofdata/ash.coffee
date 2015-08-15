@@ -8,6 +8,7 @@ Dictionary = ash.ext.Dictionary
 SystemList = ash.core.SystemList
 Signal0 = ash.signals.Signal0
 Util = ash.ext.Util
+ComponentMatchingFamily = ash.core.ComponentMatchingFamily
 
 class ash.core.Engine
 
@@ -68,30 +69,28 @@ class ash.core.Engine
     @families = new Dictionary()
     @updateComplete = new Signal0()
 
-  Object.defineProperties Engine::,
-    ###
-     * Returns a vector containing all the entities in the engine.
-    ###
-    entities: get: ->
-      entities = []
-      entity = @entityList.head
-      while entity
-        @entities.push(entity)
-        entity = entity.next
 
-
-      return entities
-    ###
-     * Returns a vector containing all the systems in the engine.
-    ###
-    systems:  get: ->
-      systems = []
-      system = @systemList.head
-      while system
-        systems.push(system)
-        system = system.next
-
-      return systems
+   ###
+    * Returns a vector containing all the entities in the engine.
+   ###
+   getEntities: ->
+     entities = []
+     entity = @entityList.head
+     while entity
+       @entities.push(entity)
+       entity = entity.next
+     return entities
+     
+   ###
+    * Returns a vector containing all the systems in the engine.
+   ###
+   getSystems: ->
+     systems = []
+     system = @systemList.head
+     while system
+       systems.push(system)
+       system = system.next
+     return systems
 
   ###*
    * Add an entity to the engine.
@@ -191,7 +190,7 @@ class ash.core.Engine
   ###
   getNodeList: (nodeClass) ->
     if (Util.getClassName(nodeClass) of @families)
-      return @families[Util.getClassName(nodeClass)].nodeList
+      return @families[Util.getClassName(nodeClass)].nodes
 
     family = new @familyClass(nodeClass, this)
     @families[Util.getClassName(nodeClass)] = family
@@ -200,7 +199,7 @@ class ash.core.Engine
       family.newEntity(entity)
       entity = entity.next
 
-    return family.nodeList
+    return family.nodes
 
   ###*
    * If a NodeList is no longer required, this method will stop the engine updating

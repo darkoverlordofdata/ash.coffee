@@ -69,7 +69,7 @@ class ash.tools.ListIteratingSystem extends ash.core.System
   addToEngine: (engine) ->
     @nodeList = engine.getNodeList(@nodeClass)
     if (@nodeAddedFunction isnt null)
-      node = this.nodeList.head
+      node = @nodeList.head
       while node
         @nodeAddedFunction(node)
         node = node.next
@@ -96,7 +96,7 @@ class ash.tools.ListIteratingSystem extends ash.core.System
    * @param {number} time ms since last update
   ###
   update: (time) ->
-    node = this.nodeList.head
+    node = @nodeList.head
     while node
       @nodeUpdateFunction(node, time)
       node = node.next

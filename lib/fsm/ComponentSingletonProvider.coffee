@@ -35,8 +35,7 @@ class ash.fsm.ComponentSingletonProvider
    *
    * @return {Object} The instance
   ###
-  Object.defineProperties ComponentSingletonProvider::,
-    identifier: get: -> return @getComponent()
+  getIdentifier: -> return @getComponent()
 
 
 

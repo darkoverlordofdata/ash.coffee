@@ -28,8 +28,7 @@ class ash.fsm.ComponentTypeProvider
    *
    * @return {Object} The instance
   ###
-  Object.defineProperties ComponentTypeProvider::,
-    identifier: get: -> return @componentType
+  getIdentifier: -> return @componentType
 
 
 

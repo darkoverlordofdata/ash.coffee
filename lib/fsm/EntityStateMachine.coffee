@@ -79,7 +79,7 @@ class ash.fsm.EntityStateMachine
         toAdd[type] = newState.providers[type]
       for type of @currentState.providers
         other = toAdd[type]
-        if other and other.identifier is @currentState.providers[type].identifier
+        if other and other.getIdentifier() is @currentState.providers[type].getIdentifier()
           delete toAdd[type]
         else
           @entity.remove(type)

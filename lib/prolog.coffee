@@ -54,6 +54,7 @@ ash =
   tick: {}
   tools: {}
 
+
 do (root=@, factory=(-> ash)) ->
   'use strict'
   ###

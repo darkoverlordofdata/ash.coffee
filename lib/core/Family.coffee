@@ -5,23 +5,19 @@
 ###
 'use strict'
 
+###*
+  * @interface
+###
 class ash.core.Family
-
-  ###*
-   * @type {ash.core.NodeList}
-  ###
-  nodes: null
 
   ###*
    * Returns the NodeList managed by this class. This should be a reference that remains valid always
    * since it is retained and reused by Systems that use the list. i.e. never recreate the list,
    * always modify it in place.
-   *
-   * @interface
+   * @type {ash.core.NodeList}
   ###
-  constructor: ->
-    Object.defineProperties @,
-      nodeList: get: -> this.nodes
+  nodes: null
+
 
   ###*
    * An entity has been added to the engine. It may already have components so test the entity

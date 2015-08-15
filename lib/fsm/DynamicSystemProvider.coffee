@@ -12,9 +12,10 @@ class ash.fsm.DynamicSystemProvider
   method: ->
     
   ###*
+   * The priority at which the System should be added to the Engine
    * @type {number}
   ###
-  systemPriority: 0
+  priority: 0
 
   ###*
    * @constructor
@@ -31,19 +32,8 @@ class ash.fsm.DynamicSystemProvider
   getSystem: () ->
     return @method()
 
-  Object.defineProperties DynamicSystemProvider::,
-    ###
-     * The priority at which the System should be added to the Engine
-     * @return {Function}
-    ###
-    identifier: get: -> @method
-    ###
-     * The priority at which the System should be added to the Engine
-     * @return {number}
-    ###
-    priority:
-      get: -> @systemPriority
-      set: (value) ->
-        @systemPriority = value
-
-
+  ###
+   * The priority at which the System should be added to the Engine
+   * @return {Function}
+  ###
+  getIdentifier: -> return @method

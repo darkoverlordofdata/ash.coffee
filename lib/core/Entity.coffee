@@ -32,7 +32,7 @@ class ash.core.Entity
    *
    * @type {string}
   ###
-  _name: ''
+  name: ''
   
   ###*
    * This signal is dispatched when a component is added to the entity.
@@ -64,18 +64,18 @@ class ash.core.Entity
    * @param {string} name Entity name
   ###
   constructor: (name = '' ) ->
-    Object.defineProperties @,
-      ###
-       * All entities have a name. If no name is set, a default name is used. Names are used to
-       * fetch specific entities from the engine, and can also help to identify an entity when debugging.
-      ###
-      name:
-        get: -> @_name
-        set: (value) ->
-          if (@_name isnt value)
-            previous = @_name
-            @_name = value
-            @nameChanged.dispatch(this, previous)
+#    Object.defineProperties @,
+#      ###
+#       * All entities have a name. If no name is set, a default name is used. Names are used to
+#       * fetch specific entities from the engine, and can also help to identify an entity when debugging.
+#      ###
+#      name:
+#        get: -> @name
+#        set: (value) ->
+#          if (@name isnt value)
+#            previous = @name
+#            @name = value
+#            @nameChanged.dispatch(this, previous)
 
     @componentAdded = new Signal2()
     @componentRemoved = new Signal2()
@@ -84,10 +84,17 @@ class ash.core.Entity
 
     if (name isnt '')
       Entity.nameCount[name] = 0 unless Entity.nameCount[name]?
-      @_name = name + (++Entity.nameCount[name])
+      @name = name + (++Entity.nameCount[name])
     else
-      @_name = "_entity" + (++nameCount)
+      @name = "_entity" + (++nameCount)
 
+  setName: (value) ->
+    if (@name isnt value)
+      previous = @name
+      @name = value
+      @nameChanged.dispatch(this, previous)
+    return
+    
   ###*
    * Add a component to the entity.
    *
