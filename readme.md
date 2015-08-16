@@ -12,10 +12,6 @@ $ cd <project name>
 $ npm install ash.coffee --save
 ```
 
-```javascript
-require('ash.coffee');
-```
-
 ### To build
 
 ```bash
@@ -26,6 +22,9 @@ $ npm run build
 $ npm start
 ```
 
+### Extra
+
+Cosure compiler ready sources in the goog/lib folder 
 
 # MIT License
 Ash - an entity framework for Actionscript
