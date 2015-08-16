@@ -22,9 +22,11 @@ $ npm run build
 $ npm start
 ```
 
-### Extra
+### Extras
 
 Closure compiler ready sources in the goog/lib folder 
+
+Interop with typescript - ash.d.ts in dist folder
 
 # MIT License
 Ash - an entity framework for Actionscript
