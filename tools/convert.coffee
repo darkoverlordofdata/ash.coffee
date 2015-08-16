@@ -27,7 +27,6 @@ getNamespace = (file) ->
  * 1 - superclass
  * 2 - if superclass is node, get components 
  * 
- * todo: fix this by explitly importing all dependencies
 ###	
 externals = (ns, src) ->
 	requires = []
@@ -37,14 +36,12 @@ externals = (ns, src) ->
 	src.replace(rx, ($0, $1) -> requires.push($1))
 	if requires.length and requires[0] is 'ash.core.Node'
 		# check node for components list
-		src.replace(/\.components\s*=\s*\{([\s\S]*)\};/, ($0, $1) -> 
+		src.replace /\.components\s*=\s*\{([\s\S]*)\};/, ($0, $1) -> 
 			lines = $1.split('\n')
 			lines.pop()
 			lines.shift()
 			for line in lines
 				line.replace(/.*\:\s*([\w.]*),?/, ($0, $1) -> requires.push($1))
-			
-		)
 		
 	for ext, index in requires
 		requires[index] = "goog.require('#{ext}');"
@@ -117,7 +114,7 @@ dependencies = (ns, src) ->
 ###
 convert = (name, root=name, section=name, next) ->
 		
-	exec "coffee -o ./cc/#{root} --no-header -cb ./#{root}", (err, out) ->
+	exec "coffee -o ./goog/#{root} --no-header -cb ./#{root}", (err, out) ->
 		throw err if err
 		deps = []
 		for file in config[section]
@@ -126,7 +123,7 @@ convert = (name, root=name, section=name, next) ->
 				ns = getNamespace(file)
 				alt = ns.replace('example', 'asteroids')
 				deps.push(ns)
-				src = fs.readFileSync(file.replace("web/src/#{name}", "./cc/#{root}"), 'utf8')
+				src = fs.readFileSync(file.replace("web/src/#{name}", "./goog/#{root}"), 'utf8')
 				src = src.replace(/'use strict';/, '')
 				src = c2c.fix(src, addGenerateByHeader: false)	
 				src = dependencies(ns, src)
@@ -137,8 +134,7 @@ convert = (name, root=name, section=name, next) ->
 				#{ext}
 				#{src}
 				"""
-				# src = src.replace(/goog.require\('null'\);/g, '')
-				fs.writeFileSync(file.replace("web/src/#{name}", "./cc/#{root}"), src)
+				fs.writeFileSync(file.replace("web/src/#{name}", "./goog/#{root}"), src)
 	
 	
 		#
@@ -151,8 +147,7 @@ convert = (name, root=name, section=name, next) ->
 				alt = dep.replace('example', 'asteroids')
 				out.push("goog.require('#{alt}');")
 		out.push("new asteroids.Main();") unless next?
-		fs.writeFileSync("cc/#{root}/index.js", out.join('\n'))
+		fs.writeFileSync("goog/#{root}/index.js", out.join('\n'))
 		next?()
 
-convert 'ash', 'lib', 'files', -> convert 'example'
-	
+convert 'ash', 'lib', 'files', -> convert 'example' # bwa-ha-ha-ha

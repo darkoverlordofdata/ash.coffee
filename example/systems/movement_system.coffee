@@ -10,6 +10,7 @@ class asteroids.systems.MovementSystem extends ash.tools.ListIteratingSystem
     super(MovementNode, @updateNode)
 
   updateNode: (node, time) =>
+      
     position = node.position
     motion = node.motion
     position.position.x += motion.velocity.x * time

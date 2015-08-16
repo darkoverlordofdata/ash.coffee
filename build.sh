@@ -8,7 +8,7 @@ python  /home/bruce/Applications/closure/library/closure/bin/build/closurebuilde
     --namespace=asteroids \
     --output_mode=compiled \
     --compiler_jar=/home/bruce/Applications/closure/compiler/compiler.jar \
-    --compiler_flag="--compilation_level=WHITESPACE_ONLY" \
+    --compiler_flag="--compilation_level=ADVANCED_OPTIMIZATIONS" \
     --compiler_flag="--formatting=pretty_print" \
     --compiler_flag="--define=goog.userAgent.ASSUME_WEBKIT=true" \
     --compiler_flag="--create_source_map=example.js.map" \

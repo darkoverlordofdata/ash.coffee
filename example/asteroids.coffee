@@ -33,6 +33,7 @@ GameConfig            = asteroids.GameConfig
 KeyPoll               = asteroids.input.KeyPoll
 Engine                = ash.core.Engine
 FrameTickProvider     = ash.tick.FrameTickProvider
+Helper                = ash.ext.Helper;
 
 class asteroids.Asteroids
 
@@ -90,11 +91,11 @@ class asteroids.Asteroids
       x = Math.floor(@config.width/2)-40
       y = 0
       stats = new Stats()
-      stats.setMode 0
-      stats.domElement.style.position = "absolute"
-      stats.domElement.style.left = "#{x}px"
-      stats.domElement.style.top = "#{y}px"
-      document.body.appendChild stats.domElement
+      stats['setMode'] 0
+      stats['domElement'].style.position = "absolute"
+      stats['domElement'].style.left = "#{x}px"
+      stats['domElement'].style.top = "#{y}px"
+      document.body.appendChild stats['domElement']
 
     @tickProvider = new FrameTickProvider(stats)
     @tickProvider.add(@engine.update)

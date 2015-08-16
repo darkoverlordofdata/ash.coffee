@@ -2,6 +2,8 @@
 
 class asteroids.components.DeathThroes
 
+  @className: 'DeathThroes'
+
   countdown: 0
 
   constructor: (duration) ->

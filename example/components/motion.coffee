@@ -3,6 +3,8 @@ Point = asteroids.ui.Point
 
 class asteroids.components.Motion
 
+  @className: 'Motion'
+
   velocity: null
   angularVelocity: 0
   damping: 0

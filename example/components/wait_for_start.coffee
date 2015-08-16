@@ -2,6 +2,8 @@
 
 class asteroids.components.WaitForStart
 
+  @className: 'WaitForStart'
+
   waitForStart: null
   startGame: false
 

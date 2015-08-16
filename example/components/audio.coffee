@@ -2,6 +2,8 @@
 
 class asteroids.components.Audio
 
+  @className: 'Audio'
+
   toPlay: null
 
   constructor: () ->

@@ -2,6 +2,8 @@
 
 class asteroids.components.MotionControls
 
+  @className: 'MotionControls'
+
   left: 0
   right: 0
   accelerate: 0

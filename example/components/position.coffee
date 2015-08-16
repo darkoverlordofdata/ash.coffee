@@ -3,6 +3,8 @@ Point = asteroids.ui.Point
 
 class asteroids.components.Position
 
+  @className: 'Position'
+
   position: null
   rotation: 0
 

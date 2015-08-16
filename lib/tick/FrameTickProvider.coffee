@@ -69,13 +69,12 @@ class ash.tick.FrameTickProvider extends ash.signals.Signal1
    @param {number} timestamp
   ###
   dispatchTick: (timestamp = Date.now()) =>
-    @displayObject.begin()  if @displayObject
+    @displayObject?['begin']?() #  if @displayObject
     temp = @previousTime or timestamp
     @previousTime = timestamp
     frameTime = (timestamp - temp) * 0.001
-#    @dispatch(frameTime * @timeAdjustment)
     @dispatch(frameTime)
     requestAnimationFrame(@dispatchTick)
-    @displayObject.end()  if @displayObject
+    @displayObject?['end']?() # if @displayObject
     return # Void
 
