@@ -4,95 +4,99 @@
  * This internal class maintains a pool of deleted listener nodes for reuse by framework. This reduces
  * the overhead from object creation and garbage collection.
  */
-'use strict';
-var ListenerNode;
 
-ListenerNode = ash.signals.ListenerNode;
+(function() {
+  'use strict';
+  var ListenerNode;
 
-
-/**
- * @constructor
- */
-
-ash.signals.ListenerNodePool = (function() {
-  function ListenerNodePool() {}
+  ListenerNode = ash.signals.ListenerNode;
 
 
   /**
-   * @type {ash.signals.ListenerNodePool}
+   * @constructor
    */
 
-  ListenerNodePool.prototype.tail = null;
+  ash.signals.ListenerNodePool = (function() {
+    function ListenerNodePool() {}
 
 
-  /**
-   * @type {ash.signals.ListenerNodePool}
-   */
+    /**
+     * @type {ash.signals.ListenerNodePool}
+     */
 
-  ListenerNodePool.prototype.cacheTail = null;
-
-
-  /**
-   * Get listener node
-   * @return {ash.signals.ListenerNode}
-   */
-
-  ListenerNodePool.prototype.get = function() {
-    var node;
-    if (this.tail !== null) {
-      node = this.tail;
-      this.tail = this.tail.previous;
-      node.previous = null;
-      return node;
-    } else {
-      return new ListenerNode();
-    }
-  };
+    ListenerNodePool.prototype.tail = null;
 
 
-  /**
-   * Dispose of listener node
-   * @param {ash.signals.ListenerNode}
-   */
+    /**
+     * @type {ash.signals.ListenerNodePool}
+     */
 
-  ListenerNodePool.prototype.dispose = function(node) {
-    node.listener = null;
-    node.once = false;
-    node.next = null;
-    node.previous = this.tail;
-    this.tail = node;
-  };
+    ListenerNodePool.prototype.cacheTail = null;
 
 
-  /**
-   * Cache listener node
-   * @param {ash.signals.ListenerNode}
-   */
+    /**
+     * Get listener node
+     * @return {ash.signals.ListenerNode}
+     */
 
-  ListenerNodePool.prototype.cache = function(node) {
-    node.listener = null;
-    node.previous = this.cacheTail;
-    this.cacheTail = node;
-  };
+    ListenerNodePool.prototype.get = function() {
+      var node;
+      if (this.tail !== null) {
+        node = this.tail;
+        this.tail = this.tail.previous;
+        node.previous = null;
+        return node;
+      } else {
+        return new ListenerNode();
+      }
+    };
 
 
-  /**
-   * Release cache
-   */
+    /**
+     * Dispose of listener node
+     * @param {ash.signals.ListenerNode}
+     */
 
-  ListenerNodePool.prototype.releaseCache = function() {
-    var node;
-    while (this.cacheTail !== null) {
-      node = this.cacheTail;
-      this.cacheTail = node.previous;
+    ListenerNodePool.prototype.dispose = function(node) {
+      node.listener = null;
+      node.once = false;
       node.next = null;
       node.previous = this.tail;
       this.tail = node;
-    }
-  };
+    };
 
-  return ListenerNodePool;
 
-})();
+    /**
+     * Cache listener node
+     * @param {ash.signals.ListenerNode}
+     */
+
+    ListenerNodePool.prototype.cache = function(node) {
+      node.listener = null;
+      node.previous = this.cacheTail;
+      this.cacheTail = node;
+    };
+
+
+    /**
+     * Release cache
+     */
+
+    ListenerNodePool.prototype.releaseCache = function() {
+      var node;
+      while (this.cacheTail !== null) {
+        node = this.cacheTail;
+        this.cacheTail = node.previous;
+        node.next = null;
+        node.previous = this.tail;
+        this.tail = node;
+      }
+    };
+
+    return ListenerNodePool;
+
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=ListenerNodePool.js.map

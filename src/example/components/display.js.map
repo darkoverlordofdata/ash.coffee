@@ -3,8 +3,8 @@
   "file": "display.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/components/display.coffee"
+    "example/components/display.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;sBAEzB,OAAA,GAAS;;IAEI,iBAAC,OAAD;MAAC,IAAC,CAAA,UAAD;IAAD;;;;;AANf"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,EAEK,SAAS,CAAC,UAAU,CAAC;AAEzB,IAAA,OAAC,CAAA,SAAD,GAAa,SAAb,CAAA;;AAAA,sBAEA,OAAA,GAAS,CAFT,CAAA;;AAIa,IAAA,iBAAC,WAAD,GAAA;AAAY,MAAX,IAAC,CAAA,UAAD,WAAW,CAAZ;IAAA,CAJb;;mBAAA;;MAJD,CAAA;AAAA"
 }

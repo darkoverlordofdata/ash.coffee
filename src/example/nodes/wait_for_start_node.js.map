@@ -3,8 +3,8 @@
   "file": "wait_for_start_node.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/nodes/wait_for_start_node.coffee"
+    "example/nodes/wait_for_start_node.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,gBAAC,CAAA,UAAD,GACE;MAAA,IAAA,EAAO,SAAS,CAAC,UAAU,CAAC,YAA5B;;;+BAEF,IAAA,GAAO;;;;KALsC,GAAG,CAAC,IAAI,CAAC;AAFxD"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,MAAA;iCAAA;;AAAA,EAEK,SAAS,CAAC,KAAK,CAAC;AAEpB,uCAAA,CAAA;;;;KAAA;;AAAA,IAAA,gBAAC,CAAA,SAAD,GAAa,kBAAb,CAAA;;AAAA,IACA,gBAAC,CAAA,UAAD,GACE;AAAA,MAAA,IAAA,EAAO,SAAS,CAAC,UAAU,CAAC,YAA5B;KAFF,CAAA;;AAAA,+BAIA,IAAA,GAAO,IAJP,CAAA;;4BAAA;;KAF6C,GAAG,CAAC,IAAI,CAAC,KAFvD,CAAA;AAAA"
 }

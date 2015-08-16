@@ -4,44 +4,46 @@
  * This System provider always returns the same instance of the component. The system
  * is passed to the provider at initialisation.
  */
-'use strict';
-ash.fsm.SystemInstanceProvider = (function() {
 
-  /**
-   * @type {Object}
-   */
-  SystemInstanceProvider.prototype.instance = null;
+(function() {
+  'use strict';
+  ash.fsm.SystemInstanceProvider = (function() {
 
-
-  /**
-   * @type {number}
-   */
-
-  SystemInstanceProvider.prototype.systemPriority = 0;
+    /**
+     * @type {Object}
+     */
+    SystemInstanceProvider.prototype.instance = null;
 
 
-  /**
-   * @constructor
-   *
-   * @param {Object} instance The instance to return whenever a System is requested.
-   */
+    /**
+     * The priority at which the System should be added to the Engine
+     * @type {number}
+     */
 
-  function SystemInstanceProvider(_at_instance) {
-    this.instance = _at_instance;
-  }
+    SystemInstanceProvider.prototype.priority = 0;
 
 
-  /**
-   * Used to request a component from this provider
-   *
-   * @return {Object} The instance of the System
-   */
+    /**
+     * @constructor
+     *
+     * @param {Object} instance The instance to return whenever a System is requested.
+     */
 
-  SystemInstanceProvider.prototype.getSystem = function() {
-    return this.instance;
-  };
+    function SystemInstanceProvider(_at_instance) {
+      this.instance = _at_instance;
+    }
 
-  Object.defineProperties(SystemInstanceProvider.prototype, {
+
+    /**
+     * Used to request a component from this provider
+     *
+     * @return {Object} The instance of the System
+     */
+
+    SystemInstanceProvider.prototype.getSystem = function() {
+      return this.instance;
+    };
+
 
     /**
      * Used to compare this provider with others. Any provider that returns the same component
@@ -49,28 +51,15 @@ ash.fsm.SystemInstanceProvider = (function() {
      *
      * @type {Object} The instance
      */
-    identifier: {
-      get: function() {
-        return this.instance;
-      }
-    },
 
-    /**
-     * The priority at which the System should be added to the Engine
-     * @type {number}
-     */
-    priority: {
-      get: function() {
-        return this.systemPriority;
-      },
-      set: function(value) {
-        return this.systemPriority = value;
-      }
-    }
-  });
+    SystemInstanceProvider.prototype.getIdentifier = function() {
+      return this.instance;
+    };
 
-  return SystemInstanceProvider;
+    return SystemInstanceProvider;
 
-})();
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=SystemInstanceProvider.js.map

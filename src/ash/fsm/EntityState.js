@@ -4,70 +4,74 @@
  * Represents a state for an EntityStateMachine. The state contains any number of ComponentProviders which
  * are used to add components to the entity when this state is entered.
  */
-'use strict';
-var Dictionary, StateComponentMapping, getClassName;
 
-Dictionary = ash.ext.Dictionary;
+(function() {
+  'use strict';
+  var Dictionary, StateComponentMapping, Util;
 
-StateComponentMapping = ash.fsm.StateComponentMapping;
+  Dictionary = ash.ext.Dictionary;
 
-getClassName = ash.ext.getClassName;
+  StateComponentMapping = ash.fsm.StateComponentMapping;
 
-ash.fsm.EntityState = (function() {
+  Util = ash.ext.Util;
 
-  /**
-   * @type {ash.ext.Dictionary}
-   */
-  EntityState.prototype.providers = null;
+  ash.fsm.EntityState = (function() {
 
-
-  /**
-   * @constructor
-   */
-
-  function EntityState() {
-    this.providers = new Dictionary();
-  }
+    /**
+     * @type {ash.ext.Dictionary}
+     */
+    EntityState.prototype.providers = null;
 
 
-  /**
-   * Add a new ComponentMapping to this state. The mapping is a utility class that is used to
-   * map a component type to the provider that provides the component.
-   *
-   * @param {Function} type The type of component to be mapped
-   * @return {ash.fsm.StateComponentMapping} The component mapping to use when setting the provider for the component
-   */
+    /**
+     * @constructor
+     */
 
-  EntityState.prototype.add = function(type) {
-    return new StateComponentMapping(this, getClassName(type));
-  };
+    function EntityState() {
+      this.providers = new Dictionary();
+    }
 
 
-  /**
-   * Get the ComponentProvider for a particular component type.
-   *
-   * @param {Function} type The type of component to get the provider for
-   * @return {Object} The ComponentProvider
-   */
+    /**
+     * Add a new ComponentMapping to this state. The mapping is a utility class that is used to
+     * map a component type to the provider that provides the component.
+     *
+     * @param {Function} type The type of component to be mapped
+     * @return {ash.fsm.StateComponentMapping} The component mapping to use when setting the provider for the component
+     */
 
-  EntityState.prototype.get = function(type) {
-    return this.providers[type];
-  };
+    EntityState.prototype.add = function(type) {
+      return new StateComponentMapping(this, Util.getClassName(type));
+    };
 
 
-  /**
-   * To determine whether this state has a provider for a specific component type.
-   *
-   * @param {Function} type The type of component to look for a provider for
-   * @return {boolean} true if there is a provider for the given type, false otherwise
-   */
+    /**
+     * Get the ComponentProvider for a particular component type.
+     *
+     * @param {Function} type The type of component to get the provider for
+     * @return {Object} The ComponentProvider
+     */
 
-  EntityState.prototype.has = function(type) {
-    return this.providers[type] !== null;
-  };
+    EntityState.prototype.get = function(type) {
+      return this.providers[type];
+    };
 
-  return EntityState;
 
-})();
+    /**
+     * To determine whether this state has a provider for a specific component type.
+     *
+     * @param {Function} type The type of component to look for a provider for
+     * @return {boolean} true if there is a provider for the given type, false otherwise
+     */
+
+    EntityState.prototype.has = function(type) {
+      return this.providers[type] !== null;
+    };
+
+    return EntityState;
+
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=EntityState.js.map

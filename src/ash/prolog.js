@@ -41,48 +41,42 @@ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-'use strict';
 
-/*
- * ash namespace
- * @const
- */
-var Dictionary, ash;
+(function() {
+  'use strict';
 
-ash = {
-  signals: {},
-  core: {},
-  ext: {
-    Dictionary: Dictionary = (function() {
+  /*
+   * ash namespace
+   * @const
+   */
+  var ash;
 
-      /*
-       * @constructor
-       * @dict
-       */
-      function Dictionary() {}
+  ash = {
+    core: {},
+    ext: {},
+    fsm: {},
+    signals: {},
+    tick: {},
+    tools: {}
+  };
 
-      return Dictionary;
-
-    })(),
+  (function(root, factory) {
+    'use strict';
 
     /*
-     * Get Class Name
-     *
-     * closure compiler changes the class name, or sets it to ''
-     * In that case, add a static className property to all
-     * Nodes and Components so they can be identified.
-     *
-     * @param {function} klass
-     * @return {string}
+     * Export ash - umd header
      */
-    getClassName: function(klass) {
-      var _ref;
-      return (_ref = klass.className) != null ? _ref : klass.name;
+    if ('function' === typeof define && define.amd) {
+      define(factory);
+    } else if ('object' === typeof exports) {
+      module.exports = factory();
+    } else {
+      root['ash'] = factory();
     }
-  },
-  fsm: {},
-  tick: {},
-  tools: {}
-};
+  })(this, (function() {
+    return ash;
+  }));
+
+}).call(this);
 
 //# sourceMappingURL=prolog.js.map

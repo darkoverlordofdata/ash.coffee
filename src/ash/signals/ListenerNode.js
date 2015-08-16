@@ -3,44 +3,48 @@
 /*
  * A node in the list of listeners in a signal.
  */
-'use strict';
 
-/**
- * @constructor
- */
-ash.signals.ListenerNode = (function() {
-  function ListenerNode() {}
-
+(function() {
+  'use strict';
 
   /**
-   * @param {ash.signals.ListenerNode}
+   * @constructor
    */
-
-  ListenerNode.prototype.previous = null;
-
-
-  /**
-   * @param {ash.signals.ListenerNode}
-   */
-
-  ListenerNode.prototype.next = null;
+  ash.signals.ListenerNode = (function() {
+    function ListenerNode() {}
 
 
-  /**
-   * @param {ash.signals.SignalBase}
-   */
+    /**
+     * @param {ash.signals.ListenerNode}
+     */
 
-  ListenerNode.prototype.listener = null;
+    ListenerNode.prototype.previous = null;
 
 
-  /**
-   * @param {boolean}
-   */
+    /**
+     * @param {ash.signals.ListenerNode}
+     */
 
-  ListenerNode.prototype.once = false;
+    ListenerNode.prototype.next = null;
 
-  return ListenerNode;
 
-})();
+    /**
+     * @param {ash.signals.SignalBase}
+     */
+
+    ListenerNode.prototype.listener = null;
+
+
+    /**
+     * @param {boolean}
+     */
+
+    ListenerNode.prototype.once = false;
+
+    return ListenerNode;
+
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=ListenerNode.js.map

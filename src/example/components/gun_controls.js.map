@@ -3,8 +3,8 @@
   "file": "gun_controls.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/components/gun_controls.coffee"
+    "example/components/gun_controls.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;0BAEzB,OAAA,GAAS;;IAEI,qBAAC,OAAD;MAAC,IAAC,CAAA,UAAD;IAAD;;;;;AANf"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,EAEK,SAAS,CAAC,UAAU,CAAC;AAEzB,IAAA,WAAC,CAAA,SAAD,GAAa,aAAb,CAAA;;AAAA,0BAEA,OAAA,GAAS,CAFT,CAAA;;AAIa,IAAA,qBAAC,WAAD,GAAA;AAAY,MAAX,IAAC,CAAA,UAAD,WAAW,CAAZ;IAAA,CAJb;;uBAAA;;MAJD,CAAA;AAAA"
 }

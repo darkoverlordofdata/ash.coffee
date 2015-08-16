@@ -3,8 +3,8 @@
   "file": "shape.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/ui/shape.coffee"
+    "example/ui/shape.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,EAAE,CAAC;;;;;;;;;KAAc,SAAS,CAAC,EAAE,CAAC;AAF9C"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,MAAA;iCAAA;;AAAA,EAEK,SAAS,CAAC,EAAE,CAAC;AAAnB,4BAAA,CAAA;;;;KAAA;;iBAAA;;KAAiC,SAAS,CAAC,EAAE,CAAC,UAF7C,CAAA;AAAA"
 }

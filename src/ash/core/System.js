@@ -12,79 +12,83 @@
  * node lists - collections of nodes. Each node contains the components from an entity in the engine
  * that match the node.</p>
  */
-'use strict';
 
-/*
- * @constructor
- */
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
-
-ash.core.System = (function() {
-  function System() {
-    this.update = __bind(this.update, this);
-  }
-
-
-  /**
-    * Used internally to manage the list of systems within the engine. The previous system in the list.
-    * @type {ash.core.System}
-   */
-
-  System.prototype.previous = null;
-
-
-  /**
-   * Used internally to manage the list of systems within the engine. The next system in the list.
-   * @type {ash.core.System}
-   */
-
-  System.prototype.next = null;
-
+(function() {
+  'use strict';
 
   /*
-   * Used internally to hold the priority of this system within the system list. This is
-   * used to order the systems so they are updated in the correct order.
-   * @type {number}
+   * @constructor
    */
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  System.prototype.priority = 0;
-
-
-  /*
-   * Called just after the system is added to the engine, before any calls to the update method.
-   * Override this method to add your own functionality.
-   *
-   * @param {ash.core.Engine} engine The engine the system was added to.
-   */
-
-  System.prototype.addToEngine = function(engine) {};
+  ash.core.System = (function() {
+    function System() {
+      this.update = __bind(this.update, this);
+    }
 
 
-  /*
-   * Called just after the system is removed from the engine, after all calls to the update method.
-   * Override this method to add your own functionality.
-   *
-   * @param {ash.core.Engine} engine The engine the system was removed from.
-   */
+    /**
+      * Used internally to manage the list of systems within the engine. The previous system in the list.
+      * @type {ash.core.System}
+     */
 
-  System.prototype.removeFromEngine = function(engine) {};
+    System.prototype.previous = null;
 
 
-  /*
-   * After the system is added to the engine, this method is called every frame until the system
-   * is removed from the engine. Override this method to add your own functionality.
-   *
-   * <p>If you need to perform an action outside of the update loop (e.g. you need to change the
-   * systems in the engine and you don't want to do it while they're updating) add a listener to
-   * the engine's updateComplete signal to be notified when the update loop completes.</p>
-   *
-   * @param {number} time The duration, in seconds, of the frame.
-   */
+    /**
+     * Used internally to manage the list of systems within the engine. The next system in the list.
+     * @type {ash.core.System}
+     */
 
-  System.prototype.update = function(time) {};
+    System.prototype.next = null;
 
-  return System;
 
-})();
+    /*
+     * Used internally to hold the priority of this system within the system list. This is
+     * used to order the systems so they are updated in the correct order.
+     * @type {number}
+     */
+
+    System.prototype.priority = 0;
+
+
+    /*
+     * Called just after the system is added to the engine, before any calls to the update method.
+     * Override this method to add your own functionality.
+     *
+     * @param {ash.core.Engine} engine The engine the system was added to.
+     */
+
+    System.prototype.addToEngine = function(engine) {};
+
+
+    /*
+     * Called just after the system is removed from the engine, after all calls to the update method.
+     * Override this method to add your own functionality.
+     *
+     * @param {ash.core.Engine} engine The engine the system was removed from.
+     */
+
+    System.prototype.removeFromEngine = function(engine) {};
+
+
+    /*
+     * After the system is added to the engine, this method is called every frame until the system
+     * is removed from the engine. Override this method to add your own functionality.
+     *
+     * <p>If you need to perform an action outside of the update loop (e.g. you need to change the
+     * systems in the engine and you don't want to do it while they're updating) add a listener to
+     * the engine's updateComplete signal to be notified when the update loop completes.</p>
+     *
+     * @param {number} time The duration, in seconds, of the frame.
+     */
+
+    System.prototype.update = function(time) {};
+
+    return System;
+
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=System.js.map

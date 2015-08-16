@@ -3,8 +3,8 @@
   "file": "game_config.js",
   "sourceRoot": "../../..",
   "sources": [
-    "example/src/game_config.coffee"
+    "example/game_config.coffee"
   ],
   "names": [],
-  "mappings": ";AAeA;EAAA;EACM,SAAS,CAAC;;;yBAEd,KAAA,GAAO;;yBACP,MAAA,GAAQ;;;;;AAJV"
+  "mappings": ";AAeC;AAAA,EAAA,YAAA,CAAA;AAAA,EACK,SAAS,CAAC;4BAEd;;AAAA,yBAAA,KAAA,GAAO,CAAP,CAAA;;AAAA,yBACA,MAAA,GAAQ,CADR,CAAA;;sBAAA;;MAHD,CAAA;AAAA"
 }

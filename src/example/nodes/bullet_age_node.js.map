@@ -3,8 +3,8 @@
   "file": "bullet_age_node.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/nodes/bullet_age_node.coffee"
+    "example/nodes/bullet_age_node.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,aAAC,CAAA,UAAD,GACE;MAAA,MAAA,EAAS,SAAS,CAAC,UAAU,CAAC,MAA9B;;;4BAEF,MAAA,GAAS;;;;KALiC,GAAG,CAAC,IAAI,CAAC;AAFrD"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,MAAA;iCAAA;;AAAA,EAEK,SAAS,CAAC,KAAK,CAAC;AAEpB,oCAAA,CAAA;;;;KAAA;;AAAA,IAAA,aAAC,CAAA,UAAD,GAAc,eAAd,CAAA;;AAAA,IACA,aAAC,CAAA,UAAD,GACE;AAAA,MAAA,MAAA,EAAS,SAAS,CAAC,UAAU,CAAC,MAA9B;KAFF,CAAA;;AAAA,4BAIA,MAAA,GAAS,IAJT,CAAA;;yBAAA;;KAF0C,GAAG,CAAC,IAAI,CAAC,KAFpD,CAAA;AAAA"
 }

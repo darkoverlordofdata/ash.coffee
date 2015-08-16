@@ -4,71 +4,60 @@
  * This System provider returns results of a method call. The method
  * is passed to the provider at initialisation.
  */
-'use strict';
-ash.fsm.DynamicSystemProvider = (function() {
 
-  /**
-   * @type {Function}
-   */
-  DynamicSystemProvider.prototype.method = function() {};
+(function() {
+  'use strict';
+  ash.fsm.DynamicSystemProvider = (function() {
 
-
-  /**
-   * @type {number}
-   */
-
-  DynamicSystemProvider.prototype.systemPriority = 0;
+    /**
+     * @type {Function}
+     */
+    DynamicSystemProvider.prototype.method = function() {};
 
 
-  /**
-   * @constructor
-   * @param {Function} method The method that returns the System instance;
-   */
+    /**
+     * The priority at which the System should be added to the Engine
+     * @type {number}
+     */
 
-  function DynamicSystemProvider(_at_method) {
-    this.method = _at_method;
-  }
+    DynamicSystemProvider.prototype.priority = 0;
 
 
-  /*
-   * Used to compare this provider with others. Any provider that returns the same component
-   * instance will be regarded as equivalent.
-   *
-   * @return {Function} The method used to call the System instances
-   */
+    /**
+     * @constructor
+     * @param {Function} method The method that returns the System instance;
+     */
 
-  DynamicSystemProvider.prototype.getSystem = function() {
-    return this.method();
-  };
+    function DynamicSystemProvider(_at_method) {
+      this.method = _at_method;
+    }
 
-  Object.defineProperties(DynamicSystemProvider.prototype, {
+
+    /*
+     * Used to compare this provider with others. Any provider that returns the same component
+     * instance will be regarded as equivalent.
+     *
+     * @return {Function} The method used to call the System instances
+     */
+
+    DynamicSystemProvider.prototype.getSystem = function() {
+      return this.method();
+    };
+
 
     /*
      * The priority at which the System should be added to the Engine
      * @return {Function}
      */
-    identifier: {
-      get: function() {
-        return this.method;
-      }
-    },
 
-    /*
-     * The priority at which the System should be added to the Engine
-     * @return {number}
-     */
-    priority: {
-      get: function() {
-        return this.systemPriority;
-      },
-      set: function(value) {
-        return this.systemPriority = value;
-      }
-    }
-  });
+    DynamicSystemProvider.prototype.getIdentifier = function() {
+      return this.method;
+    };
 
-  return DynamicSystemProvider;
+    return DynamicSystemProvider;
 
-})();
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=DynamicSystemProvider.js.map

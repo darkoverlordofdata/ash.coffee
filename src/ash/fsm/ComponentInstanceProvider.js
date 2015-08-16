@@ -4,53 +4,53 @@
  * This component provider always returns the same instance of the component. The instance
  * is passed to the provider at initialisation.
  */
-'use strict';
-ash.fsm.ComponentInstanceProvider = (function() {
 
-  /**
-   * @type {Object}
-   */
-  ComponentInstanceProvider.prototype.instance = null;
+(function() {
+  'use strict';
+  ash.fsm.ComponentInstanceProvider = (function() {
 
-
-  /**
-   * @constructor
-   * @param {Object} instance The instance to return whenever a component is requested.
-   */
-
-  function ComponentInstanceProvider(_at_instance) {
-    this.instance = _at_instance;
-  }
+    /**
+     * @type {Object}
+     */
+    ComponentInstanceProvider.prototype.instance = null;
 
 
-  /**
-   * Used to request a component from this provider
-   *
-   * @return {Object} The instance
-   */
+    /**
+     * @constructor
+     * @param {Object} instance The instance to return whenever a component is requested.
+     */
 
-  ComponentInstanceProvider.prototype.getComponent = function() {
-    return this.instance;
-  };
-
-
-  /**
-   * Used to compare this provider with others. Any provider that returns the same component
-   * instance will be regarded as equivalent.
-   *
-   * @return {Object} The instance
-   */
-
-  Object.defineProperties(ComponentInstanceProvider.prototype, {
-    identifier: {
-      get: function() {
-        return this.instance;
-      }
+    function ComponentInstanceProvider(_at_instance) {
+      this.instance = _at_instance;
     }
-  });
 
-  return ComponentInstanceProvider;
 
-})();
+    /**
+     * Used to request a component from this provider
+     *
+     * @return {Object} The instance
+     */
+
+    ComponentInstanceProvider.prototype.getComponent = function() {
+      return this.instance;
+    };
+
+
+    /**
+     * Used to compare this provider with others. Any provider that returns the same component
+     * instance will be regarded as equivalent.
+     *
+     * @return {Object} The instance
+     */
+
+    ComponentInstanceProvider.prototype.getIdentifier = function() {
+      return this.instance;
+    };
+
+    return ComponentInstanceProvider;
+
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=ComponentInstanceProvider.js.map

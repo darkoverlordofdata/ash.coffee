@@ -8,112 +8,116 @@
  * while iterating through the NodeList, the pool also maintains a cache of nodes that are added to the pool
  * but should not be reused yet. They are then released into the pool by calling the releaseCache method.
  */
-'use strict';
-ash.core.NodePool = (function() {
 
-  /**
-   * @type {ash.core.Node}
-   */
-  NodePool.prototype.tail = null;
+(function() {
+  'use strict';
+  ash.core.NodePool = (function() {
 
-
-  /**
-   * @type {Function}
-   */
-
-  NodePool.prototype.nodeClass = null;
+    /**
+     * @type {ash.core.Node}
+     */
+    NodePool.prototype.tail = null;
 
 
-  /**
-   * @type {ash.core.Node}
-   */
+    /**
+     * @type {Function}
+     */
 
-  NodePool.prototype.cacheTail = null;
-
-
-  /**
-   * @type {ash.ext.Dictionary}
-   */
-
-  NodePool.prototype.components = null;
+    NodePool.prototype.nodeClass = null;
 
 
-  /**
-   * Creates a pool for the given node class.
-   * 
-   * @constructor
-   * @param {Function} nodeClass
-   * @param {ash.core.Dictionary}
-   */
+    /**
+     * @type {ash.core.Node}
+     */
 
-  function NodePool(_at_nodeClass, _at_components) {
-    this.nodeClass = _at_nodeClass;
-    this.components = _at_components;
-  }
+    NodePool.prototype.cacheTail = null;
 
 
-  /**
-   * Fetches a node from the pool.
-   * @return {ash.core.Node}
-   */
+    /**
+     * @type {ash.ext.Dictionary}
+     */
 
-  NodePool.prototype.get = function() {
-    var node;
-    if (this.tail) {
-      node = this.tail;
-      this.tail = this.tail.previous;
-      node.previous = null;
-      return node;
-    } else {
-      node = new this.nodeClass();
-      return node;
+    NodePool.prototype.components = null;
+
+
+    /**
+     * Creates a pool for the given node class.
+     * 
+     * @constructor
+     * @param {Function} nodeClass
+     * @param {ash.core.Dictionary}
+     */
+
+    function NodePool(_at_nodeClass, _at_components) {
+      this.nodeClass = _at_nodeClass;
+      this.components = _at_components;
     }
-  };
 
 
-  /**
-   * dispose of a node
-   * @param {ash.core.Node}
-   */
+    /**
+     * Fetches a node from the pool.
+     * @return {ash.core.Node}
+     */
 
-  NodePool.prototype.dispose = function(node) {
-    var componentName;
-    for (componentName in this.components) {
-      node[componentName] = null;
-    }
-    node.entity = null;
-    node.next = null;
-    node.previous = this.tail;
-    this.tail = node;
-  };
-
-
-  /**
-   * Adds a node to the cache
-   * @param {ash.core.Node}
-   */
-
-  NodePool.prototype.cache = function(node) {
-    node.previous = this.cacheTail;
-    this.cacheTail = node;
-  };
+    NodePool.prototype.get = function() {
+      var node;
+      if (this.tail) {
+        node = this.tail;
+        this.tail = this.tail.previous;
+        node.previous = null;
+        return node;
+      } else {
+        node = new this.nodeClass();
+        return node;
+      }
+    };
 
 
-  /**
-   * Releases all nodes from the cache into the pool
-   */
+    /**
+     * dispose of a node
+     * @param {ash.core.Node}
+     */
 
-  NodePool.prototype.releaseCache = function() {
-    var node;
-    while (this.cacheTail) {
-      node = this.cacheTail;
-      this.cacheTail = node.previous;
-      this.dispose(node);
-    }
-  };
+    NodePool.prototype.dispose = function(node) {
+      var componentName;
+      for (componentName in this.components) {
+        node[componentName] = null;
+      }
+      node.entity = null;
+      node.next = null;
+      node.previous = this.tail;
+      this.tail = node;
+    };
 
-  return NodePool;
 
-})();
+    /**
+     * Adds a node to the cache
+     * @param {ash.core.Node}
+     */
+
+    NodePool.prototype.cache = function(node) {
+      node.previous = this.cacheTail;
+      this.cacheTail = node;
+    };
+
+
+    /**
+     * Releases all nodes from the cache into the pool
+     */
+
+    NodePool.prototype.releaseCache = function() {
+      var node;
+      while (this.cacheTail) {
+        node = this.cacheTail;
+        this.cacheTail = node.previous;
+        this.dispose(node);
+      }
+    };
+
+    return NodePool;
+
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=NodePool.js.map

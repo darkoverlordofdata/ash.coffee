@@ -23,88 +23,92 @@
  *
  * <p>ComponentPool.dispose( entity.remove( component ) );</p>
  */
-'use strict';
-var Dictionary,
-  __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-Dictionary = ash.ext.Dictionary;
+(function() {
+  'use strict';
+  var Dictionary,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
-
-/**
- * constructor
- */
-
-ash.tools.ComponentPool = (function() {
-
-  /**
-   * @type {ash.core.Dictionary}
-   */
-  var getPool, pools;
-
-  function ComponentPool() {}
-
-  pools = new Dictionary();
+  Dictionary = ash.ext.Dictionary;
 
 
   /**
-   * @param {Function} componentClass
-   * @return {ash.core.Dictionary}
+   * constructor
    */
 
-  getPool = function(componentClass) {
-    var _ref;
-    if ((_ref = componentClass.className, __indexOf.call(pools, _ref) >= 0)) {
-      return pools[componentClass.className];
-    } else {
-      return pools[componentClass.className] = [];
-    }
-  };
+  ash.tools.ComponentPool = (function() {
+
+    /**
+     * @type {ash.core.Dictionary}
+     */
+    var getPool, pools;
+
+    function ComponentPool() {}
+
+    pools = new Dictionary();
 
 
-  /**
-   * Get an object from the pool.
-   *
-   * @param {Function} componentClass The type of component wanted.
-   * @return {Object} The component.
-   */
+    /**
+     * @param {Function} componentClass
+     * @return {ash.core.Dictionary}
+     */
 
-  ComponentPool.get = function(componentClass) {
-    var pool;
-    pool = getPool(componentClass);
-    if (pool.length > 0) {
-      return pool.pop();
-    } else {
-      return new componentClass();
-    }
-  };
+    getPool = function(componentClass) {
+      var _ref;
+      if ((_ref = componentClass.className, __indexOf.call(pools, _ref) >= 0)) {
+        return pools[componentClass.className];
+      } else {
+        return pools[componentClass.className] = [];
+      }
+    };
 
 
-  /**
-   * Return an object to the pool for reuse.
-   *
-   * @param {Object} component The component to return to the pool.
-   */
+    /**
+     * Get an object from the pool.
+     *
+     * @param {Function} componentClass The type of component wanted.
+     * @return {Object} The component.
+     */
 
-  ComponentPool.dispose = function(component) {
-    var pool, type;
-    if (component) {
-      type = component.constructor;
-      pool = getPool(type);
-      pool.push(component);
-    }
-  };
+    ComponentPool.get = function(componentClass) {
+      var pool;
+      pool = getPool(componentClass);
+      if (pool.length > 0) {
+        return pool.pop();
+      } else {
+        return new componentClass();
+      }
+    };
 
 
-  /**
-   * Dispose of all pooled resources, freeing them for garbage collection.
-   */
+    /**
+     * Return an object to the pool for reuse.
+     *
+     * @param {Object} component The component to return to the pool.
+     */
 
-  ComponentPool.empty = function() {
-    return pools = new Dictionary();
-  };
+    ComponentPool.dispose = function(component) {
+      var pool, type;
+      if (component) {
+        type = component.constructor;
+        pool = getPool(type);
+        pool.push(component);
+      }
+    };
 
-  return ComponentPool;
 
-})();
+    /**
+     * Dispose of all pooled resources, freeing them for garbage collection.
+     */
+
+    ComponentPool.empty = function() {
+      return pools = new Dictionary();
+    };
+
+    return ComponentPool;
+
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=ComponentPool.js.map

@@ -21,126 +21,130 @@
  * }
  * </code>
  */
-'use strict';
-var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __hasProp = {}.hasOwnProperty;
 
-ash.tools.ListIteratingSystem = (function(_super) {
-  __extends(ListIteratingSystem, _super);
+(function() {
+  'use strict';
+  var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    __hasProp = {}.hasOwnProperty;
 
-
-  /**
-   * @type {ash.core.NodeList}
-   */
-
-  ListIteratingSystem.prototype.nodeList = null;
+  ash.tools.ListIteratingSystem = (function(_super) {
+    __extends(ListIteratingSystem, _super);
 
 
-  /**
-   * @type {Function}
-   */
+    /**
+     * @type {ash.core.NodeList}
+     */
 
-  ListIteratingSystem.prototype.nodeClass = null;
-
-
-  /**
-   * @type {Function}
-   */
-
-  ListIteratingSystem.prototype.nodeUpdateFunction = null;
+    ListIteratingSystem.prototype.nodeList = null;
 
 
-  /**
-   * @type {Function}
-   */
+    /**
+     * @type {Function}
+     */
 
-  ListIteratingSystem.prototype.nodeAddedFunction = null;
-
-
-  /**
-   * @type {Function}
-   */
-
-  ListIteratingSystem.prototype.nodeRemovedFunction = null;
+    ListIteratingSystem.prototype.nodeClass = null;
 
 
-  /**
-   * @extends {ash.core.System}
-   * @constructor
-   * @param {Function} nodeClass
-   * @param {Function} nodeUpdateFunction
-   * @param {Function} nodeAddedFunction
-   * @param {Function} nodeRemovedFunction
-   */
+    /**
+     * @type {Function}
+     */
 
-  function ListIteratingSystem(nodeClass, nodeUpdateFunction, nodeAddedFunction, nodeRemovedFunction) {
-    if (nodeAddedFunction == null) {
-      nodeAddedFunction = null;
+    ListIteratingSystem.prototype.nodeUpdateFunction = null;
+
+
+    /**
+     * @type {Function}
+     */
+
+    ListIteratingSystem.prototype.nodeAddedFunction = null;
+
+
+    /**
+     * @type {Function}
+     */
+
+    ListIteratingSystem.prototype.nodeRemovedFunction = null;
+
+
+    /**
+     * @extends {ash.core.System}
+     * @constructor
+     * @param {Function} nodeClass
+     * @param {Function} nodeUpdateFunction
+     * @param {Function} nodeAddedFunction
+     * @param {Function} nodeRemovedFunction
+     */
+
+    function ListIteratingSystem(nodeClass, nodeUpdateFunction, nodeAddedFunction, nodeRemovedFunction) {
+      if (nodeAddedFunction == null) {
+        nodeAddedFunction = null;
+      }
+      if (nodeRemovedFunction == null) {
+        nodeRemovedFunction = null;
+      }
+      this.nodeClass = nodeClass;
+      this.nodeUpdateFunction = nodeUpdateFunction;
+      this.nodeAddedFunction = nodeAddedFunction;
+      this.nodeRemovedFunction = nodeRemovedFunction;
     }
-    if (nodeRemovedFunction == null) {
-      nodeRemovedFunction = null;
-    }
-    this.nodeClass = nodeClass;
-    this.nodeUpdateFunction = nodeUpdateFunction;
-    this.nodeAddedFunction = nodeAddedFunction;
-    this.nodeRemovedFunction = nodeRemovedFunction;
-  }
 
 
-  /**
-   * System is added to engine
-   * @param {ash.core.Engine}
-   */
+    /**
+     * System is added to engine
+     * @param {ash.core.Engine}
+     */
 
-  ListIteratingSystem.prototype.addToEngine = function(engine) {
-    var node;
-    this.nodeList = engine.getNodeList(this.nodeClass);
-    if (this.nodeAddedFunction !== null) {
+    ListIteratingSystem.prototype.addToEngine = function(engine) {
+      var node;
+      this.nodeList = engine.getNodeList(this.nodeClass);
+      if (this.nodeAddedFunction !== null) {
+        node = this.nodeList.head;
+        while (node) {
+          this.nodeAddedFunction(node);
+          node = node.next;
+        }
+        this.nodeList.nodeAdded.add(this.nodeAddedFunction);
+      }
+      if (this.nodeRemovedFunction !== null) {
+        this.nodeList.nodeRemoved.add(this.nodeRemovedFunction);
+      }
+    };
+
+
+    /**
+     * System is removed from engine
+     * @param {ash.core.Engine}
+     */
+
+    ListIteratingSystem.prototype.removeFromEngine = function(engine) {
+      if (this.nodeAddedFunction !== null) {
+        this.nodeList.nodeAdded.remove(this.nodeAddedFunction);
+      }
+      if (this.nodeRemovedFunction !== null) {
+        this.nodeList.nodeRemoved.remove(this.nodeRemovedFunction);
+      }
+      this.nodeList = null;
+    };
+
+
+    /**
+     * frame update
+     * @param {number} time ms since last update
+     */
+
+    ListIteratingSystem.prototype.update = function(time) {
+      var node;
       node = this.nodeList.head;
       while (node) {
-        this.nodeAddedFunction(node);
+        this.nodeUpdateFunction(node, time);
         node = node.next;
       }
-      this.nodeList.nodeAdded.add(this.nodeAddedFunction);
-    }
-    if (this.nodeRemovedFunction !== null) {
-      this.nodeList.nodeRemoved.add(this.nodeRemovedFunction);
-    }
-  };
+    };
 
+    return ListIteratingSystem;
 
-  /**
-   * System is removed from engine
-   * @param {ash.core.Engine}
-   */
+  })(ash.core.System);
 
-  ListIteratingSystem.prototype.removeFromEngine = function(engine) {
-    if (this.nodeAddedFunction !== null) {
-      this.nodeList.nodeAdded.remove(this.nodeAddedFunction);
-    }
-    if (this.nodeRemovedFunction !== null) {
-      this.nodeList.nodeRemoved.remove(this.nodeRemovedFunction);
-    }
-    this.nodeList = null;
-  };
-
-
-  /**
-   * frame update
-   * @param {number} time ms since last update
-   */
-
-  ListIteratingSystem.prototype.update = function(time) {
-    var node;
-    node = this.nodeList.head;
-    while (node) {
-      this.nodeUpdateFunction(node, time);
-      node = node.next;
-    }
-  };
-
-  return ListIteratingSystem;
-
-})(ash.core.System);
+}).call(this);
 
 //# sourceMappingURL=ListIteratingSystem.js.map

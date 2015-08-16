@@ -5,133 +5,151 @@
  * There is a maximum frame time parameter in the constructor that can be used to limit
  * the longest period a frame can be.
  */
-'use strict';
-var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __hasProp = {}.hasOwnProperty;
 
-ash.tick.FrameTickProvider = (function(_super) {
-  __extends(FrameTickProvider, _super);
+(function() {
+  'use strict';
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    __hasProp = {}.hasOwnProperty;
 
-
-  /**
-   * @type {Object}
-   */
-
-  FrameTickProvider.prototype.displayObject = null;
+  ash.tick.FrameTickProvider = (function(_super) {
+    __extends(FrameTickProvider, _super);
 
 
-  /**
-   * @type {number}
-   */
+    /**
+     * @type {boolean}
+     */
 
-  FrameTickProvider.prototype.previousTime = 0;
-
-
-  /**
-   * @type {number}
-   */
-
-  FrameTickProvider.prototype.maximumFrameTime = 0;
+    FrameTickProvider.prototype.showStats = false;
 
 
-  /**
-   * @type {boolean}
-   */
+    /**
+     * @type {Function}
+     */
 
-  FrameTickProvider.prototype.isPlaying = false;
-
-
-  /**
-   * @type {Object}
-   */
-
-  FrameTickProvider.prototype.request = null;
+    FrameTickProvider.prototype.begin = null;
 
 
-  /**
-   * Applies a time adjustement factor to the tick, so you can slow down or speed up the entire engine.
-   * The update tick time is multiplied by this value, so a value of 1 will run the engine at the normal rate.
-   * @type {number}
-   */
+    /**
+     * @type {Function}
+     */
 
-  FrameTickProvider.prototype.timeAdjustment = 1;
+    FrameTickProvider.prototype.end = null;
 
 
-  /**
-   * @extends {ash.signals.Signal1}
-   * @constructor
-   * @param {Object} displayObject
-   * @param {number} maximumFrameTime
-   */
+    /**
+     * @type {Object}
+     */
 
-  function FrameTickProvider(_at_displayObject, _at_maximumFrameTime) {
-    this.displayObject = _at_displayObject;
-    this.maximumFrameTime = _at_maximumFrameTime;
-    this.dispatchTick = __bind(this.dispatchTick, this);
-    FrameTickProvider.__super__.constructor.apply(this, arguments);
-  }
+    FrameTickProvider.prototype.displayObject = null;
 
 
-  /**
-   * Is Playing?
-   * @return {boolean}
-   */
+    /**
+     * @type {number}
+     */
 
-  Object.defineProperties(FrameTickProvider.prototype, {
-    playing: {
-      get: function() {
-        return this.isPlaying;
+    FrameTickProvider.prototype.previousTime = 0;
+
+
+    /**
+     * @type {number}
+     */
+
+    FrameTickProvider.prototype.maximumFrameTime = 0;
+
+
+    /**
+     * @type {boolean}
+     */
+
+    FrameTickProvider.prototype.isPlaying = false;
+
+
+    /**
+     * @type {Object}
+     */
+
+    FrameTickProvider.prototype.request = null;
+
+
+    /**
+     * Applies a time adjustement factor to the tick, so you can slow down or speed up the entire engine.
+     * The update tick time is multiplied by this value, so a value of 1 will run the engine at the normal rate.
+     * @type {number}
+     */
+
+    FrameTickProvider.prototype.timeAdjustment = 1;
+
+
+    /**
+     * @extends {ash.signals.Signal1}
+     * @constructor
+     * @param {Object} displayObject
+     * @param {number} maximumFrameTime
+     */
+
+    function FrameTickProvider(_at_displayObject, _at_maximumFrameTime) {
+      this.displayObject = _at_displayObject;
+      this.maximumFrameTime = _at_maximumFrameTime;
+      this.dispatchTick = __bind(this.dispatchTick, this);
+      FrameTickProvider.__super__.constructor.apply(this, arguments);
+      if (this.displayObject != null) {
+        if (typeof this.displayObject['begin'] === 'function' && typeof this.displayObject['end'] === 'function') {
+          this.showStats = true;
+          this.begin = this.displayObject['begin'].bind(this.displayObject);
+          this.end = this.displayObject['end'].bind(this.displayObject);
+        }
       }
     }
-  });
 
 
-  /**
-   * Start
-   */
+    /**
+     * Start
+     */
 
-  FrameTickProvider.prototype.start = function() {
-    this.request = requestAnimationFrame(this.dispatchTick);
-    this.isPlaying = true;
-  };
-
-
-  /**
-   * Stop
-   */
-
-  FrameTickProvider.prototype.stop = function() {
-    cancelRequestAnimationFrame(this.request);
-    this.isPlaying = false;
-  };
+    FrameTickProvider.prototype.start = function() {
+      this.request = requestAnimationFrame(this.dispatchTick);
+      this.isPlaying = true;
+    };
 
 
-  /**
-   * dispatchTick
-   @param {number} timestamp
-   */
+    /**
+     * Stop
+     */
 
-  FrameTickProvider.prototype.dispatchTick = function(timestamp) {
-    var frameTime, temp;
-    if (timestamp == null) {
-      timestamp = Date.now();
-    }
-    if (this.displayObject) {
-      this.displayObject.begin();
-    }
-    temp = this.previousTime || timestamp;
-    this.previousTime = timestamp;
-    frameTime = (timestamp - temp) * 0.001;
-    this.dispatch(frameTime);
-    requestAnimationFrame(this.dispatchTick);
-    if (this.displayObject) {
-      this.displayObject.end();
-    }
-  };
+    FrameTickProvider.prototype.stop = function() {
+      cancelRequestAnimationFrame(this.request);
+      this.isPlaying = false;
+    };
 
-  return FrameTickProvider;
 
-})(ash.signals.Signal1);
+    /**
+     * dispatchTick
+     @param {number} timestamp
+     */
+
+    FrameTickProvider.prototype.dispatchTick = function(timestamp) {
+      var frameTime, temp;
+      if (timestamp == null) {
+        timestamp = Date.now();
+      }
+      if (this.showStats) {
+        this.begin();
+      }
+      temp = this.previousTime || timestamp;
+      this.previousTime = timestamp;
+      frameTime = (timestamp - temp) * 0.001;
+      this.dispatch(frameTime);
+      requestAnimationFrame(this.dispatchTick);
+      if (this.showStats) {
+        this.end();
+      }
+    };
+
+    return FrameTickProvider;
+
+  })(ash.signals.Signal1);
+
+}).call(this);
 
 //# sourceMappingURL=FrameTickProvider.js.map

@@ -3,8 +3,8 @@
   "file": "death_throes.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/components/death_throes.coffee"
+    "example/components/death_throes.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;0BAEzB,SAAA,GAAW;;IAEE,qBAAC,QAAD;MACX,IAAC,CAAA,SAAD,GAAa;IADF;;;;;AANf"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,EAEK,SAAS,CAAC,UAAU,CAAC;AAEzB,IAAA,WAAC,CAAA,SAAD,GAAa,aAAb,CAAA;;AAAA,0BAEA,SAAA,GAAW,CAFX,CAAA;;AAIa,IAAA,qBAAC,QAAD,GAAA;AACX,MAAA,IAAC,CAAA,SAAD,GAAa,QAAb,CADW;IAAA,CAJb;;uBAAA;;MAJD,CAAA;AAAA"
 }

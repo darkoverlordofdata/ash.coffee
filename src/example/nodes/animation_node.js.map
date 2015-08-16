@@ -3,8 +3,8 @@
   "file": "animation_node.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/nodes/animation_node.coffee"
+    "example/nodes/animation_node.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;AAAA,MAAA;;;EAEM,SAAS,CAAC,KAAK,CAAC;;;;;;;IAEpB,aAAC,CAAA,UAAD,GACE;MAAA,SAAA,EAAY,SAAS,CAAC,UAAU,CAAC,SAAjC;;;4BAEF,SAAA,GAAY;;;;KAL8B,GAAG,CAAC,IAAI,CAAC;AAFrD"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,MAAA;iCAAA;;AAAA,EAEK,SAAS,CAAC,KAAK,CAAC;AAEpB,oCAAA,CAAA;;;;KAAA;;AAAA,IAAA,aAAC,CAAA,SAAD,GAAa,eAAb,CAAA;;AAAA,IACA,aAAC,CAAA,UAAD,GACE;AAAA,MAAA,SAAA,EAAY,SAAS,CAAC,UAAU,CAAC,SAAjC;KAFF,CAAA;;AAAA,4BAIA,SAAA,GAAY,IAJZ,CAAA;;yBAAA;;KAF0C,GAAG,CAAC,IAAI,CAAC,KAFpD,CAAA;AAAA"
 }

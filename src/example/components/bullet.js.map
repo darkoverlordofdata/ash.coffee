@@ -3,8 +3,8 @@
   "file": "bullet.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/components/bullet.coffee"
+    "example/components/bullet.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;qBAEzB,aAAA,GAAe;;IAEF,gBAAC,aAAD;MAAC,IAAC,CAAA,gBAAD;IAAD;;;;;AANf"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,EAEK,SAAS,CAAC,UAAU,CAAC;AAEzB,IAAA,MAAC,CAAA,SAAD,GAAa,QAAb,CAAA;;AAAA,qBAEA,aAAA,GAAe,CAFf,CAAA;;AAIa,IAAA,gBAAC,iBAAD,GAAA;AAAkB,MAAjB,IAAC,CAAA,gBAAD,iBAAiB,CAAlB;IAAA,CAJb;;kBAAA;;MAJD,CAAA;AAAA"
 }

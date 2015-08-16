@@ -3,8 +3,8 @@
   "file": "collision.js",
   "sourceRoot": "../../../..",
   "sources": [
-    "example/src/components/collision.coffee"
+    "example/components/collision.coffee"
   ],
   "names": [],
-  "mappings": ";AAAA;EAAA;EAEM,SAAS,CAAC,UAAU,CAAC;wBAEzB,MAAA,GAAQ;;IAEK,mBAAC,MAAD;MAAC,IAAC,CAAA,SAAD;IAAD;;;;;AANf"
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,EAEK,SAAS,CAAC,UAAU,CAAC;AAEzB,IAAA,SAAC,CAAA,SAAD,GAAa,WAAb,CAAA;;AAAA,wBAEA,MAAA,GAAQ,CAFR,CAAA;;AAIa,IAAA,mBAAC,UAAD,GAAA;AAAW,MAAV,IAAC,CAAA,SAAD,UAAU,CAAX;IAAA,CAJb;;qBAAA;;MAJD,CAAA;AAAA"
 }

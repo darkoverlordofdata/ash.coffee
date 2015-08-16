@@ -4,93 +4,97 @@
  * Represents a state for a SystemStateMachine. The state contains any number of SystemProviders which
  * are used to add Systems to the Engine when this state is entered.
  */
-'use strict';
-var DynamicSystemProvider, StateSystemMapping, SystemInstanceProvider, SystemSingletonProvider;
 
-SystemInstanceProvider = ash.fsm.SystemInstanceProvider;
+(function() {
+  'use strict';
+  var DynamicSystemProvider, StateSystemMapping, SystemInstanceProvider, SystemSingletonProvider;
 
-SystemSingletonProvider = ash.fsm.SystemSingletonProvider;
+  SystemInstanceProvider = ash.fsm.SystemInstanceProvider;
 
-DynamicSystemProvider = ash.fsm.DynamicSystemProvider;
+  SystemSingletonProvider = ash.fsm.SystemSingletonProvider;
 
-StateSystemMapping = ash.fsm.StateSystemMapping;
+  DynamicSystemProvider = ash.fsm.DynamicSystemProvider;
 
-ash.fsm.EngineState = (function() {
+  StateSystemMapping = ash.fsm.StateSystemMapping;
 
-  /**
-   * @type {Array<Object>}
-   */
-  EngineState.prototype.providers = null;
+  ash.fsm.EngineState = (function() {
 
-
-  /**
-   * @constructor
-   */
-
-  function EngineState() {
-    this.providers = [];
-  }
+    /**
+     * @type {Array<Object>}
+     */
+    EngineState.prototype.providers = null;
 
 
-  /**
-   * Creates a mapping for the System type to a specific System instance. A
-   * SystemInstanceProvider is used for the mapping.
-   *
-   * @param {ash.core.System} system The System instance to use for the mapping
-   * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied
-   */
+    /**
+     * @constructor
+     */
 
-  EngineState.prototype.addInstance = function(system) {
-    return this.addProvider(new SystemInstanceProvider(system));
-  };
+    function EngineState() {
+      this.providers = [];
+    }
 
 
-  /**
-   * Creates a mapping for the System type to a single instance of the provided type.
-   * The instance is not created until it is first requested. The type should be the same
-   * as or extend the type for this mapping. A SystemSingletonProvider is used for
-   * the mapping.
-   *
-   * @param {Function} type The type of the single instance to be created. If omitted, the type of the
-   * mapping is used.
-   * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied
-   */
+    /**
+     * Creates a mapping for the System type to a specific System instance. A
+     * SystemInstanceProvider is used for the mapping.
+     *
+     * @param {ash.core.System} system The System instance to use for the mapping
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied
+     */
 
-  EngineState.prototype.addSingleton = function(type) {
-    return this.addProvider(new SystemSingletonProvider(type));
-  };
+    EngineState.prototype.addInstance = function(system) {
+      return this.addProvider(new SystemInstanceProvider(system));
+    };
 
 
-  /**
-   * Creates a mapping for the System type to a method call.
-   * The method should return a System instance. A DynamicSystemProvider is used for
-   * the mapping.
-   *
-   * @param {Function} method The method to provide the System instance.
-   * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied.
-   */
+    /**
+     * Creates a mapping for the System type to a single instance of the provided type.
+     * The instance is not created until it is first requested. The type should be the same
+     * as or extend the type for this mapping. A SystemSingletonProvider is used for
+     * the mapping.
+     *
+     * @param {Function} type The type of the single instance to be created. If omitted, the type of the
+     * mapping is used.
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied
+     */
 
-  EngineState.prototype.addMethod = function(method) {
-    return this.addProvider(new DynamicSystemProvider(method));
-  };
+    EngineState.prototype.addSingleton = function(type) {
+      return this.addProvider(new SystemSingletonProvider(type));
+    };
 
 
-  /**
-   * Adds any SystemProvider.
-   *
-   * @param provider The component provider to use.
-   * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied.
-   */
+    /**
+     * Creates a mapping for the System type to a method call.
+     * The method should return a System instance. A DynamicSystemProvider is used for
+     * the mapping.
+     *
+     * @param {Function} method The method to provide the System instance.
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied.
+     */
 
-  EngineState.prototype.addProvider = function(provider) {
-    var mapping;
-    mapping = new StateSystemMapping(this, provider);
-    this.providers.push(provider);
-    return mapping;
-  };
+    EngineState.prototype.addMethod = function(method) {
+      return this.addProvider(new DynamicSystemProvider(method));
+    };
 
-  return EngineState;
 
-})();
+    /**
+     * Adds any SystemProvider.
+     *
+     * @param provider The component provider to use.
+     * @return {ash.fsm.StateSystemMapping} This StateSystemMapping, so more modifications can be applied.
+     */
+
+    EngineState.prototype.addProvider = function(provider) {
+      var mapping;
+      mapping = new StateSystemMapping(this, provider);
+      this.providers.push(provider);
+      return mapping;
+    };
+
+    return EngineState;
+
+  })();
+
+}).call(this);
 
 //# sourceMappingURL=EngineState.js.map

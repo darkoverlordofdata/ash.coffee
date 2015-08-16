@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "Dictionary.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "lib/ext/Dictionary.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA;;;;;GAAA;AAAA;AAAA;AAAA,EAMC,YAND,CAAA;AAQA;AAAA;;;KARA;AAAA,EAYM,GAAG,CAAC,GAAG,CAAC;4BAAd;;sBAAA;;MAZA,CAAA;AAAA"
+}
