@@ -142,7 +142,7 @@ declare module ash {
             add(node: Node): void;
             remove(node: Node): void;
             removeAll(): void;
-            empty: boolean;
+            isEmpty(): boolean;
             swap(node1: any, node2: any): void;
             insertionSort(sortFunction: any): void;
             mergeSort(sortFunction: Function): void;
