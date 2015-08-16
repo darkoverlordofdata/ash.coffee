@@ -1,4 +1,4 @@
-# [Ash.coffee](https://darkoverlordofdata/ash.coffee)
+# [Ash.coffee](https://darkoverlordofdata.com/ash.coffee)
 
 [![Build Status](https://travis-ci.org/darkoverlordofdata/ash.coffee.svg?branch=master)](https://travis-ci.org/darkoverlordofdata/ash.coffee)
 
