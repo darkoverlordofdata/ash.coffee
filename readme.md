@@ -26,7 +26,7 @@ $ npm start
 
 Closure compiler ready sources in the goog/lib folder 
 
-Interop with typescript - ash.d.ts in dist folder
+Interop with typescript - ash.d.ts in build folder (example: https://github.com/darkoverlordofdata/alienzone)
 
 # MIT License
 Ash - an entity framework for Actionscript

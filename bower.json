@@ -10,15 +10,12 @@
   "main": "build/ash.js",
   "ignore": [
     "**/.*",
-    "bin",
-    "tmp",
+    "build/lib",
     "build/web",
     "node_modules",
     "packages",
-    "web/packages",
-    "tmp",
     "test",
-    "tests"
+    "web/src"
   ],
   "dependencies": {
     "stats.js": "*"
