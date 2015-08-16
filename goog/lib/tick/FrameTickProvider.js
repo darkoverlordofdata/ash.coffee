@@ -17,8 +17,30 @@ ash.tick.FrameTickProvider = function(_at_displayObject, _at_maximumFrameTime) {
   this.maximumFrameTime = _at_maximumFrameTime;
   this.dispatchTick = goog.bind(this.dispatchTick, this);
   ash.tick.FrameTickProvider.superClass_.constructor.apply(this, arguments);
+  if (this.displayObject != null) {
+    if (typeof this.displayObject['begin'] === 'function' && typeof this.displayObject['end'] === 'function') {
+      this.showStats = true;
+      this.begin = this.displayObject['begin'].bind(this.displayObject);
+      this.end = this.displayObject['end'].bind(this.displayObject);
+    }
+  }
 }
 goog.inherits(ash.tick.FrameTickProvider, ash.signals.Signal1);
+
+/**
+ * @type {boolean}
+ */
+ash.tick.FrameTickProvider.prototype.showStats = false;
+
+/**
+ * @type {Function}
+ */
+ash.tick.FrameTickProvider.prototype.begin = null;
+
+/**
+ * @type {Function}
+ */
+ash.tick.FrameTickProvider.prototype.end = null;
 
 /**
  * @type {Object}
@@ -73,23 +95,19 @@ ash.tick.FrameTickProvider.prototype.stop = function() {
  @param {number} timestamp
  */
 ash.tick.FrameTickProvider.prototype.dispatchTick = function(timestamp) {
-  var frameTime, temp, _ref, _ref1;
+  var frameTime, temp;
   if (timestamp == null) {
     timestamp = Date.now();
   }
-  if ((_ref = this.displayObject) != null) {
-    if (typeof _ref['begin'] === "function") {
-      _ref['begin']();
-    }
+  if (this.showStats) {
+    this.begin();
   }
   temp = this.previousTime || timestamp;
   this.previousTime = timestamp;
   frameTime = (timestamp - temp) * 0.001;
   this.dispatch(frameTime);
   requestAnimationFrame(this.dispatchTick);
-  if ((_ref1 = this.displayObject) != null) {
-    if (typeof _ref1['end'] === "function") {
-      _ref1['end']();
-    }
+  if (this.showStats) {
+    this.end();
   }
 };

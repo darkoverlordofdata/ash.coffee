@@ -8,6 +8,21 @@
 class ash.tick.FrameTickProvider extends ash.signals.Signal1
 
   ###*
+   * @type {boolean}
+  ###
+  showStats: false
+  
+  ###*
+   * @type {Function}
+  ###
+  begin: null
+  
+  ###*
+   * @type {Function}
+  ###
+  end: null
+  
+  ###*
    * @type {Object}
   ###
   displayObject: null
@@ -47,6 +62,11 @@ class ash.tick.FrameTickProvider extends ash.signals.Signal1
   ###
   constructor: (@displayObject, @maximumFrameTime) ->
     super
+    if @displayObject?
+      if typeof @displayObject['begin'] is 'function' and typeof @displayObject['end'] is 'function'
+        @showStats = true
+        @begin = @displayObject['begin'].bind(@displayObject)
+        @end = @displayObject['end'].bind(@displayObject)
 
   ###*
    * Start
@@ -69,12 +89,12 @@ class ash.tick.FrameTickProvider extends ash.signals.Signal1
    @param {number} timestamp
   ###
   dispatchTick: (timestamp = Date.now()) =>
-    @displayObject?['begin']?() #  if @displayObject
+    @begin() if @showStats
     temp = @previousTime or timestamp
     @previousTime = timestamp
     frameTime = (timestamp - temp) * 0.001
     @dispatch(frameTime)
     requestAnimationFrame(@dispatchTick)
-    @displayObject?['end']?() # if @displayObject
+    @end() if @showStats
     return # Void
 

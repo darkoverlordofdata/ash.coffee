@@ -24,7 +24,7 @@ $ npm start
 
 ### Extra
 
-Cosure compiler ready sources in the goog/lib folder 
+Closure compiler ready sources in the goog/lib folder 
 
 # MIT License
 Ash - an entity framework for Actionscript
