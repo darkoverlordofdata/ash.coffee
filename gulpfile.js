@@ -6,6 +6,7 @@ var gulp = require('gulp');
 var shell = require('gulp-shell');
 
 gulp.task('build', shell.task(['npm run build']));
+gulp.task('compile', shell.task(['npm run compile']));
 gulp.task('dist', shell.task(['npm run dist']));
 gulp.task('get', shell.task(['npm run get']));
 gulp.task('serve', shell.task(['npm run serve']));

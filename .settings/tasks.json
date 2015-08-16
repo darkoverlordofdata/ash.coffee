@@ -19,6 +19,16 @@
             "isBuildCommand": false,
             "problemMatcher": []
         },{
+            "taskName": "jsdoc",
+            "args": [],
+            "isBuildCommand": false,
+            "problemMatcher": []
+        },{
+            "taskName": "compile",
+            "args": [],
+            "isBuildCommand": false,
+            "problemMatcher": []
+        },{
             "taskName": "get",
             "args": [],
             "isBuildCommand": false,

@@ -62,7 +62,6 @@ task 'make:build', 'stuff the build script', (options) ->
     cp -rf web/src build/web/src
     cp -f web/example.html build/web/example.html
     cp -f web/favicon.png build/web/favicon.png
-    cp -f web/icon128.png build/web/icon128.png
     cp -f web/example_build.html build/web/index.html
     cp -f web/main.js build/web/main.js  
     """.split('\n').join(' && ')
@@ -76,17 +75,4 @@ task 'make:build', 'stuff the build script', (options) ->
   project['scripts']['build'] = "#{c0} && #{c1} && #{c2}"
   require('fs').writeFileSync('./package.json', JSON.stringify(project, null, '  '))
   
-
-
-###
- * Publish
- *
- * publish to github gh-pages
-###
-task 'publish:gh-pages', 'publish build/web/ to gh-pages', (options) ->
-
-  gulp = require('gulp')
-  gh_pages = require('gulp-gh-pages')
-
-  gulp.src("build/web/**/*.*").pipe(gh_pages())
 

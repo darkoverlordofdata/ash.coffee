@@ -3572,6 +3572,27 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
     /**
+     * @type {boolean}
+     */
+
+    FrameTickProvider.prototype.showStats = false;
+
+
+    /**
+     * @type {Function}
+     */
+
+    FrameTickProvider.prototype.begin = null;
+
+
+    /**
+     * @type {Function}
+     */
+
+    FrameTickProvider.prototype.end = null;
+
+
+    /**
      * @type {Object}
      */
 
@@ -3627,6 +3648,13 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.maximumFrameTime = _at_maximumFrameTime;
       this.dispatchTick = __bind(this.dispatchTick, this);
       FrameTickProvider.__super__.constructor.apply(this, arguments);
+      if (this.displayObject != null) {
+        if (typeof this.displayObject['begin'] === 'function' && typeof this.displayObject['end'] === 'function') {
+          this.showStats = true;
+          this.begin = this.displayObject['begin'].bind(this.displayObject);
+          this.end = this.displayObject['end'].bind(this.displayObject);
+        }
+      }
     }
 
 
@@ -3656,24 +3684,20 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      */
 
     FrameTickProvider.prototype.dispatchTick = function(timestamp) {
-      var frameTime, temp, _ref, _ref1;
+      var frameTime, temp;
       if (timestamp == null) {
         timestamp = Date.now();
       }
-      if ((_ref = this.displayObject) != null) {
-        if (typeof _ref['begin'] === "function") {
-          _ref['begin']();
-        }
+      if (this.showStats) {
+        this.begin();
       }
       temp = this.previousTime || timestamp;
       this.previousTime = timestamp;
       frameTime = (timestamp - temp) * 0.001;
       this.dispatch(frameTime);
       requestAnimationFrame(this.dispatchTick);
-      if ((_ref1 = this.displayObject) != null) {
-        if (typeof _ref1['end'] === "function") {
-          _ref1['end']();
-        }
+      if (this.showStats) {
+        this.end();
       }
     };
 

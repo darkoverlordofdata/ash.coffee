@@ -11,10 +11,10 @@ python  /home/bruce/Applications/closure/library/closure/bin/build/closurebuilde
     --compiler_flag="--compilation_level=ADVANCED_OPTIMIZATIONS" \
     --compiler_flag="--formatting=pretty_print" \
     --compiler_flag="--define=goog.userAgent.ASSUME_WEBKIT=true" \
-    --compiler_flag="--create_source_map=example.js.map" \
+    --compiler_flag="--create_source_map=web/ash.js.map" \
     --compiler_flag="--warning_level=QUIET" \
     --compiler_flag="--language_in=ECMASCRIPT5" \
-    > web/ash-compiled.js
+    > web/ash.min.js
 
 
 
