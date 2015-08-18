@@ -248,7 +248,7 @@ task 'config', 'setup cake config', (options) ->
     # process bower dependencies
     #
     ###
-    get: "bower-installer cake get"
+    get: "bower-installer && cake get"
 
     ###
     # Publish
@@ -300,7 +300,7 @@ task 'config', 'setup cake config', (options) ->
     # get the dependencies
     #
     ###
-    postinstall: "bower install  npm run get"
+    postinstall: "bower install && npm run get"
 
     ###
     # Pre Android
@@ -417,8 +417,8 @@ task 'cocos', '', (options) ->
 ###
 task 'get', 'get dependencies from bower repository', (options) ->
 
-  patch "web/src/jmatch3/jmatch3.js", "tools/patch/jmatch3.js.patch"
-  patch "web/src/tween.ts/tween.min.js", "tools/patch/tween.min.js.patch"
+  #patch "web/src/jmatch3/jmatch3.js", "tools/patch/jmatch3.js.patch"
+  #patch "web/src/tween.ts/tween.min.js", "tools/patch/tween.min.js.patch"
 
 
 ###
