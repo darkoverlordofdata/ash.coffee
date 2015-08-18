@@ -1,5 +1,5 @@
 {
-  "name": "ash",
+  "name": "ash.coffee",
   "version": "0.1.0",
   "authors": [
     "darkoverlordofdata <darkoverlordofdata@gmail.com>"
@@ -7,7 +7,7 @@
   "description": "Ash Framework port to coffeescript",
   "license": "MIT",
   "private": true,
-  "main": "build/ash.js",
+  "main": "build/ash.coffee.js",
   "ignore": [
     "**/.*",
     "build/lib",
@@ -26,7 +26,6 @@
   },
   "install": {
     "ignore": [
-      "box2d.js",
       "closure-compiler",
       "google-closure-library"
     ],
