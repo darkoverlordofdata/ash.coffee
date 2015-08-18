@@ -30,7 +30,7 @@
     "resources": "",
     "start": "node ./tools/server.js web",
     "serve": "node ./tools/server.js build/web",
-    "test": "NODE_ENV=test mocha --reporter nyan",
+    "test": "NODE_ENV=test mocha --compilers coffee:coffee-script --require test/test_helper.js --recursive",
     "transpile": "coffee -o web/src/ash -cm lib && coffee -o web/src/example -cm example",
     "postclosurebuild": "npm run depswriter"
   },
