@@ -18,8 +18,6 @@
     "web/src"
   ],
   "dependencies": {
-    "box2d.js": "git://github.com/flyover/box2d.js",
-    "box2dweb": "git://github.com/darkoverlordofdata/Box2dWeb",
     "stats.js": "*"
   },
   "devDependencies": {
@@ -34,7 +32,6 @@
     ],
     "path": "web/src",
     "sources": {
-      "box2dweb": "packages/box2dweb/dist/box2d.js",
       "stats.js": "packages/stats.js/build/stats.min.js"
     }
   }
