@@ -18,15 +18,23 @@
     "web/src"
   ],
   "dependencies": {
+    "box2d.js": "git://github.com/flyover/box2d.js",
+    "box2dweb": "git://github.com/darkoverlordofdata/Box2dWeb",
     "stats.js": "*"
   },
   "devDependencies": {
-    "closure-compiler": "~0.2.7"
+    "closure-compiler": "~0.2.7",
+    "google-closure-library": "*"
   },
   "install": {
+    "ignore": [
+      "box2d.js",
+      "closure-compiler",
+      "google-closure-library"
+    ],
     "path": "web/src",
     "sources": {
-      "closure-compiler": "packages/closure-compiler/lib/vendor/compiler.jar",
+      "box2dweb": "packages/box2dweb/dist/box2d.js",
       "stats.js": "packages/stats.js/build/stats.min.js"
     }
   }

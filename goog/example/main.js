@@ -1,5 +1,7 @@
 goog.provide('asteroids.Main');
 
+goog.require('asteroids.Asteroids');
+
 asteroids.Main = function() {
   var canvas;
   canvas = this.canvas();

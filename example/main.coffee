@@ -14,11 +14,13 @@
 # box2d map
 #
 'use strict'
+Asteroids = asteroids.Asteroids
+
 class asteroids.Main
 
   constructor: ->
     canvas = @canvas()
-    new asteroids.Asteroids(canvas.getContext('2d'), canvas.width, canvas.height).start()
+    new Asteroids(canvas.getContext('2d'), canvas.width, canvas.height).start()
     return
 
   canvas: ->

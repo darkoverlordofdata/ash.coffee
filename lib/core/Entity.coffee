@@ -64,18 +64,6 @@ class ash.core.Entity
    * @param {string} name Entity name
   ###
   constructor: (name = '' ) ->
-#    Object.defineProperties @,
-#      ###
-#       * All entities have a name. If no name is set, a default name is used. Names are used to
-#       * fetch specific entities from the engine, and can also help to identify an entity when debugging.
-#      ###
-#      name:
-#        get: -> @name
-#        set: (value) ->
-#          if (@name isnt value)
-#            previous = @name
-#            @name = value
-#            @nameChanged.dispatch(this, previous)
 
     @componentAdded = new Signal2()
     @componentRemoved = new Signal2()
@@ -88,6 +76,11 @@ class ash.core.Entity
     else
       @name = "_entity" + (++nameCount)
 
+  ###*
+   * All entities have a name. If no name is set, a default name is used. Names are used to
+   * fetch specific entities from the engine, and can also help to identify an entity when debugging.
+   * @param {string} value
+  ###
   setName: (value) ->
     if (@name isnt value)
       previous = @name

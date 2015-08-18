@@ -78,6 +78,12 @@ ash.core.Entity.prototype.nameChanged = null;
 ash.core.Entity.prototype.previous = null;
 ash.core.Entity.prototype.next = null;
 ash.core.Entity.prototype.components = null;
+
+/**
+ * All entities have a name. If no name is set, a default name is used. Names are used to
+ * fetch specific entities from the engine, and can also help to identify an entity when debugging.
+ * @param {string} value
+ */
 ash.core.Entity.prototype.setName = function(value) {
   var previous;
   if (this.name !== value) {

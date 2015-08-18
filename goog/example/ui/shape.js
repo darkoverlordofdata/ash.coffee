@@ -1,14 +1,6 @@
-'use strict';
-var __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-  __hasProp = {}.hasOwnProperty;
-
-asteroids.ui.Shape = (function(_super) {
-  __extends(Shape, _super);
-
-  function Shape() {
-    return Shape.__super__.constructor.apply(this, arguments);
-  }
-
-  return Shape;
-
-})(asteroids.ui.Container);
+goog.provide('asteroids.ui.Shape');
+goog.require('asteroids.ui.Container');
+asteroids.ui.Shape = function() {
+  return asteroids.ui.Shape.superClass_.constructor.apply(this, arguments);
+}
+goog.inherits(asteroids.ui.Shape, asteroids.ui.Container);

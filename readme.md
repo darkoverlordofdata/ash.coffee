@@ -18,6 +18,7 @@ $ npm install ash.coffee --save
 $ git clone https://github.com/darkoverlordofdata/ash.coffee
 $ cd ash.coffee
 $ npm install
+$ cake config
 $ npm run build
 $ npm start
 ```
