@@ -243,7 +243,7 @@ class ash.core.Engine
    * null if no systems of this type are in the engine.
   ###
   getSystem: (type) ->
-    return systemList.get(type)
+    return @systemList.get(type)
 
   ###*
    * Remove a system from the engine.

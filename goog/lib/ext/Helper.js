@@ -41,7 +41,6 @@ ash.ext.Helper = function(components, nodes) {
         klass.components = {};
         _ref = klass.prototype;
         for (property in _ref) {
-          if (!__hasProp.call(_ref, property)) continue;
           type = _ref[property];
           klass.components[property] = type;
           klass.prototype[property] = null;

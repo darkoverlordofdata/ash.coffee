@@ -45,7 +45,7 @@ class ash.ext.Helper
         ###
         if not klass.components?
           klass.components = {}
-          for own property, type of klass::
+          for property, type of klass::
             klass.components[property] = type
             klass::[property] = null
           klass::entity = null

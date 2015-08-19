@@ -272,7 +272,7 @@ ash.core.Engine.prototype.addSystem = function(system, priority) {
  * null if no systems of this type are in the engine.
  */
 ash.core.Engine.prototype.getSystem = function(type) {
-  return systemList.get(type);
+  return this.systemList.get(type);
 };
 
 /**
