@@ -14,12 +14,24 @@ $ npm install ash.coffee --save
 
 ### To build
 
+#### Library
 ```bash
 $ git clone https://github.com/darkoverlordofdata/ash.coffee
 $ cd ash.coffee
 $ npm install
-$ cake config
+$ tools/configure
 $ npm run build
+$ npm test
+```
+
+#### Closure demo
+```bash
+$ git clone https://github.com/darkoverlordofdata/ash.coffee
+$ cd ash.coffee
+$ npm install
+$ tools/configure
+$ tools/convert
+$ npm run closure
 $ npm start
 ```
 

@@ -146,6 +146,7 @@ module.exports = (project, options = {}) ->
 
   ### closure build ###
   closure: """
+    npm run transpile
     tools/convert
     java -jar #{PLOVR} build config.js
   """
@@ -175,7 +176,7 @@ module.exports = (project, options = {}) ->
 
   ### publish gh-pages ###
   publish: """
-    gulp gh-pages
+    gulp publish
   """
 
   ###  create documentation ###
@@ -199,6 +200,10 @@ module.exports = (project, options = {}) ->
     else
       return ""
 
+  postclosure: """
+    cp -f web/asteroids.min.js build/web
+  """
+    
   ### get the dependencies ###
   postinstall: """
     bower install
