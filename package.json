@@ -11,7 +11,7 @@
     "_vscode_build": "coffee -o web/src/ash.coffee -cm lib ",
     "android": "",
     "build": "npm run transpile && tools/convert",
-    "clean": "rm -rf build/* && mkdir build/web && mkdir build/lib",
+    "clean": "rm -rf build/* && mkdir -p build && mkdir -p build/web && mkdir -p build/lib",
     "deploy": "cp -rf web/res ./web/frameworks/runtime-src/proj.android-studio/app/assets && cp -rf web/src ./web/frameworks/runtime-src/proj.android-studio/app/assets && cp -f web/main.js ./web/frameworks/runtime-src/proj.android-studio/app/assets && cp -f web/project.json ./web/frameworks/runtime-src/proj.android-studio/app/assets",
     "depswriter": "python packages/google-closure-library/closure/bin/build/depswriter.py --root_with_prefix='packages/ash.coffee/goog/lib ../../../../packages/ash.coffee/goog/lib' --root_with_prefix='goog/asteroids ../../../../goog/asteroids' --root_with_prefix='web ../../../../web' > web/ash.coffee.dep.js",
     "folder": "mkdir build/web && mkdir build/lib && cp -fr lib/src build/lib && cp -fr web/res build/web",

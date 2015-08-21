@@ -91,8 +91,9 @@ module.exports = (project, options = {}) ->
   ### delete the prior build items ###
   clean: """
     rm -rf build/*
-    mkdir build/web
-    mkdir build/lib
+    mkdir -p build
+    mkdir -p build/web
+    mkdir -p build/lib
   """
 
   ### copy the output to downstream project ###
