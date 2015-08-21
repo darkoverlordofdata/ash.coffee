@@ -4,18 +4,32 @@ Signal0 = ash.signals.Signal0
 
 class asteroids.graphics.WaitForStartView
 
+  ###* @type {number} ###
   x: 0
+  ###* @type {number} ###
   y: 0
+  ###* @type {number} ###
   width: 4
+  ###* @type {number} ###
   height: 4
+  ###* @type {number} ###
   rotation: 0
+  ###* @type {CanvasRenderingContext2D} ###
   graphic: null
 
+  ###* @type {Function} ###
   gameOver: null
+  ###* @type {Function} ###
   clickToStart: null
+  ###* @type {Function} ###
   instructions: null
+  ###* @type {ash.signals.Signal0} ###
   click: null
   
+  ###*
+   * @constructor
+   * @param {CanvasRenderingContext2D}
+  ###
   constructor: (@graphic) ->
     @click = new Signal0()
     @gameOver = @createGameOver
@@ -24,6 +38,9 @@ class asteroids.graphics.WaitForStartView
     @graphic.canvas.addEventListener 'click', (event) =>
       @click.dispatch()
 
+  ###*
+   * draw the game over button
+  ###
   createGameOver: () ->
     @graphic.save()
     @graphic.beginPath()
@@ -40,6 +57,9 @@ class asteroids.graphics.WaitForStartView
     @graphic.restore()
     return
 
+  ###*
+   * draw the start button
+  ###
   createClickToStart: () ->
     @graphic.save()
     @graphic.beginPath()
@@ -56,6 +76,9 @@ class asteroids.graphics.WaitForStartView
     @graphic.restore()
     return
 
+  ###*
+   * draw the instructions
+  ###
   createInstructions: () ->
     @graphic.save()
     @graphic.beginPath()
@@ -72,6 +95,9 @@ class asteroids.graphics.WaitForStartView
     @graphic.restore()
     return
 
+  ###*
+   * draw the view
+  ###
   draw: ->
     @gameOver()
     @clickToStart()

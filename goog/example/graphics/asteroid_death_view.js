@@ -2,24 +2,58 @@ goog.provide('asteroids.graphics.AsteroidDeathView');
 
 goog.require('asteroids.ui.Point');
 
+
+/**
+ * @constructor
+ * @param {CanvasRenderingContext2D}
+ * @param {number}
+ */
 asteroids.graphics.AsteroidDeathView = function(_at_graphic, _at_radius) {
   this.graphic = _at_graphic;
   this.radius = _at_radius;
   this.dots = [];
 }
+
+/** @const */
 var  numDots;
 numDots = 8;
+
+/** @type {Array<Dot>} */
 asteroids.graphics.AsteroidDeathView.prototype.dots = null;
+
+/** @type {number} */
 asteroids.graphics.AsteroidDeathView.prototype.x = 0;
+
+/** @type {number} */
 asteroids.graphics.AsteroidDeathView.prototype.y = 0;
+
+/** @type {number} */
 asteroids.graphics.AsteroidDeathView.prototype.width = 0;
+
+/** @type {number} */
 asteroids.graphics.AsteroidDeathView.prototype.height = 0;
+
+/** @type {number} */
 asteroids.graphics.AsteroidDeathView.prototype.rotation = 0;
+
+/** @type {CanvasRenderingContext2D} */
 asteroids.graphics.AsteroidDeathView.prototype.graphic = null;
+
+/** @type {number} */
 asteroids.graphics.AsteroidDeathView.prototype.radius = 0;
+
+/** @type {asteroids.ui.Point} */
 asteroids.graphics.AsteroidDeathView.prototype.points = null;
+
+/** @type {number} */
 asteroids.graphics.AsteroidDeathView.prototype.count = 0;
+
+/** @type {boolean} */
 asteroids.graphics.AsteroidDeathView.prototype.first = true;
+
+/**
+ * @param {number}
+ */
 asteroids.graphics.AsteroidDeathView.prototype.animate = function(time) {
   var dot, i, _i, _j, _len, _ref;
   if (this.first) {
@@ -37,6 +71,10 @@ asteroids.graphics.AsteroidDeathView.prototype.animate = function(time) {
   }
   return this.draw();
 };
+
+/**
+ * draw the view
+ */
 asteroids.graphics.AsteroidDeathView.prototype.draw = function() {
   var dot, _i, _len, _ref, _results;
   _ref = this.dots;
@@ -47,6 +85,12 @@ asteroids.graphics.AsteroidDeathView.prototype.draw = function() {
   }
   return _results;
 };
+
+/**
+* @constructor
+* @param {CanvasRenderingContext2D}
+* @param {number}
+ */
 var Dot = function(_at_graphic, maxDistance) {
   var angle, distance, speed;
   this.graphic = _at_graphic;
@@ -57,12 +101,29 @@ var Dot = function(_at_graphic, maxDistance) {
   speed = Math.random() * 10 + 10;
   this.velocity = new asteroids.ui.Point(Math.cos(angle) * speed, Math.sin(angle) * speed);
 }
+
+/** @type {asteroids.ui.Point} */
 Dot.prototype.velocity = null;
+
+/** @type {CanvasRenderingContext2D} */
 Dot.prototype.graphic = null;
+
+/** @type {number} */
 Dot.prototype.x1 = 0;
+
+/** @type {number} */
 Dot.prototype.y1 = 0;
+
+/** @type {number} */
 Dot.prototype.x = 0;
+
+/** @type {number} */
 Dot.prototype.y = 0;
+
+/**
+* @param {number}
+* @param {number}
+ */
 Dot.prototype.draw = function(x, y) {
   var graphic;
   graphic = this.graphic;

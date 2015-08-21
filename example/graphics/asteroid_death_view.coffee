@@ -4,23 +4,53 @@ Point = asteroids.ui.Point
 
 class asteroids.graphics.AsteroidDeathView
 
+  ###* @const ###
   numDots = 8
 
+  ###* @type {Array<Dot>} ###
   dots: null
+  
+  ###* @type {number} ###
   x: 0
+  
+  ###* @type {number} ###
   y: 0
+  
+  ###* @type {number} ###
   width: 0
+  
+  ###* @type {number} ###
   height: 0
+  
+  ###* @type {number} ###
   rotation: 0
+  
+  ###* @type {CanvasRenderingContext2D} ###
   graphic: null
+  
+  ###* @type {number} ###
   radius: 0
+  
+  ###* @type {asteroids.ui.Point}  ###
   points: null
+  
+  ###* @type {number} ###
   count: 0
+  
+  ###* @type {boolean} ###
   first: true
 
+  ###*
+   * @constructor
+   * @param {CanvasRenderingContext2D}
+   * @param {number}
+  ###
   constructor: (@graphic, @radius) ->
     @dots = []
 
+  ###*
+   * @param {number}
+  ###
   animate: (time) ->
     if @first
       @first = false
@@ -33,19 +63,39 @@ class asteroids.graphics.AsteroidDeathView
       dot.y += dot.velocity.y * time
     @draw()
 
+  ###*
+   * draw the view
+  ###
   draw: ->
     for dot in @dots
       dot.draw(@x, @y)
 
 
   class Dot
+  
+    ###* @type {asteroids.ui.Point} ###
     velocity: null
+    
+    ###* @type {CanvasRenderingContext2D} ###
     graphic: null
+    
+    ###* @type {number} ###
     x1: 0
+    
+    ###* @type {number} ###
     y1: 0
+    
+    ###* @type {number} ###
     x: 0
+    
+    ###* @type {number} ###
     y: 0
   
+    ###*
+    * @constructor
+    * @param {CanvasRenderingContext2D}
+    * @param {number}
+    ###
     constructor: (@graphic, maxDistance) ->
   
       angle = Math.random() * 2 * Math.PI
@@ -55,6 +105,10 @@ class asteroids.graphics.AsteroidDeathView
       speed = Math.random() * 10 + 10
       @velocity = new Point(Math.cos(angle)*speed, Math.sin(angle)*speed)
   
+    ###*
+    * @param {number}
+    * @param {number}
+    ###
     draw:(x, y) ->
   
       graphic = @graphic

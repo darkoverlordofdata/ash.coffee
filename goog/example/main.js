@@ -2,12 +2,22 @@ goog.provide('asteroids.Main');
 
 goog.require('asteroids.Asteroids');
 
+
+/**
+ * Create a new game
+ * @constructor
+ */
 asteroids.Main = function() {
   var canvas;
   canvas = this.canvas();
   new asteroids.Asteroids(canvas.getContext('2d'), canvas.width, canvas.height).start();
   return;
 }
+
+/**
+ * Create the canvas
+ * @return {HTMLCanvasElement}
+ */
 asteroids.Main.prototype.canvas = function() {
   var canvas;
   canvas = document.createElement(navigator.isCocoonJS ? 'screencanvas' : 'canvas');

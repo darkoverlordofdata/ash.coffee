@@ -18,11 +18,19 @@ Asteroids = asteroids.Asteroids
 
 class asteroids.Main
 
+  ###*
+   * Create a new game
+   * @constructor
+  ###
   constructor: ->
     canvas = @canvas()
     new Asteroids(canvas.getContext('2d'), canvas.width, canvas.height).start()
     return
 
+  ###*
+   * Create the canvas
+   * @return {HTMLCanvasElement}
+  ###
   canvas: ->
     canvas = document.createElement(if navigator.isCocoonJS then 'screencanvas' else 'canvas')
     canvas.width  = window.innerWidth*window.devicePixelRatio

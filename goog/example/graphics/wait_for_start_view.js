@@ -2,6 +2,11 @@ goog.provide('asteroids.graphics.WaitForStartView');
 
 goog.require('ash.signals.Signal0');
 
+
+/**
+ * @constructor
+ * @param {CanvasRenderingContext2D}
+ */
 asteroids.graphics.WaitForStartView = function(_at_graphic) {
   this.graphic = _at_graphic;
   this.click = new ash.signals.Signal0();
@@ -14,16 +19,40 @@ asteroids.graphics.WaitForStartView = function(_at_graphic) {
     };
   })(this));
 }
+
+/** @type {number} */
 asteroids.graphics.WaitForStartView.prototype.x = 0;
+
+/** @type {number} */
 asteroids.graphics.WaitForStartView.prototype.y = 0;
+
+/** @type {number} */
 asteroids.graphics.WaitForStartView.prototype.width = 4;
+
+/** @type {number} */
 asteroids.graphics.WaitForStartView.prototype.height = 4;
+
+/** @type {number} */
 asteroids.graphics.WaitForStartView.prototype.rotation = 0;
+
+/** @type {CanvasRenderingContext2D} */
 asteroids.graphics.WaitForStartView.prototype.graphic = null;
+
+/** @type {Function} */
 asteroids.graphics.WaitForStartView.prototype.gameOver = null;
+
+/** @type {Function} */
 asteroids.graphics.WaitForStartView.prototype.clickToStart = null;
+
+/** @type {Function} */
 asteroids.graphics.WaitForStartView.prototype.instructions = null;
+
+/** @type {ash.signals.Signal0} */
 asteroids.graphics.WaitForStartView.prototype.click = null;
+
+/**
+ * draw the game over button
+ */
 asteroids.graphics.WaitForStartView.prototype.createGameOver = function() {
   var l, s, x, y;
   this.graphic.save();
@@ -38,6 +67,10 @@ asteroids.graphics.WaitForStartView.prototype.createGameOver = function() {
   this.graphic.fill();
   this.graphic.restore();
 };
+
+/**
+ * draw the start button
+ */
 asteroids.graphics.WaitForStartView.prototype.createClickToStart = function() {
   var l, s, x, y;
   this.graphic.save();
@@ -52,6 +85,10 @@ asteroids.graphics.WaitForStartView.prototype.createClickToStart = function() {
   this.graphic.fill();
   this.graphic.restore();
 };
+
+/**
+ * draw the instructions
+ */
 asteroids.graphics.WaitForStartView.prototype.createInstructions = function() {
   var l, s, x, y;
   this.graphic.save();
@@ -66,6 +103,10 @@ asteroids.graphics.WaitForStartView.prototype.createInstructions = function() {
   this.graphic.fill();
   this.graphic.restore();
 };
+
+/**
+ * draw the view
+ */
 asteroids.graphics.WaitForStartView.prototype.draw = function() {
   this.gameOver();
   this.clickToStart();

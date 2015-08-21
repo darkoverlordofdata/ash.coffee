@@ -33,21 +33,42 @@ GameConfig            = asteroids.GameConfig
 KeyPoll               = asteroids.input.KeyPoll
 Engine                = ash.core.Engine
 FrameTickProvider     = ash.tick.FrameTickProvider
-Helper                = ash.ext.Helper;
 
 class asteroids.Asteroids
 
-  container       : null #  DisplayObjectContainer
-  engine          : null #  Engine
-  tickProvider    : null #  FrameTickProvider
-  creator         : null #  EntityCreator
-  keyPoll         : null #  KeyPoll
-  config          : null #  GameConfig
+  ###* @type {CanvasRenderingContext2D} 2D Canvas ###
+  container: null
+   
+  ###* @type {ash.core.Engine} Engine ###
+  engine: null
+  
+  ###* @type {ash.tick.FrameTickProvider} ###
+  tickProvider: null
+  
+  ###* @type {asteroids.EntityCreator} ###
+  creator: null
+  
+  ###* @type {asteroids.input.KeyPoll} ###
+  keyPoll: null
+  
+  ###* @type {asteroids.GameConfig} ###
+  config: null
 
+  ###*
+   * @constructor
+   * @param {CanvasRenderingContext2D} 2D Canvas
+   * @param {number} width
+   * @param {number} height
+  ###
   constructor: (@container, width, height) ->
 
     @prepare(width, height)
 
+  ###*
+   * 
+   * @param {number} width
+   * @param {number} height
+  ###
   prepare: (width, height) ->
 
     @engine = new Engine()
@@ -56,15 +77,6 @@ class asteroids.Asteroids
     @config = new GameConfig()
     @config.height = height
     @config.width = width
-
-    SystemPriorities =
-      preUpdate            : 1
-      update               : 2
-      move                 : 3
-      resolveCollisions    : 4
-      stateMachines        : 5
-      animate              : 6
-      render               : 7
 
     @engine.addSystem(new WaitForStartSystem(@creator), SystemPriorities.preUpdate );
     @engine.addSystem(new GameManager(@creator, @config), SystemPriorities.preUpdate)
@@ -83,6 +95,9 @@ class asteroids.Asteroids
     @creator.createGame()
     return
 
+  ###*
+  * Start the game play
+  ###
   start: ->
 
     if navigator.isCocoonJS
@@ -90,7 +105,7 @@ class asteroids.Asteroids
     else
       x = Math.floor(@config.width/2)-40
       y = 0
-      stats = new Stats()
+      stats = new window['Stats']()
       stats['setMode'] 0
       stats['domElement'].style.position = "absolute"
       stats['domElement'].style.left = "#{x}px"

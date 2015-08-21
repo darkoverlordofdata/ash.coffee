@@ -1,5 +1,10 @@
 goog.provide('asteroids.graphics.AsteroidView');
 
+/**
+ * @constructor
+ * @param {CanvasRenderingContext2D}
+ * @param {number}
+ */
 asteroids.graphics.AsteroidView = function(_at_graphic, _at_radius) {
   var angle, length, posX, posY;
   this.graphic = _at_graphic;
@@ -19,15 +24,37 @@ asteroids.graphics.AsteroidView = function(_at_graphic, _at_radius) {
     angle += Math.random() * 0.5;
   }
 }
+
+/** @type {number} */
 asteroids.graphics.AsteroidView.prototype.x = 0;
+
+/** @type {number} */
 asteroids.graphics.AsteroidView.prototype.y = 0;
+
+/** @type {number} */
 asteroids.graphics.AsteroidView.prototype.width = 0;
+
+/** @type {number} */
 asteroids.graphics.AsteroidView.prototype.height = 0;
+
+/** @type {number} */
 asteroids.graphics.AsteroidView.prototype.rotation = 0;
+
+/** @type {CanvasRenderingContext2D} */
 asteroids.graphics.AsteroidView.prototype.graphic = null;
+
+/** @type {number} */
 asteroids.graphics.AsteroidView.prototype.radius = 0;
+
+/** @type {Array<asteroids.ui.Point>} */
 asteroids.graphics.AsteroidView.prototype.points = null;
+
+/** @type {number} */
 asteroids.graphics.AsteroidView.prototype.count = 0;
+
+/**
+ * draw the view
+ */
 asteroids.graphics.AsteroidView.prototype.draw = function() {
   var graphic, i;
   graphic = this.graphic;

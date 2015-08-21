@@ -4,12 +4,25 @@ GunControlNode = asteroids.nodes.GunControlNode
 
 class asteroids.systems.GunControlSystem extends ash.tools.ListIteratingSystem
 
-  keyPoll     : null  # KeyPoll
-  creator     : null  # EntityCreator
+  ###* @type {asteroids.input.KeyPoll} ###
+  keyPoll: null
+  
+  ###* @type {asteroids.EntityCreator} ###
+  creator: null
 
+  ###*
+   * @constructor
+   * @extends {ash.tools.ListIteratingSystem}
+   * @param {asteroids.EntityCreator}
+   * @param {asteroids.input.KeyPoll}
+  ###
   constructor: (@keyPoll, @creator) ->
     super(GunControlNode, @updateNode)
 
+  ###*
+   * @param {ash.core.Node}
+   * @param {number}
+  ###
   updateNode: (node, time) =>
     control = node.control
     position = node.position

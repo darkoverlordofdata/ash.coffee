@@ -26,25 +26,51 @@ goog.require('asteroids.graphics.HudView');
 goog.require('asteroids.graphics.SpaceshipDeathView');
 goog.require('asteroids.graphics.SpaceshipView');
 
+
+/**
+ * @constructor
+ * @param {ash.core.Engine} 
+ * @param {CanvasRenderingContext2D} 
+ * @param {Object} b2World (undefined)
+ */
 asteroids.EntityCreator = function(_at_engine, _at_graphic, _at_world) {
   this.engine = _at_engine;
   this.graphic = _at_graphic;
   this.world = _at_world;
 }
+
+/** @const */
 var KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_Z;
 KEY_LEFT = 37;
+
+/** @const */
 KEY_UP = 38;
+
+/** @const */
 KEY_RIGHT = 39;
+
+/** @const */
 KEY_Z = 90;
+
+/** @type {ash.core.Engine} Engine */
 asteroids.EntityCreator.prototype.engine = null;
+
+/** @type {asteroids.graphics.WaitForStartView} */
 asteroids.EntityCreator.prototype.waitEntity = null;
+
+/** @type {CanvasRenderingContext2D} */
 asteroids.EntityCreator.prototype.graphic = null;
+
+/**
+ * @param {ash.core.Entity} entity to destroy
+ */
 asteroids.EntityCreator.prototype.destroyEntity = function(entity) {
   this.engine.removeEntity(entity);
 };
 
-/*
- * Game State
+/**
+ * create game
+ * @return {ash.core.Entity}
  */
 asteroids.EntityCreator.prototype.createGame = function() {
   var gameEntity, hud;
@@ -54,8 +80,9 @@ asteroids.EntityCreator.prototype.createGame = function() {
   return gameEntity;
 };
 
-/*
- * Start...
+/**
+ * Create the Start Button
+ * @return {ash.core.Entity}
  */
 asteroids.EntityCreator.prototype.createWaitForClick = function() {
   var waitView;
@@ -68,8 +95,12 @@ asteroids.EntityCreator.prototype.createWaitForClick = function() {
   return this.waitEntity;
 };
 
-/*
+/**
  * Create an Asteroid with FSM Animation
+ * @param {number} radius
+ * @param {number} x
+ * @param {number} y
+ * @return {ash.core.Entity}
  */
 asteroids.EntityCreator.prototype.createAsteroid = function(radius, x, y) {
   var asteroid, deathView, fsm;
@@ -84,8 +115,9 @@ asteroids.EntityCreator.prototype.createAsteroid = function(radius, x, y) {
   return asteroid;
 };
 
-/*
+/**
  * Create Player Spaceship with FSM Animation
+ * @return {ash.core.Entity}
  */
 asteroids.EntityCreator.prototype.createSpaceship = function() {
   var deathView, fsm, spaceship;
@@ -100,8 +132,11 @@ asteroids.EntityCreator.prototype.createSpaceship = function() {
   return spaceship;
 };
 
-/*
+/**
  * Create a Bullet
+ * @param {asteroids.components.Gun}
+ * @param {asteroids.components.Position}
+ * @return {ash.core.Entity}
  */
 asteroids.EntityCreator.prototype.createUserBullet = function(gun, parentPosition) {
   var bullet, cos, sin, x, y;

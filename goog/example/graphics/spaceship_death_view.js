@@ -2,24 +2,63 @@ goog.provide('asteroids.graphics.SpaceshipDeathView');
 
 goog.require('asteroids.ui.Point');
 
+
+/**
+ * @constructor
+ * @param {CanvasRenderingContext2D}
+ */
 asteroids.graphics.SpaceshipDeathView = function(_at_graphic) {
   this.graphic = _at_graphic;
 }
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.x = 0;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.y = 0;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.width = 20;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.height = 20;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.rotation = 0;
+
+/** @type {CanvasRenderingContext2D} */
 asteroids.graphics.SpaceshipDeathView.prototype.graphic = null;
+
+/** @type {asteroids.ui.Point} */
 asteroids.graphics.SpaceshipDeathView.prototype.vel1 = null;
+
+/** @type {asteroids.ui.Point} */
 asteroids.graphics.SpaceshipDeathView.prototype.vel2 = null;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.rot1 = null;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.rot2 = null;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.x1 = 0;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.y2 = 0;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.y1 = 0;
+
+/** @type {number} */
 asteroids.graphics.SpaceshipDeathView.prototype.y2 = 0;
+
+/** @type {boolean} */
 asteroids.graphics.SpaceshipDeathView.prototype.first = true;
+
+/**
+ * @param {number}
+ */
 asteroids.graphics.SpaceshipDeathView.prototype.animate = function(time) {
   if (this.first) {
     this.first = false;
@@ -39,6 +78,10 @@ asteroids.graphics.SpaceshipDeathView.prototype.animate = function(time) {
   this.r2 += this.rot2 * time;
   return this.draw();
 };
+
+/**
+ * draw the view
+ */
 asteroids.graphics.SpaceshipDeathView.prototype.draw = function() {
   var graphic;
   graphic = this.graphic;

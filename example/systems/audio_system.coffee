@@ -4,10 +4,17 @@ AudioNode       = asteroids.nodes.AudioNode
 
 class asteroids.systems.AudioSystem extends ash.tools.ListIteratingSystem
 
+  ###*
+   * @constructor
+  ###
   constructor: () ->
 
     super(AudioNode, @updateNode)
 
+  ###*
+   * @param {ash.core.Node}
+   * @param {number}
+  ###
   updateNode: (node, time) =>
 
     for each, type of node.audio.toPlay

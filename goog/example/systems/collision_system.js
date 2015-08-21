@@ -27,28 +27,56 @@ goog.require('asteroids.graphics.HudView');
 goog.require('asteroids.graphics.SpaceshipDeathView');
 goog.require('asteroids.graphics.SpaceshipView');
 
+
+/**
+ * @constructor
+ * @extends {ash.core.System}
+ * @param {asteroids.EntityCreator}
+ */
 asteroids.systems.CollisionSystem = function(_at_creator) {
   this.creator = _at_creator;
   this.update = goog.bind(this.update, this);
 }
 goog.inherits(asteroids.systems.CollisionSystem, ash.core.System);
+
+/** @type {asteroids.EntityCreator} */
 asteroids.systems.CollisionSystem.prototype.creator = null;
+
+/** @type {ash.core.NodeList} */
 asteroids.systems.CollisionSystem.prototype.games = null;
+
+/** @type {ash.core.NodeList} */
 asteroids.systems.CollisionSystem.prototype.spaceships = null;
+
+/** @type {ash.core.NodeList} */
 asteroids.systems.CollisionSystem.prototype.asteroids = null;
+
+/** @type {ash.core.NodeList} */
 asteroids.systems.CollisionSystem.prototype.bullets = null;
+
+/**
+ * @param {ash.core.Engine}
+ */
 asteroids.systems.CollisionSystem.prototype.addToEngine = function(engine) {
   this.games = engine.getNodeList(asteroids.nodes.GameNode);
   this.spaceships = engine.getNodeList(asteroids.nodes.SpaceshipCollisionNode);
   this.asteroids = engine.getNodeList(asteroids.nodes.AsteroidCollisionNode);
   this.bullets = engine.getNodeList(asteroids.nodes.BulletCollisionNode);
 };
+
+/**
+ * @param {ash.core.Engine}
+ */
 asteroids.systems.CollisionSystem.prototype.removeFromEngine = function(engine) {
   this.games = null;
   this.spaceships = null;
   this.asteroids = null;
   this.bullets = null;
 };
+
+/**
+ * @param {number}
+ */
 asteroids.systems.CollisionSystem.prototype.update = function(time) {
   var asteroid, bullet, spaceship;
   bullet = this.bullets.head;

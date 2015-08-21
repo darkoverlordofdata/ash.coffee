@@ -19,18 +19,42 @@ goog.require('asteroids.GameConfig');
 goog.require('asteroids.input.KeyPoll');
 goog.require('ash.core.Engine');
 goog.require('ash.tick.FrameTickProvider');
-goog.require('ash.ext.Helper');
 
+
+/**
+ * @constructor
+ * @param {CanvasRenderingContext2D} 2D Canvas
+ * @param {number} width
+ * @param {number} height
+ */
 asteroids.Asteroids = function(_at_container, width, height) {
   this.container = _at_container;
   this.prepare(width, height);
 }
+
+/** @type {CanvasRenderingContext2D} 2D Canvas */
 asteroids.Asteroids.prototype.container = null;
+
+/** @type {ash.core.Engine} Engine */
 asteroids.Asteroids.prototype.engine = null;
+
+/** @type {ash.tick.FrameTickProvider} */
 asteroids.Asteroids.prototype.tickProvider = null;
+
+/** @type {asteroids.EntityCreator} */
 asteroids.Asteroids.prototype.creator = null;
+
+/** @type {asteroids.input.KeyPoll} */
 asteroids.Asteroids.prototype.keyPoll = null;
+
+/** @type {asteroids.GameConfig} */
 asteroids.Asteroids.prototype.config = null;
+
+/**
+ * 
+ * @param {number} width
+ * @param {number} height
+ */
 asteroids.Asteroids.prototype.prepare = function(width, height) {
   this.engine = new ash.core.Engine();
   this.creator = new asteroids.EntityCreator(this.engine, this.container, this.world);
@@ -38,15 +62,6 @@ asteroids.Asteroids.prototype.prepare = function(width, height) {
   this.config = new asteroids.GameConfig();
   this.config.height = height;
   this.config.width = width;
-  SystemPriorities = {
-    preUpdate: 1,
-    update: 2,
-    move: 3,
-    resolveCollisions: 4,
-    stateMachines: 5,
-    animate: 6,
-    render: 7
-  };
   this.engine.addSystem(new asteroids.systems.WaitForStartSystem(this.creator), asteroids.systems.SystemPriorities.preUpdate);
   this.engine.addSystem(new asteroids.systems.GameManager(this.creator, this.config), asteroids.systems.SystemPriorities.preUpdate);
   this.engine.addSystem(new asteroids.systems.MotionControlSystem(this.keyPoll), asteroids.systems.SystemPriorities.update);
@@ -62,6 +77,10 @@ asteroids.Asteroids.prototype.prepare = function(width, height) {
   this.creator.createWaitForClick();
   this.creator.createGame();
 };
+
+/**
+* Start the game play
+ */
 asteroids.Asteroids.prototype.start = function() {
   var stats, x, y;
   if (navigator.isCocoonJS) {
@@ -69,7 +88,7 @@ asteroids.Asteroids.prototype.start = function() {
   } else {
     x = Math.floor(this.config.width / 2) - 40;
     y = 0;
-    stats = new Stats();
+    stats = new window['Stats']();
     stats['setMode'](0);
     stats['domElement'].style.position = "absolute";
     stats['domElement'].style.left = x + "px";

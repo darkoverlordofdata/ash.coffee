@@ -4,11 +4,23 @@ RenderNode = asteroids.nodes.RenderNode
 
 class asteroids.systems.RenderSystem extends ash.core.System
 
-  graphic   : null  # 2D Context
-  nodes     : null  # NodeList
 
+  ###* @type {CanvasRenderingContext2D} ###
+  graphic: null
+  
+  ###* @type {ash.core.NodeList} ###
+  nodes: null 
+
+  ###*
+   * @constructor
+   * @extends {ash.core.System}
+   * @param {CanvasRenderingContext2D}
+  ###
   constructor: (@graphic) ->
 
+  ###*
+   * @param {ash.core.Engine}
+  ###
   addToEngine: (engine) ->
     @nodes = engine.getNodeList(RenderNode)
     node = @nodes.head
@@ -20,15 +32,27 @@ class asteroids.systems.RenderSystem extends ash.core.System
 #    @nodes.nodeRemoved.add @removeFromDisplay, this
     return # Void
 
+  ###*
+   * @param {ash.core.Node}
+  ###
   addToDisplay:(node) ->
 
+  ###*
+   * @param {ash.core.Node}
+  ###
   removeFromDisplay: (node) ->
 
 
+  ###*
+   * @param {ash.core.Engine}
+  ###
   removeFromEngine: (engine) ->
     @nodes = null
     return # Void
 
+  ###*
+   * @param {number}
+  ###
   update: (time) =>
 
     @graphic.save()

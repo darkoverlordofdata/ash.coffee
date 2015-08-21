@@ -7,4 +7,5 @@ goog.require('asteroids.Main');
 main.start = function () {
     new asteroids.Main();
 }
+main.start();        
         

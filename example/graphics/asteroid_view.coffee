@@ -2,17 +2,31 @@
 
 class asteroids.graphics.AsteroidView
 
+  ###* @type {number} ###
   x: 0
+  ###* @type {number} ###
   y: 0
+  ###* @type {number} ###
   width: 0
+  ###* @type {number} ###
   height: 0
+  ###* @type {number} ###
   rotation: 0
+  ###* @type {CanvasRenderingContext2D} ###
   graphic: null
+  ###* @type {number} ###
   radius: 0
+  ###* @type {Array<asteroids.ui.Point>}  ###
   points: null
+  ###* @type {number} ###
   count: 0
 
 
+  ###*
+   * @constructor
+   * @param {CanvasRenderingContext2D}
+   * @param {number}
+  ###
   constructor: (@graphic, @radius) ->
     @width = @radius
     @height = @radius
@@ -28,6 +42,9 @@ class asteroids.graphics.AsteroidView
 
       angle += Math.random() * 0.5
 
+  ###*
+   * draw the view
+  ###
   draw: ->
     graphic = @graphic
     graphic.save()

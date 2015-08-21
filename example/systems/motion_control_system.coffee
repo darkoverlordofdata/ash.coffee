@@ -4,11 +4,21 @@ MotionControlNode     = asteroids.nodes.MotionControlNode
 
 class asteroids.systems.MotionControlSystem extends ash.tools.ListIteratingSystem
 
-  keyPoll: null # KeyPoll
+  ###* @type {asteroids.input.KeyPoll} ###
+  keyPoll: null
 
+  ###*
+   * @constructor
+   * @extends {ash.tools.ListIteratingSystem}
+   * @param {asteroids.input.KeyPoll}
+  ###
   constructor: (@keyPoll) ->
     super(MotionControlNode, @updateNode)
 
+  ###*
+   * @param {ash.core.Node}
+   * @param {number}
+  ###
   updateNode: (node, time) =>
 
     control = node.control

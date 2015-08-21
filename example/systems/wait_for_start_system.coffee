@@ -6,14 +6,31 @@ GameNode                = asteroids.nodes.GameNode
 
 class asteroids.systems.WaitForStartSystem extends ash.core.System
 
-  engine      : null  # Engine
-  creator     : null  # EntityCreator
-  gameNodes   : null  # NodeList
-  waitNodes   : null  # NodeList
-  asteroids   : null  # NodeList
+  ###* @type {ash.core.Engine} ###
+  engine: null
+  
+  ###* @type {asteroids.EntityCreator} ###
+  creator: null
+  
+  ###* @type {ash.core.NodeList} ###
+  gameNodes: null
+  
+  ###* @type {ash.core.NodeList} ###
+  waitNodes: null
+  
+  ###* @type {ash.core.NodeList} ###
+  asteroids: null
 
+  ###*
+   * @constructor
+   * @extends {ash.tools.ListIteratingSystem}
+   * @param {asteroids.EntityCreator}
+  ###
   constructor: (@creator) ->
 
+  ###*
+   * @param {ash.core.Engine}
+  ###
   addToEngine: (engine) ->
     @engine = engine
     @waitNodes = engine.getNodeList(WaitForStartNode)
@@ -21,11 +38,17 @@ class asteroids.systems.WaitForStartSystem extends ash.core.System
     @asteroids = engine.getNodeList(AsteroidCollisionNode)
     return # Void
 
+  ###*
+   * @param {ash.core.Engine}
+  ###
   removeFromEngine: (engine) ->
     @waitNodes = null
     @gameNodes = null
     return # Void
 
+  ###*
+   * @param {number}
+  ###
   update: (time) =>
     node = @waitNodes.head
     game = @gameNodes.head

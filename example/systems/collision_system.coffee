@@ -32,14 +32,31 @@ SpaceshipView         = asteroids.graphics.SpaceshipView
 
 class asteroids.systems.CollisionSystem extends ash.core.System
 
-  creator       : null #  EntityCreator
-  games         : null #  NodeList
-  spaceships    : null #  NodeList
-  asteroids     : null #  NodeList
-  bullets       : null #  NodeList
+  ###* @type {asteroids.EntityCreator} ###
+  creator: null
+  
+  ###* @type {ash.core.NodeList} ###
+  games: null
+  
+  ###* @type {ash.core.NodeList} ###
+  spaceships: null
+  
+  ###* @type {ash.core.NodeList} ###
+  asteroids: null
+  
+  ###* @type {ash.core.NodeList} ###
+  bullets: null
 
+  ###*
+   * @constructor
+   * @extends {ash.core.System}
+   * @param {asteroids.EntityCreator}
+  ###
   constructor: (@creator) ->
 
+  ###*
+   * @param {ash.core.Engine}
+  ###
   addToEngine: (engine) ->
     @games        = engine.getNodeList(GameNode)
     @spaceships   = engine.getNodeList(SpaceshipCollisionNode)
@@ -47,6 +64,9 @@ class asteroids.systems.CollisionSystem extends ash.core.System
     @bullets      = engine.getNodeList(BulletCollisionNode)
     return # Void
 
+  ###*
+   * @param {ash.core.Engine}
+  ###
   removeFromEngine: (engine) ->
     @games        = null
     @spaceships   = null
@@ -56,6 +76,9 @@ class asteroids.systems.CollisionSystem extends ash.core.System
 
   # todo: Audio.play
 
+  ###*
+   * @param {number}
+  ###
   update: (time) =>
 
     bullet = @bullets.head

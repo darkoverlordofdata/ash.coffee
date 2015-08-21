@@ -6,24 +6,51 @@ goog.require('asteroids.nodes.AsteroidCollisionNode');
 goog.require('asteroids.nodes.BulletCollisionNode');
 goog.require('asteroids.ui.Point');
 
+
+/**
+ * @constructor
+ * @extends {ash.core.System}
+ * @param {asteroids.EntityCreator}
+ * @param {asteroids.GameConfig}
+ */
 asteroids.systems.GameManager = function(_at_creator, _at_config) {
   this.creator = _at_creator;
   this.config = _at_config;
   this.update = goog.bind(this.update, this);
 }
 goog.inherits(asteroids.systems.GameManager, ash.core.System);
+
+/** @type {asteroids.GameConfig} */
 asteroids.systems.GameManager.prototype.config = null;
+
+/** @type {asteroids.EntityCreator} */
 asteroids.systems.GameManager.prototype.creator = null;
+
+/** @type {ash.core.NodeList} */
 asteroids.systems.GameManager.prototype.gameNodes = null;
+
+/** @type {ash.core.NodeList} */
 asteroids.systems.GameManager.prototype.spaceships = null;
+
+/** @type {ash.core.NodeList} */
 asteroids.systems.GameManager.prototype.asteroids = null;
+
+/** @type {ash.core.NodeList} */
 asteroids.systems.GameManager.prototype.bullets = null;
+
+/**
+ * @param {ash.core.Engine}
+ */
 asteroids.systems.GameManager.prototype.addToEngine = function(engine) {
   this.gameNodes = engine.getNodeList(asteroids.nodes.GameNode);
   this.spaceships = engine.getNodeList(asteroids.nodes.SpaceshipNode);
   this.asteroids = engine.getNodeList(asteroids.nodes.AsteroidCollisionNode);
   this.bullets = engine.getNodeList(asteroids.nodes.BulletCollisionNode);
 };
+
+/**
+ * @param {number}
+ */
 asteroids.systems.GameManager.prototype.update = function(time) {
   var asteroid, asteroidCount, clearToAddSpaceship, i, newSpaceshipPosition, node, position, spaceship;
   node = this.gameNodes.head;
@@ -66,6 +93,10 @@ asteroids.systems.GameManager.prototype.update = function(time) {
     }
   }
 };
+
+/**
+ * @param {ash.core.Engine}
+ */
 asteroids.systems.GameManager.prototype.removeFromEngine = function(engine) {
   this.gameNodes = null;
   this.spaceships = null;

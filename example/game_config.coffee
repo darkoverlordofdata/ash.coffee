@@ -14,7 +14,14 @@
 # GameConfig
 #
 'use strict'
+
+###*
+ * @constructor
+###
 class asteroids.GameConfig
 
+  ###* @type {number} ### 
   width: 0
+  
+  ###* @type {number} ### 
   height: 0

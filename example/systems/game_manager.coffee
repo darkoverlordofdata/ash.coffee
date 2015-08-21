@@ -8,16 +8,35 @@ Point                     = asteroids.ui.Point
 
 class asteroids.systems.GameManager extends ash.core.System
 
-  config        : null  # GameConfig
-  creator       : null  # EntityCreator
+  ###* @type {asteroids.GameConfig} ###
+  config: null
+  
+  ###* @type {asteroids.EntityCreator} ###
+  creator: null
 
-  gameNodes     : null  # NodeList of GameNode
-  spaceships    : null  # NodeList of SpaceshipNode
-  asteroids     : null  # NodeList of AsteroidCollisionNode
-  bullets       : null  # NodeList of BulletCollisionNode
+  ###* @type {ash.core.NodeList} ###
+  gameNodes: null
+  
+  ###* @type {ash.core.NodeList} ###
+  spaceships: null
+  
+  ###* @type {ash.core.NodeList} ###
+  asteroids: null
+  
+  ###* @type {ash.core.NodeList} ###
+  bullets: null
 
+  ###*
+   * @constructor
+   * @extends {ash.core.System}
+   * @param {asteroids.EntityCreator}
+   * @param {asteroids.GameConfig}
+  ###
   constructor: (@creator, @config) ->
 
+  ###*
+   * @param {ash.core.Engine}
+  ###
   addToEngine: (engine) ->
     @gameNodes  = engine.getNodeList(GameNode)
     @spaceships = engine.getNodeList(SpaceshipNode)
@@ -25,6 +44,9 @@ class asteroids.systems.GameManager extends ash.core.System
     @bullets    = engine.getNodeList(BulletCollisionNode)
     return # Void
 
+  ###*
+   * @param {number}
+  ###
   update: (time) =>
     node = @gameNodes.head
     if node and node.state.playing
@@ -63,6 +85,9 @@ class asteroids.systems.GameManager extends ash.core.System
           ++i
     return # Void
 
+  ###*
+   * @param {ash.core.Engine}
+  ###
   removeFromEngine: (engine) ->
     @gameNodes  = null
     @spaceships = null

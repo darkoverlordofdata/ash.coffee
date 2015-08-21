@@ -4,27 +4,49 @@ Point = asteroids.ui.Point
 
 class asteroids.graphics.SpaceshipDeathView
 
+  ###* @type {number} ###
   x: 0
+  ###* @type {number} ###
   y: 0
+  ###* @type {number} ###
   width: 20
+  ###* @type {number} ###
   height: 20
+  ###* @type {number} ###
   rotation: 0
+  ###* @type {CanvasRenderingContext2D} ###
   graphic: null
 
+  ###* @type {asteroids.ui.Point} ###
   vel1: null
+  ###* @type {asteroids.ui.Point} ###
   vel2: null
+  ###* @type {number} ###
   rot1: null
+  ###* @type {number} ###
   rot2: null
+  ###* @type {number} ###
   x1: 0
+  ###* @type {number} ###
   y2: 0
+  ###* @type {number} ###
   y1: 0
+  ###* @type {number} ###
   y2: 0
+  ###* @type {boolean} ###
   first: true
 
 
+  ###*
+   * @constructor
+   * @param {CanvasRenderingContext2D}
+  ###
   constructor: (@graphic) ->
 
 
+  ###*
+   * @param {number}
+  ###
   animate: (time) ->
 
     if @first
@@ -47,6 +69,9 @@ class asteroids.graphics.SpaceshipDeathView
     @draw()
 
 
+  ###*
+   * draw the view
+  ###
   draw: ->
     graphic = @graphic
 

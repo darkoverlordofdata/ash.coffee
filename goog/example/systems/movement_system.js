@@ -2,13 +2,26 @@ goog.provide('asteroids.systems.MovementSystem');
 goog.require('ash.tools.ListIteratingSystem');
 goog.require('asteroids.nodes.MovementNode');
 
+
+/**
+ * @constructor
+ * @extends {ash.tools.ListIteratingSystem}
+ * @param {asteroids.GameConfig}
+ */
 asteroids.systems.MovementSystem = function(_at_config) {
   this.config = _at_config;
   this.updateNode = goog.bind(this.updateNode, this);
   asteroids.systems.MovementSystem.superClass_.constructor.call(this, asteroids.nodes.MovementNode, this.updateNode);
 }
 goog.inherits(asteroids.systems.MovementSystem, ash.tools.ListIteratingSystem);
+
+/** @type {asteroids.GameConfig} */
 asteroids.systems.MovementSystem.prototype.config = null;
+
+/**
+ * @param {ash.core.Node}
+ * @param {number}
+ */
 asteroids.systems.MovementSystem.prototype.updateNode = function(node, time) {
   var motion, position, xDamp, yDamp;
   position = node.position;

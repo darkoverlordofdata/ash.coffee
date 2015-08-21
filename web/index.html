@@ -1,18 +1,182 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Asteroids</title>
+    <link rel="icon" sizes="192x192" href="favicon.png">
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="full-screen" content="yes"/>
+    <meta name="screen-orientation" content="portrait"/>
+    <meta name="x5-fullscreen" content="true"/>
+    <meta name="360-fullscreen" content="true"/>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Asteroids - Ash.coffee Demo">
+    <meta name="author" content="">
+
+    <meta property="og:title" content="Asteroids" />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://games.darkoverlordofdata.com/ash.coffee/" />
+    <meta property="og:image" content="https://games.darkoverlordofdata.com/favicon.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Asteroids" />
+    <meta property="og:description" content="Asteroids - Ash.coffee Demo" />
+    <meta property="fb:app_id" content="???????????????" id="fbAppId"/>
+    <meta property="fb:admins" content="100002160218840">
     <style>
         body { margin: 0; padding: 0; display: block; overflow: hidden;}
     </style>
 </head>
 <body>
-<script>window.location.href = "example.html";</script>
-this placeholder page is overwritten by jsdoc in the build folder
+
+<!--<script src="src/ash/prolog.js"></script>
+<script src="src/ash/ext/Dictionary.js"></script>
+<script src="src/ash/ext/Helper.js"></script>
+<script src="src/ash/ext/Util.js"></script>
+<script src="src/ash/signals/ListenerNode.js"></script>
+<script src="src/ash/signals/ListenerNodePool.js"></script>
+<script src="src/ash/signals/SignalBase.js"></script>
+<script src="src/ash/signals/Signal0.js"></script>
+<script src="src/ash/signals/Signal1.js"></script>
+<script src="src/ash/signals/Signal2.js"></script>
+<script src="src/ash/signals/Signal3.js"></script>
+<script src="src/ash/core/Entity.js"></script>
+<script src="src/ash/core/EntityList.js"></script>
+<script src="src/ash/core/Node.js"></script>
+<script src="src/ash/core/NodeList.js"></script>
+<script src="src/ash/core/NodePool.js"></script>
+<script src="src/ash/core/System.js"></script>
+<script src="src/ash/core/SystemList.js"></script>
+<script src="src/ash/core/Family.js"></script>
+<script src="src/ash/core/ComponentMatchingFamily.js"></script>
+<script src="src/ash/core/Engine.js"></script>
+<script src="src/ash/fsm/ComponentInstanceProvider.js"></script>
+<script src="src/ash/fsm/ComponentSingletonProvider.js"></script>
+<script src="src/ash/fsm/ComponentTypeProvider.js"></script>
+<script src="src/ash/fsm/DynamicComponentProvider.js"></script>
+<script src="src/ash/fsm/DynamicSystemProvider.js"></script>
+<script src="src/ash/fsm/EngineState.js"></script>
+<script src="src/ash/fsm/StateComponentMapping.js"></script>
+<script src="src/ash/fsm/EngineStateMachine.js"></script>
+<script src="src/ash/fsm/EntityState.js"></script>
+<script src="src/ash/fsm/EntityStateMachine.js"></script>
+<script src="src/ash/fsm/StateSystemMapping.js"></script>
+<script src="src/ash/fsm/SystemInstanceProvider.js"></script>
+<script src="src/ash/fsm/SystemSingletonProvider.js"></script>
+<script src="src/ash/tick/FrameTickProvider.js"></script>
+<script src="src/ash/tools/ComponentPool.js"></script>
+<script src="src/ash/tools/ListIteratingSystem.js"></script>-->
+
+<script src="src/stats.js/stats.min.js"></script>
+<script src="asteroids.min.js"></script>
+
+<!--<script src="src/example/index.js"></script>
+<script src="src/example/input/key_poll.js"></script>
+<script src="src/example/ui/point.js"></script>
+<script src="src/example/graphics/asteroid_view.js"></script>
+<script src="src/example/graphics/asteroid_death_view.js"></script>
+<script src="src/example/graphics/bullet_view.js"></script>
+<script src="src/example/graphics/hud_view.js"></script>
+<script src="src/example/graphics/spaceship_death_view.js"></script>
+<script src="src/example/graphics/spaceship_view.js"></script>
+<script src="src/example/graphics/wait_for_start_view.js"></script>
+<script src="src/example/components/animation.js"></script>
+<script src="src/example/components/asteroid.js"></script>
+<script src="src/example/components/audio.js"></script>
+<script src="src/example/components/bullet.js"></script>
+<script src="src/example/components/collision.js"></script>
+<script src="src/example/components/death_throes.js"></script>
+<script src="src/example/components/display.js"></script>
+<script src="src/example/components/game_state.js"></script>
+<script src="src/example/components/gun.js"></script>
+<script src="src/example/components/gun_controls.js"></script>
+<script src="src/example/components/hud.js"></script>
+<script src="src/example/components/motion.js"></script>
+<script src="src/example/components/motion_controls.js"></script>
+<script src="src/example/components/position.js"></script>
+<script src="src/example/components/spaceship.js"></script>
+<script src="src/example/components/wait_for_start.js"></script>
+<script src="src/example/nodes/animation_node.js"></script>
+<script src="src/example/nodes/asteroid_collision_node.js"></script>
+<script src="src/example/nodes/audio_node.js"></script>
+<script src="src/example/nodes/bullet_age_node.js"></script>
+<script src="src/example/nodes/bullet_collision_node.js"></script>
+<script src="src/example/nodes/death_throes_node.js"></script>
+<script src="src/example/nodes/game_node.js"></script>
+<script src="src/example/nodes/gun_control_node.js"></script>
+<script src="src/example/nodes/hud_node.js"></script>
+<script src="src/example/nodes/motion_control_node.js"></script>
+<script src="src/example/nodes/movement_node.js"></script>
+<script src="src/example/nodes/render_node.js"></script>
+<script src="src/example/nodes/spaceship_collision_node.js"></script>
+<script src="src/example/nodes/spaceship_node.js"></script>
+<script src="src/example/nodes/wait_for_start_node.js"></script>
+<script src="src/example/systems/animation_system.js"></script>
+<script src="src/example/systems/audio_system.js"></script>
+<script src="src/example/systems/bullet_age_system.js"></script>
+<script src="src/example/systems/collision_system.js"></script>
+<script src="src/example/systems/death_throes_system.js"></script>
+<script src="src/example/systems/game_manager.js"></script>
+<script src="src/example/systems/gun_control_system.js"></script>
+<script src="src/example/systems/hud_system.js"></script>
+<script src="src/example/systems/motion_control_system.js"></script>
+<script src="src/example/systems/movement_system.js"></script>
+<script src="src/example/systems/render_system.js"></script>
+<script src="src/example/systems/system_priorities.js"></script>
+<script src="src/example/systems/wait_for_start_system.js"></script>
+<script src="src/example/entity_creator.js"></script>
+<script src="src/example/game_config.js"></script>
+<script src="src/example/asteroids.js"></script>
+<script src="src/example/main.js"></script>-->
+
+
+<!--<script src="main.js"></script>-->
 </body>
-</html>
+</html><!--
+
+   _       _
+  /_\  ___| |__
+ //_\\/ __| '_ \
+/  _  \__ \ | | |
+\_/ \_/___/_| |_|
+
+              __  __
+    ___ ___  / _|/ _| ___  ___
+   / __/ _ \| |_| |_ / _ \/ _ \
+  | (_| (_) |  _|  _|  __/  __/
+ (_)___\___/|_| |_|  \___|\___|
 
 
+Copyright (c) 2015 Bruce Davidson &lt;darkoverlordofdata@gmail.com&gt;
+
+Author: Richard Lord
+Copyright (c) Richard Lord 2011-2012
+http://www.richardlord.net
 
 
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+    
+    -->

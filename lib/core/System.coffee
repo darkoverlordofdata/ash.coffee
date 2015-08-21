@@ -65,5 +65,5 @@ class ash.core.System
    *
    * @param {number} time The duration, in seconds, of the frame.
   ###
-  update: (time) =>
+  update: (time) ->
     return # Void

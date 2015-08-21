@@ -4,11 +4,21 @@ MovementNode = asteroids.nodes.MovementNode
 
 class asteroids.systems.MovementSystem extends ash.tools.ListIteratingSystem
 
-  config: null  # GameConfig
+  ###* @type {asteroids.GameConfig} ###
+  config: null
 
+  ###*
+   * @constructor
+   * @extends {ash.tools.ListIteratingSystem}
+   * @param {asteroids.GameConfig}
+  ###
   constructor: (@config) ->
     super(MovementNode, @updateNode)
 
+  ###*
+   * @param {ash.core.Node}
+   * @param {number}
+  ###
   updateNode: (node, time) =>
       
     position = node.position

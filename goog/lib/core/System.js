@@ -16,9 +16,7 @@ goog.provide('ash.core.System');
 /*
  * @constructor
  */
-ash.core.System = function() {
-  this.update = goog.bind(this.update, this);
-}
+ash.core.System = function() {}
 
 /**
   * Used internally to manage the list of systems within the engine. The previous system in the list.

@@ -14,7 +14,6 @@
 # EntityCreator
 #
 'use strict'
-WaitForStartView      = asteroids.graphics.WaitForStartView
 Entity                = ash.core.Entity
 EntityStateMachine    = ash.fsm.EntityStateMachine
 Animation             = asteroids.components.Animation
@@ -39,27 +38,47 @@ BulletView            = asteroids.graphics.BulletView
 HudView               = asteroids.graphics.HudView
 SpaceshipDeathView    = asteroids.graphics.SpaceshipDeathView
 SpaceshipView         = asteroids.graphics.SpaceshipView
+WaitForStartView      = asteroids.graphics.WaitForStartView
 
 class asteroids.EntityCreator
 
 
-  KEY_LEFT    = 37
-  KEY_UP      = 38
-  KEY_RIGHT   = 39
-  KEY_Z       = 90
+  ###* @const ###
+  KEY_LEFT = 37
+  ###* @const ###
+  KEY_UP = 38
+  ###* @const ###
+  KEY_RIGHT = 39
+  ###* @const ###
+  KEY_Z = 90
 
+  ###* @type {ash.core.Engine} Engine ###
   engine: null
+  
+  ###* @type {asteroids.graphics.WaitForStartView} ###
   waitEntity: null
+  
+  ###* @type {CanvasRenderingContext2D} ###
   graphic: null
 
+  ###*
+   * @constructor
+   * @param {ash.core.Engine} 
+   * @param {CanvasRenderingContext2D} 
+   * @param {Object} b2World (undefined)
+  ###
   constructor: (@engine, @graphic, @world) ->
 
+  ###*
+   * @param {ash.core.Entity} entity to destroy
+  ###
   destroyEntity: (entity) ->
     @engine.removeEntity entity
     return
 
-  ###
-   * Game State
+  ###*
+   * create game
+   * @return {ash.core.Entity}
   ###
   createGame: () ->
     hud = new HudView(@graphic)
@@ -71,8 +90,9 @@ class asteroids.EntityCreator
     @engine.addEntity gameEntity
     return gameEntity
 
-  ###
-   * Start...
+  ###*
+   * Create the Start Button
+   * @return {ash.core.Entity}
   ###
   createWaitForClick: () ->
     if not @waitEntity
@@ -86,8 +106,12 @@ class asteroids.EntityCreator
     @engine.addEntity(@waitEntity)
     return @waitEntity
 
-  ###
+  ###*
    * Create an Asteroid with FSM Animation
+   * @param {number} radius
+   * @param {number} x
+   * @param {number} y
+   * @return {ash.core.Entity}
   ###
   createAsteroid: (radius, x, y) ->
 
@@ -114,8 +138,9 @@ class asteroids.EntityCreator
     @engine.addEntity asteroid
     return asteroid
 
-  ###
+  ###*
    * Create Player Spaceship with FSM Animation
+   * @return {ash.core.Entity}
   ###
   createSpaceship: ->
 
@@ -146,8 +171,11 @@ class asteroids.EntityCreator
     return spaceship
 
 
-  ###
+  ###*
    * Create a Bullet
+   * @param {asteroids.components.Gun}
+   * @param {asteroids.components.Position}
+   * @return {ash.core.Entity}
   ###
   createUserBullet: (gun, parentPosition) ->
 
