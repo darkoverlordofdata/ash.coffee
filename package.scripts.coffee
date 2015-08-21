@@ -1,13 +1,13 @@
 ###
 #+--------------------------------------------------------------------+
-#| package.scripts
+#| package.scripts.coffee
 #+--------------------------------------------------------------------+
 #| Copyright DarkOverlordOfData (c) 2014-2015
 #+--------------------------------------------------------------------+
 #|
-#| package.scripts
+#| Generate package.script
 #|
-#| ashteriods is free software; you can copy, modify, and distribute
+#| ash.coffee is free software; you can copy, modify, and distribute
 #| it under the terms of the MIT License
 #|
 #+--------------------------------------------------------------------+
@@ -83,10 +83,58 @@ module.exports = (project, options = {}) ->
     return step
 
   ### build the project ###
-  build: """
-    npm run transpile
-    tools/convert
-  """
+  build: do ->
+    options.compile ?= 'ADVANCED_OPTIMIZATIONS'
+    
+    step = [].concat(project.config.build)
+      
+    if isCocos2d
+      ###
+      # Use cocos2d project.json to build the target
+      ###
+      files = getCocos2dFiles(true).join(' LF ')
+      if options.compile?
+        step.push """
+          cat #{files} | java -jar #{COMPILER_JAR} \
+            --jscomp_error=checkTypes \
+            --warning_level=QUIET \
+            --compilation_level #{options.compile} \
+            --js_output_file build/web/main.js
+        """
+      else
+        step.push """
+          cp -fr web/src build/web/src
+          mkdir build/web/frameworks
+          cp -fr web/frameworks/cocos2d-html5 build/web/frameworks/cocos2d-html5
+        """
+    
+    else if projectType is CoffeeScript
+      ###
+      # Build after recompiling all coffeescript together
+      ###
+      files = require(CSCONFIG).files.join(" LF ")
+      step.push """
+        cat #{files} | coffee -cs > build/#{project.name}.js 
+        cat #{files} | coffee -cs | \
+          java -jar #{COMPILER_JAR} \
+            --compilation_level #{options.compile} \
+            --js_output_file build/#{project.name}.min.js
+      """
+      
+    else
+      ###
+      # Build directly from the raw transpiled javascript
+      ###
+      files = require(JSCONFIG).files.join(" LF ")
+      step.push """
+        cat #{files} > build/#{project.name}.js 
+        cat #{files} | \
+          java -jar #{COMPILER_JAR} \
+            --compilation_level #{options.compile} \
+            --js_output_file build/#{project.name}.min,js
+      """
+        
+    return step
       
   ### delete the prior build items ###
   clean: """
@@ -96,6 +144,12 @@ module.exports = (project, options = {}) ->
     mkdir -p build/lib
   """
 
+  ### closure build ###
+  closure: """
+    tools/convert
+    java -jar #{PLOVR} build config.js
+  """
+  
   ### copy the output to downstream project ###
   deploy: """
     cp -rf web/res #{ANDROID_ASSETS}
@@ -111,14 +165,6 @@ module.exports = (project, options = {}) ->
       --root_with_prefix='#{LIB_ASTEROIDS} #{GOOG_BASE}/#{LIB_ASTEROIDS}' \
       --root_with_prefix='web #{GOOG_BASE}/web' \
       > web/#{project.name}.dep.js
-  """
-
-  ### ensure the folder structure ###
-  folder: """
-    mkdir build/web
-    mkdir build/lib
-    cp -fr lib/src build/lib
-    cp -fr web/res build/web
   """
 
   ### process bower dependencies ###
@@ -146,22 +192,12 @@ module.exports = (project, options = {}) ->
     gulp manifest
   """
 
-  ### closure build ###
-  plovr: """
-    java -jar #{PLOVR} build config.js
-  """
-  
   ### update the cocos2d project file? ###
   postbuild: do ->
-    step = [
-      # """
-      # cp -f web/#{project.name}.min.js build
-      # cp -f web/#{project.name}.min.js build/web
-      # """
-    ]
     if isCocos2d
-      step.push "cp -f web/project_build.json build/web/project.json"
-    return step
+      return "cp -f web/project_build.json build/web/project.json"
+    else
+      return ""
 
   ### get the dependencies ###
   postinstall: """
@@ -223,7 +259,7 @@ module.exports = (project, options = {}) ->
         return step
       when CoffeeScript 
         step = []
-        step.push "coffee -o web/src/ash -cm lib"
+        step.push "coffee -o web/src/#{project.name} -cm lib"
         step.push "coffee -o web/src/example -cm example" if fs.existsSync('./example')
         return step
         
