@@ -2,21 +2,49 @@
 (function() {
   'use strict';
   asteroids.graphics.BulletView = (function() {
+
+    /** @type {number} */
     BulletView.prototype.x = 0;
+
+
+    /** @type {number} */
 
     BulletView.prototype.y = 0;
 
+
+    /** @type {number} */
+
     BulletView.prototype.width = 4;
+
+
+    /** @type {number} */
 
     BulletView.prototype.height = 4;
 
+
+    /** @type {number} */
+
     BulletView.prototype.rotation = 0;
 
+
+    /** @type {CanvasRenderingContext2D} */
+
     BulletView.prototype.graphic = null;
+
+
+    /**
+     * @constructor
+     * @param {CanvasRenderingContext2D}
+     */
 
     function BulletView(_at_graphic) {
       this.graphic = _at_graphic;
     }
+
+
+    /**
+     * draw the view
+     */
 
     BulletView.prototype.draw = function() {
       var graphic;

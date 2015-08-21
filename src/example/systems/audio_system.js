@@ -11,10 +11,21 @@
   asteroids.systems.AudioSystem = (function(_super) {
     __extends(AudioSystem, _super);
 
+
+    /**
+     * @constructor
+     */
+
     function AudioSystem() {
       this.updateNode = __bind(this.updateNode, this);
       AudioSystem.__super__.constructor.call(this, AudioNode, this.updateNode);
     }
+
+
+    /**
+     * @param {ash.core.Node}
+     * @param {number}
+     */
 
     AudioSystem.prototype.updateNode = function(node, time) {
       var each, sound, type, _ref;

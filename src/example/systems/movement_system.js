@@ -11,13 +11,29 @@
   asteroids.systems.MovementSystem = (function(_super) {
     __extends(MovementSystem, _super);
 
+
+    /** @type {asteroids.GameConfig} */
+
     MovementSystem.prototype.config = null;
+
+
+    /**
+     * @constructor
+     * @extends {ash.tools.ListIteratingSystem}
+     * @param {asteroids.GameConfig}
+     */
 
     function MovementSystem(_at_config) {
       this.config = _at_config;
       this.updateNode = __bind(this.updateNode, this);
       MovementSystem.__super__.constructor.call(this, MovementNode, this.updateNode);
     }
+
+
+    /**
+     * @param {ash.core.Node}
+     * @param {number}
+     */
 
     MovementSystem.prototype.updateNode = function(node, time) {
       var motion, position, xDamp, yDamp;

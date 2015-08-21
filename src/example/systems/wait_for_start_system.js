@@ -15,20 +15,47 @@
   asteroids.systems.WaitForStartSystem = (function(_super) {
     __extends(WaitForStartSystem, _super);
 
+
+    /** @type {ash.core.Engine} */
+
     WaitForStartSystem.prototype.engine = null;
+
+
+    /** @type {asteroids.EntityCreator} */
 
     WaitForStartSystem.prototype.creator = null;
 
+
+    /** @type {ash.core.NodeList} */
+
     WaitForStartSystem.prototype.gameNodes = null;
+
+
+    /** @type {ash.core.NodeList} */
 
     WaitForStartSystem.prototype.waitNodes = null;
 
+
+    /** @type {ash.core.NodeList} */
+
     WaitForStartSystem.prototype.asteroids = null;
+
+
+    /**
+     * @constructor
+     * @extends {ash.tools.ListIteratingSystem}
+     * @param {asteroids.EntityCreator}
+     */
 
     function WaitForStartSystem(_at_creator) {
       this.creator = _at_creator;
       this.update = __bind(this.update, this);
     }
+
+
+    /**
+     * @param {ash.core.Engine}
+     */
 
     WaitForStartSystem.prototype.addToEngine = function(engine) {
       this.engine = engine;
@@ -37,10 +64,20 @@
       this.asteroids = engine.getNodeList(AsteroidCollisionNode);
     };
 
+
+    /**
+     * @param {ash.core.Engine}
+     */
+
     WaitForStartSystem.prototype.removeFromEngine = function(engine) {
       this.waitNodes = null;
       this.gameNodes = null;
     };
+
+
+    /**
+     * @param {number}
+     */
 
     WaitForStartSystem.prototype.update = function(time) {
       var asteroid, game, node;

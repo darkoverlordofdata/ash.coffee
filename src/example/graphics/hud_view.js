@@ -4,25 +4,60 @@
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   asteroids.graphics.HudView = (function() {
+
+    /** @type {number} */
     HudView.prototype.x = 0;
+
+
+    /** @type {number} */
 
     HudView.prototype.y = 0;
 
+
+    /** @type {number} */
+
     HudView.prototype.width = 4;
+
+
+    /** @type {number} */
 
     HudView.prototype.height = 4;
 
+
+    /** @type {number} */
+
     HudView.prototype.rotation = 0;
+
+
+    /** @type {CanvasRenderingContext2D} */
 
     HudView.prototype.graphic = null;
 
+
+    /** @type {number} */
+
     HudView.prototype.score = 0;
+
+
+    /** @type {number} */
 
     HudView.prototype.lives = 3;
 
+
+    /** @type {Function} */
+
     HudView.prototype.drawScore = null;
 
+
+    /** @type {Function} */
+
     HudView.prototype.drawLives = null;
+
+
+    /**
+     * @constructor
+     * @param {CanvasRenderingContext2D}
+     */
 
     function HudView(_at_graphic) {
       this.graphic = _at_graphic;
@@ -33,18 +68,38 @@
       this.drawLives = this.createLives;
     }
 
+
+    /**
+     * draw the view
+     */
+
     HudView.prototype.draw = function() {
       this.drawScore();
       this.drawLives();
     };
 
+
+    /**
+     * @param {number}
+     */
+
     HudView.prototype.setLives = function(lives) {
       return this.lives = lives;
     };
 
+
+    /**
+     * @param {number}
+     */
+
     HudView.prototype.setScore = function(score) {
       return this.score = score;
     };
+
+
+    /**
+     * draw the lives display
+     */
 
     HudView.prototype.createLives = function() {
       var l, s, x, y;
@@ -61,6 +116,11 @@
       this.graphic.fill();
       this.graphic.restore();
     };
+
+
+    /**
+     * draw the score display
+     */
 
     HudView.prototype.createScore = function() {
       var l, s, x, y;

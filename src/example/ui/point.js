@@ -2,14 +2,32 @@
 (function() {
   'use strict';
   asteroids.ui.Point = (function() {
+
+    /** @type {number} */
     Point.prototype.x = 0;
 
+
+    /** @type {number} */
+
     Point.prototype.y = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     * @param {number}
+     */
 
     function Point(_at_x, _at_y) {
       this.x = _at_x != null ? _at_x : 0;
       this.y = _at_y != null ? _at_y : 0;
     }
+
+
+    /**
+     * @param {asteroids.ui.Point}
+     * @param {asteroids.ui.Point}
+     */
 
     Point.distance = function(point1, point2) {
       var dx, dy;
@@ -18,12 +36,24 @@
       return Math.sqrt(dx * dx + dy * dy);
     };
 
+
+    /**
+     * @param {asteroids.ui.Point}
+     @ return {number}
+     */
+
     Point.prototype.distanceSquaredTo = function(targetPoint) {
       var dx, dy;
       dx = this.x - targetPoint.x;
       dy = this.y - targetPoint.y;
       return dx * dx + dy * dy;
     };
+
+
+    /**
+     * @param {asteroids.ui.Point}
+     @ return {number}
+     */
 
     Point.prototype.distanceTo = function(targetPoint) {
       var dx, dy;

@@ -11,9 +11,23 @@
   asteroids.systems.GunControlSystem = (function(_super) {
     __extends(GunControlSystem, _super);
 
+
+    /** @type {asteroids.input.KeyPoll} */
+
     GunControlSystem.prototype.keyPoll = null;
 
+
+    /** @type {asteroids.EntityCreator} */
+
     GunControlSystem.prototype.creator = null;
+
+
+    /**
+     * @constructor
+     * @extends {ash.tools.ListIteratingSystem}
+     * @param {asteroids.EntityCreator}
+     * @param {asteroids.input.KeyPoll}
+     */
 
     function GunControlSystem(_at_keyPoll, _at_creator) {
       this.keyPoll = _at_keyPoll;
@@ -21,6 +35,12 @@
       this.updateNode = __bind(this.updateNode, this);
       GunControlSystem.__super__.constructor.call(this, GunControlNode, this.updateNode);
     }
+
+
+    /**
+     * @param {ash.core.Node}
+     * @param {number}
+     */
 
     GunControlSystem.prototype.updateNode = function(node, time) {
       var control, gun, position;

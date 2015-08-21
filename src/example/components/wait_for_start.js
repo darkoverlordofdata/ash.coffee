@@ -4,17 +4,36 @@
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   asteroids.components.WaitForStart = (function() {
+
+    /** @type {string} */
     WaitForStart.className = 'WaitForStart';
+
+
+    /** @type {Object} */
 
     WaitForStart.prototype.waitForStart = null;
 
+
+    /** @type {boolean} */
+
     WaitForStart.prototype.startGame = false;
+
+
+    /**
+     * @constructor
+     * @param {Object}
+     */
 
     function WaitForStart(_at_waitForStart) {
       this.waitForStart = _at_waitForStart;
       this.setStartGame = __bind(this.setStartGame, this);
       this.waitForStart.click.add(this.setStartGame);
     }
+
+
+    /**
+     * Start game
+     */
 
     WaitForStart.prototype.setStartGame = function() {
       this.startGame = true;

@@ -11,10 +11,21 @@
   asteroids.systems.AnimationSystem = (function(_super) {
     __extends(AnimationSystem, _super);
 
+
+    /**
+     * @constructor
+     */
+
     function AnimationSystem() {
       this.updateNode = __bind(this.updateNode, this);
       AnimationSystem.__super__.constructor.call(this, AnimationNode, this.updateNode);
     }
+
+
+    /**
+     * @param {ash.core.Node}
+     * @param {number}
+     */
 
     AnimationSystem.prototype.updateNode = function(node, time) {
       node.animation.animation.animate(time);

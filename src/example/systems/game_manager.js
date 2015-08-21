@@ -19,17 +19,43 @@
   asteroids.systems.GameManager = (function(_super) {
     __extends(GameManager, _super);
 
+
+    /** @type {asteroids.GameConfig} */
+
     GameManager.prototype.config = null;
+
+
+    /** @type {asteroids.EntityCreator} */
 
     GameManager.prototype.creator = null;
 
+
+    /** @type {ash.core.NodeList} */
+
     GameManager.prototype.gameNodes = null;
+
+
+    /** @type {ash.core.NodeList} */
 
     GameManager.prototype.spaceships = null;
 
+
+    /** @type {ash.core.NodeList} */
+
     GameManager.prototype.asteroids = null;
 
+
+    /** @type {ash.core.NodeList} */
+
     GameManager.prototype.bullets = null;
+
+
+    /**
+     * @constructor
+     * @extends {ash.core.System}
+     * @param {asteroids.EntityCreator}
+     * @param {asteroids.GameConfig}
+     */
 
     function GameManager(_at_creator, _at_config) {
       this.creator = _at_creator;
@@ -37,12 +63,22 @@
       this.update = __bind(this.update, this);
     }
 
+
+    /**
+     * @param {ash.core.Engine}
+     */
+
     GameManager.prototype.addToEngine = function(engine) {
       this.gameNodes = engine.getNodeList(GameNode);
       this.spaceships = engine.getNodeList(SpaceshipNode);
       this.asteroids = engine.getNodeList(AsteroidCollisionNode);
       this.bullets = engine.getNodeList(BulletCollisionNode);
     };
+
+
+    /**
+     * @param {number}
+     */
 
     GameManager.prototype.update = function(time) {
       var asteroid, asteroidCount, clearToAddSpaceship, i, newSpaceshipPosition, node, position, spaceship;
@@ -86,6 +122,11 @@
         }
       }
     };
+
+
+    /**
+     * @param {ash.core.Engine}
+     */
 
     GameManager.prototype.removeFromEngine = function(engine) {
       this.gameNodes = null;

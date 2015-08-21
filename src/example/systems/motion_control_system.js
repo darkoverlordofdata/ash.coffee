@@ -11,13 +11,29 @@
   asteroids.systems.MotionControlSystem = (function(_super) {
     __extends(MotionControlSystem, _super);
 
+
+    /** @type {asteroids.input.KeyPoll} */
+
     MotionControlSystem.prototype.keyPoll = null;
+
+
+    /**
+     * @constructor
+     * @extends {ash.tools.ListIteratingSystem}
+     * @param {asteroids.input.KeyPoll}
+     */
 
     function MotionControlSystem(_at_keyPoll) {
       this.keyPoll = _at_keyPoll;
       this.updateNode = __bind(this.updateNode, this);
       MotionControlSystem.__super__.constructor.call(this, MotionControlNode, this.updateNode);
     }
+
+
+    /**
+     * @param {ash.core.Node}
+     * @param {number}
+     */
 
     MotionControlSystem.prototype.updateNode = function(node, time) {
       var control, left, motion, position, right;

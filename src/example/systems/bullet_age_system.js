@@ -11,13 +11,28 @@
   asteroids.systems.BulletAgeSystem = (function(_super) {
     __extends(BulletAgeSystem, _super);
 
+
+    /** @type {asteroids.EntityCreator} */
+
     BulletAgeSystem.prototype.creator = null;
+
+
+    /**
+     * @constructor
+     * @param {asteroids.EntityCreator}
+     */
 
     function BulletAgeSystem(_at_creator) {
       this.creator = _at_creator;
       this.updateNode = __bind(this.updateNode, this);
       BulletAgeSystem.__super__.constructor.call(this, BulletAgeNode, this.updateNode);
     }
+
+
+    /**
+     * @param {ash.core.Node}
+     * @param {number}
+     */
 
     BulletAgeSystem.prototype.updateNode = function(node, time) {
       var bullet;

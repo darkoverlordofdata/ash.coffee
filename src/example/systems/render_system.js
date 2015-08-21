@@ -11,14 +11,32 @@
   asteroids.systems.RenderSystem = (function(_super) {
     __extends(RenderSystem, _super);
 
+
+    /** @type {CanvasRenderingContext2D} */
+
     RenderSystem.prototype.graphic = null;
 
+
+    /** @type {ash.core.NodeList} */
+
     RenderSystem.prototype.nodes = null;
+
+
+    /**
+     * @constructor
+     * @extends {ash.core.System}
+     * @param {CanvasRenderingContext2D}
+     */
 
     function RenderSystem(_at_graphic) {
       this.graphic = _at_graphic;
       this.update = __bind(this.update, this);
     }
+
+
+    /**
+     * @param {ash.core.Engine}
+     */
 
     RenderSystem.prototype.addToEngine = function(engine) {
       var node;
@@ -30,13 +48,33 @@
       }
     };
 
+
+    /**
+     * @param {ash.core.Node}
+     */
+
     RenderSystem.prototype.addToDisplay = function(node) {};
 
+
+    /**
+     * @param {ash.core.Node}
+     */
+
     RenderSystem.prototype.removeFromDisplay = function(node) {};
+
+
+    /**
+     * @param {ash.core.Engine}
+     */
 
     RenderSystem.prototype.removeFromEngine = function(engine) {
       this.nodes = null;
     };
+
+
+    /**
+     * @param {number}
+     */
 
     RenderSystem.prototype.update = function(time) {
       var display, graphic, node, position;

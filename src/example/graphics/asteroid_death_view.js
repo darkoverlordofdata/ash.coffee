@@ -6,37 +6,84 @@
   Point = asteroids.ui.Point;
 
   asteroids.graphics.AsteroidDeathView = (function() {
+
+    /** @const */
     var Dot, numDots;
 
     numDots = 8;
 
+
+    /** @type {Array<Dot>} */
+
     AsteroidDeathView.prototype.dots = null;
+
+
+    /** @type {number} */
 
     AsteroidDeathView.prototype.x = 0;
 
+
+    /** @type {number} */
+
     AsteroidDeathView.prototype.y = 0;
+
+
+    /** @type {number} */
 
     AsteroidDeathView.prototype.width = 0;
 
+
+    /** @type {number} */
+
     AsteroidDeathView.prototype.height = 0;
+
+
+    /** @type {number} */
 
     AsteroidDeathView.prototype.rotation = 0;
 
+
+    /** @type {CanvasRenderingContext2D} */
+
     AsteroidDeathView.prototype.graphic = null;
+
+
+    /** @type {number} */
 
     AsteroidDeathView.prototype.radius = 0;
 
+
+    /** @type {asteroids.ui.Point} */
+
     AsteroidDeathView.prototype.points = null;
+
+
+    /** @type {number} */
 
     AsteroidDeathView.prototype.count = 0;
 
+
+    /** @type {boolean} */
+
     AsteroidDeathView.prototype.first = true;
+
+
+    /**
+     * @constructor
+     * @param {CanvasRenderingContext2D}
+     * @param {number}
+     */
 
     function AsteroidDeathView(_at_graphic, _at_radius) {
       this.graphic = _at_graphic;
       this.radius = _at_radius;
       this.dots = [];
     }
+
+
+    /**
+     * @param {number}
+     */
 
     AsteroidDeathView.prototype.animate = function(time) {
       var dot, i, _i, _j, _len, _ref;
@@ -56,6 +103,11 @@
       return this.draw();
     };
 
+
+    /**
+     * draw the view
+     */
+
     AsteroidDeathView.prototype.draw = function() {
       var dot, _i, _len, _ref, _results;
       _ref = this.dots;
@@ -68,17 +120,41 @@
     };
 
     Dot = (function() {
+
+      /** @type {asteroids.ui.Point} */
       Dot.prototype.velocity = null;
+
+
+      /** @type {CanvasRenderingContext2D} */
 
       Dot.prototype.graphic = null;
 
+
+      /** @type {number} */
+
       Dot.prototype.x1 = 0;
+
+
+      /** @type {number} */
 
       Dot.prototype.y1 = 0;
 
+
+      /** @type {number} */
+
       Dot.prototype.x = 0;
 
+
+      /** @type {number} */
+
       Dot.prototype.y = 0;
+
+
+      /**
+      * @constructor
+      * @param {CanvasRenderingContext2D}
+      * @param {number}
+       */
 
       function Dot(_at_graphic, maxDistance) {
         var angle, distance, speed;
@@ -90,6 +166,12 @@
         speed = Math.random() * 10 + 10;
         this.velocity = new Point(Math.cos(angle) * speed, Math.sin(angle) * speed);
       }
+
+
+      /**
+      * @param {number}
+      * @param {number}
+       */
 
       Dot.prototype.draw = function(x, y) {
         var graphic;

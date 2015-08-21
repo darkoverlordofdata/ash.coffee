@@ -4,9 +4,20 @@
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   asteroids.input.KeyPoll = (function() {
+
+    /** @type {Object.<string, boolean>} */
     KeyPoll.prototype.states = null;
 
+
+    /** @type Window} */
+
     KeyPoll.prototype.displayObj = null;
+
+
+    /**
+     * @constructor
+     * @param {Window} window
+     */
 
     function KeyPoll(_at_displayObj) {
       this.displayObj = _at_displayObj;
@@ -19,9 +30,21 @@
       this.displayObj.addEventListener("keyup", this.keyUpListener);
     }
 
+
+    /**
+     * @private
+     * @param {KeyboardEvent}
+     */
+
     KeyPoll.prototype.keyDownListener = function(event) {
       this.states[event.keyCode] = true;
     };
+
+
+    /**
+     * @private
+     * @param {KeyboardEvent}
+     */
 
     KeyPoll.prototype.keyUpListener = function(event) {
       if (this.states[event.keyCode]) {
@@ -29,9 +52,21 @@
       }
     };
 
+
+    /**
+     * @param {string}
+     * @return {boolean}
+     */
+
     KeyPoll.prototype.isDown = function(keyCode) {
       return this.states[keyCode];
     };
+
+
+    /**
+     * @param {string}
+     * @return {boolean}
+     */
 
     KeyPoll.prototype.isUp = function(keyCode) {
       return !this.states[keyCode];

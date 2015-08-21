@@ -6,11 +6,27 @@
   Point = asteroids.ui.Point;
 
   asteroids.components.Position = (function() {
+
+    /** @type {string} */
     Position.className = 'Position';
+
+
+    /** @type {asteroids.ui.Point} */
 
     Position.prototype.position = null;
 
+
+    /** @type {number} */
+
     Position.prototype.rotation = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     * @param {number}
+     * @param {number}
+     */
 
     function Position(x, y, _at_rotation) {
       this.rotation = _at_rotation;

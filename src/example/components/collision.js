@@ -2,9 +2,20 @@
 (function() {
   'use strict';
   asteroids.components.Collision = (function() {
+
+    /** @type {string} */
     Collision.className = 'Collision';
 
+
+    /** @type {number} */
+
     Collision.prototype.radius = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     */
 
     function Collision(_at_radius) {
       this.radius = _at_radius;

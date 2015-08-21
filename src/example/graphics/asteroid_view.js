@@ -2,23 +2,56 @@
 (function() {
   'use strict';
   asteroids.graphics.AsteroidView = (function() {
+
+    /** @type {number} */
     AsteroidView.prototype.x = 0;
+
+
+    /** @type {number} */
 
     AsteroidView.prototype.y = 0;
 
+
+    /** @type {number} */
+
     AsteroidView.prototype.width = 0;
+
+
+    /** @type {number} */
 
     AsteroidView.prototype.height = 0;
 
+
+    /** @type {number} */
+
     AsteroidView.prototype.rotation = 0;
+
+
+    /** @type {CanvasRenderingContext2D} */
 
     AsteroidView.prototype.graphic = null;
 
+
+    /** @type {number} */
+
     AsteroidView.prototype.radius = 0;
+
+
+    /** @type {Array<asteroids.ui.Point>} */
 
     AsteroidView.prototype.points = null;
 
+
+    /** @type {number} */
+
     AsteroidView.prototype.count = 0;
+
+
+    /**
+     * @constructor
+     * @param {CanvasRenderingContext2D}
+     * @param {number}
+     */
 
     function AsteroidView(_at_graphic, _at_radius) {
       var angle, length, posX, posY;
@@ -39,6 +72,11 @@
         angle += Math.random() * 0.5;
       }
     }
+
+
+    /**
+     * draw the view
+     */
 
     AsteroidView.prototype.draw = function() {
       var graphic, i;

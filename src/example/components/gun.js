@@ -6,15 +6,43 @@
   Point = asteroids.ui.Point;
 
   asteroids.components.Gun = (function() {
+
+    /** @type {string} */
     Gun.className = 'Gun';
+
+
+    /** @type {boolean} */
 
     Gun.prototype.shooting = false;
 
-    Gun.prototype.offsetFromParent = null;
+
+    /** @type {number} */
 
     Gun.prototype.timeSinceLastShot = 0;
 
+
+    /** @type {asteroids.ui.Point} */
+
     Gun.prototype.offsetFromParent = null;
+
+
+    /** @type {number} */
+
+    Gun.prototype.minimumShotInterval = 0;
+
+
+    /** @type {number} */
+
+    Gun.prototype.bulletLifetime = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     * @param {number}
+     * @param {number}
+     * @param {number}
+     */
 
     function Gun(offsetX, offsetY, _at_minimumShotInterval, _at_bulletLifetime) {
       this.minimumShotInterval = _at_minimumShotInterval;

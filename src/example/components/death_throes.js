@@ -2,9 +2,20 @@
 (function() {
   'use strict';
   asteroids.components.DeathThroes = (function() {
+
+    /** @type {string} */
     DeathThroes.className = 'DeathThroes';
 
+
+    /** @type {number} */
+
     DeathThroes.prototype.countdown = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     */
 
     function DeathThroes(duration) {
       this.countdown = duration;

@@ -2,9 +2,20 @@
 (function() {
   'use strict';
   asteroids.components.Animation = (function() {
+
+    /** @type {string} */
     Animation.className = 'Animation';
 
+
+    /** @type {Object} */
+
     Animation.prototype.animation = null;
+
+
+    /**
+     * @constructor
+     * @param {Object}
+     */
 
     function Animation(_at_animation) {
       this.animation = _at_animation;

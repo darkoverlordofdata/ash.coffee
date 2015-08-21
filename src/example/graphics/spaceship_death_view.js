@@ -6,39 +6,94 @@
   Point = asteroids.ui.Point;
 
   asteroids.graphics.SpaceshipDeathView = (function() {
+
+    /** @type {number} */
     SpaceshipDeathView.prototype.x = 0;
+
+
+    /** @type {number} */
 
     SpaceshipDeathView.prototype.y = 0;
 
+
+    /** @type {number} */
+
     SpaceshipDeathView.prototype.width = 20;
+
+
+    /** @type {number} */
 
     SpaceshipDeathView.prototype.height = 20;
 
+
+    /** @type {number} */
+
     SpaceshipDeathView.prototype.rotation = 0;
+
+
+    /** @type {CanvasRenderingContext2D} */
 
     SpaceshipDeathView.prototype.graphic = null;
 
+
+    /** @type {asteroids.ui.Point} */
+
     SpaceshipDeathView.prototype.vel1 = null;
+
+
+    /** @type {asteroids.ui.Point} */
 
     SpaceshipDeathView.prototype.vel2 = null;
 
+
+    /** @type {number} */
+
     SpaceshipDeathView.prototype.rot1 = null;
+
+
+    /** @type {number} */
 
     SpaceshipDeathView.prototype.rot2 = null;
 
+
+    /** @type {number} */
+
     SpaceshipDeathView.prototype.x1 = 0;
 
+
+    /** @type {number} */
+
     SpaceshipDeathView.prototype.y2 = 0;
+
+
+    /** @type {number} */
 
     SpaceshipDeathView.prototype.y1 = 0;
 
+
+    /** @type {number} */
+
     SpaceshipDeathView.prototype.y2 = 0;
 
+
+    /** @type {boolean} */
+
     SpaceshipDeathView.prototype.first = true;
+
+
+    /**
+     * @constructor
+     * @param {CanvasRenderingContext2D}
+     */
 
     function SpaceshipDeathView(_at_graphic) {
       this.graphic = _at_graphic;
     }
+
+
+    /**
+     * @param {number}
+     */
 
     SpaceshipDeathView.prototype.animate = function(time) {
       if (this.first) {
@@ -59,6 +114,11 @@
       this.r2 += this.rot2 * time;
       return this.draw();
     };
+
+
+    /**
+     * draw the view
+     */
 
     SpaceshipDeathView.prototype.draw = function() {
       var graphic;

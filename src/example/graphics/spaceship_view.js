@@ -2,21 +2,49 @@
 (function() {
   'use strict';
   asteroids.graphics.SpaceshipView = (function() {
+
+    /** @type {number} */
     SpaceshipView.prototype.x = 0;
+
+
+    /** @type {number} */
 
     SpaceshipView.prototype.y = 0;
 
+
+    /** @type {number} */
+
     SpaceshipView.prototype.width = 20;
+
+
+    /** @type {number} */
 
     SpaceshipView.prototype.height = 20;
 
+
+    /** @type {number} */
+
     SpaceshipView.prototype.rotation = 0;
 
+
+    /** @type {CanvasRenderingContext2D} */
+
     SpaceshipView.prototype.graphic = null;
+
+
+    /**
+     * @constructor
+     * @param {CanvasRenderingContext2D}
+     */
 
     function SpaceshipView(_at_graphic) {
       this.graphic = _at_graphic;
     }
+
+
+    /**
+     * draw the view
+     */
 
     SpaceshipView.prototype.draw = function() {
       var graphic;

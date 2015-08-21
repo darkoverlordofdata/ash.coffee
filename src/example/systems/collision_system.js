@@ -61,20 +61,47 @@
   asteroids.systems.CollisionSystem = (function(_super) {
     __extends(CollisionSystem, _super);
 
+
+    /** @type {asteroids.EntityCreator} */
+
     CollisionSystem.prototype.creator = null;
+
+
+    /** @type {ash.core.NodeList} */
 
     CollisionSystem.prototype.games = null;
 
+
+    /** @type {ash.core.NodeList} */
+
     CollisionSystem.prototype.spaceships = null;
+
+
+    /** @type {ash.core.NodeList} */
 
     CollisionSystem.prototype.asteroids = null;
 
+
+    /** @type {ash.core.NodeList} */
+
     CollisionSystem.prototype.bullets = null;
+
+
+    /**
+     * @constructor
+     * @extends {ash.core.System}
+     * @param {asteroids.EntityCreator}
+     */
 
     function CollisionSystem(_at_creator) {
       this.creator = _at_creator;
       this.update = __bind(this.update, this);
     }
+
+
+    /**
+     * @param {ash.core.Engine}
+     */
 
     CollisionSystem.prototype.addToEngine = function(engine) {
       this.games = engine.getNodeList(GameNode);
@@ -83,12 +110,22 @@
       this.bullets = engine.getNodeList(BulletCollisionNode);
     };
 
+
+    /**
+     * @param {ash.core.Engine}
+     */
+
     CollisionSystem.prototype.removeFromEngine = function(engine) {
       this.games = null;
       this.spaceships = null;
       this.asteroids = null;
       this.bullets = null;
     };
+
+
+    /**
+     * @param {number}
+     */
 
     CollisionSystem.prototype.update = function(time) {
       var asteroid, bullet, spaceship;

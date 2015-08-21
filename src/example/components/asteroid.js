@@ -2,9 +2,20 @@
 (function() {
   'use strict';
   asteroids.components.Asteroid = (function() {
+
+    /** @type {string} */
     Asteroid.className = 'Asteroid';
 
+
+    /** @type {ash.fsm.EntityStateMachine} */
+
     Asteroid.prototype.fsm = null;
+
+
+    /**
+     * @constructor
+     * @param {ash.fsm.EntityStateMachine}
+     */
 
     function Asteroid(_at_fsm) {
       this.fsm = _at_fsm;

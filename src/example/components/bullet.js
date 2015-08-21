@@ -2,9 +2,20 @@
 (function() {
   'use strict';
   asteroids.components.Bullet = (function() {
+
+    /** @type {string} */
     Bullet.className = 'Bullet';
 
+
+    /** @type {number} */
+
     Bullet.prototype.lifeRemaining = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     */
 
     function Bullet(_at_lifeRemaining) {
       this.lifeRemaining = _at_lifeRemaining;

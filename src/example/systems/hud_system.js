@@ -11,10 +11,22 @@
   asteroids.systems.HudSystem = (function(_super) {
     __extends(HudSystem, _super);
 
+
+    /**
+     * @constructor
+     * @extends {ash.tools.ListIteratingSystem}
+     */
+
     function HudSystem() {
       this.updateNode = __bind(this.updateNode, this);
       HudSystem.__super__.constructor.call(this, HudNode, this.updateNode);
     }
+
+
+    /**
+     * @param {ash.core.Node}
+     * @param {number}
+     */
 
     HudSystem.prototype.updateNode = function(node, time) {
       node.hud.view.setLives(node.state.lives);

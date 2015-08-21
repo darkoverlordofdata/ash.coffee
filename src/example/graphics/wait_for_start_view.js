@@ -6,25 +6,60 @@
   Signal0 = ash.signals.Signal0;
 
   asteroids.graphics.WaitForStartView = (function() {
+
+    /** @type {number} */
     WaitForStartView.prototype.x = 0;
+
+
+    /** @type {number} */
 
     WaitForStartView.prototype.y = 0;
 
+
+    /** @type {number} */
+
     WaitForStartView.prototype.width = 4;
+
+
+    /** @type {number} */
 
     WaitForStartView.prototype.height = 4;
 
+
+    /** @type {number} */
+
     WaitForStartView.prototype.rotation = 0;
+
+
+    /** @type {CanvasRenderingContext2D} */
 
     WaitForStartView.prototype.graphic = null;
 
+
+    /** @type {Function} */
+
     WaitForStartView.prototype.gameOver = null;
+
+
+    /** @type {Function} */
 
     WaitForStartView.prototype.clickToStart = null;
 
+
+    /** @type {Function} */
+
     WaitForStartView.prototype.instructions = null;
 
+
+    /** @type {ash.signals.Signal0} */
+
     WaitForStartView.prototype.click = null;
+
+
+    /**
+     * @constructor
+     * @param {CanvasRenderingContext2D}
+     */
 
     function WaitForStartView(_at_graphic) {
       this.graphic = _at_graphic;
@@ -38,6 +73,11 @@
         };
       })(this));
     }
+
+
+    /**
+     * draw the game over button
+     */
 
     WaitForStartView.prototype.createGameOver = function() {
       var l, s, x, y;
@@ -54,6 +94,11 @@
       this.graphic.restore();
     };
 
+
+    /**
+     * draw the start button
+     */
+
     WaitForStartView.prototype.createClickToStart = function() {
       var l, s, x, y;
       this.graphic.save();
@@ -69,6 +114,11 @@
       this.graphic.restore();
     };
 
+
+    /**
+     * draw the instructions
+     */
+
     WaitForStartView.prototype.createInstructions = function() {
       var l, s, x, y;
       this.graphic.save();
@@ -83,6 +133,11 @@
       this.graphic.fill();
       this.graphic.restore();
     };
+
+
+    /**
+     * draw the view
+     */
 
     WaitForStartView.prototype.draw = function() {
       this.gameOver();

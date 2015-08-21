@@ -2,9 +2,20 @@
 (function() {
   'use strict';
   asteroids.components.Hud = (function() {
+
+    /** @type {string} */
     Hud.className = 'Hud';
 
+
+    /** @type {Object} */
+
     Hud.prototype.view = null;
+
+
+    /**
+     * @constructor
+     * @param {Object}
+     */
 
     function Hud(_at_view) {
       this.view = _at_view;

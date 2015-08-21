@@ -2,17 +2,44 @@
 (function() {
   'use strict';
   asteroids.components.MotionControls = (function() {
+
+    /** @type {string} */
     MotionControls.className = 'MotionControls';
+
+
+    /** @type {number} */
 
     MotionControls.prototype.left = 0;
 
+
+    /** @type {number} */
+
     MotionControls.prototype.right = 0;
+
+
+    /** @type {number} */
 
     MotionControls.prototype.accelerate = 0;
 
+
+    /** @type {number} */
+
     MotionControls.prototype.accelerationRate = 0;
 
+
+    /** @type {number} */
+
     MotionControls.prototype.rotationRate = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     * @param {number}
+     * @param {number}
+     * @param {number}
+     * @param {number}
+     */
 
     function MotionControls(_at_left, _at_right, _at_accelerate, _at_accelerationRate, _at_rotationRate) {
       this.left = _at_left;

@@ -2,13 +2,28 @@
 (function() {
   'use strict';
   asteroids.components.Audio = (function() {
+
+    /** @type {string} */
     Audio.className = 'Audio';
 
+
+    /** @type {Array<Object>} */
+
     Audio.prototype.toPlay = null;
+
+
+    /**
+     * @constructor
+     */
 
     function Audio() {
       this.toPlay = [];
     }
+
+
+    /**
+     * @param {Object}
+     */
 
     Audio.prototype.play = function(sound) {
       return this.toPlay.push(sound);

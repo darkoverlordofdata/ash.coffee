@@ -2,9 +2,20 @@
 (function() {
   'use strict';
   asteroids.components.GunControls = (function() {
+
+    /** @type {string} */
     GunControls.className = 'GunControls';
 
+
+    /** @type {number} */
+
     GunControls.prototype.trigger = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     */
 
     function GunControls(_at_trigger) {
       this.trigger = _at_trigger;

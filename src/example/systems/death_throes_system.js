@@ -11,13 +11,29 @@
   asteroids.systems.DeathThroesSystem = (function(_super) {
     __extends(DeathThroesSystem, _super);
 
+
+    /** @type {asteroids.EntityCreator} */
+
     DeathThroesSystem.prototype.creator = null;
+
+
+    /**
+     * @constructor
+     * @extends {ash.tools.ListIteratingSystem}
+     * @param {asteroids.EntityCreator}
+     */
 
     function DeathThroesSystem(_at_creator) {
       this.creator = _at_creator;
       this.updateNode = __bind(this.updateNode, this);
       DeathThroesSystem.__super__.constructor.call(this, DeathThroesNode, this.updateNode);
     }
+
+
+    /**
+     * @param {ash.core.Node}
+     * @param {number}
+     */
 
     DeathThroesSystem.prototype.updateNode = function(node, time) {
       node.death.countdown -= time;

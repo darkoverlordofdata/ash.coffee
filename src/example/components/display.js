@@ -2,9 +2,20 @@
 (function() {
   'use strict';
   asteroids.components.Display = (function() {
+
+    /** @type {string} */
     Display.className = 'Display';
 
+
+    /** @type {CanvasRenderingContext2D} */
+
     Display.prototype.graphic = 0;
+
+
+    /**
+     * @constructor
+     * @param {CanvasRenderingContext2D}
+     */
 
     function Display(_at_graphic) {
       this.graphic = _at_graphic;

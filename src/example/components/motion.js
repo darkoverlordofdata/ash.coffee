@@ -6,13 +6,33 @@
   Point = asteroids.ui.Point;
 
   asteroids.components.Motion = (function() {
+
+    /** @type {string} */
     Motion.className = 'Motion';
+
+
+    /** @type {number} */
 
     Motion.prototype.velocity = null;
 
+
+    /** @type {asteroids.ui.Point} */
+
     Motion.prototype.angularVelocity = 0;
 
+
+    /** @type {number} */
+
     Motion.prototype.damping = 0;
+
+
+    /**
+     * @constructor
+     * @param {number}
+     * @param {number}
+     * @param {number}
+     * @param {number}
+     */
 
     function Motion(velocityX, velocityY, _at_angularVelocity, _at_damping) {
       this.angularVelocity = _at_angularVelocity;

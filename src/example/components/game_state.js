@@ -4,15 +4,35 @@
   asteroids.components.GameState = (function() {
     function GameState() {}
 
+
+    /** @type {string} */
+
     GameState.className = 'GameState';
+
+
+    /** @type {number} */
 
     GameState.prototype.lives = 3;
 
+
+    /** @type {number} */
+
     GameState.prototype.level = 0;
+
+
+    /** @type {number} */
 
     GameState.prototype.hits = 0;
 
+
+    /** @type {boolean} */
+
     GameState.prototype.playing = false;
+
+
+    /**
+     * @constructor
+     */
 
     GameState.prototype.setForStart = function() {
       this.lives = 3;
