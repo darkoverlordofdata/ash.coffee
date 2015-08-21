@@ -222,7 +222,7 @@ module.exports = (project, options = {}) ->
         return step
       when CoffeeScript 
         step = []
-        step.push "coffee -o web/src/#{project.name} -cm lib"
+        step.push "coffee -o web/src/ash -cm lib"
         step.push "coffee -o web/src/example -cm example" if fs.existsSync('./example')
         return step
         
