@@ -10,7 +10,7 @@
   "scripts": {
     "_vscode_build": "coffee -o web/src/ash.coffee -cm lib ",
     "android": "",
-    "build": "cp -rf lib build && cp -rf web/src build/web/src && cp -f lib/ash.d.ts build/ash.d.ts && cp -f web/favicon.png build/web/favicon.png && cp -f web/index.html build/web/index.html && cp -f web/example_build.html build/web/example.html && cp -f web/main.js build/web/main.js && npm run transpile && tools/convert  && java -jar tools/plovr.jar build config.js",
+    "build": "npm run transpile && tools/convert",
     "clean": "rm -rf build/* && mkdir build/web && mkdir build/lib",
     "deploy": "cp -rf web/res ./web/frameworks/runtime-src/proj.android-studio/app/assets && cp -rf web/src ./web/frameworks/runtime-src/proj.android-studio/app/assets && cp -f web/main.js ./web/frameworks/runtime-src/proj.android-studio/app/assets && cp -f web/project.json ./web/frameworks/runtime-src/proj.android-studio/app/assets",
     "depswriter": "python packages/google-closure-library/closure/bin/build/depswriter.py --root_with_prefix='packages/ash.coffee/goog/lib ../../../../packages/ash.coffee/goog/lib' --root_with_prefix='goog/asteroids ../../../../goog/asteroids' --root_with_prefix='web ../../../../web' > web/ash.coffee.dep.js",

@@ -1,6 +1,5 @@
 goog.provide('asteroids.EntityCreator');
 
-goog.require('asteroids.graphics.WaitForStartView');
 goog.require('ash.core.Entity');
 goog.require('ash.fsm.EntityStateMachine');
 goog.require('asteroids.components.Animation');
@@ -25,6 +24,7 @@ goog.require('asteroids.graphics.BulletView');
 goog.require('asteroids.graphics.HudView');
 goog.require('asteroids.graphics.SpaceshipDeathView');
 goog.require('asteroids.graphics.SpaceshipView');
+goog.require('asteroids.graphics.WaitForStartView');
 
 
 /**

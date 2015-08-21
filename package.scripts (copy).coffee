@@ -83,10 +83,68 @@ module.exports = (project, options = {}) ->
     return step
 
   ### build the project ###
-  build: """
-    npm run transpile
-    tools/convert
-  """
+  build: do ->
+    options.compile ?= 'ADVANCED_OPTIMIZATIONS'
+    
+    step = [].concat(project.config.build)
+      
+    if isCocos2d
+      ###
+      # Use cocos2d project.json to build the target
+      ###
+      files = getCocos2dFiles(true).join(' LF ')
+      if options.compile?
+        step.push """
+          cat #{files} | java -jar #{COMPILER_JAR} \
+            --jscomp_error=checkTypes \
+            --warning_level=QUIET \
+            --compilation_level #{options.compile} \
+            --js_output_file build/web/main.js
+        """
+      else
+        step.push """
+          cp -fr web/src build/web/src
+          mkdir build/web/frameworks
+          cp -fr web/frameworks/cocos2d-html5 build/web/frameworks/cocos2d-html5
+        """
+    
+    else if isClosure
+      ###
+      # Use plovr for build
+      ###
+      step.push """
+        npm run transpile
+        tools/convert 
+        java -jar #{PLOVR} build config.js
+      """
+    
+    else if projectType is CoffeeScript
+      ###
+      # Build after recompiling all coffeescript together
+      ###
+      files = require(CSCONFIG).files.join(" LF ")
+      step.push """
+        cat #{files} | coffee -cs > build/#{project.name}.js 
+        cat #{files} | coffee -cs | \
+          java -jar #{COMPILER_JAR} \
+            --compilation_level #{options.compile} \
+            --js_output_file build/#{project.name}.js
+      """
+      
+    else
+      ###
+      # Build directly from the raw transpiled javascript
+      ###
+      files = require(JSCONFIG).files.join(" LF ")
+      step.push """
+        cat #{files} > build/#{project.name}.js 
+        cat #{files} | \
+          java -jar #{COMPILER_JAR} \
+            --compilation_level #{options.compile} \
+            --js_output_file build/#{project.name}.js
+      """
+        
+    return step
       
   ### delete the prior build items ###
   clean: """
