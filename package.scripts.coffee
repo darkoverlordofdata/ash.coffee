@@ -22,6 +22,7 @@ BabelScript     = 4   # es6
 ClosureCompiler = 8   # plovr
 
 # paths:
+LIB_NAME        = "ash"
 PLOVR           = "tools/plovr.jar"
 COMPILER_JAR    = "packages/closure-compiler/lib/vendor/compiler.jar"
 LIB_ASH         = "packages/ash.coffee/goog/lib"
@@ -51,8 +52,8 @@ module.exports = (project, options = {}) ->
   _vscode_build: do ->
     switch projectType
       when TypeScript then "tsc --watch"
-      when CoffeeScript then "coffee -o web/src/#{project.name} -cm lib "
-      # when CoffeeScript then "coffee -o web/src/#{project.name} -wcm lib "
+      when CoffeeScript then "coffee -o web/src/#{LIB_NAME} -cm lib "
+      # when CoffeeScript then "coffee -o web/src/#{LIB_NAME} -wcm lib "
 
   ### Build the android asset folder ###
   android: do ->
@@ -63,7 +64,7 @@ module.exports = (project, options = {}) ->
     if isCocos2d
       files = getCocos2dFiles(false).join(' LF ')
       step.push """
-        cp -f lib/src/cclib-rt.js web/src/#{project.name}/cclib-rt.js
+        cp -f lib/src/cclib-rt.js web/src/#{LIB_NAME}/cclib-rt.js
         cp -f web/main.js #{ANDROID_ASSETS}/main.js
         cp -f web/project_android.json #{ANDROID_ASSETS}/project.json
       """
@@ -73,7 +74,7 @@ module.exports = (project, options = {}) ->
           cat #{files} | java -jar #{COMPILER_JAR} \
             --warning_level=QUIET \
             --compilation_level #{options.compile} \
-            --js_output_file #{ANDROID_ASSETS}#{project.name}.js
+            --js_output_file #{ANDROID_ASSETS}#{LIB_NAME}.js
         """
       else
         step.push """
@@ -114,11 +115,11 @@ module.exports = (project, options = {}) ->
       ###
       files = require(CSCONFIG).files.join(" LF ")
       step.push """
-        cat #{files} | coffee -cs > build/#{project.name}.js 
+        cat #{files} | coffee -cs > build/#{LIB_NAME}.js 
         cat #{files} | coffee -cs | \
           java -jar #{COMPILER_JAR} \
             --compilation_level #{options.compile} \
-            --js_output_file build/#{project.name}.min.js
+            --js_output_file build/#{LIB_NAME}.min.js
       """
       
     else
@@ -127,11 +128,11 @@ module.exports = (project, options = {}) ->
       ###
       files = require(JSCONFIG).files.join(" LF ")
       step.push """
-        cat #{files} > build/#{project.name}.js 
+        cat #{files} > build/#{LIB_NAME}.js 
         cat #{files} | \
           java -jar #{COMPILER_JAR} \
             --compilation_level #{options.compile} \
-            --js_output_file build/#{project.name}.min,js
+            --js_output_file build/#{LIB_NAME}.min,js
       """
         
     return step
@@ -165,7 +166,7 @@ module.exports = (project, options = {}) ->
       --root_with_prefix='#{LIB_ASH} #{GOOG_BASE}/#{LIB_ASH}' \
       --root_with_prefix='#{LIB_ASTEROIDS} #{GOOG_BASE}/#{LIB_ASTEROIDS}' \
       --root_with_prefix='web #{GOOG_BASE}/web' \
-      > web/#{project.name}.dep.js
+      > web/#{LIB_NAME}.dep.js
   """
 
   ### process bower dependencies ###
@@ -264,7 +265,7 @@ module.exports = (project, options = {}) ->
         return step
       when CoffeeScript 
         step = []
-        step.push "coffee -o web/src/#{project.name} -cm lib"
+        step.push "coffee -o web/src/#{LIB_NAME} -cm lib"
         step.push "coffee -o web/src/example -cm example" if fs.existsSync('./example')
         return step
         

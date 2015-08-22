@@ -30,10 +30,10 @@ $ git clone https://github.com/darkoverlordofdata/ash.coffee
 $ cd ash.coffee
 $ npm install
 $ tools/configure
-$ tools/convert
 $ npm run closure
 $ npm start
 ```
+
 
 ### Extras
 

@@ -5,7 +5,7 @@
 #
 #
 
-do (ash = require("../build/ash.coffee.js")) ->
+do (ash = require("../build/ash.js")) ->
 
   class MockComponent
     x: 0
