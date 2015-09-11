@@ -11,6 +11,9 @@ exec = require('child_process').exec
 Walker = require('walker')
 
 
+###
+ * recursively list all the files 
+###
 ls = (path, next) ->
 	files = []
 	(new Walker(path))
@@ -21,7 +24,7 @@ ls = (path, next) ->
 
 
 ###
- * Convert a file name to a valid namespace 
+ * Convert a file name to a namespace 
 ###
 getNamespace = (file) ->
 	ns = file.replace(/^web\/src\//, '').replace(/\.js$/,'').replace(/\//g,'.')
@@ -40,14 +43,14 @@ getNamespace = (file) ->
  * 2 - if superclass is node, get components 
  * 
 ###	
-externals = (ns, src) ->
+superclass = (ns, src) ->
 	requires = []
 
 	# is there a superclass?
 	rx = new RegExp("goog.inherits\\(#{ns},\\s*(.*)\\);")
 	src.replace(rx, ($0, $1) -> requires.push($1))
 	if requires.length and requires[0] is 'ash.core.Node'
-		# check node for components list
+		# require the components for this node
 		src.replace /\.components\s*=\s*\{([\s\S]*)\};/, ($0, $1) -> 
 			lines = $1.split('\n')
 			lines.pop()
@@ -63,7 +66,7 @@ externals = (ns, src) ->
 ###
  * Analyze the dependencies
  * Generate the goog.require statements
- * Expand imported class names
+ * Expand imported class names to full namespaces for closure compiler
 ###
 dependencies = (ns, src) ->
 	
@@ -81,12 +84,10 @@ dependencies = (ns, src) ->
 			skip = []
 			for name, index in line[4...-1].split(/\s*,\s*/)
 				ivar = lineno+1+index
-				src[ivar].replace(/(\w+)\s*=\s*(.*);/, ($0, $1, $2) -> 
+				src[ivar].replace /(\w+)\s*=\s*(.*);/, ($0, $1, $2) -> 
 					names.push($1)
 					vars.push("goog.require('#{$2}');")
 					deps[$1] = $2
-				)
-				
 				
 			for dep, index in vars
 				src[lineno+index] = dep
@@ -100,15 +101,19 @@ dependencies = (ns, src) ->
 			if skip.indexOf(lineno) is -1
 				for name in names
 				
+					# "new klass"
 					rx = new RegExp("new #{name}\\b", 'g')
 					line = line.replace(rx, 'new ' +deps[name])
 					
+					# ", klass,"
 					rx = new RegExp(", #{name},", 'g')
 					line = line.replace(rx, ", #{deps[name]},")
 					
+					# "(klass)"
 					rx = new RegExp("\\(#{name}\\)", 'g')
 					line = line.replace(rx, "(#{deps[name]})")
 					
+					# "klass,"
 					rx = new RegExp("\\b#{name}\\.", 'g')
 					line = line.replace(rx, "#{deps[name]}.")
 					
@@ -141,7 +146,7 @@ convert = (name, root, files, next) ->
 					src = src.replace(/'use strict';/, '')
 					src = c2c.fix(src, addGenerateByHeader: false)	
 					src = dependencies(ns, src)
-					ext = externals(alt, src)
+					ext = superclass(alt, src)
 					
 					src = """
 					goog.provide('#{alt}');

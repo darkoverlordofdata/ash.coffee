@@ -12,6 +12,7 @@ gulp.task('config', shell.task(['npm run config']));
 gulp.task('deploy', shell.task(['npm run deploy']));
 gulp.task('jsdoc', shell.task(['npm run jsdoc']));
 gulp.task('manifest', shell.task(['npm run manifest']));
+gulp.task('start', shell.task(['npm run start']));
 gulp.task('serve', shell.task(['npm run serve']));
 gulp.task('test', shell.task(['npm run test']));
 

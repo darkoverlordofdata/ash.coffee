@@ -54,6 +54,11 @@
             "isBuildCommand": false,
             "problemMatcher": []
         },{
+            "taskName": "start",
+            "args": [],
+            "isBuildCommand": false,
+            "problemMatcher": []
+        },{
             "taskName": "test",
             "args": [],
             "isBuildCommand": false,

@@ -36,6 +36,8 @@ FrameTickProvider     = ash.tick.FrameTickProvider
 
 class asteroids.Asteroids
 
+  stats = null
+  
   ###* @type {CanvasRenderingContext2D} 2D Canvas ###
   container: null
    
@@ -112,8 +114,17 @@ class asteroids.Asteroids
       stats['domElement'].style.top = "#{y}px"
       document.body.appendChild stats['domElement']
 
-    @tickProvider = new FrameTickProvider(stats)
-    @tickProvider.add(@engine.update)
-    @tickProvider.start()
+    requestAnimationFrame(@update)
+
+    # @tickProvider = new FrameTickProvider(stats)
+    # @tickProvider.add(@engine.update)
+    # @tickProvider.start()
     return
+    
+ 
+  update:(delta) =>
+    stats.begin()
+    @engine.update(delta)
+    requestAnimationFrame(@update)
+    stats.end()
 
