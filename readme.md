@@ -19,6 +19,8 @@ $ npm install ash.coffee --save
 $ git clone https://github.com/darkoverlordofdata/ash.coffee
 $ cd ash.coffee
 $ npm install
+$ bower install
+$ bower-installer
 $ tools/configure
 $ npm run build
 $ npm test

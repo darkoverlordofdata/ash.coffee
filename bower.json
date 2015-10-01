@@ -1,6 +1,6 @@
 {
   "name": "ash.coffee",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "darkoverlordofdata <darkoverlordofdata@gmail.com>"
   ],
@@ -21,7 +21,7 @@
     "stats.js": "*"
   },
   "devDependencies": {
-    "closure-compiler": "~0.2.7",
+    "closure-compiler": "0.2.7",
     "google-closure-library": "*"
   },
   "install": {
