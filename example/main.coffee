@@ -14,6 +14,7 @@
 # box2d map
 #
 'use strict'
+
 Asteroids = asteroids.Asteroids
 
 class asteroids.Main
@@ -40,4 +41,6 @@ class asteroids.Main
     canvas.style.backgroundColor = '#000000'
     document.body.appendChild canvas
     return canvas
+
+main = new asteroids.Main()
 

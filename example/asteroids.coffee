@@ -114,17 +114,15 @@ class asteroids.Asteroids
       stats['domElement'].style.top = "#{y}px"
       document.body.appendChild stats['domElement']
 
-    requestAnimationFrame(@update)
-
-    # @tickProvider = new FrameTickProvider(stats)
-    # @tickProvider.add(@engine.update)
-    # @tickProvider.start()
+    @tickProvider = new FrameTickProvider(stats)
+    @tickProvider.add(@engine.update)
+    @tickProvider.start()
     return
     
  
-  update:(delta) =>
-    stats.begin()
-    @engine.update(delta)
-    requestAnimationFrame(@update)
-    stats.end()
+#  update:(delta) =>
+#    stats.begin()
+#    @engine.update(delta)
+#    stats.end()
+#    @tickProvider.stop()
 

@@ -80,7 +80,7 @@ class ash.tick.FrameTickProvider extends ash.signals.Signal1
    * Stop
   ###
   stop: ->
-    cancelRequestAnimationFrame(@request)
+    cancelAnimationFrame(@request)
     @isPlaying = false
     return # Void
 
@@ -90,14 +90,14 @@ class ash.tick.FrameTickProvider extends ash.signals.Signal1
   ###
   # dispatchTick: (timestamp = Date.now()) =>
   dispatchTick: (timestamp) =>
+    return unless @isPlaying
     @begin() if @showStats
     # @dispatch(timestamp)
     temp = @previousTime or timestamp
     @previousTime = timestamp
     frameTime = (timestamp - temp) * 0.001
     @dispatch(frameTime)
-    requestAnimationFrame(@dispatchTick)
+    @request = requestAnimationFrame(@dispatchTick)
     @end() if @showStats
-    requestAnimationFrame(@dispatchTick)
     return # Void
 

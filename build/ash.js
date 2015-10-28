@@ -3677,7 +3677,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
      */
 
     FrameTickProvider.prototype.stop = function() {
-      cancelRequestAnimationFrame(this.request);
+      cancelAnimationFrame(this.request);
       this.isPlaying = false;
     };
 
@@ -3689,8 +3689,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
     FrameTickProvider.prototype.dispatchTick = function(timestamp) {
       var frameTime, temp;
-      if (timestamp == null) {
-        timestamp = Date.now();
+      if (!this.isPlaying) {
+        return;
       }
       if (this.showStats) {
         this.begin();
@@ -3699,7 +3699,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
       this.previousTime = timestamp;
       frameTime = (timestamp - temp) * 0.001;
       this.dispatch(frameTime);
-      requestAnimationFrame(this.dispatchTick);
+      this.request = requestAnimationFrame(this.dispatchTick);
       if (this.showStats) {
         this.end();
       }
