@@ -86,7 +86,7 @@ ash.tick.FrameTickProvider.prototype.start = function() {
  * Stop
  */
 ash.tick.FrameTickProvider.prototype.stop = function() {
-  cancelRequestAnimationFrame(this.request);
+  cancelAnimationFrame(this.request);
   this.isPlaying = false;
 };
 
@@ -98,6 +98,9 @@ ash.tick.FrameTickProvider.prototype.dispatchTick = function(timestamp) {
   var frameTime, temp;
   if (timestamp == null) {
     timestamp = Date.now();
+  }
+  if (!this.isPlaying) {
+    return;
   }
   if (this.showStats) {
     this.begin();

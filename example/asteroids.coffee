@@ -118,8 +118,10 @@ class asteroids.Asteroids
     @tickProvider.add(@engine.update)
     @tickProvider.start()
     return
-    
- 
+
+#    requestAnimationFrame(@update)
+#    return
+
 #  update:(delta) =>
 #    stats.begin()
 #    @engine.update(delta)
