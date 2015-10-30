@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "hud.js",
+  "sourceRoot": "../../../..",
+  "sources": [
+    "example/components/hud.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAC;AAAA,EAAA,YAAA,CAAA;AAAA,EAEK,SAAS,CAAC,UAAU,CAAC;AAEzB;AAAA,yBAAA;AAAA,IACA,GAAC,CAAA,SAAD,GAAa,KADb,CAAA;;AAGA;AAAA,yBAHA;;AAAA,kBAIA,IAAA,GAAM,IAJN,CAAA;;AAMA;AAAA;;;OANA;;AAUa,IAAA,aAAC,QAAD,GAAA;AAAS,MAAR,IAAC,CAAA,OAAD,QAAQ,CAAT;IAAA,CAVb;;eAAA;;MAJD,CAAA;AAAA"
+}
